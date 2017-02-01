@@ -1,0 +1,18 @@
+<?import javafx.scene.control.DialogPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
+<DialogPane fx:controller="Controllers.DialogController"
+            xmlns:fx="http://javafx.com/fxml">
+
+    <headerText>
+    </headerText>
+
+    <content>
+        <GridPane vgap="10" hgap="10">
+            <Label text="Short Description" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <TextField fx:id="playerNameField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+        </GridPane>
+    </content>
+
+</DialogPane>
