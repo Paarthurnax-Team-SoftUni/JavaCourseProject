@@ -1,0 +1,9 @@
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane fx:controller="sample.Controller"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:id="mainBorderPane">
+    <left>
+        <ListView fx:id="highScoreView" />
+    </left>
+</BorderPane>

@@ -7,12 +7,10 @@
 
     <headerText>
     </headerText>
-
     <content>
         <GridPane vgap="10" hgap="10">
-            <Label text="Short Description" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+            <Label text="New Player Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
             <TextField fx:id="playerNameField" GridPane.rowIndex="0" GridPane.columnIndex="1" />
         </GridPane>
     </content>
-
 </DialogPane>

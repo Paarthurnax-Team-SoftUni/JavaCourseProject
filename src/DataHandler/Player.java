@@ -1,3 +1,5 @@
+package DataHandler;
+
 
 public class Player {
 
@@ -7,7 +9,16 @@ public class Player {
    private Double money;
    private Long points;
    private Long experience;
-   private int healthPoingts;
+   private int healthPoints;
+
+    public Player(String name, Long highScore, Double money, Long points, Long experience, int healthPoints) {
+        this.name = name;
+        this.highScore = highScore;
+        this.money = money;
+        this.points = points;
+        this.experience = experience;
+        this.healthPoints = healthPoints;
+    }
 
     public String getName() {
         return name;
@@ -49,13 +60,23 @@ public class Player {
         this.experience = experience;
     }
 
-    public int getHealthPoingts() {
-        return healthPoingts;
+    public int getHealthPoints() {
+        return healthPoints;
     }
 
-    public void setHealthPoingts(int healthPoingts) {
-        this.healthPoingts = healthPoingts;
+    public void setHealthPoints(int healthPoints) {
+        this.healthPoints = healthPoints;
     }
 
-
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", highScore=" + highScore +
+                ", money=" + money +
+                ", points=" + points +
+                ", experience=" + experience +
+                ", healthPoints=" + healthPoints +
+                '}';
+    }
 }
