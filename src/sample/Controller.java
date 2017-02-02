@@ -2,7 +2,6 @@ package sample;
 
 import Controllers.DialogController;
 import DataHandler.Player;
-import DataHandler.PlayerData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ButtonType;
@@ -54,7 +53,7 @@ public class Controller {
     private void showHighScoresDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBorderPane.getScene().getWindow());
-        dialog.setTitle("High Scores");
+        dialog.setTitle("Best Slav Ranking");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/Views/highScoresDialog.fxml"));
         try {
@@ -65,10 +64,8 @@ public class Controller {
             return;
         }
 
-        dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
-
-        Optional<ButtonType> result = dialog.showAndWait();
+        dialog.showAndWait();
     }
 
 }

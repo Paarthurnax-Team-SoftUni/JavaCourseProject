@@ -70,13 +70,6 @@ public class Player {
 
     @Override
     public String toString() {
-        return "Player{" +
-                "name='" + name + '\'' +
-                ", highScore=" + highScore +
-                ", money=" + money +
-                ", points=" + points +
-                ", experience=" + experience +
-                ", healthPoints=" + healthPoints +
-                '}';
+        return String .format("%s: %s", this.name, this.highScore);
     }
 }

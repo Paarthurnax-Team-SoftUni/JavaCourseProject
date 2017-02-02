@@ -1,7 +1,7 @@
 package DataHandler;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableSet;
+import javafx.collections.ObservableList;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,13 +15,13 @@ public class PlayerData {
     private static PlayerData instance = new PlayerData();
     private static String fileName = "PlayerList.txt";
 
-    private ObservableSet<Player> playersList;
+    private ObservableList<Player> playersList;
 
     public static PlayerData getInstance() {
         return instance;
     }
 
-    public ObservableSet<Player> getPlayersList() {
+    public ObservableList<Player> getPlayersList() {
         return playersList;
     }
 
@@ -30,7 +30,7 @@ public class PlayerData {
     }
 
     public void loadPlayersData() {
-        playersList = FXCollections.observableSet();
+        playersList = FXCollections.observableArrayList();
         Path path = Paths.get(fileName);
 
         String input;
