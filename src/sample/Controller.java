@@ -2,8 +2,10 @@ package sample;
 
 import Controllers.DialogController;
 import DataHandler.Player;
+import MapHandlers.Track;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.BorderPane;
@@ -21,10 +23,14 @@ public class Controller {
         showNewPlayerDialog(null);
     }
 
+    @FXML
+    private Button newGameButton;
+
+
     private void showNewPlayerDialog(Player player) {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBorderPane.getScene().getWindow());
-        dialog.setTitle("Temp window for adding new player");
+        dialog.setTitle("Temp mainBorderPane for adding new player");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/Views/playerDialog.fxml"));
         try {
@@ -66,6 +72,18 @@ public class Controller {
 
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dialog.showAndWait();
+    }
+    @FXML
+    public void startNewGame() {
+        showMenu(false);
+        Track.createBackground();
+//        gameStarted = true;
+//        setTime();
+//        isGameRunning = true;
+    }
+
+    private void showMenu(boolean isVisible) {
+        newGameButton.setVisible(isVisible);
     }
 
 }
