@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
+import main.Main;
 import java.io.IOException;
 
 public class MainController {
@@ -57,6 +57,10 @@ public class MainController {
     public void startNewGame() {
 
         Track.createBackground();
+
+        showScoresBtn.setVisible(false);
+        startBtn.setVisible(false);
+        closeBtn.setVisible(false);
 //        gameStarted = true;
 //        setTime();
 //        isGameRunning = true;
@@ -70,7 +74,8 @@ public class MainController {
 
     public void showStartPage() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../views/startPage.fxml"));
-        Pane homePage = (Pane) root.lookup("#homePage");
+        AnchorPane windowPane = (AnchorPane) root.lookup("#homePage");
+        Main.windowPane=windowPane;
         Stage stage = (Stage) loginBtn.getScene().getWindow();
         stage.setTitle("Race Game");
         stage.setScene(new Scene(root, 800, 600));

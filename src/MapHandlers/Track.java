@@ -29,7 +29,7 @@ public class Track {
 
     public static void createBackground() {
         background = new ImageView(new Image("/resources/images/background.jpg"));
-        Main.loginPage.getChildren().add(background);
+        Main.windowPane.getChildren().add(background);
         background.toBack();
     }
 
@@ -50,7 +50,7 @@ public class Track {
     }
 
     private double differenceBetweenBackgroundAndWindow(){
-        return background.getBoundsInParent().getHeight() - Main.loginPage.getPrefHeight();
+        return background.getBoundsInParent().getHeight() - Main.windowPane.getPrefHeight();
     }
 
 }
