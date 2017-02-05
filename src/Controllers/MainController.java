@@ -10,9 +10,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.Main;
+
 import java.io.IOException;
 
 public class MainController {
@@ -37,7 +37,6 @@ public class MainController {
     }
     private void showHighScoresDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.initOwner(homePage.getScene().getWindow());
         dialog.setTitle("Best Slav Ranking");
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/views/highScoresDialog.fxml"));

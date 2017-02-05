@@ -1,14 +1,13 @@
 package MapHandlers;
 
-import resources.MyImage;
+import GameLogic.Game;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import main.Main;
+import resources.MyImage;
 
 import java.util.ArrayList;
 
 public class Track {
-    private static ImageView background;
+    private static Image background;
     private ArrayList<MyImage> images = new ArrayList<>();
     private double backgroundImageStartingX;
     private double backgroundImageStartingY;
@@ -28,29 +27,10 @@ public class Track {
     }
 
     public static void createBackground() {
-        background = new ImageView(new Image("/resources/images/background.jpg"));
-        Main.windowPane.getChildren().add(background);
-        background.toBack();
+        background = new Image("/resources/images/background.jpg");
+        Game.RunTrack(background);
     }
 
-    public void setBackgroundImageStartingX(double backgroundImageStartingX) {
-        this.backgroundImageStartingX = backgroundImageStartingX;
-    }
 
-    public void setBackgroundImageStartingY(double backgroundImageStartingY) {
-        this.backgroundImageStartingY = backgroundImageStartingY;
-    }
-
-    public double getBackgroundImageStartingX() {
-        return backgroundImageStartingX;
-    }
-
-    public double getBackgroundImageStartingY() {
-        return backgroundImageStartingY;
-    }
-
-    private double differenceBetweenBackgroundAndWindow(){
-        return background.getBoundsInParent().getHeight() - Main.windowPane.getPrefHeight();
-    }
 
 }
