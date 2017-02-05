@@ -1,9 +1,9 @@
 package MapHandlers;
 
-import Images.MyImage;
+import resources.MyImage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import sample.Main;
+import main.Main;
 
 import java.util.ArrayList;
 
@@ -28,8 +28,8 @@ public class Track {
     }
 
     public static void createBackground() {
-        background = new ImageView(new Image("/Images/background.jpg"));
-        Main.mainBorderPane.getChildren().add(background);
+        background = new ImageView(new Image("/resources/images/background.jpg"));
+        Main.windowPane.getChildren().add(background);
         background.toBack();
     }
 
@@ -50,7 +50,7 @@ public class Track {
     }
 
     private double differenceBetweenBackgroundAndWindow(){
-        return background.getBoundsInParent().getHeight() - Main.mainBorderPane.getPrefHeight();
+        return background.getBoundsInParent().getHeight() - Main.windowPane.getPrefHeight();
     }
 
 }

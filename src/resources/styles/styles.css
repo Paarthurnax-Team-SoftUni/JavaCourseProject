@@ -1,0 +1,28 @@
+#homePage, #loginPage{
+    -fx-background-image: url('/resources/images/background-home-1.jpg');
+}
+
+#loginPage #loginBtn{
+    -fx-background-color: transparent;
+}
+
+#loginPage #loginBtn:hover {
+    -fx-background-color: black;
+}
+
+#homePage #showScoresBtn, #closeBtn{
+    -fx-background-color: transparent;
+}
+
+#homePage #startBtn{
+    -fx-background-color: red;
+}
+
+#homePage #startBtn:hover{
+    -fx-background-color: black;
+    -fx-text-fill: red;
+}
+
+#homePage #closeBtn:hover, #homePage #showScoresBtn:hover {
+    -fx-background-color: black;
+}
