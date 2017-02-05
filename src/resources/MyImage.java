@@ -1,4 +1,4 @@
-package Images;
+package resources;
 
 public class MyImage {
 
