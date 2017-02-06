@@ -9,10 +9,6 @@ import java.util.ArrayList;
 public class Track {
     private static Image background;
     private ArrayList<MyImage> images = new ArrayList<>();
-    private double backgroundImageStartingX;
-    private double backgroundImageStartingY;
-    private double squareSize;
-    private int squaresLength = 20;
 
     public Track(int level) {
         initializeLevel(level);

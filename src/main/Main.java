@@ -6,32 +6,31 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.IOException;
 
 public class Main extends Application {
 
     public static AnchorPane windowPane;
+    public static Scene theScene;
+    public static Stage primStage;
 
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        try {
+    public void start(Stage primaryStage) throws IOException {
             // Initialize layout.
+            primStage = primaryStage;
             Parent root = FXMLLoader.load(getClass().getResource("../views/main.fxml"));
             windowPane = (AnchorPane) root.lookup("#loginPage");
-            primaryStage.setScene(new Scene(root, 800, 600));
+            theScene = new Scene(root, 800, 600);
+            primaryStage.setScene(theScene);
             primaryStage.setTitle("Race Game");
             primaryStage.show();
-        } catch (Exception ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }
 
     @Override

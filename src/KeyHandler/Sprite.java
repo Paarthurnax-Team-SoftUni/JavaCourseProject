@@ -1,3 +1,5 @@
+package KeyHandler;
+
 import javafx.scene.image.Image;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.geometry.Rectangle2D;
@@ -47,14 +49,21 @@ public class Sprite
 
     public void addVelocity(double x, double y)
     {
-        velocityX += x;
+        if (x < 0) {
+            if (positionX > 50) {
+                velocityX += x;
+            }
+        } else if (x > 0) {
+            if (positionX < 350) {
+                velocityX+=x;
+            }
+        }
         velocityY += y;
     }
 
-    public void update(double time)
-    {
-        positionX += velocityX * time;
-        positionY += velocityY * time;
+    public void update()    {
+        positionX += velocityX;
+        positionY += velocityY;
     }
 
     public void render(GraphicsContext gc)

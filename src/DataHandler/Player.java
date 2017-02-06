@@ -1,7 +1,9 @@
 package DataHandler;
 
 
-public class Player {
+import KeyHandler.Sprite;
+
+public class Player extends Sprite{
 
 
    private String name;
