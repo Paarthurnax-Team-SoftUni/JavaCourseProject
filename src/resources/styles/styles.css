@@ -7,7 +7,7 @@
 }
 
 #loginPage #loginBtn:hover {
-    -fx-background-color: black;
+    -fx-background-color: rgba(255,255,255, 0.8);
 }
 
 #homePage #showScoresBtn, #closeBtn{
@@ -15,14 +15,14 @@
 }
 
 #homePage #startBtn{
-    -fx-background-color: red;
+    -fx-background-color: rgba(255,0,0, 0.85)
 }
 
 #homePage #startBtn:hover{
-    -fx-background-color: black;
+    -fx-background-color: rgba(255,255,255,0.8);
     -fx-text-fill: red;
 }
 
 #homePage #closeBtn:hover, #homePage #showScoresBtn:hover {
-    -fx-background-color: black;
+    -fx-background-color: rgba(255,255,255, 0.8);
 }

@@ -43,8 +43,9 @@ public class Game {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        Sprite playerCar = new Player("toBeDonloadedFromTheData", 0L, 0.0, 0L, 0L, 100);
-        playerCar.setImage("/resources/images/player_car.png");
+        Sprite playerCar = new Player("toBeDownloadedFromTheData", 0L, 0.0, 0L, 0L, 100);
+        playerCar.setImage("/resources/images/player_car1.png");
+        //playerCar.setImage("/resources/images/player_car2.png");  depending on level?
         playerCar.setPosition(200, 430);
 
         Timeline gameLoop = new Timeline();
