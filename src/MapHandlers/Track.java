@@ -23,7 +23,7 @@ public class Track {
     }
 
     public static void createBackground() {
-        background = new Image("/resources/images/background.jpg");
+        background = new Image("/resources/images/background2.jpg");
         Game.RunTrack(background);
     }
 

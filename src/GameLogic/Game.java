@@ -54,11 +54,13 @@ public class Game {
             new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    seconds++;
                     double y = 5 * seconds;
+                    seconds++;
                     if(y == 600) {
-                        seconds=1;
+                        seconds=0;
+                     //   System.out.println(y);
                     }
+                    //520 : 8
 
                     playerCar.setVelocity(0, 0);
                     if (input.contains("LEFT")) {
@@ -75,7 +77,7 @@ public class Game {
                     }
                     gc.clearRect(0, 0, 500, 600);
                     gc.drawImage(background, 0, y);
-                    gc.drawImage(background, 0, y-610);
+                    gc.drawImage(background, 0, y-600);
                     playerCar.render(gc);
                 }
             });

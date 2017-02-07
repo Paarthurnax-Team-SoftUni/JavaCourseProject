@@ -22,14 +22,22 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-            // Initialize layout.
-            primStage = primaryStage;
-            Parent root = FXMLLoader.load(getClass().getResource("../views/main.fxml"));
-            windowPane = (AnchorPane) root.lookup("#loginPage");
-            theScene = new Scene(root, 800, 600);
-            primaryStage.setScene(theScene);
-            primaryStage.setTitle("Race Game");
-            primaryStage.show();
+        // Initialize layout.
+        primStage = primaryStage;
+        Parent root = FXMLLoader.load(getClass().getResource("../views/main.fxml"));
+        windowPane = (AnchorPane) root.lookup("#loginPage");
+        theScene = new Scene(root, 800, 600);
+
+        /** Setting stage to not be resizeable for the moment.
+         *
+         */
+        primaryStage.setMaxHeight(640);
+        primaryStage.setMaxWidth(800);
+        primaryStage.setMinHeight(640);
+        primaryStage.setMinWidth(800);
+        primaryStage.setScene(theScene);
+        primaryStage.setTitle("Race Game");
+        primaryStage.show();
 
     }
 
