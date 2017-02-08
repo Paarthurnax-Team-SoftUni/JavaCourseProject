@@ -18,8 +18,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
 
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 
 public class Game {
     private static AnchorPane root = Main.windowPane;
@@ -49,6 +51,10 @@ public class Game {
         //playerCar.setImage("/resources/images/player_car2.png");  depending on level?
         playerCar.setPosition(200, 430);
 
+
+        Sprite testObstacle = generateObstacle();
+
+
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(
@@ -56,7 +62,6 @@ public class Game {
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-
 
                         y = 5 * seconds;
                         seconds++;
@@ -122,14 +127,35 @@ public class Game {
                         gc.clearRect(0, 0, 500, 600);
                         gc.drawImage(background, 0, y);
                         gc.drawImage(background, 0, y - 600);
+                        testObstacle.setVelocity(0, y/47);
+                        testObstacle.render(gc);
+                        testObstacle.update();
                         playerCar.render(gc);
+
+                        if (testObstacle.getBoundary().intersects(playerCar.getBoundary())){
+                            gameLoop.stop();
+                        }
                     }
                 });
 
         System.out.println("outOfLoop");
 
-
         gameLoop.getKeyFrames().add(kf);
         gameLoop.play();
+
+
+    }
+    private static Sprite generateObstacle (){
+        Random obstacleX = new Random();
+        Random obstacleY = new Random();
+        Random obstaclePic = new Random();
+        long numb = System.currentTimeMillis()%2;
+
+        String sd = "/resources/images/obstacle" + (numb+1) + ".png";
+        Sprite testObstacle = new Sprite();
+        testObstacle.setImage(sd);
+        testObstacle.setPosition(obstacleX.nextInt(400), obstacleY.nextInt(200));
+
+        return testObstacle;
     }
 }
