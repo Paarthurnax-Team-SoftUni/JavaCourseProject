@@ -107,6 +107,7 @@ public class Game {
                                                 gc.drawImage(background, 0, y);
                                                 gc.drawImage(background, 0, y - 600);
                                                 playerCar.render(gc);
+                                                testObstacle.render(gc);
                                             }
                                         });
                                 pauseloop.getKeyFrames().add(keyFramePause);
