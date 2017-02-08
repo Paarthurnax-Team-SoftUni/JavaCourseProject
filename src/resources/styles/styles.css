@@ -2,15 +2,19 @@
     -fx-background-image: url('/resources/images/background-home-1.jpg');
 }
 
-#loginPage #loginBtn{
+#chooseCarPage{
+    -fx-background-image: url('/resources/images/background-home.jpg');
+}
+
+#loginPage #loginBtn, #chooseCarPage #loginBtn{
     -fx-background-color: transparent;
 }
 
-#loginPage #loginBtn:hover {
+#loginPage #loginBtn:hover, #chooseCarPage #loginBtn:hover {
     -fx-background-color: rgba(255,255,255, 0.8);
 }
 
-#homePage #showScoresBtn, #closeBtn{
+#homePage #showScoresBtn, #closeBtn, #chooseCarBtn{
     -fx-background-color: transparent;
 }
 
@@ -23,6 +27,6 @@
     -fx-text-fill: red;
 }
 
-#homePage #closeBtn:hover, #homePage #showScoresBtn:hover {
+#homePage #closeBtn:hover, #homePage #showScoresBtn:hover, #homePage #chooseCarBtn:hover {
     -fx-background-color: rgba(255,255,255, 0.8);
 }

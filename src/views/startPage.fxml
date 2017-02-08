@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="homePage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
+<AnchorPane fx:id="homePage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
     <children>
         <Button fx:id="showScoresBtn" alignment="CENTER" layoutX="216.0" layoutY="448.0" mnemonicParsing="false" onAction="#showHighScores" prefHeight="110.0" prefWidth="380.0" text="High Scores" textFill="RED" underline="true">
             <font>
@@ -14,9 +14,14 @@
             <font>
                 <Font name="Capture it" size="50.0" />
             </font></Button>
-        <Button fx:id="startBtn" alignment="CENTER" layoutX="220.0" layoutY="203.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="110.0" prefWidth="380.0" text="Start Game" textAlignment="CENTER">
+        <Button fx:id="chooseCarBtn" alignment="CENTER" layoutX="220.0" layoutY="223.0" mnemonicParsing="false" onAction="#chooseCar" prefHeight="110.0" prefWidth="380.0" text="Choose Car" textFill="RED" underline="true">
             <font>
                 <Font name="Capture it" size="50.0" />
             </font></Button>
+        <Button fx:id="startBtn" alignment="CENTER" layoutX="216.0" layoutY="93.0" mnemonicParsing="false" onAction="#startNewGame" prefHeight="110.0" prefWidth="380.0" text="Start Game" textAlignment="CENTER">
+            <font>
+                <Font name="Capture it" size="50.0" />
+            </font></Button>
+
     </children>
 </AnchorPane>

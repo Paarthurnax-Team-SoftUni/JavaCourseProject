@@ -26,6 +26,7 @@ public class MainController {
     public Button showScoresBtn;
     public Button closeBtn;
     public Button startBtn;
+    public Button chooseCarBtn;
 
     @FXML
     public void showHighScores() {
@@ -35,6 +36,20 @@ public class MainController {
     public static void MainController(){
 
     }
+
+    @FXML
+    public void chooseCar() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../views/chooseCar.fxml"));
+        AnchorPane windowPane = (AnchorPane) root.lookup("#chooseCarPage");
+        Main.windowPane=windowPane;
+        Stage stage = (Stage) chooseCarBtn.getScene().getWindow();
+        stage.setTitle("Choose Your Car");
+        stage.setScene(new Scene(root, 800, 600));
+        stage.show();
+
+
+    }
+
     private void showHighScoresDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Best Slav Ranking");
