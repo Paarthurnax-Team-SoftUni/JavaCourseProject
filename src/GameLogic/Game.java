@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -26,8 +27,6 @@ import java.util.Random;
 public class Game {
     private static AnchorPane root = Main.windowPane;
     private static int seconds = 0;
-    private static long lastNanoTime = System.nanoTime();
-    private static Stage theStage = Main.primStage;
     private static boolean isPaused = false;
     private static double y;
 
@@ -40,9 +39,19 @@ public class Game {
         root.getScene().setOnKeyPressed(event -> {
             String code = event.getCode().toString();
             if (!input.contains(code)) {
-                input.add(code);
+                if (code.equals("P") || code.equals("LEFT") || code.equals("RIGHT")) {
+                    input.add(code);
+                }
             }
         });
+
+        root.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                if(t.getCode() == KeyCode.SPACE) {
+                    t.consume();
+                }
+            }});
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -70,8 +79,6 @@ public class Game {
                         }
                         playerCar.setVelocity(0, 0);
 
-                        System.out.println("playing");
-
                         if (input.contains("P") && !isPaused) {
                             isPaused = true;
                             input.remove("P");
@@ -88,9 +95,6 @@ public class Game {
                                         new EventHandler<ActionEvent>() {
                                             @Override
                                             public void handle(ActionEvent event) {
-
-                                                System.out.println("paused");
-
                                                 if (input.contains("P") && isPaused) {
                                                     System.out.println("pause");
                                                     isPaused = false;
@@ -137,8 +141,6 @@ public class Game {
                         }
                     }
                 });
-
-        System.out.println("outOfLoop");
 
         gameLoop.getKeyFrames().add(kf);
         gameLoop.play();
