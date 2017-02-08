@@ -1,5 +1,6 @@
 package GameLogic;
 
+import Controllers.MainController;
 import DataHandler.Player;
 import KeyHandler.Sprite;
 import javafx.animation.AnimationTimer;
@@ -19,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
 
+import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Map;
@@ -29,6 +31,8 @@ public class Game {
     private static int seconds = 0;
     private static boolean isPaused = false;
     private static double y;
+    private static Sprite testObstacle = generateObstacle();
+    private static MainController mainController = new MainController();
 
     public static void RunTrack(Image background) {
         Canvas canvas = new Canvas(500, 600);
@@ -61,7 +65,6 @@ public class Game {
         playerCar.setPosition(200, 430);
 
 
-        Sprite testObstacle = generateObstacle();
 
 
         Timeline gameLoop = new Timeline();
@@ -115,8 +118,11 @@ public class Game {
 
                             }
 
-                        }
+                        } //End of pause
 
+                        if (seconds % 150 ==0){
+                            testObstacle = generateObstacle();
+                        }
                         if (input.contains("LEFT")) {
                             playerCar.addVelocity(-50, 0);
                             input.remove("LEFT");
@@ -157,7 +163,7 @@ public class Game {
         String sd = "/resources/images/obstacle" + (numb+1) + ".png";
         Sprite testObstacle = new Sprite();
         testObstacle.setImage(sd);
-        testObstacle.setPosition(obstacleX.nextInt(400), obstacleY.nextInt(200));
+        testObstacle.setPosition(100+obstacleX.nextInt(300), 0);
 
         return testObstacle;
     }
