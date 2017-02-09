@@ -3,16 +3,26 @@ package Controllers;
 import MapHandlers.Track;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.*;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.*;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import main.Main;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class MainController {
@@ -27,6 +37,8 @@ public class MainController {
     public Button closeBtn;
     public Button startBtn;
     public Button chooseCarBtn;
+    public Rectangle backgroundBox;
+
 
     @FXML
     public void showHighScores() {
@@ -39,11 +51,27 @@ public class MainController {
 
     @FXML
     public void chooseCar() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../views/chooseCar.fxml"));
-        AnchorPane windowPane = (AnchorPane) root.lookup("#chooseCarPage");
-        Main.windowPane=windowPane;
+        AnchorPane root = (AnchorPane) FXMLLoader.load(Main.class.getResource("../views/chooseCar.fxml"));
+        root.lookup("#chooseCarPage");
         Stage stage = (Stage) chooseCarBtn.getScene().getWindow();
         stage.setTitle("Choose Your Car");
+
+        GridPane gridpane = new GridPane();
+        gridpane.setPadding(new Insets(5));
+        gridpane.setHgap(10);
+        gridpane.setVgap(10);
+
+        final ImageView imv = new ImageView();
+        final Image image2 = new Image(Main.class.getResourceAsStream("../resources/images/player_car.png"));
+        imv.setImage(image2);
+
+        final HBox pictureRegion = new HBox();
+
+        pictureRegion.getChildren().add(imv);
+        gridpane.add(pictureRegion, 10, 10);
+
+
+        root.getChildren().add(gridpane);
         stage.setScene(new Scene(root, 800, 600));
         stage.show();
 
@@ -75,6 +103,9 @@ public class MainController {
         showScoresBtn.setVisible(false);
         startBtn.setVisible(false);
         closeBtn.setVisible(false);
+        chooseCarBtn.setVisible(false);
+        backgroundBox.setVisible(false);
+
 //        gameStarted = true;
 //        setTime();
 //        isGameRunning = true;

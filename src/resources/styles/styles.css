@@ -6,12 +6,22 @@
     -fx-background-image: url('/resources/images/background-home.jpg');
 }
 
-#loginPage #loginBtn, #chooseCarPage #loginBtn{
+#backgroundBox{
+    -fx-fill: rgba(255,255,255, 0.6);
+}
+
+#loginPage #loginBtn{
     -fx-background-color: transparent;
 }
 
+#chooseCarPage #loginBtn{
+    -fx-background-color: rgba(255,255,255, 0.6);
+    -fx-background-radius: 15px;
+}
+
 #loginPage #loginBtn:hover, #chooseCarPage #loginBtn:hover {
-    -fx-background-color: rgba(255,255,255, 0.8);
+    -fx-background-color: rgba(255,0,0, 0.6);
+    -fx-background-radius: 15px;
 }
 
 #homePage #showScoresBtn, #closeBtn, #chooseCarBtn{
@@ -19,14 +29,16 @@
 }
 
 #homePage #startBtn{
-    -fx-background-color: rgba(255,0,0, 0.85)
+    -fx-background-color: rgba(255,0,0, 0.85);
+    -fx-background-radius: 15px;
 }
 
 #homePage #startBtn:hover{
-    -fx-background-color: rgba(255,255,255,0.8);
-    -fx-text-fill: red;
+    -fx-background-color: rgba(255, 217, 59, 0.8);
+    -fx-text-fill: black;
 }
 
 #homePage #closeBtn:hover, #homePage #showScoresBtn:hover, #homePage #chooseCarBtn:hover {
-    -fx-background-color: rgba(255,255,255, 0.8);
+    -fx-background-color: rgba(255,0,0, 0.6);
+    -fx-background-radius: 15px;
 }
