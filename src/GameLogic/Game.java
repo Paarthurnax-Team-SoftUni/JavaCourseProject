@@ -3,27 +3,20 @@ package GameLogic;
 import Controllers.MainController;
 import DataHandler.Player;
 import KeyHandler.Sprite;
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
 
-import java.io.IOException;
-import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Random;
 
 public class Game {
@@ -32,9 +25,9 @@ public class Game {
     private static boolean isPaused = false;
     private static double y;
     private static Sprite testObstacle = generateObstacle();
-    private static MainController mainController = new MainController();
+    private static Player playerCar = MainController.player;
 
-    public static void RunTrack(Image background) {
+    public static void RunTrack(Image background, int velocity) {
         Canvas canvas = new Canvas(500, 600);
 
         root.getChildren().add(canvas);
@@ -59,13 +52,9 @@ public class Game {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        Sprite playerCar = new Player("toBeDownloadedFromTheData", 0L, 0.0, 0L, 0L, 100);
         playerCar.setImage("/resources/images/player_car1.png");
         //playerCar.setImage("/resources/images/player_car2.png");  depending on level?
         playerCar.setPosition(200, 430);
-
-
-
 
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -74,8 +63,7 @@ public class Game {
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-
-                        y = 5 * seconds;
+                        y = velocity * seconds;
                         seconds++;
                         if (y == 600) {
                             seconds = 0;
@@ -151,7 +139,6 @@ public class Game {
 
         gameLoop.getKeyFrames().add(kf);
         gameLoop.play();
-
 
     }
     private static Sprite generateObstacle (){
