@@ -14,11 +14,6 @@
     -fx-background-color: transparent;
 }
 
-#chooseCarPage #returnBtn{
-    -fx-background-color: rgba(255,255,255, 0.6);
-    -fx-background-radius: 15px;
-}
-
 #loginPage #loginBtn:hover, #chooseCarPage #returnBtn:hover {
     -fx-background-color: rgba(255,0,0, 0.6);
     -fx-background-radius: 15px;
@@ -40,5 +35,15 @@
 
 #homePage #closeBtn:hover, #homePage #showScoresBtn:hover, #homePage #chooseCarBtn:hover {
     -fx-background-color: rgba(255,0,0, 0.6);
+    -fx-background-radius: 15px;
+}
+
+#chooseCarPage #returnBtn{
+    -fx-background-color: rgba(255,255,255, 0.6);
+    -fx-background-radius: 15px;
+}
+
+#chooseCarPage #cars{
+    -fx-background-color: rgba(255,255,255, 0.6);
     -fx-background-radius: 15px;
 }

@@ -1,18 +1,38 @@
 package Controllers;
 
-import DataHandler.Player;
-import DataHandler.PlayerData;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
-import java.io.File;
-import java.net.MalformedURLException;
+import java.io.IOException;
 
-public class ChooseCarController {
+import static Controllers.ScreenController.chooseCarStage;
+import static Controllers.ScreenController.loadStage;
+import static Controllers.ScreenController.startStage;
 
-    public void initialize() {
+public class ChooseCarController{
+    public static String carId;
 
+    @FXML
+    public AnchorPane chooseCarPage;
+    @FXML
+    public Button returnBtn;
+    @FXML
+    public GridPane cars;
+
+
+    public void renderStartMenu(ActionEvent actionEvent) throws IOException {
+        Stage currentStage = (Stage) returnBtn.getScene().getWindow();
+        loadStage(currentStage, startStage, "../views/start.fxml");
+    }
+
+    public void chooseCar(MouseEvent ev) {
+        Node source = (Node)ev.getSource();
+        carId = source.getId();
     }
 }
