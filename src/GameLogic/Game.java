@@ -3,10 +3,8 @@ package GameLogic;
 import Controllers.ChooseCarController;
 import Controllers.LoginController;
 import Controllers.ScreenController;
-import Controllers.StartController;
 import DataHandler.Player;
 import KeyHandler.Sprite;
-import com.sun.org.apache.xpath.internal.SourceTree;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -16,10 +14,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import main.Main;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -57,7 +53,7 @@ public class Game {
             }});
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
-
+        carId = carId == null ? "car1" : carId;
         String carImg = "/resources/images/player_" + carId + ".png";
         playerCar.setImage(carImg);
         //playerCar.setImage("/resources/images/player_car3.png");  depending on level?
