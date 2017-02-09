@@ -90,6 +90,17 @@ public class MainController {
         stage.setScene(new Scene(root, 800, 600));
         stage.show();
     }
+
+    @FXML
+    public void returnToMainScene() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../views/startPage.fxml"));
+        AnchorPane windowPane = (AnchorPane) root.lookup("#homePage");
+        Main.windowPane=windowPane;
+        Stage stage = (Stage) returnBtn.getScene().getWindow();
+        stage.setTitle("Race Game");
+        stage.setScene(new Scene(root, 800, 600));
+        stage.show();
+    }
     
     private void showHighScoresDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();

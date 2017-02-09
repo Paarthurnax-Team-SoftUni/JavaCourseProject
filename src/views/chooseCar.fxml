@@ -6,7 +6,7 @@
 
 <AnchorPane fx:id="chooseCarPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.91" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
    <children>
-       <Button fx:id="returnBtn" layoutX="267.0" layoutY="465.0" mnemonicParsing="false" onAction="#showStartPage" prefHeight="60.0" prefWidth="323.0" text="Ready" textAlignment="CENTER" textFill="#1b1a1a" underline="true">
+       <Button fx:id="returnBtn" layoutX="267.0" layoutY="465.0" mnemonicParsing="false" onAction="#returnToMainScene" prefHeight="60.0" prefWidth="323.0" text="Ready" textAlignment="CENTER" textFill="#1b1a1a" underline="true">
            <font>
                <Font name="Capture it" size="50.0" />
            </font>
