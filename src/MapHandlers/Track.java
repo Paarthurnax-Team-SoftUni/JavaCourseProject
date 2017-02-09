@@ -25,7 +25,4 @@ public class Track {
     private static void createBackground(int velocity) {
         Game.RunTrack(backgroundLevel1, velocity);
     }
-
-
-
 }

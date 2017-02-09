@@ -1,8 +1,12 @@
 package GameLogic;
 
-import Controllers.MainController;
+import Controllers.ChooseCarController;
+import Controllers.LoginController;
+import Controllers.ScreenController;
+import Controllers.StartController;
 import DataHandler.Player;
 import KeyHandler.Sprite;
+import com.sun.org.apache.xpath.internal.SourceTree;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -12,6 +16,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import main.Main;
@@ -20,12 +25,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Game {
-    private static AnchorPane root = Main.windowPane;
+    private static AnchorPane root = ScreenController.root;
     private static int seconds = 0;
     private static boolean isPaused = false;
     private static double y;
     private static Sprite testObstacle = generateObstacle();
-    private static Player playerCar = MainController.player;
+    private static Player playerCar = LoginController.player;
+    private static String carId = ChooseCarController.carId;
 
     public static void RunTrack(Image background, int velocity) {
         Canvas canvas = new Canvas(500, 600);
@@ -52,8 +58,9 @@ public class Game {
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        playerCar.setImage("/resources/images/player_car1.png");
-        //playerCar.setImage("/resources/images/player_car2.png");  depending on level?
+        String carImg = "/resources/images/player_" + carId + ".png";
+        playerCar.setImage(carImg);
+        //playerCar.setImage("/resources/images/player_car3.png");  depending on level?
         playerCar.setPosition(200, 430);
 
         Timeline gameLoop = new Timeline();
