@@ -72,13 +72,22 @@ public class PlayerData {
         }
     }
 
-    public boolean checkForPlayer(Player player) {
+    public boolean checkForPlayer(String player) {
         for (Player savedPlayer : playersList) {
-            if (savedPlayer.getName().equals(player.getName())) {
+            if (savedPlayer.getName().equals(player)) {
                 return false;
             }
         }
         return true;
+    }
+
+    public Player returnPlayer(String player) {
+        for (Player savedPlayer : playersList) {
+            if (savedPlayer.getName().equals(player)) {
+                return savedPlayer;
+            }
+        }
+        return null;
     }
 
     public void deletePlayer(Player player) {

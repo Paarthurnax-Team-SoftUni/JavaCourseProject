@@ -1,37 +1,33 @@
 package GameLogic;
 
+import Controllers.MainController;
 import DataHandler.Player;
 import KeyHandler.Sprite;
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import main.Main;
 
-import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Random;
 
 public class Game {
     private static AnchorPane root = Main.windowPane;
     private static int seconds = 0;
-    private static long lastNanoTime = System.nanoTime();
-    private static Stage theStage = Main.primStage;
     private static boolean isPaused = false;
     private static double y;
+    private static Sprite testObstacle = generateObstacle();
+    private static Player playerCar = MainController.player;
 
-    public static void RunTrack(Image background) {
+    public static void RunTrack(Image background, int velocity) {
         Canvas canvas = new Canvas(500, 600);
 
         root.getChildren().add(canvas);
@@ -40,20 +36,25 @@ public class Game {
         root.getScene().setOnKeyPressed(event -> {
             String code = event.getCode().toString();
             if (!input.contains(code)) {
-                input.add(code);
+                if (code.equals("P") || code.equals("LEFT") || code.equals("RIGHT")) {
+                    input.add(code);
+                }
             }
         });
 
+        root.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                if(t.getCode() == KeyCode.SPACE) {
+                    t.consume();
+                }
+            }});
+
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        Sprite playerCar = new Player("toBeDownloadedFromTheData", 0L, 0.0, 0L, 0L, 100);
         playerCar.setImage("/resources/images/player_car1.png");
         //playerCar.setImage("/resources/images/player_car2.png");  depending on level?
         playerCar.setPosition(200, 430);
-
-
-        Sprite testObstacle = generateObstacle();
-
 
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -62,15 +63,12 @@ public class Game {
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-
-                        y = 5 * seconds;
+                        y = velocity * seconds;
                         seconds++;
                         if (y == 600) {
                             seconds = 0;
                         }
                         playerCar.setVelocity(0, 0);
-
-                        System.out.println("playing");
 
                         if (input.contains("P") && !isPaused) {
                             isPaused = true;
@@ -88,9 +86,6 @@ public class Game {
                                         new EventHandler<ActionEvent>() {
                                             @Override
                                             public void handle(ActionEvent event) {
-
-                                                System.out.println("paused");
-
                                                 if (input.contains("P") && isPaused) {
                                                     System.out.println("pause");
                                                     isPaused = false;
@@ -103,6 +98,7 @@ public class Game {
                                                 gc.drawImage(background, 0, y);
                                                 gc.drawImage(background, 0, y - 600);
                                                 playerCar.render(gc);
+                                                testObstacle.render(gc);
                                             }
                                         });
                                 pauseloop.getKeyFrames().add(keyFramePause);
@@ -110,8 +106,11 @@ public class Game {
 
                             }
 
-                        }
+                        } //End of pause
 
+                        if (seconds % 150 ==0){
+                            testObstacle = generateObstacle();
+                        }
                         if (input.contains("LEFT")) {
                             playerCar.addVelocity(-50, 0);
                             input.remove("LEFT");
@@ -138,11 +137,8 @@ public class Game {
                     }
                 });
 
-        System.out.println("outOfLoop");
-
         gameLoop.getKeyFrames().add(kf);
         gameLoop.play();
-
 
     }
     private static Sprite generateObstacle (){
@@ -154,7 +150,7 @@ public class Game {
         String sd = "/resources/images/obstacle" + (numb+1) + ".png";
         Sprite testObstacle = new Sprite();
         testObstacle.setImage(sd);
-        testObstacle.setPosition(obstacleX.nextInt(400), obstacleY.nextInt(200));
+        testObstacle.setPosition(100+obstacleX.nextInt(300), 0);
 
         return testObstacle;
     }
