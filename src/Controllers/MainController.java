@@ -6,27 +6,19 @@ import DataHandler.PlayerData;
 import MapHandlers.Track;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.*;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.shape.*;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import main.Main;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -51,7 +43,8 @@ public class MainController {
     public Rectangle backgroundBox;
     @FXML
     public Button returnBtn;
-
+    @FXML
+    private Stage scene = Main.primStage;
 
     @FXML
     public void showHighScores() {
@@ -90,18 +83,6 @@ public class MainController {
         stage.setScene(new Scene(root, 800, 600));
         stage.show();
     }
-
-    @FXML
-    public void returnToMainScene() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../views/startPage.fxml"));
-        AnchorPane windowPane = (AnchorPane) root.lookup("#homePage");
-        Main.windowPane=windowPane;
-        Stage stage = (Stage) returnBtn.getScene().getWindow();
-        stage.setTitle("Race Game");
-        stage.setScene(new Scene(root, 800, 600));
-        stage.show();
-    }
-    
     private void showHighScoresDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Best Slav Ranking");
@@ -142,7 +123,7 @@ public class MainController {
     }
 
     @FXML
-    public void showStartPage() throws IOException {
+    private void showStartPage() throws IOException {
         String name = playerName.getText().trim();
         if ("".equals(name)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -175,11 +156,12 @@ public class MainController {
             }
         }
     }
-    private void renderStartMenu() throws IOException {
+    @FXML
+    public void renderStartMenu() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../views/startPage.fxml"));
         AnchorPane windowPane = (AnchorPane) root.lookup("#homePage");
         Main.windowPane=windowPane;
-        Stage stage = (Stage) loginBtn.getScene().getWindow();
+        Stage stage = scene;
         stage.setTitle("Race Game");
         stage.setScene(new Scene(root, 800, 600));
         stage.show();
