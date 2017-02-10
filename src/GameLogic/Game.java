@@ -149,12 +149,12 @@ public class Game {
         Random obstacleX = new Random();
         Random obstacleY = new Random();
         Random obstaclePic = new Random();
-        long numb = System.currentTimeMillis()%2;
+        long numb = System.currentTimeMillis()%3;
 
         String sd = "/resources/images/obstacle" + (numb+1) + ".png";
         Sprite testObstacle = new Sprite();
         testObstacle.setImage(sd);
-        testObstacle.setPosition(100+obstacleX.nextInt(300), 0);
+        testObstacle.setPosition(50+obstacleX.nextInt(300), 0);
 
         return testObstacle;
     }

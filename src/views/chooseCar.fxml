@@ -9,11 +9,12 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="chooseCarPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ChooseCarController">
+<AnchorPane fx:id="chooseCarPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.ChooseCarController">
    <children>
-       <Button fx:id="returnBtn" layoutX="239.0" layoutY="480.0" mnemonicParsing="false" onAction="#renderStartMenu" prefHeight="60.0" prefWidth="323.0" text="Ready" textAlignment="CENTER" textFill="#1b1a1a" underline="true">
+       <Button fx:id="returnBtn" visible="false" layoutX="239.0" layoutY="480.0" mnemonicParsing="false" onAction="#renderStartMenu" prefHeight="60.0" prefWidth="323.0" text="Ready" textAlignment="CENTER" textFill="#1b1a1a" underline="true">
            <font>
                <Font name="Capture it" size="50.0" />
            </font>
@@ -32,7 +33,14 @@
             <Insets bottom="5.0" />
          </padding>
          <children>
-            <ImageView fx:id="car1" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+             <Ellipse fx:id="backgroundBox1" onMouseClicked="#chooseCar" fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+             <Ellipse fx:id="backgroundBox2" onMouseClicked="#chooseCar" fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="1" />
+             <Ellipse fx:id="backgroundBox3" onMouseClicked="#chooseCar" fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="2" />
+             <Ellipse fx:id="backgroundBox4" onMouseClicked="#chooseCar" fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.rowIndex="1" />
+             <Ellipse fx:id="backgroundBox5" onMouseClicked="#chooseCar" fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+             <Ellipse fx:id="backgroundBox6" onMouseClicked="#chooseCar" fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+
+             <ImageView fx:id="car1" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <image>
                   <Image url="@../resources/images/player_car1.png" />
                </image>
@@ -47,6 +55,21 @@
                   <Image url="@../resources/images/player_car3.png" />
                </image>
             </ImageView>
+             <ImageView fx:id="car4" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                 <image>
+                     <Image url="@../resources/images/player_car4.png" />
+                 </image>
+             </ImageView>
+             <ImageView fx:id="car5" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                 <image>
+                     <Image url="@../resources/images/player_car5.png" />
+                 </image>
+             </ImageView>
+             <ImageView fx:id="car6" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                 <image>
+                     <Image url="@../resources/images/player_car6.png" />
+                 </image>
+             </ImageView>
             <Label text="Orange" underline="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="10.0" />
@@ -63,7 +86,7 @@
                   <Font name="Capture it" size="15.0" />
                </font>
             </Label>
-            <Label text="Silver" underline="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Label text="Blue" underline="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
@@ -71,6 +94,30 @@
                   <Font name="Capture it" size="15.0" />
                </font>
             </Label>
+             <Label text="Green" underline="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                 <GridPane.margin>
+                     <Insets top="10.0" />
+                 </GridPane.margin>
+                 <font>
+                     <Font name="Capture it" size="15.0" />
+                 </font>
+             </Label>
+             <Label text="Silver" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                 <GridPane.margin>
+                     <Insets top="10.0" />
+                 </GridPane.margin>
+                 <font>
+                     <Font name="Capture it" size="15.0" />
+                 </font>
+             </Label>
+             <Label text="Red" underline="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                 <GridPane.margin>
+                     <Insets top="10.0" />
+                 </GridPane.margin>
+                 <font>
+                     <Font name="Capture it" size="15.0" />
+                 </font>
+             </Label>
          </children>
       </GridPane>
    </children>
