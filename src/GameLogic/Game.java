@@ -73,13 +73,14 @@ public class Game {
                         }
                         playerCar.setVelocity(0, 0);
 
+                        //Pause Block
                         if (input.contains("P") && !isPaused) {
                             isPaused = true;
                             input.remove("P");
                             gameLoop.pause();
                             if (isPaused) {
 
-                                System.out.println("enterPause");
+                                System.out.println("Enter Pause");
 
                                 Timeline pauseloop = new Timeline();
                                 pauseloop.setCycleCount(Timeline.INDEFINITE);
@@ -90,7 +91,7 @@ public class Game {
                                             @Override
                                             public void handle(ActionEvent event) {
                                                 if (input.contains("P") && isPaused) {
-                                                    System.out.println("pause");
+                                                    System.out.println("Exit Pause");
                                                     isPaused = false;
                                                     gameLoop.play();
                                                     pauseloop.stop();
