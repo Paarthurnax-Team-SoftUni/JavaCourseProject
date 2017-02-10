@@ -9,14 +9,20 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import main.Main;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -137,6 +143,20 @@ public class Game {
 
                         if (testObstacle.getBoundary().intersects(playerCar.getBoundary())){
                             gameLoop.stop();
+
+
+                            Parent root = null;
+                            try {
+                                root = FXMLLoader.load(getClass().getResource("../views/loseDialog.fxml"));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            AnchorPane windowPanee = (AnchorPane) root.lookup("#homePage");
+                            Main.windowPane=windowPanee;
+                            Stage stage =new Stage();
+                            stage.setTitle("You lose");
+                            stage.setScene(new Scene(root));
+                            stage.show();
                         }
                     }
                 });

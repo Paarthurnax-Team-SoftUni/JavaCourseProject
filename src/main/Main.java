@@ -3,6 +3,8 @@ package main;
 import Controllers.ScreenController;
 import DataHandler.PlayerData;
 import javafx.application.Application;
+import javafx.fxml.FXML;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -10,6 +12,8 @@ import java.io.IOException;
 public class Main extends Application {
 
     public static final String TITLE = "Race Game";
+    @FXML
+    public static AnchorPane windowPane;
 
     public static void main(String[] args) {
         launch(args);
