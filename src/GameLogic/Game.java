@@ -142,7 +142,7 @@ public class Game {
                         gc.drawImage(background, 0, y);
                         gc.drawImage(background, 0, y - 600);
                         playerCar.render(gc);
-<<<<<<< HEAD
+
                         for (Sprite testObst : testObstacles) {
                             if(testObst.getName().substring(0,6).equals("player")){
                                 testObst.setVelocity(0, velocity/2);
@@ -154,6 +154,7 @@ public class Game {
                             testObst.update();
 
                             if (testObst.getBoundary().intersects(playerCar.getBoundary())) {
+                                clearObstaclesAndCollectibles();
                                 gameLoop.stop();
                                 Stage stage = ScreenController.startStage;
                                 root.getChildren().remove(canvas);
@@ -161,23 +162,9 @@ public class Game {
                                     loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
                                 } catch (IOException e) {
                                     e.printStackTrace();
-=======
-                            for (Sprite testObst : testObstacles) {
-                                testObst.setVelocity(0, velocity);
-                                testObst.render(gc);
-                                testObst.update();
 
-                                if (testObst.getBoundary().intersects(playerCar.getBoundary())) {
-                                    clearObstaclesAndCollectibles();
-                                    gameLoop.stop();
-                                    Stage stage = ScreenController.startStage;
-                                    root.getChildren().remove(canvas);
-                                    try {
-                                        loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
                                     }
->>>>>>> origin/master
+
                                 }
 
                         }
@@ -207,12 +194,9 @@ public class Game {
         String sd = "/resources/images/"+ random +".png";
         Sprite testObstacle = new Sprite();
         testObstacle.setImage(sd);
-<<<<<<< HEAD
         testObstacle.setName(random);
-        testObstacle.setPosition(50 + obstacleX.nextInt(300), 0);
-=======
+
         testObstacle.setPosition(50 + obstacleX.nextInt(300), -166);
->>>>>>> origin/master
 
         return testObstacle;
     }
