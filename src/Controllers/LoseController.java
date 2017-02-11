@@ -1,6 +1,7 @@
 package Controllers;
 
 import GameLogic.Game;
+import javafx.scene.layout.AnchorPane;
 import main.Main;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,29 +17,22 @@ import java.io.IOException;
 import static Controllers.ScreenController.loadStage;
 import static Controllers.ScreenController.startStage;
 
-
-/**
- * Created by Toster on 2/10/2017.
- */
 public class LoseController {
-    @FXML
-    public Button yesButton;
 
     @FXML
-    Button noButton;
+    public Button newGameBtn;
     @FXML
-    private Stage scene;
+    public Button quitBtn;
+    @FXML
+    public AnchorPane gameOverPage;
 
-    public void onYes(ActionEvent actionEvent) throws IOException {
-        Stage stage = (Stage) yesButton.getScene().getWindow();
+    public void restartGame(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) quitBtn.getScene().getWindow();
         Game.clearObs();
         loadStage(stage, startStage, "../views/start.fxml");
-        stage.close();
     }
 
-    public void onNo(ActionEvent actionEvent) {
+    public void quitGame(ActionEvent actionEvent) {
         Platform.exit();
     }
-
-
 }

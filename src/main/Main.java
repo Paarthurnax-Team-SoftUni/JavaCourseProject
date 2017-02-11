@@ -12,8 +12,6 @@ import java.io.IOException;
 public class Main extends Application {
 
     public static final String TITLE = "Race Game";
-    @FXML
-    public static AnchorPane windowPane;
 
     public static void main(String[] args) {
         launch(args);

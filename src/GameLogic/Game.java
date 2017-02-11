@@ -26,6 +26,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static Controllers.ScreenController.loadStage;
+import static Controllers.ScreenController.startStage;
+
 public class Game {
     private static AnchorPane root = ScreenController.root;
     private static int seconds = 0;
@@ -148,20 +151,12 @@ public class Game {
 
                             if (testObst.getBoundary().intersects(playerCar.getBoundary())) {
                                 gameLoop.stop();
-
-                                Parent root = null;
+                                Stage stage = (Stage) canvas.getScene().getWindow();
                                 try {
-                                    root = FXMLLoader.load(getClass().getResource("../views/loseDialog.fxml"));
+                                    loadStage(stage, startStage, "../views/gameOver.fxml");
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
-                                AnchorPane windowPanee = (AnchorPane) root.lookup("#homePage");
-                                Main.windowPane = windowPanee;
-                                Stage stage = new Stage();
-                                stage.setTitle("You lose");
-                                stage.setScene(new Scene(root));
-                                stage.show();
-                                break;
                             }
                         }
                     }

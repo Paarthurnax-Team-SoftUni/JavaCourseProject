@@ -55,3 +55,17 @@
     -fx-background-color: rgba(255,255,255, 0.6);
     -fx-background-radius: 15px;
 }
+
+#gameOverPage{
+    -fx-background-image: url('/resources/images/game-over.gif');
+}
+
+#gameOverPage #quitBtn, #newGameBtn{
+    -fx-background-color: rgba(255,255,255, 0.6);
+    -fx-background-radius: 15px;
+}
+
+#gameOverPage #quitBtn:hover, #newGameBtn:hover {
+    -fx-background-color: rgba(255,0,0, 0.6);
+    -fx-background-radius: 15px;
+}
