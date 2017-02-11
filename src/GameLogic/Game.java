@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -142,28 +143,14 @@ public class Game {
                         gc.drawImage(background, 0, y);
                         gc.drawImage(background, 0, y - 600);
                         playerCar.render(gc);
-<<<<<<< HEAD
-                        for (Sprite testObst : testObstacles) {
-                            if(testObst.getName().substring(0,6).equals("player")){
-                                testObst.setVelocity(0, velocity/2);
-                            }
-                            else {
-                                testObst.setVelocity(0, velocity);
-                            }
-                            testObst.render(gc);
-                            testObst.update();
 
-                            if (testObst.getBoundary().intersects(playerCar.getBoundary())) {
-                                gameLoop.stop();
-                                Stage stage = ScreenController.startStage;
-                                root.getChildren().remove(canvas);
-                                try {
-                                    loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-=======
                             for (Sprite testObst : testObstacles) {
-                                testObst.setVelocity(0, velocity);
+                                if(testObst.getName().substring(0,6).equals("player")){
+                                    testObst.setVelocity(0, velocity/2);
+                                }
+                                else {
+                                    testObst.setVelocity(0, velocity);
+                                }
                                 testObst.render(gc);
                                 testObst.update();
 
@@ -177,7 +164,6 @@ public class Game {
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
->>>>>>> origin/master
                                 }
 
                         }
@@ -207,12 +193,8 @@ public class Game {
         String sd = "/resources/images/"+ random +".png";
         Sprite testObstacle = new Sprite();
         testObstacle.setImage(sd);
-<<<<<<< HEAD
         testObstacle.setName(random);
-        testObstacle.setPosition(50 + obstacleX.nextInt(300), 0);
-=======
         testObstacle.setPosition(50 + obstacleX.nextInt(300), -166);
->>>>>>> origin/master
 
         return testObstacle;
     }
