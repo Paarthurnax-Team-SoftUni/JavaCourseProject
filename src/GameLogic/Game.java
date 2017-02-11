@@ -120,7 +120,7 @@ public class Game {
 
                         } //End of pause
 
-                        if (seconds % 150 == 0) {
+                        if (seconds % 50000 == 0) {
                             testObstacles.add(generateObstacle());
                         }
                         if (input.contains("LEFT")) {
@@ -140,7 +140,12 @@ public class Game {
                         gc.drawImage(background, 0, y - 600);
                         playerCar.render(gc);
                         for (Sprite testObst : testObstacles) {
-                            testObst.setVelocity(0, velocity);
+                            if(testObst.getName().substring(0,6).equals("player")){
+                                testObst.setVelocity(0, velocity/2);
+                            }
+                            else {
+                                testObst.setVelocity(0, velocity);
+                            }
                             testObst.render(gc);
                             testObst.update();
 
@@ -170,7 +175,7 @@ public class Game {
     }
 
     private static Sprite generateObstacle() {
-        String[] obstacles = {"obstacle1","obstacle2","obstacle3","player_car1","player_car2","player_car3","player_car4","player_car5","player_car6"};
+        String[] obstacles = {"obstacle1","obstacle2","obstacle3","obstacle1","obstacle2","obstacle3","player_car1","player_car2","player_car3","player_car4","player_car5","player_car6"};
         String random = (obstacles[new Random().nextInt(obstacles.length)]);
 
         Random obstacleX = new Random();
@@ -181,6 +186,7 @@ public class Game {
         String sd = "/resources/images/"+ random +".png";
         Sprite testObstacle = new Sprite();
         testObstacle.setImage(sd);
+        testObstacle.setName(random);
         testObstacle.setPosition(50 + obstacleX.nextInt(300), 0);
 
         return testObstacle;
@@ -193,6 +199,7 @@ public class Game {
         String stringDirectory = "/resources/images/collectable" + (numb + 1) + ".png";
 
         Sprite collectible = new Sprite();
+        collectible.setName(String.valueOf(numb+1));
         collectible.setImage(stringDirectory);
         collectible.setPosition(50 + collectibleX.nextInt(300), 0);
 
@@ -206,7 +213,17 @@ public class Game {
             collectible.update();
 
             if (collectible.getBoundary().intersects(playerCar.getBoundary())){
-                playerCar.setPoints(playerCar.getPoints() + 10);
+                switch (collectible.getName()) {
+                    case "1":
+                    playerCar.setPoints(playerCar.getPoints() + 10);
+                        break;
+                    case "2":
+                        playerCar.setPoints(playerCar.getPoints() + 25);
+                        break;
+                    case "3":
+                        playerCar.setPoints(playerCar.getPoints() + 50);
+                        break;
+                }
                 collectible.setPosition(800,800);
 
                 System.out.println("Points: " + playerCar.getPoints());
