@@ -1,8 +1,6 @@
 package DataHandler;
 
 
-import KeyHandler.Sprite;
-
 public class Player extends Sprite{
 
 

@@ -4,7 +4,7 @@ import Controllers.ChooseCarController;
 import Controllers.LoginController;
 import Controllers.ScreenController;
 import DataHandler.Player;
-import KeyHandler.Sprite;
+import DataHandler.Sprite;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -31,13 +31,13 @@ public class Game {
     private static int seconds = 0;
     private static boolean isPaused = false;
     private static double y;
-    private static Sprite testObstacle = generateObstacle();
+    private static ArrayList<Sprite> testObstacles = new ArrayList<>();
     private static Player playerCar = LoginController.player;
     private static String carId = ChooseCarController.carId;
 
     public static void RunTrack(Image background, int velocity) {
         Canvas canvas = new Canvas(500, 600);
-
+        EventHandler<? super KeyEvent> onKeyPressed = root.getOnKeyPressed();
         root.getChildren().add(canvas);
         ArrayList<String> input = new ArrayList<>();
 
@@ -53,10 +53,12 @@ public class Game {
         root.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent t) {
-                if(t.getCode() == KeyCode.SPACE) {
+                if (t.getCode() == KeyCode.SPACE) {
+                    System.out.println(t);
                     t.consume();
                 }
-            }});
+            }
+        });
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
         carId = carId == null ? "car1" : carId;
@@ -108,7 +110,9 @@ public class Game {
                                                 gc.drawImage(background, 0, y);
                                                 gc.drawImage(background, 0, y - 600);
                                                 playerCar.render(gc);
-                                                testObstacle.render(gc);
+                                                for (Sprite obs : testObstacles) {
+                                                    obs.render(gc);
+                                                }
                                             }
                                         });
                                 pauseloop.getKeyFrames().add(keyFramePause);
@@ -118,8 +122,8 @@ public class Game {
 
                         } //End of pause
 
-                        if (seconds % 150 ==0){
-                            testObstacle = generateObstacle();
+                        if (seconds % 150 == 0) {
+                            testObstacles.add(generateObstacle());
                         }
                         if (input.contains("LEFT")) {
                             playerCar.addVelocity(-50, 0);
@@ -136,27 +140,29 @@ public class Game {
                         gc.clearRect(0, 0, 500, 600);
                         gc.drawImage(background, 0, y);
                         gc.drawImage(background, 0, y - 600);
-                        testObstacle.setVelocity(0, y/47);
-                        testObstacle.render(gc);
-                        testObstacle.update();
                         playerCar.render(gc);
+                        for (Sprite testObst : testObstacles) {
+                            testObst.setVelocity(0, y / 47);
+                            testObst.render(gc);
+                            testObst.update();
 
-                        if (testObstacle.getBoundary().intersects(playerCar.getBoundary())){
-                            gameLoop.stop();
+                            if (testObst.getBoundary().intersects(playerCar.getBoundary())) {
+                                gameLoop.stop();
 
-
-                            Parent root = null;
-                            try {
-                                root = FXMLLoader.load(getClass().getResource("../views/loseDialog.fxml"));
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                                Parent root = null;
+                                try {
+                                    root = FXMLLoader.load(getClass().getResource("../views/loseDialog.fxml"));
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                AnchorPane windowPanee = (AnchorPane) root.lookup("#homePage");
+                                Main.windowPane = windowPanee;
+                                Stage stage = new Stage();
+                                stage.setTitle("You lose");
+                                stage.setScene(new Scene(root));
+                                stage.show();
+                                break;
                             }
-                            AnchorPane windowPanee = (AnchorPane) root.lookup("#homePage");
-                            Main.windowPane=windowPanee;
-                            Stage stage =new Stage();
-                            stage.setTitle("You lose");
-                            stage.setScene(new Scene(root));
-                            stage.show();
                         }
                     }
                 });
@@ -165,17 +171,22 @@ public class Game {
         gameLoop.play();
 
     }
-    private static Sprite generateObstacle (){
+
+    private static Sprite generateObstacle() {
         Random obstacleX = new Random();
         Random obstacleY = new Random();
         Random obstaclePic = new Random();
-        long numb = System.currentTimeMillis()%3;
+        long numb = System.currentTimeMillis() % 3;
 
-        String sd = "/resources/images/obstacle" + (numb+1) + ".png";
+        String sd = "/resources/images/obstacle" + (numb + 1) + ".png";
         Sprite testObstacle = new Sprite();
         testObstacle.setImage(sd);
-        testObstacle.setPosition(50+obstacleX.nextInt(300), 0);
+        testObstacle.setPosition(50 + obstacleX.nextInt(300), 0);
 
         return testObstacle;
+    }
+
+    public static void clearObs() {
+        testObstacles.clear();
     }
 }

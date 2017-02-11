@@ -1,5 +1,6 @@
 package Controllers;
 
+import GameLogic.Game;
 import main.Main;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -30,9 +31,9 @@ public class LoseController {
 
     public void onYes(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) yesButton.getScene().getWindow();
+        Game.clearObs();
         loadStage(stage, startStage, "../views/start.fxml");
         stage.close();
-
     }
 
     public void onNo(ActionEvent actionEvent) {
