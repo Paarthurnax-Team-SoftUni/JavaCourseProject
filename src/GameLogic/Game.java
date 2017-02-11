@@ -31,6 +31,7 @@ public class Game {
     private static boolean isPaused = false;
     private static double y;
     private static ArrayList<Sprite> testObstacles = new ArrayList<>();
+    private static ArrayList<Sprite> collectibles = new ArrayList<>();
     private static Player playerCar = LoginController.player;
     private static String carId = ChooseCarController.carId;
 
@@ -154,6 +155,13 @@ public class Game {
                                 }
                             }
                         }
+                        if (seconds % 300 == 0){
+                            collectibles.add(generateCollectible());
+                        }
+                            visualizeCollectible(gc);
+
+
+
                     }
                 });
 
@@ -163,17 +171,48 @@ public class Game {
     }
 
     private static Sprite generateObstacle() {
-        Random obstacleX = new Random();
-        Random obstacleY = new Random();
-        Random obstaclePic = new Random();
-        long numb = System.currentTimeMillis() % 3;
+        String[] obstacles = {"obstacle1","obstacle2","obstacle3","player_car1","player_car2","player_car3","player_car4","player_car5","player_car6"};
+        String random = (obstacles[new Random().nextInt(obstacles.length)]);
 
-        String sd = "/resources/images/obstacle" + (numb + 1) + ".png";
+        Random obstacleX = new Random();
+//        Random obstacleY = new Random();
+//        Random obstaclePic = new Random();
+//        long numb = System.currentTimeMillis() % 3;
+
+        String sd = "/resources/images/"+ random +".png";
         Sprite testObstacle = new Sprite();
         testObstacle.setImage(sd);
         testObstacle.setPosition(50 + obstacleX.nextInt(300), 0);
 
         return testObstacle;
+    }
+
+    private static Sprite generateCollectible(){
+        Random collectibleX = new Random();
+        long numb = System.currentTimeMillis() % 3;
+        //TODO: change stringDirectory to the correct images!
+        String stringDirectory = "/resources/images/collectable" + (numb + 1) + ".png";
+
+        Sprite collectible = new Sprite();
+        collectible.setImage(stringDirectory);
+        collectible.setPosition(50 + collectibleX.nextInt(300), 0);
+
+        return collectible;
+    }
+
+    private static void visualizeCollectible(GraphicsContext gc){
+        for (Sprite collectible : collectibles) {
+            collectible.setVelocity(0, y / 47);
+            collectible.render(gc);
+            collectible.update();
+
+            if (collectible.getBoundary().intersects(playerCar.getBoundary())){
+                playerCar.setPoints(playerCar.getPoints() + 10);
+                collectible.setPosition(800,800);
+
+                System.out.println("Points: " + playerCar.getPoints());
+            }
+        }
     }
 
     public static void clearObs() {
