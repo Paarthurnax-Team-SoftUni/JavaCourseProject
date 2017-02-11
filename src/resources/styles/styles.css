@@ -10,7 +10,7 @@
 
 #chooseCarPage #backgroundBox1:hover, #chooseCarPage #backgroundBox2:hover, #chooseCarPage #backgroundBox3:hover,
 #chooseCarPage #backgroundBox4:hover, #chooseCarPage #backgroundBox5:hover, #chooseCarPage #backgroundBox6:hover {
-    -fx-fill: rgba(255,0,0, 0.6);
+   /* -fx-fill: rgba(255,0,0, 0.6);  */
 
 }
 

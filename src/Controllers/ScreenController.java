@@ -1,7 +1,10 @@
 package Controllers;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import main.Main;
@@ -53,6 +56,17 @@ public class ScreenController{
 
         currentStage.show();
 //        System.out.println(currentStage + " shown");
+
+        root.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent t) {
+                if (t.getCode() == KeyCode.SPACE) {
+                //    System.out.println(t);
+                    t.consume();
+                }
+            }
+        });
+
 
         return fxmlLoader.getController();
     }

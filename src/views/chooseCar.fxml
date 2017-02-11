@@ -33,12 +33,12 @@
             <Insets bottom="5.0" />
          </padding>
          <children>
-             <Ellipse fx:id="backgroundBox1" onMouseClicked="#chooseCar" fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-             <Ellipse fx:id="backgroundBox2" onMouseClicked="#chooseCar" fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="1" />
-             <Ellipse fx:id="backgroundBox3" onMouseClicked="#chooseCar" fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="2" />
-             <Ellipse fx:id="backgroundBox4" onMouseClicked="#chooseCar" fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.rowIndex="1" />
-             <Ellipse fx:id="backgroundBox5" onMouseClicked="#chooseCar" fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-             <Ellipse fx:id="backgroundBox6" onMouseClicked="#chooseCar" fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+             <Ellipse fx:id="backgroundBox1"  fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+             <Ellipse fx:id="backgroundBox2"  fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="1" />
+             <Ellipse fx:id="backgroundBox3"  fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="2" />
+             <Ellipse fx:id="backgroundBox4"  fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.rowIndex="1" />
+             <Ellipse fx:id="backgroundBox5"  fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+             <Ellipse fx:id="backgroundBox6"  fill="TRANSPARENT" radiusX="94.0" radiusY="114.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
 
              <ImageView fx:id="car1" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <image>
@@ -70,7 +70,7 @@
                      <Image url="@../resources/images/player_car6.png" />
                  </image>
              </ImageView>
-            <Label text="Orange" underline="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Label fx:id="label1" onMouseClicked="#chooseCar" text="Orange" underline="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
@@ -78,7 +78,7 @@
                   <Font name="Capture it" size="15.0" />
                </font>
             </Label>
-            <Label text="Red" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Label fx:id="label2" onMouseClicked="#chooseCar" text="Red" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
@@ -86,7 +86,7 @@
                   <Font name="Capture it" size="15.0" />
                </font>
             </Label>
-            <Label text="Blue" underline="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Label fx:id="label3" onMouseClicked="#chooseCar" text="Blue" underline="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
@@ -94,7 +94,7 @@
                   <Font name="Capture it" size="15.0" />
                </font>
             </Label>
-             <Label text="Green" underline="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+             <Label fx:id="label4" onMouseClicked="#chooseCar" text="Green" underline="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                  <GridPane.margin>
                      <Insets top="10.0" />
                  </GridPane.margin>
@@ -102,7 +102,7 @@
                      <Font name="Capture it" size="15.0" />
                  </font>
              </Label>
-             <Label text="Silver" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+             <Label fx:id="label5" onMouseClicked="#chooseCar" text="Silver" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                  <GridPane.margin>
                      <Insets top="10.0" />
                  </GridPane.margin>
@@ -110,7 +110,7 @@
                      <Font name="Capture it" size="15.0" />
                  </font>
              </Label>
-             <Label text="Red" underline="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+             <Label fx:id="label6" onMouseClicked="#chooseCar" text="Red" underline="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                  <GridPane.margin>
                      <Insets top="10.0" />
                  </GridPane.margin>

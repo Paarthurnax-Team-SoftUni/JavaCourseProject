@@ -57,16 +57,6 @@ public class Game {
             }
         });
 
-        root.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent t) {
-                if (t.getCode() == KeyCode.SPACE) {
-                    System.out.println(t);
-                    t.consume();
-                }
-            }
-        });
-
         GraphicsContext gc = canvas.getGraphicsContext2D();
         carId = carId == null ? "car1" : carId;
         String carImg = "/resources/images/player_" + carId + ".png";
