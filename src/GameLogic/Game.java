@@ -20,6 +20,8 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import static Controllers.ScreenController.loadStage;
@@ -72,6 +74,7 @@ public class Game {
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
+
                         y = velocity * seconds;
                         seconds++;
                         if (y == 600) {
@@ -139,6 +142,7 @@ public class Game {
                         gc.drawImage(background, 0, y);
                         gc.drawImage(background, 0, y - 600);
                         playerCar.render(gc);
+<<<<<<< HEAD
                         for (Sprite testObst : testObstacles) {
                             if(testObst.getName().substring(0,6).equals("player")){
                                 testObst.setVelocity(0, velocity/2);
@@ -157,8 +161,25 @@ public class Game {
                                     loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
                                 } catch (IOException e) {
                                     e.printStackTrace();
+=======
+                            for (Sprite testObst : testObstacles) {
+                                testObst.setVelocity(0, velocity);
+                                testObst.render(gc);
+                                testObst.update();
+
+                                if (testObst.getBoundary().intersects(playerCar.getBoundary())) {
+                                    clearObstaclesAndCollectibles();
+                                    gameLoop.stop();
+                                    Stage stage = ScreenController.startStage;
+                                    root.getChildren().remove(canvas);
+                                    try {
+                                        loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
+>>>>>>> origin/master
                                 }
-                            }
+
                         }
                         if (seconds % 50000 == 0){
                             collectibles.add(generateCollectible());
@@ -186,8 +207,12 @@ public class Game {
         String sd = "/resources/images/"+ random +".png";
         Sprite testObstacle = new Sprite();
         testObstacle.setImage(sd);
+<<<<<<< HEAD
         testObstacle.setName(random);
         testObstacle.setPosition(50 + obstacleX.nextInt(300), 0);
+=======
+        testObstacle.setPosition(50 + obstacleX.nextInt(300), -166);
+>>>>>>> origin/master
 
         return testObstacle;
     }
@@ -201,7 +226,7 @@ public class Game {
         Sprite collectible = new Sprite();
         collectible.setName(String.valueOf(numb+1));
         collectible.setImage(stringDirectory);
-        collectible.setPosition(50 + collectibleX.nextInt(300), 0);
+        collectible.setPosition(50 + collectibleX.nextInt(300), -60);
 
         return collectible;
     }
@@ -229,6 +254,11 @@ public class Game {
                 System.out.println("Points: " + playerCar.getPoints());
             }
         }
+    }
+
+    private static void clearObstaclesAndCollectibles(){
+        collectibles = new ArrayList<>();
+        testObstacles = new ArrayList<>();
     }
 
     public static void clearObs() {

@@ -13,7 +13,6 @@ public class Track {
     public Track(int level) {
         initializeLevel(level);
     }
-
     public static void initializeLevel(int level) {
         switch (level) {
             case 1: {
@@ -23,6 +22,6 @@ public class Track {
     }
 
     private static void createBackground(int velocity) {
-        Game.RunTrack(backgroundLevel1, velocity);
+       Game.RunTrack(backgroundLevel1,velocity);
     }
 }
