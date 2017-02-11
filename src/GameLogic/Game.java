@@ -140,7 +140,7 @@ public class Game {
                         gc.drawImage(background, 0, y - 600);
                         playerCar.render(gc);
                         for (Sprite testObst : testObstacles) {
-                            testObst.setVelocity(0, y / 47);
+                            testObst.setVelocity(0, velocity);
                             testObst.render(gc);
                             testObst.update();
 
@@ -155,11 +155,10 @@ public class Game {
                                 }
                             }
                         }
-                        if (seconds % 300 == 0){
+                        if (seconds % 50000 == 0){
                             collectibles.add(generateCollectible());
                         }
-                            visualizeCollectible(gc);
-
+                            visualizeCollectible(gc, velocity);
 
 
                     }
@@ -200,9 +199,9 @@ public class Game {
         return collectible;
     }
 
-    private static void visualizeCollectible(GraphicsContext gc){
+    private static void visualizeCollectible(GraphicsContext gc, int velocity){
         for (Sprite collectible : collectibles) {
-            collectible.setVelocity(0, y / 47);
+            collectible.setVelocity(0, velocity);
             collectible.render(gc);
             collectible.update();
 
