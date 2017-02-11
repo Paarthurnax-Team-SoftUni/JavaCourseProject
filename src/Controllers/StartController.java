@@ -1,15 +1,15 @@
 package Controllers;
 
 import DataHandler.Player;
-import DataHandler.PlayerData;
 import MapHandlers.Track;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import main.Main;
 
 import java.io.IOException;
 
@@ -61,7 +61,7 @@ public class StartController {
     public void showHighScores() {
         showHighScoresDialog();
     }
-
+    @FXML
     private void showHighScoresDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle("Best Slav Ranking");

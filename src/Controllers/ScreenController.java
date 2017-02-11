@@ -3,7 +3,6 @@ package Controllers;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.Main;
 
@@ -14,8 +13,6 @@ public class ScreenController{
     public static Stage startStage;
     public static Stage chooseCarStage;
     public static AnchorPane root;
-    public static Pane startPage;
-    public static Pane chooseCar;
 
     public static void setPrimaryStage(Stage primaryStage) throws IOException {
         primaryStage.setTitle(Main.TITLE);
@@ -51,11 +48,11 @@ public class ScreenController{
         currentStage.setTitle(Main.TITLE);
         currentStage.setResizable(false);
         closeStage(prevStage);
-        System.out.println(prevStage + " closed");
+//        System.out.println(prevStage + " closed");
 //        closeStage(thirdStage);
 
         currentStage.show();
-        System.out.println(currentStage + " shown");
+//        System.out.println(currentStage + " shown");
 
         return fxmlLoader.getController();
     }

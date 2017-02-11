@@ -9,9 +9,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -20,7 +17,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import main.Main;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,6 +37,14 @@ public class Game {
     public static void RunTrack(Image background, int velocity) {
         Canvas canvas = new Canvas(500, 600);
         EventHandler<? super KeyEvent> onKeyPressed = root.getOnKeyPressed();
+        if (ScreenController.startStage != null) {
+            Stage stage = (Stage) canvas.getScene().getWindow();
+            try {
+                loadStage(stage, startStage, "../views/gameOver.fxml");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         root.getChildren().add(canvas);
         ArrayList<String> input = new ArrayList<>();
 
@@ -151,9 +155,10 @@ public class Game {
 
                             if (testObst.getBoundary().intersects(playerCar.getBoundary())) {
                                 gameLoop.stop();
-                                Stage stage = (Stage) canvas.getScene().getWindow();
+                                Stage stage = ScreenController.startStage;
+                                root.getChildren().remove(canvas);
                                 try {
-                                    loadStage(stage, startStage, "../views/gameOver.fxml");
+                                    loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }

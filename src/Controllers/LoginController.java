@@ -17,7 +17,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static Controllers.ScreenController.loadStage;
-import static Controllers.ScreenController.primaryStage;
 import static Controllers.ScreenController.startStage;
 
 public class LoginController implements Initializable{

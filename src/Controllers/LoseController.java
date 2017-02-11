@@ -1,21 +1,17 @@
 package Controllers;
 
 import GameLogic.Game;
-import javafx.scene.layout.AnchorPane;
-import main.Main;
+import MapHandlers.Track;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import javax.accessibility.AccessibleComponent;
 
 import java.io.IOException;
 
-import static Controllers.ScreenController.loadStage;
-import static Controllers.ScreenController.startStage;
+import static Controllers.ScreenController.closeStage;
 
 public class LoseController {
 
@@ -29,7 +25,8 @@ public class LoseController {
     public void restartGame(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) quitBtn.getScene().getWindow();
         Game.clearObs();
-        loadStage(stage, startStage, "../views/start.fxml");
+        closeStage(stage);
+        Track.initializeLevel(1);
     }
 
     public void quitGame(ActionEvent actionEvent) {
