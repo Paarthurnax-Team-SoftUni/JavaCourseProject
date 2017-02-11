@@ -38,7 +38,6 @@ public class Game {
     private static String carId = ChooseCarController.carId;
 
     public static void RunTrack(Image background, int velocity) {
-
         Canvas canvas = new Canvas(500, 600);
         EventHandler<? super KeyEvent> onKeyPressed = root.getOnKeyPressed();
         if (ScreenController.startStage != null) {
@@ -75,6 +74,7 @@ public class Game {
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
+
                         y = velocity * seconds;
                         seconds++;
                         if (y == 600) {
@@ -186,7 +186,7 @@ public class Game {
         String sd = "/resources/images/"+ random +".png";
         Sprite testObstacle = new Sprite();
         testObstacle.setImage(sd);
-        testObstacle.setPosition(50 + obstacleX.nextInt(300), -30);
+        testObstacle.setPosition(50 + obstacleX.nextInt(300), -166);
 
         return testObstacle;
     }
