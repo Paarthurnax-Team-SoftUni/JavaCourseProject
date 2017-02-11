@@ -3,6 +3,7 @@ package Controllers;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -45,6 +46,9 @@ public class ScreenController{
         if (currentStage == null) {
             currentStage = new Stage();
         }
+
+        currentStage.getIcons().add(
+                new Image("/resources/images/logo.png"));
 
         root = FXMLLoader.load(Main.class.getResource(path));
         currentStage.setScene(new Scene(root));
