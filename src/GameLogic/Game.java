@@ -265,6 +265,8 @@ public class Game {
                         break;
                     case "2":        //Health Pack
                         playerCar.setPoints(playerCar.getPoints() + 500);
+                        playerCar.setHealthPoints(playerCar.getHealthPoints() + 10);
+
                         break;
                     case "3":     //Bonus
                         playerCar.setPoints(playerCar.getPoints() + 1000);
