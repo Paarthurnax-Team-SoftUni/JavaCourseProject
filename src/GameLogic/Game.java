@@ -19,12 +19,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import java.util.Observable;
-import java.util.Observer;
-
-import java.util.Random;
+import java.util.*;
 
 import static Controllers.ScreenController.loadStage;
 import static Controllers.ScreenController.startStage;
@@ -39,6 +34,8 @@ public class Game {
     private static Player playerCar = LoginController.player;
     private static String carId = ChooseCarController.carId;
     private static CurrentPoints currentPoints = new CurrentPoints(0) ;
+    private static Timer timer = new Timer();
+
     private static Observer observer = new Observer() {
         @Override
         public void update(Observable o, Object arg) {
@@ -78,6 +75,8 @@ public class Game {
         playerCar.setPosition(200, 430);
 
 
+        currentPoints.addObserver(observer);
+
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(
@@ -89,11 +88,14 @@ public class Game {
                         y = velocity * seconds;
                         seconds++;
                         playerCar.setPoints(playerCar.getPoints()+1);
-                        System.out.println(playerCar.getPoints());
+
+                        System.out.println(seconds);
 
                         currentPoints.addObserver(observer);
                         currentPoints.setValue(playerCar.getPoints());
                         observer.update(currentPoints,observer);
+
+
 
                         if (y == 600) {
                             seconds = 0;
