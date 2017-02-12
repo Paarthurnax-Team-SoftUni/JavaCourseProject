@@ -53,6 +53,7 @@ public class Game {
 
 
     public static void RunTrack(Image background, int velocity) {
+
         Canvas canvas = new Canvas(500, 600);
         EventHandler<? super KeyEvent> onKeyPressed = root.getOnKeyPressed();
         if (ScreenController.startStage != null) {
@@ -83,6 +84,7 @@ public class Game {
         playerCar.setPosition(200, 430);
 
 
+
         currentPoints.addObserver(observer);
         currentTime.addObserver(observer);
         Timeline gameLoop = new Timeline();
@@ -92,8 +94,6 @@ public class Game {
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-
-
 
 
                         y = velocity * frame;
@@ -155,7 +155,7 @@ public class Game {
 
                             if (testObst.getBoundary().intersects(playerCar.getBoundary())) {
                                 if (!testObst.isDestroyed()) {
-                                    playerCar.setHealthPoints(playerCar.getHealthPoints() - 10);
+                                    playerCar.setHealthPoints(playerCar.getHealthPoints() - 50);
                                     testObst.setDestroyed(true);
                                 }
                                 testObst.setVelocity(0, 0);
@@ -163,7 +163,9 @@ public class Game {
                                 if (playerCar.getHealthPoints() <= 0) {
                                     clearObstaclesAndCollectibles();
                                     gameLoop.stop();
-
+                                    playerCar.setHealthPoints(100);
+                                    time=0;
+                                    playerCar.setPoints(0L);
                                     root.getChildren().remove(canvas);
                                     try {
                                         loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
@@ -185,7 +187,7 @@ public class Game {
                 });
 
         gameLoop.getKeyFrames().add(kf);
-        gameLoop.play();
+        gameLoop.playFromStart();
 
     }
 
@@ -305,4 +307,9 @@ public class Game {
     public static DataHandler.CurrentPoints getCurrentPoints() {
         return (currentPoints);
     }
+    public static DataHandler.CurrentTime getCurrentTime() {
+        return (currentTime);
+    }
+
+
 }
