@@ -3,6 +3,7 @@ package GameLogic;
 import Controllers.ChooseCarController;
 import Controllers.LoginController;
 import Controllers.ScreenController;
+import DataHandler.CurrentTime;
 import DataHandler.Player;
 import DataHandler.Sprite;
 import DataHandler.CurrentPoints;
@@ -27,7 +28,8 @@ import static Controllers.ScreenController.startStage;
 
 public class Game {
     private static AnchorPane root = ScreenController.root;
-    private static int seconds = 0;
+    private static int frame = 0;
+    private static long time = 0;
     private static boolean isPaused = false;
     private static double y;
     private static ArrayList<Sprite> testObstacles = new ArrayList<>();
@@ -35,7 +37,10 @@ public class Game {
     private static Player playerCar = LoginController.player;
     private static String carId = ChooseCarController.carId;
     private static CurrentPoints currentPoints = new CurrentPoints(0);
+    private static CurrentTime  currentTime = new CurrentTime(0);
     private static Timer timer = new Timer();
+
+
 
 
     private static Observer observer = new Observer() {
@@ -78,7 +83,7 @@ public class Game {
 
 
         currentPoints.addObserver(observer);
-
+        currentTime.addObserver(observer);
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(
@@ -88,17 +93,23 @@ public class Game {
                     public void handle(ActionEvent event) {
 
 
-                        y = velocity * seconds;
-                        seconds++;
+
+
+                        y = velocity * frame;
+                        time++;
+                        frame++;
                         playerCar.setPoints(playerCar.getPoints() + 1);
+
+                        currentTime.setValue((long)(time*0.017));
 
 
                         currentPoints.setValue(playerCar.getPoints());
                         observer.update(currentPoints, observer);
+                        observer.update(currentTime, observer);
 
 
                         if (y == 600) {
-                            seconds = 0;
+                            frame = 0;
                         }
                         playerCar.setVelocity(0, 0);
 
@@ -109,9 +120,9 @@ public class Game {
                         } //End of pause
 
 
-                        if (seconds % 50000 == 0) {
+                        if (frame % 50000 == 0) {
                             testObstacles.add(generateObstacle());
-                            System.out.println(seconds);
+                            System.out.println(frame);
 
                         }
                         if (input.contains("LEFT")) {
@@ -163,7 +174,7 @@ public class Game {
 
                         }
 
-                        if (seconds % 50000 == 0) {
+                        if (frame % 50000 == 0) {
                             collectibles.add(generateCollectible());
                         }
                         visualizeCollectible(gc, velocity);
