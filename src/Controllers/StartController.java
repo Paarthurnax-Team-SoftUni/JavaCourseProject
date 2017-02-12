@@ -1,9 +1,10 @@
 package Controllers;
 
 import DataHandler.Player;
+import DataHandler.CurrentPoints;
+import GameLogic.Game;
 import MapHandlers.Track;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -63,7 +64,11 @@ public class StartController {
         Score.setVisible(true);
         scorePoints.setVisible(true);
 
- //         scorePoints.textProperty().bind(Bindings.convert(player.getPoints().toString()));
+        CurrentPoints currentPlayerPoints=  Game.getCurrentPoints();
+
+        System.out.println("comes here" );
+
+        scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
 
 //        gameStarted = true;
 //        setTime();

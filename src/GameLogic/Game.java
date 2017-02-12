@@ -5,6 +5,7 @@ import Controllers.LoginController;
 import Controllers.ScreenController;
 import DataHandler.Player;
 import DataHandler.Sprite;
+import DataHandler.CurrentPoints;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -12,7 +13,6 @@ import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -20,8 +20,8 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 
 import static Controllers.ScreenController.loadStage;
@@ -36,6 +36,13 @@ public class Game {
     private static ArrayList<Sprite> collectibles = new ArrayList<>();
     private static Player playerCar = LoginController.player;
     private static String carId = ChooseCarController.carId;
+    private static CurrentPoints currentPoints = new CurrentPoints(0) ;
+    private static Observer observer = new Observer() {
+        @Override
+        public void update(Observable o, Object arg) {
+
+        }
+    };
 
 
     public static void RunTrack(Image background, int velocity) {
@@ -81,6 +88,10 @@ public class Game {
                         seconds++;
                         playerCar.setPoints(playerCar.getPoints()+1);
                         System.out.println(playerCar.getPoints());
+
+                        currentPoints.addObserver(observer);
+                        currentPoints.setValue(playerCar.getPoints());
+                        observer.update(currentPoints,observer);
 
                         if (y == 600) {
                             seconds = 0;
@@ -261,5 +272,9 @@ public class Game {
 
     public static void clearObs() {
         testObstacles.clear();
+    }
+
+    public static DataHandler.CurrentPoints getCurrentPoints() {
+        return (currentPoints);
     }
 }
