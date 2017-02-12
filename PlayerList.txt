@@ -2,8 +2,8 @@ fff	12	0.0	0	0	100
 hey	1023	0.0	0	0	100
 new player here	13	0.0	0	0	100
 nnnn	10000	0.0	0	0	100
-new player	0	0.0	0	0	100
+new player	2045	0.0	0	0	100
 top	10099	2.2	0	0	100
 bojinkata	0	0.0	0	0	100
 eli	0	0.0	0	0	100
-kalin	9613	0.0	96	0	100
+kalin	9613	0.0	0	0	100

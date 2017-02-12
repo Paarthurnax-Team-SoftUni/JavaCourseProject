@@ -48,6 +48,7 @@ public class Game {
 
 
     public static void RunTrack(Image background, int velocity) {
+
         Canvas canvas = new Canvas(500, 600);
         EventHandler<? super KeyEvent> onKeyPressed = root.getOnKeyPressed();
         if (ScreenController.startStage != null) {
@@ -77,6 +78,7 @@ public class Game {
         //playerCar.setImage("/resources/images/player_car3.png");  depending on level?
         playerCar.setPosition(200, 430);
         playerCar.setPoints(0L);
+
         currentPoints.addObserver(observer);
         currentTime.addObserver(observer);
         Timeline gameLoop = new Timeline();
@@ -85,8 +87,7 @@ public class Game {
                 Duration.seconds(0.017),
                 new EventHandler<ActionEvent>() {
                     @Override
-                    public void handle(ActionEvent event) {
-                        y = velocity * frame;
+                    public void handle(ActionEvent event) {                        y = velocity * frame;
                         time++;
                         frame++;
                         playerCar.setPoints(playerCar.getPoints() + 1);
@@ -152,6 +153,7 @@ public class Game {
                                 if (playerCar.getHealthPoints() <= 0) {
                                     clearObstaclesAndCollectibles();
                                     gameLoop.stop();
+									time=0;
                                     playerCar.setHealthPoints(100);
                                     if (playerCar.getHighScore() < playerCar.getPoints()) {
                                         playerCar.setHighScore(playerCar.getPoints());
@@ -178,7 +180,7 @@ public class Game {
                 });
 
         gameLoop.getKeyFrames().add(kf);
-        gameLoop.play();
+        gameLoop.playFromStart();
 
     }
 
@@ -297,5 +299,8 @@ public class Game {
 
     public static DataHandler.CurrentPoints getCurrentPoints() {
         return (currentPoints);
+    }
+    public static DataHandler.CurrentTime getCurrentTime() {
+        return (currentTime);
     }
 }
