@@ -3,13 +3,12 @@ package GameLogic;
 import Controllers.ChooseCarController;
 import Controllers.LoginController;
 import Controllers.ScreenController;
+import DataHandler.CurrentPoints;
 import DataHandler.CurrentTime;
 import DataHandler.Player;
 import DataHandler.Sprite;
-import DataHandler.CurrentPoints;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
@@ -21,7 +20,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.util.*;
 
 import static Controllers.ScreenController.loadStage;
@@ -40,9 +38,6 @@ public class Game {
     private static CurrentPoints currentPoints = new CurrentPoints(0);
     private static CurrentTime  currentTime = new CurrentTime(0);
     private static Timer timer = new Timer();
-
-
-
 
     private static Observer observer = new Observer() {
         @Override
@@ -81,8 +76,7 @@ public class Game {
         playerCar.setImage(carImg);
         //playerCar.setImage("/resources/images/player_car3.png");  depending on level?
         playerCar.setPosition(200, 430);
-
-
+        playerCar.setPoints(0L);
         currentPoints.addObserver(observer);
         currentTime.addObserver(observer);
         Timeline gameLoop = new Timeline();
@@ -92,17 +86,12 @@ public class Game {
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-
-
-
-
                         y = velocity * frame;
                         time++;
                         frame++;
                         playerCar.setPoints(playerCar.getPoints() + 1);
 
                         currentTime.setValue((long)(time*0.017));
-
 
                         currentPoints.setValue(playerCar.getPoints());
                         observer.update(currentPoints, observer);
@@ -163,7 +152,11 @@ public class Game {
                                 if (playerCar.getHealthPoints() <= 0) {
                                     clearObstaclesAndCollectibles();
                                     gameLoop.stop();
-
+                                    playerCar.setHealthPoints(100);
+                                    if (playerCar.getHighScore() < playerCar.getPoints()) {
+                                        playerCar.setHighScore(playerCar.getPoints());
+                                    }
+                                    playerCar.setPoints(0L);
                                     root.getChildren().remove(canvas);
                                     try {
                                         loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
