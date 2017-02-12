@@ -155,7 +155,7 @@ public class Game {
 
                             if (testObst.getBoundary().intersects(playerCar.getBoundary())) {
                                 if (!testObst.isDestroyed()) {
-                                    playerCar.setHealthPoints(playerCar.getHealthPoints() - 50);
+                                    playerCar.setHealthPoints(playerCar.getHealthPoints() - 10);
                                     testObst.setDestroyed(true);
                                 }
                                 testObst.setVelocity(0, 0);
