@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.sql.Time;
 import java.util.*;
 
 import static Controllers.ScreenController.loadStage;
@@ -33,8 +34,9 @@ public class Game {
     private static ArrayList<Sprite> collectibles = new ArrayList<>();
     private static Player playerCar = LoginController.player;
     private static String carId = ChooseCarController.carId;
-    private static CurrentPoints currentPoints = new CurrentPoints(0) ;
+    private static CurrentPoints currentPoints = new CurrentPoints(0);
     private static Timer timer = new Timer();
+
 
     private static Observer observer = new Observer() {
         @Override
@@ -85,16 +87,14 @@ public class Game {
                     @Override
                     public void handle(ActionEvent event) {
 
+
                         y = velocity * seconds;
                         seconds++;
-                        playerCar.setPoints(playerCar.getPoints()+1);
+                        playerCar.setPoints(playerCar.getPoints() + 1);
 
-                        System.out.println(seconds);
 
-                        currentPoints.addObserver(observer);
                         currentPoints.setValue(playerCar.getPoints());
-                        observer.update(currentPoints,observer);
-
+                        observer.update(currentPoints, observer);
 
 
                         if (y == 600) {
@@ -108,8 +108,10 @@ public class Game {
 
                         } //End of pause
 
+
                         if (seconds % 50000 == 0) {
                             testObstacles.add(generateObstacle());
+                            System.out.println(seconds);
 
                         }
                         if (input.contains("LEFT")) {
@@ -131,10 +133,9 @@ public class Game {
 
 
                         for (Sprite testObst : testObstacles) {
-                            if(testObst.getName().substring(0,6).equals("player") && !testObst.isDestroyed()){
-                                testObst.setVelocity(0, velocity/2);
-                            }
-                            else {
+                            if (testObst.getName().substring(0, 6).equals("player") && !testObst.isDestroyed()) {
+                                testObst.setVelocity(0, velocity / 2);
+                            } else {
                                 testObst.setVelocity(0, velocity);
                             }
                             testObst.render(gc);
@@ -150,6 +151,7 @@ public class Game {
                                 if (playerCar.getHealthPoints() <= 0) {
                                     clearObstaclesAndCollectibles();
                                     gameLoop.stop();
+
                                     root.getChildren().remove(canvas);
                                     try {
                                         loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
@@ -161,11 +163,10 @@ public class Game {
 
                         }
 
-                        if (seconds % 50000 == 0){
+                        if (seconds % 50000 == 0) {
                             collectibles.add(generateCollectible());
                         }
-                            visualizeCollectible(gc, velocity);
-
+                        visualizeCollectible(gc, velocity);
 
                     }
                 });
@@ -219,7 +220,7 @@ public class Game {
     }
 
     private static Sprite generateObstacle() {
-        String[] obstacles = {"obstacle1","obstacle2","obstacle3","obstacle1","obstacle2","obstacle3","player_car1","player_car2","player_car3","player_car4","player_car5","player_car6"};
+        String[] obstacles = {"obstacle1", "obstacle2", "obstacle3", "obstacle1", "obstacle2", "obstacle3", "player_car1", "player_car2", "player_car3", "player_car4", "player_car5", "player_car6"};
         String random = (obstacles[new Random().nextInt(obstacles.length)]);
 
         Random obstacleX = new Random();
@@ -227,7 +228,7 @@ public class Game {
 //        Random obstaclePic = new Random();
 //        long numb = System.currentTimeMillis() % 3;
 
-        String sd = "/resources/images/"+ random +".png";
+        String sd = "/resources/images/" + random + ".png";
         Sprite testObstacle = new Sprite();
         testObstacle.setImage(sd);
 
@@ -237,46 +238,46 @@ public class Game {
         return testObstacle;
     }
 
-    private static Sprite generateCollectible(){
+    private static Sprite generateCollectible() {
         Random collectibleX = new Random();
         long numb = System.currentTimeMillis() % 3;
         //TODO: change stringDirectory to the correct images!
         String stringDirectory = "/resources/images/collectable" + (numb + 1) + ".png";
 
         Sprite collectible = new Sprite();
-        collectible.setName(String.valueOf(numb+1));
+        collectible.setName(String.valueOf(numb + 1));
         collectible.setImage(stringDirectory);
         collectible.setPosition(50 + collectibleX.nextInt(300), -60);
 
         return collectible;
     }
 
-    private static void visualizeCollectible(GraphicsContext gc, int velocity){
+    private static void visualizeCollectible(GraphicsContext gc, int velocity) {
         for (Sprite collectible : collectibles) {
             collectible.setVelocity(0, velocity);
             collectible.render(gc);
             collectible.update();
 
-            if (collectible.getBoundary().intersects(playerCar.getBoundary())){
+            if (collectible.getBoundary().intersects(playerCar.getBoundary())) {
                 switch (collectible.getName()) {
-                    case "1":
-                    playerCar.setPoints(playerCar.getPoints() + 250);
+                    case "1":      //Fuel Bottle/Pack
+                        playerCar.setPoints(playerCar.getPoints() + 250);
                         break;
-                    case "2":
+                    case "2":        //Health Pack
                         playerCar.setPoints(playerCar.getPoints() + 500);
                         break;
-                    case "3":
+                    case "3":     //Bonus
                         playerCar.setPoints(playerCar.getPoints() + 1000);
                         break;
                 }
-                collectible.setPosition(800,800);
+                collectible.setPosition(800, 800);
 
-               // System.out.println("Points: " + playerCar.getPoints());
+                // System.out.println("Points: " + playerCar.getPoints());
             }
         }
     }
 
-    private static void clearObstaclesAndCollectibles(){
+    private static void clearObstaclesAndCollectibles() {
         collectibles = new ArrayList<>();
         testObstacles = new ArrayList<>();
     }

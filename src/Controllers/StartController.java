@@ -64,9 +64,9 @@ public class StartController {
         Score.setVisible(true);
         scorePoints.setVisible(true);
 
-        CurrentPoints currentPlayerPoints=  Game.getCurrentPoints();
 
-        System.out.println("comes here" );
+
+        CurrentPoints currentPlayerPoints=  Game.getCurrentPoints();
 
         scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
 
