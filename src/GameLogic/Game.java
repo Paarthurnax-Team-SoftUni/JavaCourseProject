@@ -20,8 +20,10 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
 import java.util.Observable;
 import java.util.Observer;
+
 import java.util.Random;
 
 import static Controllers.ScreenController.loadStage;
@@ -127,7 +129,7 @@ public class Game {
 
 
                         for (Sprite testObst : testObstacles) {
-                            if(testObst.getName().substring(0,6).equals("player")){
+                            if(testObst.getName().substring(0,6).equals("player") && !testObst.isDestroyed()){
                                 testObst.setVelocity(0, velocity/2);
                             }
                             else {
@@ -137,14 +139,21 @@ public class Game {
                             testObst.update();
 
                             if (testObst.getBoundary().intersects(playerCar.getBoundary())) {
-                                clearObstaclesAndCollectibles();
-                                gameLoop.stop();
-                                Stage stage = ScreenController.startStage;
-                                root.getChildren().remove(canvas);
-                                try {
-                                    loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
-                                } catch (IOException e) {
-                                    e.printStackTrace();
+                                if (!testObst.isDestroyed()) {
+                                    playerCar.setHealthPoints(playerCar.getHealthPoints() - 10);
+                                    testObst.setDestroyed(true);
+                                }
+                                testObst.setVelocity(0, 0);
+                                testObst.setImage("resources/images/flame.png");
+                                if (playerCar.getHealthPoints() <= 0) {
+                                    clearObstaclesAndCollectibles();
+                                    gameLoop.stop();
+                                    root.getChildren().remove(canvas);
+                                    try {
+                                        loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             }
 

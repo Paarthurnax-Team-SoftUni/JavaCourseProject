@@ -14,6 +14,7 @@ public class Sprite
     private double velocityY;
     private double width;
     private double height;
+    private boolean isDestroyed;
 
     public Sprite()
     {
@@ -21,6 +22,7 @@ public class Sprite
         positionY = 0;
         velocityX = 0;
         velocityY = 0;
+        isDestroyed = false;
     }
 
     public void setName(String n)
@@ -92,6 +94,14 @@ public class Sprite
     public boolean intersects(Sprite s)
     {
         return s.getBoundary().intersects( this.getBoundary() );
+    }
+
+    public boolean isDestroyed() {
+        return isDestroyed;
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        isDestroyed = destroyed;
     }
 
     public String toString()

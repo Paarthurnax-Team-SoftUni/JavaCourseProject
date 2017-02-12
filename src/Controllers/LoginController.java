@@ -50,7 +50,7 @@ public class LoginController implements Initializable{
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
                 player = PlayerData.getInstance().returnPlayer(name);
-
+                player.setHealthPoints(100);
                 loadStage(currentStage, startStage, "../views/start.fxml");
 
             }
