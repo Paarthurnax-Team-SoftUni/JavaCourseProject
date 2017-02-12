@@ -37,6 +37,7 @@ public class Game {
     private static Player playerCar = LoginController.player;
     private static String carId = ChooseCarController.carId;
 
+
     public static void RunTrack(Image background, int velocity) {
         Canvas canvas = new Canvas(500, 600);
         EventHandler<? super KeyEvent> onKeyPressed = root.getOnKeyPressed();
@@ -125,6 +126,7 @@ public class Game {
 
                         if (seconds % 50000 == 0) {
                             testObstacles.add(generateObstacle());
+
                         }
                         if (input.contains("LEFT")) {
                             playerCar.addVelocity(-50, 0);

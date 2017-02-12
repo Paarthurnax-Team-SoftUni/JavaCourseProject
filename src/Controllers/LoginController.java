@@ -62,9 +62,10 @@ public class LoginController implements Initializable{
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
                 player = new Player(name, 0L, 0.0, 0L, 0L, 100);
+
                 /* remove the comments to save every newly created player*/
-//                PlayerData.getInstance().addPlayer(player);
-//                PlayerData.getInstance().storePlayersData();
+                PlayerData.getInstance().addPlayer(player);
+                PlayerData.getInstance().storePlayersData();
 
                 loadStage(currentStage, startStage, "../views/start.fxml");
 

@@ -2,11 +2,13 @@ package Controllers;
 
 import DataHandler.Player;
 import MapHandlers.Track;
+import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -36,6 +38,13 @@ public class StartController {
     public Button returnBtn;
 
     @FXML
+    public Label Score;
+
+    @FXML
+    public Label scorePoints;
+
+
+    @FXML
     public void chooseCar() throws IOException {
         Stage currentStage = (Stage) startBtn.getScene().getWindow();
         loadStage(currentStage, chooseCarStage, "../views/chooseCar.fxml");
@@ -45,12 +54,13 @@ public class StartController {
     public void startNewGame() {
 
         Track.initializeLevel(1);
-
         showScoresBtn.setVisible(false);
         startBtn.setVisible(false);
         closeBtn.setVisible(false);
         chooseCarBtn.setVisible(false);
         backgroundBox.setVisible(false);
+        Score.setVisible(true);
+       // scorePoints.textProperty().bind();
 
 //        gameStarted = true;
 //        setTime();
