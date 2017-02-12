@@ -8,6 +8,7 @@ import DataHandler.Sprite;
 import DataHandler.CurrentPoints;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
@@ -155,6 +156,7 @@ public class Game {
                                     root.getChildren().remove(canvas);
                                     try {
                                         loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
+
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
@@ -265,8 +267,9 @@ public class Game {
                         break;
                     case "2":        //Health Pack
                         playerCar.setPoints(playerCar.getPoints() + 500);
-                        playerCar.setHealthPoints(playerCar.getHealthPoints() + 10);
-
+                        if (playerCar.getHealthPoints() < 100) {
+                            playerCar.setHealthPoints(playerCar.getHealthPoints() + 10);
+                        }
                         break;
                     case "3":     //Bonus
                         playerCar.setPoints(playerCar.getPoints() + 1000);
