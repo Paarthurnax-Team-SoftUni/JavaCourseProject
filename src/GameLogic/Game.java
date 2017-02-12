@@ -68,6 +68,7 @@ public class Game {
         //playerCar.setImage("/resources/images/player_car3.png");  depending on level?
         playerCar.setPosition(200, 430);
 
+
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(
@@ -78,6 +79,9 @@ public class Game {
 
                         y = velocity * seconds;
                         seconds++;
+                        playerCar.setPoints(playerCar.getPoints()+1);
+                        System.out.println(playerCar.getPoints());
+
                         if (y == 600) {
                             seconds = 0;
                         }
@@ -85,42 +89,7 @@ public class Game {
 
                         //Pause Block
                         if (input.contains("P") && !isPaused) {
-                            isPaused = true;
-                            input.remove("P");
-                            gameLoop.pause();
-                            if (isPaused) {
-
-                                System.out.println("Enter Pause");
-
-                                Timeline pauseloop = new Timeline();
-                                pauseloop.setCycleCount(Timeline.INDEFINITE);
-
-                                KeyFrame keyFramePause = new KeyFrame(
-                                        Duration.seconds(0.017),
-                                        new EventHandler<ActionEvent>() {
-                                            @Override
-                                            public void handle(ActionEvent event) {
-                                                if (input.contains("P") && isPaused) {
-                                                    System.out.println("Exit Pause");
-                                                    isPaused = false;
-                                                    gameLoop.play();
-                                                    pauseloop.stop();
-                                                    input.remove("P");
-                                                }
-
-                                                gc.clearRect(0, 0, 500, 600);
-                                                gc.drawImage(background, 0, y);
-                                                gc.drawImage(background, 0, y - 600);
-                                                playerCar.render(gc);
-                                                for (Sprite obs : testObstacles) {
-                                                    obs.render(gc);
-                                                }
-                                            }
-                                        });
-                                pauseloop.getKeyFrames().add(keyFramePause);
-                                pauseloop.play();
-
-                            }
+                            handleGamePause(input, gameLoop, gc, background);
 
                         } //End of pause
 
@@ -144,6 +113,8 @@ public class Game {
                         gc.drawImage(background, 0, y);
                         gc.drawImage(background, 0, y - 600);
                         playerCar.render(gc);
+
+
                         for (Sprite testObst : testObstacles) {
                             if(testObst.getName().substring(0,6).equals("player")){
                                 testObst.setVelocity(0, velocity/2);
@@ -167,6 +138,7 @@ public class Game {
                             }
 
                         }
+
                         if (seconds % 50000 == 0){
                             collectibles.add(generateCollectible());
                         }
@@ -179,6 +151,49 @@ public class Game {
         gameLoop.getKeyFrames().add(kf);
         gameLoop.play();
 
+    }
+
+    private static void handleGamePause(final ArrayList<String> input, final Timeline gameLoop, final GraphicsContext gc, final Image background) {
+        isPaused = true;
+        input.remove("P");
+        gameLoop.pause();
+        if (isPaused) {
+
+            System.out.println("Enter Pause");
+
+            Timeline pauseloop = new Timeline();
+            pauseloop.setCycleCount(Timeline.INDEFINITE);
+
+            KeyFrame keyFramePause = new KeyFrame(
+                    Duration.seconds(0.017),
+                    new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent event) {
+                            if (input.contains("P") && isPaused) {
+                                System.out.println("Exit Pause");
+                                isPaused = false;
+                                gameLoop.play();
+                                pauseloop.stop();
+                                input.remove("P");
+                            }
+
+                            gc.clearRect(0, 0, 500, 600);
+                            gc.drawImage(background, 0, y);
+                            gc.drawImage(background, 0, y - 600);
+                            playerCar.render(gc);
+
+                            for (Sprite collectible : collectibles) {
+                                collectible.render(gc);
+                            }
+                            for (Sprite obs : testObstacles) {
+                                obs.render(gc);
+                            }
+                        }
+                    });
+            pauseloop.getKeyFrames().add(keyFramePause);
+            pauseloop.play();
+
+        }
     }
 
     private static Sprite generateObstacle() {
@@ -223,18 +238,18 @@ public class Game {
             if (collectible.getBoundary().intersects(playerCar.getBoundary())){
                 switch (collectible.getName()) {
                     case "1":
-                    playerCar.setPoints(playerCar.getPoints() + 10);
+                    playerCar.setPoints(playerCar.getPoints() + 250);
                         break;
                     case "2":
-                        playerCar.setPoints(playerCar.getPoints() + 25);
+                        playerCar.setPoints(playerCar.getPoints() + 500);
                         break;
                     case "3":
-                        playerCar.setPoints(playerCar.getPoints() + 50);
+                        playerCar.setPoints(playerCar.getPoints() + 1000);
                         break;
                 }
                 collectible.setPosition(800,800);
 
-                System.out.println("Points: " + playerCar.getPoints());
+               // System.out.println("Points: " + playerCar.getPoints());
             }
         }
     }

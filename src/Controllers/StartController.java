@@ -2,6 +2,7 @@ package Controllers;
 
 import DataHandler.Player;
 import MapHandlers.Track;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,7 +61,9 @@ public class StartController {
         chooseCarBtn.setVisible(false);
         backgroundBox.setVisible(false);
         Score.setVisible(true);
-       // scorePoints.textProperty().bind();
+        scorePoints.setVisible(true);
+
+ //         scorePoints.textProperty().bind(Bindings.convert(player.getPoints().toString()));
 
 //        gameStarted = true;
 //        setTime();
@@ -71,6 +74,7 @@ public class StartController {
     public void showHighScores() {
         showHighScoresDialog();
     }
+
     @FXML
     private void showHighScoresDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
