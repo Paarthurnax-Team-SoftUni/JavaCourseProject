@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.*;
 
@@ -27,7 +28,7 @@ import static Controllers.ScreenController.startStage;
 
 public class Game {
     public static int velocity = 5;
-    private static AnchorPane root = ScreenController.root;
+    //private static AnchorPane root = ScreenController.root;
     private static int frame = 0;
     private static long time = 0;
     public static boolean isPaused = false;
@@ -48,9 +49,9 @@ public class Game {
 
 
     public static void RunTrack(Image background) {
-
+        AnchorPane root = ScreenController.root;
         Canvas canvas = new Canvas(500, 600);
-        EventHandler<? super KeyEvent> onKeyPressed = root.getOnKeyPressed();
+        //EventHandler<? super KeyEvent> onKeyPressed = root.getOnKeyPressed();
         if (ScreenController.gamePlayStage != null) {
             Stage stage = (Stage) canvas.getScene().getWindow();
             try {
@@ -60,15 +61,15 @@ public class Game {
             }
         }
         root.getChildren().add(canvas);
-        root.getScene().setOnKeyPressed(new KeyHandlerOnPress(playerCar));
+        root.getScene().setOnKeyPressed(new KeyHandlerOnPress(player));
         GraphicsContext gc = canvas.getGraphicsContext2D();
         carId = carId == null ? "car1" : carId;
         String carImg = "/resources/images/player_" + carId + ".png";
-        playerCar.setImage(carImg);
+        player.setImage(carImg);
         //playerCar.setImage("/resources/images/player_car3.png");  depending on level?
-        playerCar.setPosition(200, 430);
-        playerCar.setPoints(0L);
-        currentHealth = new HealthBar(playerCar);
+        player.setPosition(200, 430);
+        player.setPoints(0L);
+        currentHealth = new HealthBar(player);
 
         currentPoints.addObserver(observer);
         currentTime.addObserver(observer);
@@ -86,43 +87,44 @@ public class Game {
 
                         currentTime.setValue((long) (time * 0.017));
 
-                        currentPoints.setValue(playerCar.getPoints());
+                        currentPoints.setValue(player.getPoints());
                         observer.update(currentPoints, observer);
                         observer.update(currentTime, observer);
 
-
                         if (y >= 600) {
                             frame = 0;
-                        }   if (y <= -600) {
+                        }
+                        if (y <= -600) {
                             frame = 0;
                         }
 
-                        //Pause Block
+                        //Pause
                         if (isPaused) {
                             handleGamePause(gameLoop, gc, background);
-                        } //End of pause
-
+                        }
+                        //Generate obstacles
                         if (frame % 50000 == 0) {
                             testObstacles.add(Obstacle.generateObstacle());
                             System.out.println(frame);
                         }
+
                         gc.clearRect(0, 0, 500, 600);
                         gc.drawImage(background, 0, y - 600);
                         gc.drawImage(background, 0, y);
-                        playerCar.render(gc);
+                        player.render(gc);
                         currentHealth.render(gc);
                         //observer.update(currentHealth, observer);
                         //currentHealth.render(gc);
                         manageObstacles(gc);
-                        if (playerCar.getHealthPoints() <= 0) {
+                        if (player.getHealthPoints() <= 0) {
                             clearObstaclesAndCollectibles();
                             gameLoop.stop();
                             time = 0;
-                            playerCar.setHealthPoints(100);
-                            if (playerCar.getHighScore() < playerCar.getPoints()) {
-                                playerCar.setHighScore(playerCar.getPoints());
+                            player.setHealthPoints(100);
+                            if (player.getHighScore() < player.getPoints()) {
+                                player.setHighScore(player.getPoints());
                             }
-                            playerCar.setPoints(0L);
+                            player.setPoints(0L);
                             root.getChildren().remove(canvas);
                             try {
                                 loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
@@ -136,8 +138,6 @@ public class Game {
                         if (frame % 50000 == 0) {
                             collectibles.add(Collectible.generateCollectible());
                         }
-                        visualizeCollectible(gc);
-
                         visualizeCollectible(gc, velocity);
                     }
                 });
@@ -157,9 +157,9 @@ public class Game {
             testObst.render(gc);
 
             //
-            if (testObst.getBoundary().intersects(playerCar.getBoundary())) {
+            if (testObst.getBoundary().intersects(player.getBoundary())) {
                 if (!testObst.isDestroyed()) {
-                    playerCar.setHealthPoints(playerCar.getHealthPoints() - 10);
+                    player.setHealthPoints(player.getHealthPoints() - 10);
                     testObst.setDestroyed(true);
                 }
             }
@@ -207,7 +207,7 @@ public class Game {
     }
 
 
-    private static void visualizeCollectible(GraphicsContext gc) {
+    private static void visualizeCollectible(GraphicsContext gc, int velocity) {
         for (Sprite collectible : collectibles) {
             collectible.setVelocity(0, velocity);
             collectible.render(gc);

@@ -12,7 +12,7 @@ public class Track {
 
     private static final Image backgroundLevel1 = new Image("/resources/images/background2.jpg");
     private ArrayList<MyImage> images = new ArrayList<>();
-    public Track(int level) {
+    public Track(int level) throws IOException {
         initializeLevel(level);
     }
 
