@@ -1,27 +1,26 @@
 package DataHandler;
 
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleLongProperty;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 import java.util.Observable;
 
 public class CurrentPoints extends Observable{
 
-    private SimpleLongProperty value = new SimpleLongProperty(this, "value");
+    private SimpleStringProperty value = new SimpleStringProperty(this, "value");
 
     public CurrentPoints(long input) {
        setValue(input);
     }
 
-    public long getValue(){
+    public String getValue(){
         return value.get();
     }
 
-    public void setValue(long value){
-        this.value.set(value);
-    }
+    public void setValue(long value){this.value.set(String.format("%06d",value));}
 
-    public LongProperty valueProperty(){
+    public StringProperty valueProperty(){
         return value;
     }
 
