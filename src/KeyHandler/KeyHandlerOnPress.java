@@ -42,6 +42,8 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
         if ((keyCode.getName().equals("Left"))) {
             player.addVelocity(-50, 0);
             player.update();
+
+            System.out.println(player);
         }
         if ((keyCode.getName().equals("Right"))) {
             player.addVelocity(50, 0);
