@@ -16,17 +16,17 @@ import java.util.Observer;
 public class GamePlayController implements Initializable {
 
     @FXML
-    public AnchorPane gamePlayPage;
+    private AnchorPane gamePlayPage;
     @FXML
-    public AnchorPane menu;
+    private AnchorPane menu;
     @FXML
-    public Button pauseBtn;
+    private Button pauseBtn;
     @FXML
-    public Button quitBtn;
+    private Button quitBtn;
     @FXML
-    public Label timeInfo;
+    private Label timeInfo;
     @FXML
-    public Label scorePoints;
+    private Label scorePoints;
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         CurrentPoints currentPlayerPoints = Game.getCurrentPoints();

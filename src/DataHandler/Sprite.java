@@ -64,7 +64,15 @@ public class Sprite {
                 velocityX += x;
             }
         }
-        velocityY += y;
+        if(y < 0) {
+            if(positionY > 0) {
+                velocityY += y;
+            }
+        } else if (y > 0) {
+            if (positionY < 600-this.height) {
+                velocityY += y;
+            }
+        }
     }
 
     public void update() {

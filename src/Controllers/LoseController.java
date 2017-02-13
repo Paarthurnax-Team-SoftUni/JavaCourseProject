@@ -16,11 +16,11 @@ import static Controllers.ScreenController.closeStage;
 public class LoseController {
 
     @FXML
-    public Button newGameBtn;
+    private Button newGameBtn;
     @FXML
-    public Button quitBtn;
+    private Button quitBtn;
     @FXML
-    public AnchorPane gameOverPage;
+    private AnchorPane gameOverPage;
 
     public void restartGame(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) quitBtn.getScene().getWindow();
