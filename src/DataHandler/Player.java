@@ -67,6 +67,7 @@ public class Player extends Sprite{
     public void setHealthPoints(int healthPoints) {
         this.healthPoints = healthPoints;
     }
+
      public void givePoints(int playerPoints){
          points += playerPoints;
      }
