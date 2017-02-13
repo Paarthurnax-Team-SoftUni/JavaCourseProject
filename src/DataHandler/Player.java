@@ -84,7 +84,7 @@ public class Player extends Sprite {
         return String.format("%s: %s", this.name, this.highScore);
     }
 
-    public void addControll() {
+    public void addControl() {
         this.control = new KeyHandlerOnPress(this);
     }
 
