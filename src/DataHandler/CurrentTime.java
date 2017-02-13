@@ -18,10 +18,7 @@ public class CurrentTime extends Observable {
     }
 
     public void setValue(long value){
-
         int seconds= (int)(value % 60);
-
-
         this.value.set(String.format("%02d:%02d",value/60,seconds));
 
     }
@@ -29,5 +26,4 @@ public class CurrentTime extends Observable {
     public StringProperty valueProperty(){
         return value;
     }
-
 }

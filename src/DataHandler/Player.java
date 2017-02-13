@@ -1,8 +1,6 @@
 package DataHandler;
 
-
 public class Player extends Sprite{
-
 
    private String name;
    private Long highScore;

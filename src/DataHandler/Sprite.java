@@ -4,8 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.geometry.Rectangle2D;
 
-public class Sprite
-{
+public class Sprite {
     private Image image;
     private String name;
     private double positionX;
@@ -16,8 +15,7 @@ public class Sprite
     private double height;
     private boolean isDestroyed;
 
-    public Sprite()
-    {
+    public Sprite() {
         positionX = 0;
         positionY = 0;
         velocityX = 0;
@@ -25,45 +23,38 @@ public class Sprite
         isDestroyed = false;
     }
 
-    public void setName(String n)
-    {
+    public void setName(String n) {
         name = n;
     }
 
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public void setImage(String filename)
-    {
+    public void setImage(String filename) {
         Image i = new Image(filename);
         setImage(i);
     }
 
-    public void setImage(Image i)
-    {
+    public void setImage(Image i) {
         image = i;
         width = i.getWidth();
         height = i.getHeight();
     }
 
 
-    public void setPosition(double x, double y)
-    {
+    public void setPosition(double x, double y) {
         positionX = x;
         positionY = y;
     }
 
-    public void setVelocity(double x, double y)
-    {
+    public void setVelocity(double x, double y) {
         velocityX = x;
         velocityY = y;
     }
 
-    public void addVelocity(double x, double y)
-    {
+    public void addVelocity(double x, double y) {
         if (x < 0) {
             if (positionX > 50) {
                 velocityX += x;
@@ -76,23 +67,20 @@ public class Sprite
         velocityY += y;
     }
 
-    public void update()    {
+    public void update() {
         positionX += velocityX;
         positionY += velocityY;
     }
 
-    public void render(GraphicsContext gc)
-    {
+    public void render(GraphicsContext gc) {
         gc.drawImage( image, positionX, positionY );
     }
 
-    public Rectangle2D getBoundary()
-    {
+    public Rectangle2D getBoundary() {
         return new Rectangle2D(positionX,positionY,width,height);
     }
 
-    public boolean intersects(Sprite s)
-    {
+    public boolean intersects(Sprite s) {
         return s.getBoundary().intersects( this.getBoundary() );
     }
 
@@ -104,8 +92,7 @@ public class Sprite
         isDestroyed = destroyed;
     }
 
-    public String toString()
-    {
+    public String toString() {
         return " Position: [" + positionX + "," + positionY + "]"
                 + " Velocity: [" + velocityX + "," + velocityY + "]";
     }

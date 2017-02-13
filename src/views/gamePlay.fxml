@@ -34,17 +34,17 @@
                   <Font size="26.0" />
                </font>
             </Label>
-            <Label layoutX="210.0" layoutY="136.0" text="0" textFill="WHITE">
+            <Label fx:id="timeInfo" layoutX="210.0" layoutY="136.0" textFill="WHITE">
                <font>
                   <Font size="26.0" />
                </font>
             </Label>
-            <Label layoutX="210.0" layoutY="276.0" text="0" textFill="WHITE">
+            <Label layoutX="210.0" layoutY="276.0" textFill="WHITE">
                <font>
                   <Font size="26.0" />
                </font>
             </Label>
-            <Label layoutX="210.0" layoutY="204.0" text="0" textFill="WHITE">
+            <Label fx:id="scorePoints" layoutX="210.0" layoutY="204.0" textFill="WHITE">
                <font>
                   <Font size="26.0" />
                </font>

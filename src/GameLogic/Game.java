@@ -1,6 +1,7 @@
 package GameLogic;
 
 import Controllers.ChooseCarController;
+import Controllers.GamePlayController;
 import Controllers.LoginController;
 import Controllers.ScreenController;
 import DataHandler.CurrentPoints;
@@ -9,6 +10,7 @@ import DataHandler.Player;
 import DataHandler.Sprite;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
@@ -47,8 +49,14 @@ public class Game {
         }
     };
 
-
     public static void RunTrack(Image background, int velocity) {
+
+
+//        CurrentPoints currentPlayerPoints = Game.getCurrentPoints();
+//        CurrentTime currentTime = Game.getCurrentTime();
+//        System.out.println(GamePlayController.scorePoints.textProperty());
+//        GamePlayController.scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
+//        GamePlayController.timeInfo.textProperty().bind(Bindings.convert(currentTime.valueProperty()));
 
         Canvas canvas = new Canvas(500, 600);
         EventHandler<? super KeyEvent> onKeyPressed = root.getOnKeyPressed();
@@ -94,14 +102,14 @@ public class Game {
                         y = velocity * frame;
                         time++;
                         frame++;
+
                         player.setPoints(player.getPoints() + 1);
 
                         currentTime.setValue((long)(time*0.017));
-
                         currentPoints.setValue(player.getPoints());
+
                         observer.update(currentPoints, observer);
                         observer.update(currentTime, observer);
-
 
                         if (y == 600) {
                             frame = 0;
@@ -140,7 +148,6 @@ public class Game {
                         gc.drawImage(background, 0, y - 600);
                         player.render(gc);
 
-
                         for (Sprite testObst : testObstacles) {
                             if (testObst.getName().substring(0, 6).equals("player") && !testObst.isDestroyed()) {
                                 testObst.setVelocity(0, velocity / 2);
@@ -162,7 +169,7 @@ public class Game {
                                 if (player.getHealthPoints() <= 0) {
                                     clearObstaclesAndCollectibles();
                                     gameLoop.stop();
-									time=0;
+									time = 0;
                                     player.setHealthPoints(100);
                                     if (player.getHighScore() < player.getPoints()) {
                                         player.setHighScore(player.getPoints());
@@ -171,7 +178,6 @@ public class Game {
                                     root.getChildren().remove(canvas);
                                     try {
                                         loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
-
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }

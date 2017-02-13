@@ -3,16 +3,18 @@ package MapHandlers;
 import GameLogic.Game;
 import javafx.scene.image.Image;
 import resources.MyImage;
-
 import java.util.ArrayList;
 
 public class Track {
+
     private static final Image backgroundLevel1 = new Image("/resources/images/background2.jpg");
-    private ArrayList<MyImage> images = new ArrayList<>();
+    //private ArrayList<MyImage> images = new ArrayList<>();
     private static int velocity = 5;
+
     public Track(int level) {
         initializeLevel(level);
     }
+
     public static void initializeLevel(int level) {
         switch (level) {
             case 1: {

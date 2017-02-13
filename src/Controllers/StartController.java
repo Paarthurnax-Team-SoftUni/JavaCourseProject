@@ -41,14 +41,9 @@ public class StartController {
     public Button returnBtn;
 
     @FXML
-    public Label Score;
-
-    @FXML
     public Label scorePoints;
     @FXML
     public Label timeInfo;
-    @FXML
-    public Label time;
 
     @FXML
     public void chooseCar() throws IOException {
@@ -72,8 +67,8 @@ public class StartController {
 //        timeInfo.setVisible(true);
 //        time.setVisible(true);
 
-        CurrentPoints currentPlayerPoints=  Game.getCurrentPoints();
-        CurrentTime currentTime=Game.getCurrentTime();
+        CurrentPoints currentPlayerPoints = Game.getCurrentPoints();
+        CurrentTime currentTime = Game.getCurrentTime();
         scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
         timeInfo.textProperty().bind(Bindings.convert(currentTime.valueProperty()));
 //        gameStarted = true;
