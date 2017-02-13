@@ -38,15 +38,14 @@ public class ScreenController{
             currentStage = new Stage();
         }
 
-        currentStage.getIcons().add(
-                new Image("/resources/images/logo.png"));
+        currentStage.getIcons().add(new Image("/resources/images/logo.png"));
 
         root = FXMLLoader.load(Main.class.getResource(path));
+
         currentStage.setScene(new Scene(root));
         currentStage.setTitle(Main.TITLE);
         currentStage.setResizable(false);
         closeStage(prevStage);
-
         currentStage.show();
 
         root.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {

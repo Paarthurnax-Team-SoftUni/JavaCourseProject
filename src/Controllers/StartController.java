@@ -37,40 +37,23 @@ public class StartController {
     public Button closeBtn;
     @FXML
     public Rectangle backgroundBox;
-    @FXML
-    public Button returnBtn;
-
-    @FXML
-    public Label scorePoints;
-    @FXML
-    public Label timeInfo;
 
     @FXML
     public void chooseCar() throws IOException {
         Stage currentStage = (Stage) startBtn.getScene().getWindow();
         loadStage(currentStage, chooseCarStage, "../views/chooseCar.fxml");
+
     }
 
     @FXML
     public void startNewGame() throws IOException {
-
         Stage currentStage = (Stage) startBtn.getScene().getWindow();
         loadStage(currentStage, gamePlayStage, "../views/gamePlay.fxml");
-        Track.initializeLevel(1);
-//        showScoresBtn.setVisible(false);
-//        startBtn.setVisible(false);
-//        closeBtn.setVisible(false);
-//        chooseCarBtn.setVisible(false);
-//        backgroundBox.setVisible(false);
-//        Score.setVisible(true);
-//        scorePoints.setVisible(true);
-//        timeInfo.setVisible(true);
-//        time.setVisible(true);
-
-        CurrentPoints currentPlayerPoints = Game.getCurrentPoints();
-        CurrentTime currentTime = Game.getCurrentTime();
-        scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
-        timeInfo.textProperty().bind(Bindings.convert(currentTime.valueProperty()));
+        try {
+            Track.initializeLevel(1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 //        gameStarted = true;
 //        setTime();
 //        isGameRunning = true;
