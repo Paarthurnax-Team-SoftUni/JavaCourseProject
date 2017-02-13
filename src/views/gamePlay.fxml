@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gamePlayPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GamePlayController">
+<AnchorPane fx:id="gamePlayPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.GamePlayController">
    <children>
       <AnchorPane fx:id="menu" layoutX="455.0" prefHeight="600.0" prefWidth="345.0" stylesheets="@../resources/styles/styles.css">
          <children>
@@ -45,6 +45,16 @@
                </font>
             </Label>
             <Label fx:id="scorePoints" layoutX="210.0" layoutY="204.0" textFill="WHITE">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Label layoutX="80.0" layoutY="337.0" text="Distance" textFill="WHITE">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Label fx:id="distance" layoutX="210.0" layoutY="339.0" prefHeight="38.0" prefWidth="112.0" textFill="WHITE">
                <font>
                   <Font size="26.0" />
                </font>
