@@ -44,7 +44,8 @@ public class Game {
 
     private static Observer observer = new Observer() {
         @Override
-        public void update(Observable o, Object arg) {}
+        public void update(Observable o, Object arg) {
+        }
     };
 
 
