@@ -61,7 +61,7 @@ public class Sprite {
             }
         } else if (x > 0) {
             if (positionX < 350) {
-                velocityX+=x;
+                velocityX += x;
             }
         }
         velocityY += y;
@@ -73,15 +73,15 @@ public class Sprite {
     }
 
     public void render(GraphicsContext gc) {
-        gc.drawImage( image, positionX, positionY );
+        gc.drawImage(image, positionX, positionY);
     }
 
     public Rectangle2D getBoundary() {
-        return new Rectangle2D(positionX,positionY,width,height);
+        return new Rectangle2D(positionX, positionY, width, height);
     }
 
     public boolean intersects(Sprite s) {
-        return s.getBoundary().intersects( this.getBoundary() );
+        return s.getBoundary().intersects(this.getBoundary());
     }
 
     public boolean isDestroyed() {
@@ -89,8 +89,11 @@ public class Sprite {
     }
 
     public void setDestroyed(boolean destroyed) {
+        this.setImage("resources/images/flame.png");
+        this.setVelocity(0, 0);
         isDestroyed = destroyed;
     }
+
 
     public String toString() {
         return " Position: [" + positionX + "," + positionY + "]"
