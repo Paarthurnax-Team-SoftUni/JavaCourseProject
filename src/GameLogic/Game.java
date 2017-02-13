@@ -92,6 +92,8 @@ public class Game {
 
                         if (y >= 600) {
                             frame = 0;
+                        }   if (y <= -600) {
+                            frame = 0;
                         }
                         playerCar.setVelocity(0, 0);
 
@@ -105,8 +107,8 @@ public class Game {
                             System.out.println(frame);
                         }
                         gc.clearRect(0, 0, 500, 600);
-                        gc.drawImage(background, 0, y);
                         gc.drawImage(background, 0, y - 600);
+                        gc.drawImage(background, 0, y);
                         playerCar.render(gc);
                         currentHealth.render(gc);
                         //observer.update(currentHealth, observer);
