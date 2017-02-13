@@ -24,11 +24,11 @@ public class LoginController implements Initializable{
     public static Player player;
 
     @FXML
-    public AnchorPane loginPage;
+    private AnchorPane loginPage;
     @FXML
-    public TextField playerName;
+    private TextField playerName;
     @FXML
-    public Button loginBtn;
+    private Button loginBtn;
 
     @FXML
     private void showStartPage() throws IOException {

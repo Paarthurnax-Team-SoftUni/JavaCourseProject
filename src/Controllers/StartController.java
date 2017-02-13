@@ -1,19 +1,12 @@
 package Controllers;
 
-import DataHandler.CurrentDistance;
-import DataHandler.CurrentTime;
-import DataHandler.Player;
-import DataHandler.CurrentPoints;
-import GameLogic.Game;
 import MapHandlers.Track;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -27,20 +20,20 @@ import static Controllers.ScreenController.loadStage;
 public class StartController {
 
     @FXML
-    public AnchorPane homePage;
+    private AnchorPane homePage;
     @FXML
-    public Button startBtn;
+    private Button startBtn;
     @FXML
-    public Button showScoresBtn;
+    private Button showScoresBtn;
     @FXML
-    public Button chooseCarBtn;
+    private Button chooseCarBtn;
     @FXML
-    public Button closeBtn;
+    private Button closeBtn;
     @FXML
-    public Rectangle backgroundBox;
+    private Rectangle backgroundBox;
 
     @FXML
-    public void chooseCar() throws IOException {
+    private void chooseCar() throws IOException {
         Stage currentStage = (Stage) startBtn.getScene().getWindow();
         loadStage(currentStage, chooseCarStage, "../views/chooseCar.fxml");
 
@@ -48,7 +41,7 @@ public class StartController {
 
     @FXML
 
-    public void startNewGame() throws IOException {
+    private void startNewGame() throws IOException {
         Stage currentStage = (Stage) startBtn.getScene().getWindow();
         loadStage(currentStage, gamePlayStage, "../views/gamePlay.fxml");
         try {
@@ -62,7 +55,7 @@ public class StartController {
     }
 
     @FXML
-    public void showHighScores() {
+    private void showHighScores() {
         showHighScoresDialog();
     }
 
@@ -85,7 +78,7 @@ public class StartController {
     }
 
     @FXML
-    public void onClose() {
+    private void onClose() {
         Platform.exit();
     }
 }

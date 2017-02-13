@@ -163,7 +163,7 @@ public class Game {
             //
             if (testObst.getBoundary().intersects(player.getBoundary())) {
                 if (!testObst.isDestroyed()) {
-                    player.setHealthPoints(player.getHealthPoints() - 10);
+                    player.setHealthPoints(player.getHealthPoints() - 25);
                     testObst.setDestroyed(true);
                 }
             }
@@ -225,7 +225,7 @@ public class Game {
                     case "2":        //Health Pack
                         player.setPoints(player.getPoints() + 500);
                         if (player.getHealthPoints() < 100) {
-                            player.setHealthPoints(player.getHealthPoints() + 10);
+                            player.setHealthPoints(player.getHealthPoints() + 25);
                         }
                         break;
                     case "3":     //Bonus

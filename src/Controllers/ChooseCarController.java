@@ -1,7 +1,5 @@
 package Controllers;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,13 +10,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static Controllers.ScreenController.chooseCarStage;
 import static Controllers.ScreenController.loadStage;
 import static Controllers.ScreenController.startStage;
 
@@ -26,47 +22,47 @@ public class ChooseCarController{
     public static String carId;
 
     @FXML
-    public AnchorPane chooseCarPage;
+    private AnchorPane chooseCarPage;
     @FXML
-    public Button returnBtn;
+    private Button returnBtn;
     @FXML
-    public GridPane cars;
+    private GridPane cars;
     @FXML
-    public Ellipse backgroundBox1;
+    private Ellipse backgroundBox1;
     @FXML
-    public Ellipse backgroundBox2;
+    private Ellipse backgroundBox2;
     @FXML
-    public Ellipse backgroundBox3;
+    private Ellipse backgroundBox3;
     @FXML
-    public Ellipse backgroundBox4;
+    private Ellipse backgroundBox4;
     @FXML
-    public Ellipse backgroundBox5;
+    private Ellipse backgroundBox5;
     @FXML
-    public Ellipse backgroundBox6;
+    private Ellipse backgroundBox6;
     @FXML
-    public ImageView car1;
+    private ImageView car1;
     @FXML
-    public ImageView car2;
+    private ImageView car2;
     @FXML
-    public ImageView car3;
+    private ImageView car3;
     @FXML
-    public ImageView car4;
+    private ImageView car4;
     @FXML
-    public ImageView car5;
+    private ImageView car5;
     @FXML
-    public ImageView car6;
+    private ImageView car6;
     @FXML
-    public Label label1;
+    private Label label1;
     @FXML
-    public Label label2;
+    private Label label2;
     @FXML
-    public Label label3;
+    private Label label3;
     @FXML
-    public Label label4;
+    private Label label4;
     @FXML
-    public Label label5;
+    private Label label5;
     @FXML
-    public Label label6;
+    private Label label6;
 
 
     public void initialize(){
