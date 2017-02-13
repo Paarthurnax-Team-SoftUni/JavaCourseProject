@@ -14,14 +14,14 @@
             <font>
                 <Font name="ADELE Light" size="26.0" />
             </font></TextField>
-        <Label layoutX="175.0" layoutY="181.0" text="Enter Your Username" textFill="#141414" underline="true">
+        <Label layoutX="138.0" layoutY="186.0" text="Enter Your Username" textFill="#141414" underline="true">
             <font>
-                <Font name="Capture it" size="50.0" />
+                <Font size="50.0" />
             </font>
         </Label>
-        <Button fx:id="loginBtn" layoutX="237.0" layoutY="377.0" mnemonicParsing="false" onAction="#showStartPage" prefHeight="60.0" prefWidth="323.0" text="Go Next" textAlignment="CENTER" textFill="#1e1d1d" underline="true">
+        <Button fx:id="loginBtn" layoutX="236.0" layoutY="376.0" mnemonicParsing="false" onAction="#showStartPage" prefHeight="60.0" prefWidth="323.0" text="Go Next" textAlignment="CENTER" textFill="#1e1d1d" underline="true">
             <font>
-                <Font name="Capture it" size="50.0" />
+                <Font name="Chiller" size="50.0" />
             </font>
         </Button>
     </children>

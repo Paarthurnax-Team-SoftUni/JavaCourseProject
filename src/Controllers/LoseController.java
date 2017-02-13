@@ -11,26 +11,26 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static Controllers.ScreenController.closeStage;
+import static Controllers.ScreenController.*;
 
 public class LoseController {
 
     @FXML
-    public Button newGameBtn;
+    private Button newGameBtn;
     @FXML
-    public Button quitBtn;
+    private Button quitBtn;
     @FXML
-    public AnchorPane gameOverPage;
+    private AnchorPane gameOverPage;
 
     public void restartGame(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) quitBtn.getScene().getWindow();
-        Game.clearObs();
-        closeStage(stage);
-        Track.initializeLevel(1);
+        Game.clearObstaclesAndCollectibles();
+        loadStage(stage, startStage, "../views/start.fxml");
+//        closeStage(stage);
+//        Track.initializeLevel(1);
     }
 
     public void quitGame(ActionEvent actionEvent) {
         Platform.exit();
-
     }
 }
