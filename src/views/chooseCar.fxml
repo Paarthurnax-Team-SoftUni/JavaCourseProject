@@ -118,6 +118,32 @@
                      <Font name="Chiller" size="24.0" />
                  </font>
              </Label>
+             
+             <ImageView fx:id="locked2" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                 <image>
+                     <Image url="@../resources/images/locked.png" />
+                 </image>
+             </ImageView>
+             <ImageView fx:id="locked3" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                 <image>
+                     <Image url="@../resources/images/locked.png" />
+                 </image>
+             </ImageView>
+             <ImageView fx:id="locked4" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                 <image>
+                     <Image url="@../resources/images/locked.png" />
+                 </image>
+             </ImageView>
+             <ImageView fx:id="locked5" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                 <image>
+                     <Image url="@../resources/images/locked.png" />
+                 </image>
+             </ImageView>
+             <ImageView fx:id="locked6" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                 <image>
+                     <Image url="@../resources/images/locked.png" />
+                 </image>
+             </ImageView>
          </children>
       </GridPane>
    </children>

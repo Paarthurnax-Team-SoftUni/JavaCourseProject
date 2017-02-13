@@ -1,6 +1,8 @@
 package Controllers;
 
-import DataHandler.*;
+import DataHandler.CurrentDistance;
+import DataHandler.CurrentPoints;
+import DataHandler.CurrentTime;
 import GameLogic.Game;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -52,6 +54,13 @@ public class GamePlayController implements Initializable {
     public void pauseGame(ActionEvent actionEvent) {
         if (Game.isPaused) Game.isPaused = false;
         else Game.isPaused = true;
+//        try {
+//            Robot robot = new Robot();
+//            // Simulate a key press
+//            robot.keyPress(KeyEvent.VK_P);
+//        } catch (AWTException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void quitGame(ActionEvent actionEvent) {
