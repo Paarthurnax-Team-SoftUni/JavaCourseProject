@@ -3,9 +3,10 @@ package GameLogic;
 import Controllers.ChooseCarController;
 import Controllers.LoginController;
 import Controllers.ScreenController;
+import DataHandler.CurrentPoints;
+import DataHandler.CurrentTime;
 import DataHandler.Player;
 import DataHandler.Sprite;
-import DataHandler.CurrentPoints;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -19,26 +20,25 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import java.util.Observable;
-import java.util.Observer;
-
-import java.util.Random;
+import java.util.*;
 
 import static Controllers.ScreenController.loadStage;
 import static Controllers.ScreenController.startStage;
 
 public class Game {
     private static AnchorPane root = ScreenController.root;
-    private static int seconds = 0;
+    private static int frame = 0;
+    private static long time = 0;
     private static boolean isPaused = false;
     private static double y;
     private static ArrayList<Sprite> testObstacles = new ArrayList<>();
     private static ArrayList<Sprite> collectibles = new ArrayList<>();
     private static Player playerCar = LoginController.player;
     private static String carId = ChooseCarController.carId;
-    private static CurrentPoints currentPoints = new CurrentPoints(0) ;
+    private static CurrentPoints currentPoints = new CurrentPoints(0);
+    private static CurrentTime  currentTime = new CurrentTime(0);
+    private static Timer timer = new Timer();
+
     private static Observer observer = new Observer() {
         @Override
         public void update(Observable o, Object arg) {
@@ -48,6 +48,7 @@ public class Game {
 
 
     public static void RunTrack(Image background, int velocity) {
+
         Canvas canvas = new Canvas(500, 600);
         EventHandler<? super KeyEvent> onKeyPressed = root.getOnKeyPressed();
         if (ScreenController.startStage != null) {
@@ -76,27 +77,30 @@ public class Game {
         playerCar.setImage(carImg);
         //playerCar.setImage("/resources/images/player_car3.png");  depending on level?
         playerCar.setPosition(200, 430);
+        playerCar.setPoints(0L);
 
-
+        currentPoints.addObserver(observer);
+        currentTime.addObserver(observer);
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.017),
                 new EventHandler<ActionEvent>() {
                     @Override
-                    public void handle(ActionEvent event) {
+                    public void handle(ActionEvent event) {                        y = velocity * frame;
+                        time++;
+                        frame++;
+                        playerCar.setPoints(playerCar.getPoints() + 1);
 
-                        y = velocity * seconds;
-                        seconds++;
-                        playerCar.setPoints(playerCar.getPoints()+1);
-                        System.out.println(playerCar.getPoints());
+                        currentTime.setValue((long)(time*0.017));
 
-                        currentPoints.addObserver(observer);
                         currentPoints.setValue(playerCar.getPoints());
-                        observer.update(currentPoints,observer);
+                        observer.update(currentPoints, observer);
+                        observer.update(currentTime, observer);
+
 
                         if (y == 600) {
-                            seconds = 0;
+                            frame = 0;
                         }
                         playerCar.setVelocity(0, 0);
 
@@ -106,8 +110,10 @@ public class Game {
 
                         } //End of pause
 
-                        if (seconds % 50000 == 0) {
+
+                        if (frame % 50000 == 0) {
                             testObstacles.add(generateObstacle());
+                            System.out.println(frame);
 
                         }
                         if (input.contains("LEFT")) {
@@ -129,10 +135,9 @@ public class Game {
 
 
                         for (Sprite testObst : testObstacles) {
-                            if(testObst.getName().substring(0,6).equals("player") && !testObst.isDestroyed()){
-                                testObst.setVelocity(0, velocity/2);
-                            }
-                            else {
+                            if (testObst.getName().substring(0, 6).equals("player") && !testObst.isDestroyed()) {
+                                testObst.setVelocity(0, velocity / 2);
+                            } else {
                                 testObst.setVelocity(0, velocity);
                             }
                             testObst.render(gc);
@@ -148,9 +153,16 @@ public class Game {
                                 if (playerCar.getHealthPoints() <= 0) {
                                     clearObstaclesAndCollectibles();
                                     gameLoop.stop();
+									time=0;
+                                    playerCar.setHealthPoints(100);
+                                    if (playerCar.getHighScore() < playerCar.getPoints()) {
+                                        playerCar.setHighScore(playerCar.getPoints());
+                                    }
+                                    playerCar.setPoints(0L);
                                     root.getChildren().remove(canvas);
                                     try {
                                         loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
+
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }
@@ -159,17 +171,16 @@ public class Game {
 
                         }
 
-                        if (seconds % 50000 == 0){
+                        if (frame % 50000 == 0) {
                             collectibles.add(generateCollectible());
                         }
-                            visualizeCollectible(gc, velocity);
-
+                        visualizeCollectible(gc, velocity);
 
                     }
                 });
 
         gameLoop.getKeyFrames().add(kf);
-        gameLoop.play();
+        gameLoop.playFromStart();
 
     }
 
@@ -217,7 +228,7 @@ public class Game {
     }
 
     private static Sprite generateObstacle() {
-        String[] obstacles = {"obstacle1","obstacle2","obstacle3","obstacle1","obstacle2","obstacle3","player_car1","player_car2","player_car3","player_car4","player_car5","player_car6"};
+        String[] obstacles = {"obstacle1", "obstacle2", "obstacle3", "obstacle1", "obstacle2", "obstacle3", "player_car1", "player_car2", "player_car3", "player_car4", "player_car5", "player_car6"};
         String random = (obstacles[new Random().nextInt(obstacles.length)]);
 
         Random obstacleX = new Random();
@@ -225,7 +236,7 @@ public class Game {
 //        Random obstaclePic = new Random();
 //        long numb = System.currentTimeMillis() % 3;
 
-        String sd = "/resources/images/"+ random +".png";
+        String sd = "/resources/images/" + random + ".png";
         Sprite testObstacle = new Sprite();
         testObstacle.setImage(sd);
 
@@ -235,46 +246,49 @@ public class Game {
         return testObstacle;
     }
 
-    private static Sprite generateCollectible(){
+    private static Sprite generateCollectible() {
         Random collectibleX = new Random();
         long numb = System.currentTimeMillis() % 3;
         //TODO: change stringDirectory to the correct images!
         String stringDirectory = "/resources/images/collectable" + (numb + 1) + ".png";
 
         Sprite collectible = new Sprite();
-        collectible.setName(String.valueOf(numb+1));
+        collectible.setName(String.valueOf(numb + 1));
         collectible.setImage(stringDirectory);
         collectible.setPosition(50 + collectibleX.nextInt(300), -60);
 
         return collectible;
     }
 
-    private static void visualizeCollectible(GraphicsContext gc, int velocity){
+    private static void visualizeCollectible(GraphicsContext gc, int velocity) {
         for (Sprite collectible : collectibles) {
             collectible.setVelocity(0, velocity);
             collectible.render(gc);
             collectible.update();
 
-            if (collectible.getBoundary().intersects(playerCar.getBoundary())){
+            if (collectible.getBoundary().intersects(playerCar.getBoundary())) {
                 switch (collectible.getName()) {
-                    case "1":
-                    playerCar.setPoints(playerCar.getPoints() + 250);
+                    case "1":      //Fuel Bottle/Pack
+                        playerCar.setPoints(playerCar.getPoints() + 250);
                         break;
-                    case "2":
+                    case "2":        //Health Pack
                         playerCar.setPoints(playerCar.getPoints() + 500);
+                        if (playerCar.getHealthPoints() < 100) {
+                            playerCar.setHealthPoints(playerCar.getHealthPoints() + 10);
+                        }
                         break;
-                    case "3":
+                    case "3":     //Bonus
                         playerCar.setPoints(playerCar.getPoints() + 1000);
                         break;
                 }
-                collectible.setPosition(800,800);
+                collectible.setPosition(800, 800);
 
-               // System.out.println("Points: " + playerCar.getPoints());
+                // System.out.println("Points: " + playerCar.getPoints());
             }
         }
     }
 
-    private static void clearObstaclesAndCollectibles(){
+    private static void clearObstaclesAndCollectibles() {
         collectibles = new ArrayList<>();
         testObstacles = new ArrayList<>();
     }
@@ -285,5 +299,8 @@ public class Game {
 
     public static DataHandler.CurrentPoints getCurrentPoints() {
         return (currentPoints);
+    }
+    public static DataHandler.CurrentTime getCurrentTime() {
+        return (currentTime);
     }
 }

@@ -1,5 +1,6 @@
 package Controllers;
 
+import DataHandler.CurrentTime;
 import DataHandler.Player;
 import DataHandler.CurrentPoints;
 import GameLogic.Game;
@@ -44,7 +45,10 @@ public class StartController {
 
     @FXML
     public Label scorePoints;
-
+    @FXML
+    public Label timeInfo;
+    @FXML
+    public Label time;
 
     @FXML
     public void chooseCar() throws IOException {
@@ -63,13 +67,13 @@ public class StartController {
         backgroundBox.setVisible(false);
         Score.setVisible(true);
         scorePoints.setVisible(true);
+        timeInfo.setVisible(true);
+        time.setVisible(true);
 
         CurrentPoints currentPlayerPoints=  Game.getCurrentPoints();
-
-        System.out.println("comes here" );
-
+        CurrentTime currentTime=Game.getCurrentTime();
         scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
-
+        timeInfo.textProperty().bind(Bindings.convert(currentTime.valueProperty()));
 //        gameStarted = true;
 //        setTime();
 //        isGameRunning = true;

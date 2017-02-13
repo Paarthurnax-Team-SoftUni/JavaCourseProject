@@ -31,5 +31,6 @@ public class LoseController {
 
     public void quitGame(ActionEvent actionEvent) {
         Platform.exit();
+
     }
 }
