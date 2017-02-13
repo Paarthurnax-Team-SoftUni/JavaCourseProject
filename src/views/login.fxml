@@ -7,16 +7,16 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="loginPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginController">
+<AnchorPane fx:id="loginPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoginController">
     <children>
         <Rectangle fx:id="backgroundBox" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="321.0" layoutX="112.0" layoutY="172.0" stroke="BLACK" strokeType="INSIDE" width="587.0" />
         <TextField fx:id="playerName" alignment="CENTER" layoutX="236.0" layoutY="291.0" prefHeight="66.0" prefWidth="323.0">
             <font>
-                <Font name="ADELE Light" size="26.0" />
+                <Font name="Chiller" size="40.0" />
             </font></TextField>
-        <Label layoutX="138.0" layoutY="186.0" text="Enter Your Username" textFill="#141414" underline="true">
+        <Label layoutX="198.0" layoutY="188.0" text="Enter Your Username" textFill="#141414" underline="true">
             <font>
-                <Font size="50.0" />
+                <Font name="Chiller" size="64.0" />
             </font>
         </Label>
         <Button fx:id="loginBtn" layoutX="236.0" layoutY="376.0" mnemonicParsing="false" onAction="#showStartPage" prefHeight="60.0" prefWidth="323.0" text="Go Next" textAlignment="CENTER" textFill="#1e1d1d" underline="true">

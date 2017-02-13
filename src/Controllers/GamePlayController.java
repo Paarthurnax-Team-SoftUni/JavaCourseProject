@@ -1,6 +1,7 @@
 package Controllers;
 
-import DataHandler.*;
+import DataHandler.CurrentPoints;
+import DataHandler.CurrentTime;
 import GameLogic.Game;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -10,6 +11,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -42,6 +46,13 @@ public class GamePlayController implements Initializable {
 
 
     public void pauseGame(ActionEvent actionEvent) {
+        try {
+            Robot robot = new Robot();
+            // Simulate a key press
+            robot.keyPress(KeyEvent.VK_P);
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
 
     }
 
