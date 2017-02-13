@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static Controllers.ScreenController.closeStage;
+import static Controllers.ScreenController.*;
 
 public class LoseController {
 
@@ -25,8 +25,9 @@ public class LoseController {
     public void restartGame(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) quitBtn.getScene().getWindow();
         Game.clearObstaclesAndCollectibles();
-        closeStage(stage);
-        Track.initializeLevel(1);
+        loadStage(stage, startStage, "../views/start.fxml");
+//        closeStage(stage);
+//        Track.initializeLevel(1);
     }
 
     public void quitGame(ActionEvent actionEvent) {

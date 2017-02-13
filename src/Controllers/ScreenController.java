@@ -17,6 +17,7 @@ public class ScreenController{
     public static Stage startStage;
     public static Stage chooseCarStage;
     public static Stage gamePlayStage;
+    public static Stage gameOverStage;
     public static AnchorPane root;
 
     public static void setPrimaryStage(Stage primaryStage) throws IOException {

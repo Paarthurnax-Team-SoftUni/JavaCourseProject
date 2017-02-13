@@ -25,10 +25,11 @@ import java.util.*;
 import static Controllers.ScreenController.gamePlayStage;
 import static Controllers.ScreenController.loadStage;
 import static Controllers.ScreenController.startStage;
+import static Controllers.ScreenController.gameOverStage;
 
 public class Game {
     public static int velocity = 5;
-    //private static AnchorPane root = ScreenController.root;
+    private static AnchorPane root = ScreenController.root;
     private static int frame = 0;
     private static long time = 0;
     public static boolean isPaused = false;
@@ -39,7 +40,6 @@ public class Game {
     private static String carId = ChooseCarController.carId;
     private static CurrentPoints currentPoints = new CurrentPoints(0);
     private static CurrentTime currentTime = new CurrentTime(0);
-    private static Timer timer = new Timer();
     private static HealthBar currentHealth;
 
     private static Observer observer = new Observer() {
@@ -86,8 +86,8 @@ public class Game {
                         frame++;
 
                         currentTime.setValue((long) (time * 0.017));
-
                         currentPoints.setValue(player.getPoints());
+
                         observer.update(currentPoints, observer);
                         observer.update(currentTime, observer);
 
@@ -98,14 +98,15 @@ public class Game {
                             frame = 0;
                         }
                         player.setVelocity(0, 0);
+
                         //Pause
                         if (isPaused) {
                             handleGamePause(gameLoop, gc, background);
                         }
+
                         //Generate obstacles
                         if (frame % 50000 == 0) {
                             testObstacles.add(Obstacle.generateObstacle());
-                            System.out.println(frame);
                         }
 
                         gc.clearRect(0, 0, 500, 600);
@@ -114,8 +115,8 @@ public class Game {
                         player.render(gc);
                         currentHealth.render(gc);
                         //observer.update(currentHealth, observer);
-                        //currentHealth.render(gc);
                         manageObstacles(gc);
+
                         if (player.getHealthPoints() <= 0) {
                             clearObstaclesAndCollectibles();
                             gameLoop.stop();
@@ -125,15 +126,14 @@ public class Game {
                                 player.setHighScore(player.getPoints());
                             }
                             player.setPoints(0L);
+                            Stage stage = (Stage) canvas.getScene().getWindow();
                             root.getChildren().remove(canvas);
                             try {
-                                loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
-
+                                loadStage(stage, gameOverStage, "../views/gameOver.fxml");
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
-
 
                         if (frame % 50000 == 0) {
                             collectibles.add(Collectible.generateCollectible());
@@ -206,7 +206,6 @@ public class Game {
         }
     }
 
-
     private static void visualizeCollectible(GraphicsContext gc, int velocity) {
         for (Sprite collectible : collectibles) {
             collectible.setVelocity(0, velocity);
@@ -245,6 +244,4 @@ public class Game {
     public static CurrentTime getCurrentTime() {
         return (currentTime);
     }
-
-
 }
