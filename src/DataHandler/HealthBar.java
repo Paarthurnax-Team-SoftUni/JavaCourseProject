@@ -11,7 +11,7 @@ import javafx.scene.image.Image;
 import java.util.Observable;
 
 
-public class CurrentHealth extends Observable {
+public class HealthBar extends Observable {
 
     private Image image;
     private double positionX;
@@ -19,7 +19,7 @@ public class CurrentHealth extends Observable {
     private Player player;
 
 
-    public CurrentHealth(Player p) {
+    public HealthBar(Player p) {
         this.positionX = 0;
         this.positionY = 0;
         this.player = p;
@@ -46,12 +46,18 @@ public class CurrentHealth extends Observable {
     }
 
     private void update() {
-        if (this.player.getHealthPoints() >= 75 && this.player.getHealthPoints() <= 100) {
+        int healthPoints = this.player.getHealthPoints();
+        if (healthPoints > 75 && healthPoints <= 100) {
             this.setImage("/resources/images/health-100.png");
         }
+        else if (healthPoints <= 75 && healthPoints > 50) {
             this.setImage("/resources/images/health-75.png");
         }
+        else if (healthPoints <= 50 && healthPoints > 25) {
+            this.setImage("/resources/images/health-50.png");
         }
+        else if (healthPoints <= 25) {
+            this.setImage("/resources/images/health-25.png");
         }
 
     }

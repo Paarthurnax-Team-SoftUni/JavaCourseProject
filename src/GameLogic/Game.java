@@ -36,7 +36,7 @@ public class Game {
     private static CurrentPoints currentPoints = new CurrentPoints(0);
     private static CurrentTime currentTime = new CurrentTime(0);
     private static Timer timer = new Timer();
-    private static CurrentHealth currentHealth;
+    private static HealthBar currentHealth;
 
 
     private static Observer observer = new Observer() {
@@ -67,11 +67,10 @@ public class Game {
         //playerCar.setImage("/resources/images/player_car3.png");  depending on level?
         playerCar.setPosition(200, 430);
         playerCar.setPoints(0L);
-        currentHealth=new CurrentHealth(playerCar);
+        currentHealth = new HealthBar(playerCar);
 
         currentPoints.addObserver(observer);
         currentTime.addObserver(observer);
-        currentHealth.addObserver(observer);
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(
@@ -87,12 +86,8 @@ public class Game {
                         currentTime.setValue((long) (time * 0.017));
 
                         currentPoints.setValue(playerCar.getPoints());
-
-
-                        currentHealth.setImage("/resources/images/health-100.png");
                         observer.update(currentPoints, observer);
                         observer.update(currentTime, observer);
-                        observer.update(currentHealth, observer);
 
 
                         if (y >= 600) {
@@ -114,49 +109,32 @@ public class Game {
                         gc.drawImage(background, 0, y - 600);
                         playerCar.render(gc);
                         currentHealth.render(gc);
-                        observer.update(currentHealth, observer);
-                        currentHealth.render(gc);
-                        for (Sprite testObst : testObstacles) {
-                            if (testObst.getName().substring(0, 6).equals("player") && !testObst.isDestroyed()) {
-                                testObst.setVelocity(0, velocity / 2);
-                            } else {
-                                testObst.setVelocity(0, velocity);
+                        //observer.update(currentHealth, observer);
+                        //currentHealth.render(gc);
+                        manageObstacles(gc);
+                        if (playerCar.getHealthPoints() <= 0) {
+                            clearObstaclesAndCollectibles();
+                            gameLoop.stop();
+                            time = 0;
+                            playerCar.setHealthPoints(100);
+                            if (playerCar.getHighScore() < playerCar.getPoints()) {
+                                playerCar.setHighScore(playerCar.getPoints());
                             }
-                            testObst.update();
-                            testObst.render(gc);
+                            playerCar.setPoints(0L);
+                            root.getChildren().remove(canvas);
+                            try {
+                                loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
 
-                            //
-                            if (testObst.getBoundary().intersects(playerCar.getBoundary())) {
-                                if (!testObst.isDestroyed()) {
-                                    playerCar.setHealthPoints(playerCar.getHealthPoints() - 25);
-                                    testObst.setDestroyed(true);
-
-                                }
-                                if (playerCar.getHealthPoints() <= 0) {
-                                    clearObstaclesAndCollectibles();
-                                    gameLoop.stop();
-                                    time = 0;
-                                    playerCar.setHealthPoints(100);
-                                    if (playerCar.getHighScore() < playerCar.getPoints()) {
-                                        playerCar.setHighScore(playerCar.getPoints());
-                                    }
-                                    playerCar.setPoints(0L);
-                                    root.getChildren().remove(canvas);
-                                    try {
-                                        loadStage(ScreenController.primaryStage, startStage, "../views/gameOver.fxml");
-
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-
                         }
+
 
                         if (frame % 50000 == 0) {
                             collectibles.add(Collectible.generateCollectible());
                         }
-                        visualizeCollectible(gc, velocity);
+                        visualizeCollectible(gc);
 
                     }
                 });
@@ -164,6 +142,26 @@ public class Game {
         gameLoop.getKeyFrames().add(kf);
         gameLoop.playFromStart();
 
+    }
+
+    private static void manageObstacles(GraphicsContext gc) {
+        for (Sprite testObst : testObstacles) {
+            if (testObst.getName().substring(0, 6).equals("player") && !testObst.isDestroyed()) {
+                testObst.setVelocity(0, velocity / 2);
+            } else {
+                testObst.setVelocity(0, velocity);
+            }
+            testObst.update();
+            testObst.render(gc);
+
+            //
+            if (testObst.getBoundary().intersects(playerCar.getBoundary())) {
+                if (!testObst.isDestroyed()) {
+                    playerCar.setHealthPoints(playerCar.getHealthPoints() - 10);
+                    testObst.setDestroyed(true);
+                }
+            }
+        }
     }
 
     private static void handleGamePause(final Timeline gameLoop, final GraphicsContext gc, final Image background) {
@@ -207,7 +205,7 @@ public class Game {
     }
 
 
-    private static void visualizeCollectible(GraphicsContext gc, int velocity) {
+    private static void visualizeCollectible(GraphicsContext gc) {
         for (Sprite collectible : collectibles) {
             collectible.setVelocity(0, velocity);
             collectible.render(gc);
@@ -246,10 +244,6 @@ public class Game {
 
     public static CurrentTime getCurrentTime() {
         return (currentTime);
-    }
-
-    public static CurrentHealth getCurrentHealth() {
-        return (currentHealth);
     }
 
 
