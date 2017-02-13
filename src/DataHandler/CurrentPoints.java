@@ -5,9 +5,6 @@ import javafx.beans.property.SimpleLongProperty;
 
 import java.util.Observable;
 
-/**
- * Created by Lenovo on 12.2.2017 г..
- */
 public class CurrentPoints extends Observable{
 
     private SimpleLongProperty value = new SimpleLongProperty(this, "value");

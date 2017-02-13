@@ -7,7 +7,6 @@ import javafx.scene.input.KeyEvent;
 
 public class Player extends Sprite{
 
-
    private String name;
    private Long highScore;
    private Double money;
@@ -76,7 +75,7 @@ public class Player extends Sprite{
     public void setHealthPoints(int healthPoints) {
         this.healthPoints = healthPoints;
     }
-     public void givePoints(int playerPoints){
+    public void givePoints(int playerPoints){
          points += playerPoints;
      }
 
@@ -85,9 +84,6 @@ public class Player extends Sprite{
         return String .format("%s: %s", this.name, this.highScore);
     }
 
-    public void goLeft(){
-
-    }
     public void addControll(){
         this.control=new KeyHandlerOnPress(this);
     }
