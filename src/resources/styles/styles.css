@@ -69,3 +69,17 @@
     -fx-background-color: rgba(255,0,0, 0.6);
     -fx-background-radius: 15px;
 }
+
+#menu {
+    -fx-background-color: black;
+}
+
+#menu #quitBtn, #pauseBtn{
+    -fx-background-color: rgba(255,255,255, 0.6);
+    -fx-background-radius: 15px;
+}
+
+#menu #quitBtn:hover, #pauseBtn:hover {
+    -fx-background-color: rgba(255,0,0, 0.6);
+    -fx-background-radius: 15px;
+}

@@ -24,13 +24,12 @@ public class LoseController {
 
     public void restartGame(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) quitBtn.getScene().getWindow();
-        Game.clearObs();
+        Game.clearObstaclesAndCollectibles();
         closeStage(stage);
         Track.initializeLevel(1);
     }
 
     public void quitGame(ActionEvent actionEvent) {
         Platform.exit();
-
     }
 }

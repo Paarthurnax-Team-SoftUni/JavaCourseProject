@@ -1,8 +1,11 @@
 package DataHandler;
 
 
-public class Player extends Sprite{
+import KeyHandler.KeyHandlerOnPress;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
 
+public class Player extends Sprite{
 
    private String name;
    private Long highScore;
@@ -10,6 +13,7 @@ public class Player extends Sprite{
    private Long points;
    private Long experience;
    private int healthPoints;
+   public EventHandler<KeyEvent> control;
 
     public Player(String name, Long highScore, Double money, Long points, Long experience, int healthPoints) {
         this.name = name;
@@ -18,6 +22,10 @@ public class Player extends Sprite{
         this.points = points;
         this.experience = experience;
         this.healthPoints = healthPoints;
+        this.isAccelerate=false;
+        this.isGoLeft=false;
+        this.isGoRight=false;
+        this.isStoping=false;
     }
 
     public String getName() {
@@ -75,4 +83,19 @@ public class Player extends Sprite{
     public String toString() {
         return String .format("%s: %s", this.name, this.highScore);
     }
+
+    public void goLeft(){
+
+    }
+    public void addControll(){
+        this.control=new KeyHandlerOnPress(this);
+    }
+    public boolean isAccelerate;
+    public boolean isGoLeft;
+    public boolean isGoRight;
+    public boolean isStoping;
+    public void goRight(){}
+    public void spiranje(){}
+    public void accelerate(){}
 }
+

@@ -5,6 +5,7 @@ import DataHandler.Player;
 import DataHandler.CurrentPoints;
 import GameLogic.Game;
 import MapHandlers.Track;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,11 +20,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 import static Controllers.ScreenController.chooseCarStage;
+import static Controllers.ScreenController.gamePlayStage;
 import static Controllers.ScreenController.loadStage;
 
 public class StartController {
-
-    public static Player player;
 
     @FXML
     public AnchorPane homePage;
@@ -37,43 +37,23 @@ public class StartController {
     public Button closeBtn;
     @FXML
     public Rectangle backgroundBox;
-    @FXML
-    public Button returnBtn;
-
-    @FXML
-    public Label Score;
-
-    @FXML
-    public Label scorePoints;
-    @FXML
-    public Label timeInfo;
-    @FXML
-    public Label time;
 
     @FXML
     public void chooseCar() throws IOException {
         Stage currentStage = (Stage) startBtn.getScene().getWindow();
         loadStage(currentStage, chooseCarStage, "../views/chooseCar.fxml");
+
     }
 
     @FXML
-    public void startNewGame() {
-
-        Track.initializeLevel(1);
-        showScoresBtn.setVisible(false);
-        startBtn.setVisible(false);
-        closeBtn.setVisible(false);
-        chooseCarBtn.setVisible(false);
-        backgroundBox.setVisible(false);
-        Score.setVisible(true);
-        scorePoints.setVisible(true);
-        timeInfo.setVisible(true);
-        time.setVisible(true);
-
-        CurrentPoints currentPlayerPoints=  Game.getCurrentPoints();
-        CurrentTime currentTime=Game.getCurrentTime();
-        scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
-        timeInfo.textProperty().bind(Bindings.convert(currentTime.valueProperty()));
+    public void startNewGame() throws IOException {
+        Stage currentStage = (Stage) startBtn.getScene().getWindow();
+        loadStage(currentStage, gamePlayStage, "../views/gamePlay.fxml");
+        try {
+            Track.initializeLevel(1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 //        gameStarted = true;
 //        setTime();
 //        isGameRunning = true;
@@ -104,7 +84,6 @@ public class StartController {
 
     @FXML
     public void onClose() {
-        Stage currentStage = (Stage) startBtn.getScene().getWindow();
-        currentStage.close();
+        Platform.exit();
     }
 }
