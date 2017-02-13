@@ -4,10 +4,7 @@ import Controllers.ChooseCarController;
 import Controllers.GamePlayController;
 import Controllers.LoginController;
 import Controllers.ScreenController;
-import DataHandler.CurrentPoints;
-import DataHandler.CurrentTime;
-import DataHandler.Player;
-import DataHandler.Sprite;
+import DataHandler.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
@@ -41,6 +38,8 @@ public class Game {
     private static CurrentPoints currentPoints = new CurrentPoints(0);
     private static CurrentTime  currentTime = new CurrentTime(0);
     private static Timer timer = new Timer();
+    private static CurrentHealth currentHealth = new CurrentHealth();
+
 
     private static Observer observer = new Observer() {
         @Override
@@ -90,7 +89,7 @@ public class Game {
 
         currentPoints.addObserver(observer);
         currentTime.addObserver(observer);
-
+        currentHealth.addObserver(observer);
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
@@ -108,8 +107,13 @@ public class Game {
                         currentTime.setValue((long)(time*0.017));
                         currentPoints.setValue(player.getPoints());
 
+                        currentPoints.setValue(playerCar.getPoints());
+
+
+                        currentHealth.setImage("/resources/images/health-100.png");
                         observer.update(currentPoints, observer);
                         observer.update(currentTime, observer);
+                        observer.update(currentHealth,observer);
 
                         if (y == 600) {
                             frame = 0;
@@ -146,7 +150,8 @@ public class Game {
                         gc.clearRect(0, 0, 500, 600);
                         gc.drawImage(background, 0, y);
                         gc.drawImage(background, 0, y - 600);
-                        player.render(gc);
+                        playerCar.render(gc);
+                        currentHealth.render(gc);
 
                         for (Sprite testObst : testObstacles) {
                             if (testObst.getName().substring(0, 6).equals("player") && !testObst.isDestroyed()) {
@@ -156,11 +161,38 @@ public class Game {
                             }
                             testObst.render(gc);
                             testObst.update();
+                            if(playerCar.getHealthPoints()>=75&&playerCar.getHealthPoints()<=100){
+                                currentHealth = new CurrentHealth();
+                                currentHealth.setImage("/resources/images/health-100.png");
+                                observer.update(currentHealth,observer);
+                                currentHealth.render(gc);
 
-                            if (testObst.getBoundary().intersects(player.getBoundary())) {
+                            }
+                            if(playerCar.getHealthPoints()<=75&&playerCar.getHealthPoints()>50){
+                                currentHealth = new CurrentHealth();
+                                currentHealth.setImage("/resources/images/health-75.png");
+                                observer.update(currentHealth,observer);
+                                currentHealth.render(gc);
+
+                            }
+                            if(playerCar.getHealthPoints()<=50&&playerCar.getHealthPoints()>25){
+                                currentHealth = new CurrentHealth();
+                                currentHealth.setImage("/resources/images/health-50.png");
+                                observer.update(currentHealth,observer);
+                                currentHealth.render(gc);
+                            }
+                            if(playerCar.getHealthPoints()<=25&&playerCar.getHealthPoints()>0){
+                                currentHealth = new CurrentHealth();
+                                currentHealth.setImage("/resources/images/health-25.png");
+                                observer.update(currentHealth,observer);
+                                currentHealth.render(gc);
+                            }
+
+                            if (testObst.getBoundary().intersects(playerCar.getBoundary())) {
                                 if (!testObst.isDestroyed()) {
-                                    player.setHealthPoints(player.getHealthPoints() - 10);
+                                    playerCar.setHealthPoints(playerCar.getHealthPoints() - 25);
                                     testObst.setDestroyed(true);
+
                                 }
 
                                 testObst.setImage("resources/images/flame.png");
@@ -242,6 +274,8 @@ public class Game {
         }
     }
 
+
+
     private static Sprite generateObstacle() {
         String[] obstacles = {"obstacle1", "obstacle2", "obstacle3", "obstacle1", "obstacle2", "obstacle3", "player_car1", "player_car2", "player_car3", "player_car4", "player_car5", "player_car6"};
         String random = (obstacles[new Random().nextInt(obstacles.length)]);
@@ -316,4 +350,9 @@ public class Game {
     public static DataHandler.CurrentTime getCurrentTime() {
         return (currentTime);
     }
+    public static DataHandler.CurrentHealth getCurrentHealth() {
+        return (currentHealth);
+    }
+
+
 }
