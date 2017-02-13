@@ -97,7 +97,7 @@ public class Game {
                         if (y <= -600) {
                             frame = 0;
                         }
-
+                        player.setVelocity(0, 0);
                         //Pause
                         if (isPaused) {
                             handleGamePause(gameLoop, gc, background);
