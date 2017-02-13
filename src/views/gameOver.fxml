@@ -6,16 +6,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gameOverPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoseController">
+<AnchorPane fx:id="gameOverPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.LoseController">
    <children>
-      <Button fx:id="newGameBtn" layoutX="238.0" layoutY="354.0" mnemonicParsing="false" onAction="#restartGame" prefHeight="91.0" prefWidth="328.0" text="New Game" underline="true">
+      <Button fx:id="newGameBtn" layoutX="238.0" layoutY="354.0" mnemonicParsing="false" onAction="#restartGame" prefHeight="91.0" prefWidth="328.0" text="Start Menu" underline="true">
          <font>
-            <Font name="Chiller" size="50.0" />
+            <Font size="44.0" />
          </font>
       </Button>
       <Button fx:id="quitBtn" layoutX="238.0" layoutY="473.0" mnemonicParsing="false" onAction="#quitGame" prefHeight="91.0" prefWidth="328.0" text="Quit Game" underline="true">
          <font>
-            <Font name="Chiller" size="50.0" />
+            <Font size="44.0" />
          </font>
       </Button>
          <ImageView fx:id="gameOver" fitHeight="390.0" fitWidth="581.0" layoutX="112.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
