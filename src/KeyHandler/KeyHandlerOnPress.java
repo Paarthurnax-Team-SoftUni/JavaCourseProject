@@ -14,18 +14,6 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
         this.player = p;
     }
 
-    private boolean[] keys;
-    public boolean up, down, left, right, pause;
-
-
-    public KeyHandlerOnPress() {
-        keys = new boolean[256];
-    }
-
-    public void tick() {
-
-    }
-
     @Override
     public void handle(KeyEvent e) {
         KeyCode keyCode = e.getCode();

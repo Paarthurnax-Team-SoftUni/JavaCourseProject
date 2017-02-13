@@ -31,7 +31,7 @@
          </font></Label>
       <Label fx:id="scorePoints" alignment="CENTER" contentDisplay="CENTER" layoutX="725.0" layoutY="124.0" prefHeight="44.0" prefWidth="61.0" stylesheets="@../resources/styles/test.css" visible="false">
          <font>
-            <Font  name="Chiller" size="20.0" />
+            <Font name="Chiller" size="20.0" />
          </font></Label>
         <Label fx:id="time" alignment="CENTER" layoutX="596.0" layoutY="37.0" prefHeight="66.0" prefWidth="104.0" stylesheets="@../resources/styles/test.css" text="Time" textAlignment="RIGHT" visible="false">
             <font>
@@ -39,7 +39,17 @@
             </font></Label>
       <Label fx:id="timeInfo" alignment="CENTER" contentDisplay="CENTER" layoutX="725.0" layoutY="50.0" prefHeight="44.0" prefWidth="61.0" stylesheets="@../resources/styles/test.css" visible="false">
           <font>
-              <Font  name="Chiller" size="20.0" />
+              <Font name="Chiller" size="20.0" />
           </font></Label>
+      <Label fx:id="distance" alignment="CENTER" layoutX="596.0" layoutY="191.0" prefHeight="66.0" prefWidth="104.0" stylesheets="@../resources/styles/test.css" text="Distance" textAlignment="RIGHT" visible="false">
+         <font>
+            <Font name="Chiller" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="distanceInfo" alignment="CENTER" contentDisplay="CENTER" layoutX="725.0" layoutY="200.0" prefHeight="44.0" prefWidth="61.0" stylesheets="@../resources/styles/test.css" visible="false">
+         <font>
+            <Font name="Chiller" size="20.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

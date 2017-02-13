@@ -24,6 +24,7 @@ import static Controllers.ScreenController.startStage;
 
 public class Game {
     public static int velocity = 5;
+    public static CurrentDistance currentDistance =new CurrentDistance(0);
     private static AnchorPane root = ScreenController.root;
     private static int frame = 0;
     private static long time = 0;
@@ -48,7 +49,6 @@ public class Game {
 
 
     public static void RunTrack(Image background) {
-
         Canvas canvas = new Canvas(500, 600);
         if (ScreenController.startStage != null) {
             Stage stage = (Stage) canvas.getScene().getWindow();
@@ -68,9 +68,9 @@ public class Game {
         playerCar.setPosition(200, 430);
         playerCar.setPoints(0L);
         currentHealth = new HealthBar(playerCar);
-
         currentPoints.addObserver(observer);
         currentTime.addObserver(observer);
+        currentDistance.addObserver(observer);
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         KeyFrame kf = new KeyFrame(
@@ -81,13 +81,15 @@ public class Game {
                         y = velocity * frame;
                         time++;
                         frame++;
-                        playerCar.setPoints(playerCar.getPoints() + 1);
+
+                       // playerCar.setPoints(playerCar.getPoints() + 1);
 
                         currentTime.setValue((long) (time * 0.017));
-
+                        currentDistance.setValue(currentDistance.getValue()+velocity);
                         currentPoints.setValue(playerCar.getPoints());
                         observer.update(currentPoints, observer);
                         observer.update(currentTime, observer);
+                        observer.update(currentDistance, observer);
 
 
                         if (y >= 600) {
@@ -246,6 +248,9 @@ public class Game {
 
     public static CurrentTime getCurrentTime() {
         return (currentTime);
+    }
+    public static CurrentDistance getCurrentDstance() {
+        return (currentDistance);
     }
 
 

@@ -1,5 +1,6 @@
 package Controllers;
 
+import DataHandler.CurrentDistance;
 import DataHandler.CurrentTime;
 import DataHandler.Player;
 import DataHandler.CurrentPoints;
@@ -42,13 +43,16 @@ public class StartController {
 
     @FXML
     public Label Score;
-
     @FXML
     public Label scorePoints;
     @FXML
     public Label timeInfo;
     @FXML
     public Label time;
+    @FXML
+    public Label distance;
+    @FXML
+    public Label distanceInfo;
 
     @FXML
     public void chooseCar() throws IOException {
@@ -69,11 +73,15 @@ public class StartController {
         scorePoints.setVisible(true);
         timeInfo.setVisible(true);
         time.setVisible(true);
+        distance.setVisible(true);
+        distanceInfo.setVisible(true);
 
-        CurrentPoints currentPlayerPoints=  Game.getCurrentPoints();
-        CurrentTime currentTime=Game.getCurrentTime();
+        CurrentPoints currentPlayerPoints = Game.getCurrentPoints();
+        CurrentTime currentTime = Game.getCurrentTime();
+        CurrentDistance currentDistance = Game.getCurrentDstance();
         scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
         timeInfo.textProperty().bind(Bindings.convert(currentTime.valueProperty()));
+        distanceInfo.textProperty().bind(Bindings.convert(currentDistance.valueProperty()));
 //        gameStarted = true;
 //        setTime();
 //        isGameRunning = true;
