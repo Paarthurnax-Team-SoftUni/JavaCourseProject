@@ -6,6 +6,7 @@ import Controllers.LoginController;
 import Controllers.ScreenController;
 import DataHandler.*;
 import KeyHandler.KeyHandlerOnPress;
+import KeyHandler.KeyHandlerOnRelease;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
@@ -28,7 +29,8 @@ import static Controllers.ScreenController.startStage;
 import static Controllers.ScreenController.gameOverStage;
 
 public class Game {
-    public static int velocity = 5;
+    public static float velocity = 5;
+    public static CurrentDistance currentDistance = new CurrentDistance(0);
     private static AnchorPane root = ScreenController.root;
     private static int frame = 0;
     private static long time = 0;
@@ -48,7 +50,6 @@ public class Game {
         }
     };
 
-
     public static void RunTrack(Image background) {
         AnchorPane root = ScreenController.root;
         Canvas canvas = new Canvas(500, 600);
@@ -63,6 +64,7 @@ public class Game {
         }
         root.getChildren().add(canvas);
         root.getScene().setOnKeyPressed(new KeyHandlerOnPress(player));
+        root.getScene().setOnKeyReleased(new KeyHandlerOnRelease(player));
         GraphicsContext gc = canvas.getGraphicsContext2D();
         carId = carId == null ? "car1" : carId;
         String carImg = "/resources/images/player_" + carId + ".png";
@@ -74,6 +76,7 @@ public class Game {
 
         currentPoints.addObserver(observer);
         currentTime.addObserver(observer);
+        currentDistance.addObserver(observer);
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
@@ -82,20 +85,21 @@ public class Game {
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
-                        y = velocity * frame;
+                        y = y + velocity ;
                         time++;
                         frame++;
 
+
                         currentTime.setValue((long) (time * 0.017));
+                        currentDistance.setValue(currentDistance.getValue() + (long) velocity/2);
+
                         currentPoints.setValue(player.getPoints());
 
                         observer.update(currentPoints, observer);
                         observer.update(currentTime, observer);
-
-                        if (y >= 600) {
-                            frame = 0;
-                        }
-                        if (y <= -600) {
+                        observer.update(currentDistance, observer);
+                        if (Math.abs(y) >= 600) {
+                            y = y - 600;
                             frame = 0;
                         }
                         player.setVelocity(0, 0);
@@ -127,6 +131,9 @@ public class Game {
                                 player.setHighScore(player.getPoints());
                             }
                             player.setPoints(0L);
+                            player.stopAccelerate();
+                            velocity=5;
+                            currentDistance.setValue(0);
                             Stage stage = (Stage) canvas.getScene().getWindow();
                             root.getChildren().remove(canvas);
                             try {
@@ -139,7 +146,7 @@ public class Game {
                         if (frame % 50000 == 0) {
                             collectibles.add(Collectible.generateCollectible());
                         }
-                        visualizeCollectible(gc, velocity);
+                        visualizeCollectible(gc, (int) velocity);
                     }
                 });
 
@@ -154,16 +161,15 @@ public class Game {
             } else {
                 testObst.setVelocity(0, velocity);
             }
-            testObst.update();
             testObst.render(gc);
 
-            //
             if (testObst.getBoundary().intersects(player.getBoundary())) {
                 if (!testObst.isDestroyed()) {
                     player.setHealthPoints(player.getHealthPoints() - 25);
                     testObst.setDestroyed(true);
                 }
             }
+
         }
     }
 
@@ -211,7 +217,6 @@ public class Game {
         for (Sprite collectible : collectibles) {
             collectible.setVelocity(0, velocity);
             collectible.render(gc);
-            collectible.update();
 
             if (collectible.getBoundary().intersects(player.getBoundary())) {
                 switch (collectible.getName()) {
@@ -245,4 +250,9 @@ public class Game {
     public static CurrentTime getCurrentTime() {
         return (currentTime);
     }
+
+    public static CurrentDistance getCurrentDstance() {
+        return (currentDistance);
+    }
+
 }

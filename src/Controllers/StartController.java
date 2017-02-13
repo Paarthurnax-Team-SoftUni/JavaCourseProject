@@ -40,6 +40,7 @@ public class StartController {
     }
 
     @FXML
+
     private void startNewGame() throws IOException {
         Stage currentStage = (Stage) startBtn.getScene().getWindow();
         loadStage(currentStage, gamePlayStage, "../views/gamePlay.fxml");
