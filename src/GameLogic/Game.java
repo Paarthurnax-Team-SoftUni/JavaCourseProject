@@ -117,6 +117,7 @@ public class Game {
                         gc.clearRect(0, 0, 500, 600);
                         gc.drawImage(background, 0, y - 600);
                         gc.drawImage(background, 0, y);
+                        player.update();
                         player.render(gc);
                         currentHealth.render(gc);
                         //observer.update(currentHealth, observer);
@@ -161,6 +162,7 @@ public class Game {
             } else {
                 testObst.setVelocity(0, velocity);
             }
+            testObst.update();
             testObst.render(gc);
 
             if (testObst.getBoundary().intersects(player.getBoundary())) {
@@ -216,6 +218,7 @@ public class Game {
     private static void visualizeCollectible(GraphicsContext gc, int velocity) {
         for (Sprite collectible : collectibles) {
             collectible.setVelocity(0, velocity);
+            collectible.update();
             collectible.render(gc);
 
             if (collectible.getBoundary().intersects(player.getBoundary())) {

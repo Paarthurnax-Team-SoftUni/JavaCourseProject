@@ -16,28 +16,31 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent e) {
-        KeyCode keyCode = e.getCode();
-        if ((keyCode.getName().equals("Up"))) {
+        if (!Game.isIsPaused()) {
+            KeyCode keyCode = e.getCode();
+            if ((keyCode.getName().equals("Up"))) {
 //            Game.velocity++;
-            player.accelerate();
-            player.update();
-        }
-        if ((keyCode.getName().equals("Down"))) {
-            if (Game.velocity > 5) Game.velocity--;
-            player.addVelocity(0, 2);
-            player.update();
-        }
-        if ((keyCode.getName().equals("P"))) {
-            if (Game.isIsPaused()) Game.setIsPaused(false) ;
-            else Game.setIsPaused(true);
-        }
-        if ((keyCode.getName().equals("Left"))) {
-            player.addVelocity(-50, 0);
-            player.update();
-        }
-        if ((keyCode.getName().equals("Right"))) {
-            player.addVelocity(50, 0);
-            player.update();
+
+                player.accelerate();
+                player.update();
+            }
+            if ((keyCode.getName().equals("Down"))) {
+                if (Game.velocity > 5) Game.velocity--;
+                player.addVelocity(0, 2);
+                player.update();
+            }
+            if ((keyCode.getName().equals("P"))) {
+                if (Game.isIsPaused()) Game.setIsPaused(false);
+                else Game.setIsPaused(true);
+            }
+            if ((keyCode.getName().equals("Left"))) {
+                player.addVelocity(-50, 0);
+                player.update();
+            }
+            if ((keyCode.getName().equals("Right"))) {
+                player.addVelocity(50, 0);
+                player.update();
+            }
         }
     }
 }
