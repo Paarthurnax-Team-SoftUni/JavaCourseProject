@@ -107,11 +107,13 @@ public class Player extends Sprite {
             this.addVelocity(0,-2);
             if (Game.getVelocity() < 20) {
                 Game.setVelocity((float) (Game.getVelocity()+0.1));
+                System.out.println(Game.getVelocity()  + "accelerating" );
             }
         } else {
             this.addVelocity(0,1);
             if (Game.getVelocity() > 5) {
                 Game.setVelocity((float) (Game.getVelocity()-0.1));
+                System.out.println(Game.getVelocity() + "    other accelerating  ");
             }
         }
 

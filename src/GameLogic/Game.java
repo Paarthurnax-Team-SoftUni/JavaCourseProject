@@ -196,6 +196,8 @@ public class Game {
                                 pauseloop.stop();
                             }
 
+                            System.out.println("game in pause");
+
                             gc.clearRect(0, 0, 500, 600);
                             gc.drawImage(background, 0, y);
                             gc.drawImage(background, 0, y - 600);

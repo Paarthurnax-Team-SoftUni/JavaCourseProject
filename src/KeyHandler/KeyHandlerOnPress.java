@@ -41,6 +41,12 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                 player.addVelocity(50, 0);
                 player.update();
             }
+        }else {
+            KeyCode keyCode = e.getCode();
+            if ((keyCode.getName().equals("P"))) {
+                if (Game.isIsPaused()) Game.setIsPaused(false);
+                else Game.setIsPaused(true);
+            }
         }
     }
 }
