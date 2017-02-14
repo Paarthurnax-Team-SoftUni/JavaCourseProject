@@ -29,8 +29,8 @@ import static Controllers.ScreenController.startStage;
 import static Controllers.ScreenController.gameOverStage;
 
 public class Game {
-    public static float velocity = 5;
-    public static CurrentDistance currentDistance = new CurrentDistance(0);
+    private static float velocity = 5;
+    private static CurrentDistance currentDistance = new CurrentDistance(0);
     private static AnchorPane root = ScreenController.root;
     private static int frame = 0;
     private static long time = 0;
@@ -92,7 +92,7 @@ public class Game {
 
                         currentTime.setValue((long) (time * 0.017));
                         currentDistance.setValue(currentDistance.getValue() + (long) velocity/2);
-
+                        player.setPoints(player.getPoints()+1);
                         currentPoints.setValue(player.getPoints());
 
                         observer.update(currentPoints, observer);
@@ -267,5 +267,11 @@ public class Game {
         return (currentDistance);
     }
 
+    public static float getVelocity() {
+        return velocity;
+    }
 
+    public static void setVelocity(float velocity) {
+        Game.velocity = velocity;
+    }
 }

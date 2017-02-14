@@ -25,7 +25,7 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                 player.update();
             }
             if ((keyCode.getName().equals("Down"))) {
-                if (Game.velocity > 5) Game.velocity--;
+                if (Game.getVelocity() > 5) Game.setVelocity(Game.getVelocity()-1);
                 player.addVelocity(0, 2);
                 player.update();
             }

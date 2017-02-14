@@ -105,13 +105,13 @@ public class Player extends Sprite {
     public void update() {
         if (accelerating) {
             this.addVelocity(0,-2);
-            if (Game.velocity < 20) {
-                Game.velocity+=0.1;
+            if (Game.getVelocity() < 20) {
+                Game.setVelocity((float) (Game.getVelocity()+0.1));
             }
         } else {
             this.addVelocity(0,1);
-            if (Game.velocity > 5) {
-                Game.velocity-=0.05;
+            if (Game.getVelocity() > 5) {
+                Game.setVelocity((float) (Game.getVelocity()-0.1));
             }
         }
 
