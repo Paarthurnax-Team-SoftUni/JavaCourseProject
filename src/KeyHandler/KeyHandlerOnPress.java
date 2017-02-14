@@ -14,29 +14,17 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
         this.player = p;
     }
 
-    private boolean[] keys;
-    public boolean up, down, left, right, pause;
-
-
-    public KeyHandlerOnPress() {
-        keys = new boolean[256];
-    }
-
-    public void tick() {
-
-    }
-
     @Override
     public void handle(KeyEvent e) {
         KeyCode keyCode = e.getCode();
         if ((keyCode.getName().equals("Up"))) {
 //            Game.velocity++;
-            player.addVelocity(0, -20);
+            player.accelerate();
             player.update();
         }
         if ((keyCode.getName().equals("Down"))) {
-//            Game.velocity--;
-            player.addVelocity(0, 20);
+            if (Game.velocity > 5) Game.velocity--;
+            player.addVelocity(0, 2);
             player.update();
         }
         if ((keyCode.getName().equals("P"))) {

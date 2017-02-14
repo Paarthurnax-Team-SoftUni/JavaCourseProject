@@ -65,7 +65,7 @@ public class Sprite {
             }
         }
         if(y < 0) {
-            if(positionY > 0) {
+            if(positionY > 300) {
                 velocityY += y;
             }
         } else if (y > 0) {
@@ -81,6 +81,7 @@ public class Sprite {
     }
 
     public void render(GraphicsContext gc) {
+        this.update();
         gc.drawImage(image, positionX, positionY);
     }
 

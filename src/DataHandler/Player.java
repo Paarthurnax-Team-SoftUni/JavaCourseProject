@@ -1,31 +1,30 @@
 package DataHandler;
 
 
+import GameLogic.Game;
 import KeyHandler.KeyHandlerOnPress;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 
-public class Player extends Sprite{
+public class Player extends Sprite {
 
-   private String name;
-   private Long highScore;
-   private Double money;
-   private Long points;
-   private Long experience;
-   private int healthPoints;
-   public EventHandler<KeyEvent> control;
+    private String name;
+    private Long highScore;
+    private Double money;
+    private Long points;
+    private Long experience;
+    private int healthPoints;
+    public EventHandler<KeyEvent> control;
+    private boolean accelerating = false;
 
     public Player(String name, Long highScore, Double money, Long points, Long experience, int healthPoints) {
+
         this.name = name;
         this.highScore = highScore;
         this.money = money;
         this.points = points;
         this.experience = experience;
         this.healthPoints = healthPoints;
-        this.isAccelerate=false;
-        this.isGoLeft=false;
-        this.isGoRight=false;
-        this.isStoping=false;
     }
 
     public String getName() {
@@ -76,24 +75,50 @@ public class Player extends Sprite{
         this.healthPoints = healthPoints;
     }
 
-    public void givePoints(int playerPoints){
-         points += playerPoints;
-     }
+    public void givePoints(int playerPoints) {
+        points += playerPoints;
+    }
 
     @Override
     public String toString() {
-        return String .format("%s: %s", this.name, this.highScore);
+        return String.format("%s: %s", this.name, this.highScore);
     }
 
-    public void addControll(){
-        this.control=new KeyHandlerOnPress(this);
+    public void addControl() {
+        this.control = new KeyHandlerOnPress(this);
     }
-    public boolean isAccelerate;
-    public boolean isGoLeft;
-    public boolean isGoRight;
-    public boolean isStoping;
-    public void goRight(){}
-    public void spiranje(){}
-    public void accelerate(){}
+
+
+    public void accelerate() {
+        this.accelerating = true;
+        System.out.println("accelerate");
+    }
+
+    public void stopAccelerate() {
+        this.accelerating = false;
+        System.out.println("stopAccelerate");
+
+    }
+
+
+    @Override
+    public void update() {
+        if (accelerating) {
+            this.addVelocity(0,-2);
+            if (Game.velocity < 20) {
+                Game.velocity+=0.1;
+            }
+        } else {
+            this.addVelocity(0,1);
+            if (Game.velocity > 5) {
+                Game.velocity-=0.05;
+            }
+        }
+
+        super.update();
+        // this.setPosition(this.getPoints().positionX += this.velocityX;
+        //   positionY += velocityY;
+
+    }
 }
 
