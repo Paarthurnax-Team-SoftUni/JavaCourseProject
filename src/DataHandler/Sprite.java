@@ -81,7 +81,6 @@ public class Sprite {
     }
 
     public void render(GraphicsContext gc) {
-        this.update();
         gc.drawImage(image, positionX, positionY);
     }
 
