@@ -1,7 +1,6 @@
 package GameLogic;
 
 import Controllers.ChooseCarController;
-import Controllers.GamePlayController;
 import Controllers.LoginController;
 import Controllers.ScreenController;
 import DataHandler.*;
@@ -9,7 +8,6 @@ import KeyHandler.KeyHandlerOnPress;
 import KeyHandler.KeyHandlerOnRelease;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
@@ -19,14 +17,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.awt.event.KeyEvent;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
-import static Controllers.ScreenController.gamePlayStage;
-import static Controllers.ScreenController.loadStage;
-import static Controllers.ScreenController.startStage;
-import static Controllers.ScreenController.gameOverStage;
+import static Controllers.ScreenController.*;
 
 public class Game {
     private static float velocity = 5;
@@ -147,7 +143,7 @@ public class Game {
                         if (frame % 50000 == 0) {
                             collectibles.add(Collectible.generateCollectible());
                         }
-                        visualizeCollectible(gc, (int) velocity);
+                        visualizeCollectible(gc, velocity);
                     }
                 });
 
@@ -217,7 +213,7 @@ public class Game {
         }
     }
 
-    private static void visualizeCollectible(GraphicsContext gc, int velocity) {
+    private static void visualizeCollectible(GraphicsContext gc, double velocity) {
         for (Sprite collectible : collectibles) {
             collectible.setVelocity(0, velocity);
             collectible.update();
