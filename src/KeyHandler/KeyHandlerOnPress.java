@@ -16,10 +16,11 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent e) {
-        if (!Game.isPaused) {
+        if (!Game.isIsPaused()) {
             KeyCode keyCode = e.getCode();
             if ((keyCode.getName().equals("Up"))) {
 //            Game.velocity++;
+
                 player.accelerate();
                 player.update();
             }
@@ -29,8 +30,8 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                 player.update();
             }
             if ((keyCode.getName().equals("P"))) {
-                if (Game.isPaused) Game.isPaused = false;
-                else Game.isPaused = true;
+                if (Game.isIsPaused()) Game.setIsPaused(false);
+                else Game.setIsPaused(true);
             }
             if ((keyCode.getName().equals("Left"))) {
                 player.addVelocity(-50, 0);

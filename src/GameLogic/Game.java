@@ -34,7 +34,7 @@ public class Game {
     private static AnchorPane root = ScreenController.root;
     private static int frame = 0;
     private static long time = 0;
-    public static boolean isPaused = false;
+    private static boolean isPaused = false;
     private static double y;
     private static ArrayList<Sprite> testObstacles = new ArrayList<>();
     private static ArrayList<Sprite> collectibles = new ArrayList<>();
@@ -254,8 +254,18 @@ public class Game {
         return (currentTime);
     }
 
+
+    public static boolean isIsPaused() {
+        return isPaused;
+    }
+
+    public static void setIsPaused(boolean isPaused) {
+        Game.isPaused = isPaused;
+    }
+
     public static CurrentDistance getCurrentDstance() {
         return (currentDistance);
     }
+
 
 }
