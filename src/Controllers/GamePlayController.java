@@ -52,8 +52,8 @@ public class GamePlayController implements Initializable {
 
 
     public void pauseGame(ActionEvent actionEvent) {
-        if (Game.isPaused) Game.isPaused = false;
-        else Game.isPaused = true;
+        if (Game.isIsPaused()) Game.setIsPaused(false);
+        else Game.setIsPaused(true);
 //        try {
 //            Robot robot = new Robot();
 //            // Simulate a key press
