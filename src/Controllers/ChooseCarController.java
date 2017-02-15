@@ -20,6 +20,14 @@ import static Controllers.ScreenController.loadStage;
 import static Controllers.ScreenController.startStage;
 
 public class ChooseCarController{
+    public static String getCarId() {
+        return carId;
+    }
+
+    public static void setCarId(String carId) {
+        ChooseCarController.carId = carId;
+    }
+
     public static String carId;
     public ImageView locked2;
     public ImageView locked3;
@@ -85,10 +93,10 @@ public class ChooseCarController{
         Node source = (Node) ev.getSource();
 
         if (source.getId().substring(0, 3).equals("car")) {
-            carId = source.getId();
+            setCarId(source.getId());
             backgroundFill(source.getId().substring(source.getId().length() - 1));
         } else if (source.getId().substring(0, 5).equals("label")) {
-            carId = "car" + source.getId().substring(source.getId().length() - 1);
+            setCarId("car" + source.getId().substring(source.getId().length() - 1));
             backgroundFill(source.getId().substring(source.getId().length() - 1));
         }
         returnBtn.setVisible(true);

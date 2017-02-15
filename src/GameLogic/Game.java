@@ -16,7 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -37,10 +36,11 @@ public class Game {
     private static boolean isPaused = false;
     private static double y;
     private static MediaPlayer mediaPlayer;
+    private static Duration resumeTime;
     private static ArrayList<Sprite> testObstacles = new ArrayList<>();
     private static ArrayList<Sprite> collectibles = new ArrayList<>();
     private static Player player = LoginController.player;
-    private static String carId = ChooseCarController.carId;
+    private static String carId;
     private static CurrentPoints currentPoints = new CurrentPoints(0);
     private static CurrentTime currentTime = new CurrentTime(0);
     private static HealthBar currentHealth;
@@ -67,6 +67,7 @@ public class Game {
         root.getScene().setOnKeyPressed(new KeyHandlerOnPress(player));
         root.getScene().setOnKeyReleased(new KeyHandlerOnRelease(player));
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        carId = ChooseCarController.getCarId();
         carId = carId == null ? "car1" : carId;
         String carImg = "/resources/images/player_" + carId + ".png";
         player.setImage(carImg);
@@ -194,7 +195,7 @@ public class Game {
                         public void handle(ActionEvent event) {
                             if (!isPaused) {
                                 gameLoop.play();
-                                playMusic();
+                                pauseMusic();
                                 pauseloop.stop();
                             }
 
@@ -248,21 +249,22 @@ public class Game {
         testObstacles.clear();
     }
 
-    public static void playMusic(){
+    private static void playMusic(){
         String path = "music.wav";
         Media media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
-        if(mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED)){
-            mediaPlayer.seek(mediaPlayer.getCurrentTime());
-            mediaPlayer.play();
-        } else {
-            mediaPlayer.play();
-        }
-        //mediaPlayer.setAutoPlay(true);
+        mediaPlayer.play();
     }
 
     private static void pauseMusic() {
-        mediaPlayer.pause();
+        if(mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED)){
+            System.out.println("paused");
+            mediaPlayer.setStartTime(resumeTime);
+            mediaPlayer.play();
+        } else {
+            mediaPlayer.pause();
+            resumeTime = mediaPlayer.getCurrentTime();
+        }
     }
 
     private static void stopMusic() {
