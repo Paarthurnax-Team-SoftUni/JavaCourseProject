@@ -36,6 +36,7 @@ public class Game {
     private static long time = 0;
     private static boolean isPaused = false;
     private static double y;
+    private static MediaPlayer mediaPlayer;
     private static ArrayList<Sprite> testObstacles = new ArrayList<>();
     private static ArrayList<Sprite> collectibles = new ArrayList<>();
     private static Player player = LoginController.player;
@@ -79,7 +80,7 @@ public class Game {
         currentDistance.addObserver(observer);
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
-        music();
+        playMusic();
 
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.017),
@@ -127,6 +128,7 @@ public class Game {
                         if (player.getHealthPoints() <= 0) {
                             clearObstaclesAndCollectibles();
                             gameLoop.stop();
+                            stopMusic();
                             time = 0;
                             player.setHealthPoints(100);
                             if (player.getHighScore() < player.getPoints()) {
@@ -180,8 +182,7 @@ public class Game {
         isPaused = true;
         gameLoop.pause();
         if (isPaused) {
-
-            System.out.println("Enter Pause");
+            pauseMusic();
 
             Timeline pauseloop = new Timeline();
             pauseloop.setCycleCount(Timeline.INDEFINITE);
@@ -192,12 +193,10 @@ public class Game {
                         @Override
                         public void handle(ActionEvent event) {
                             if (!isPaused) {
-                                System.out.println("Exit Pause");
                                 gameLoop.play();
+                                playMusic();
                                 pauseloop.stop();
                             }
-
-                            System.out.println("game in pause");
 
                             gc.clearRect(0, 0, 500, 600);
                             gc.drawImage(background, 0, y);
@@ -249,14 +248,25 @@ public class Game {
         testObstacles.clear();
     }
 
-    public static void music(){
+    public static void playMusic(){
         String path = "music.wav";
         Media media = new Media(new File(path).toURI().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setAutoPlay(true);
-        MediaView mediaView = new MediaView(mediaPlayer);
-        mediaPlayer.play();
+        mediaPlayer = new MediaPlayer(media);
+        if(mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED)){
+            mediaPlayer.seek(mediaPlayer.getCurrentTime());
+            mediaPlayer.play();
+        } else {
+            mediaPlayer.play();
+        }
+        //mediaPlayer.setAutoPlay(true);
+    }
 
+    private static void pauseMusic() {
+        mediaPlayer.pause();
+    }
+
+    private static void stopMusic() {
+        mediaPlayer.stop();
     }
 
     public static CurrentPoints getCurrentPoints() {
