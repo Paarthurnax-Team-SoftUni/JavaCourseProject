@@ -115,7 +115,7 @@ public class Game {
                         gc.drawImage(background, 0, y);
                         player.update();
                         player.render(gc);
-                        currentHealth.render(gc);
+                        currentHealth.render();
                         //observer.update(currentHealth, observer);
                         manageObstacles(gc);
 
