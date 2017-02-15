@@ -14,9 +14,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -75,6 +79,7 @@ public class Game {
         currentDistance.addObserver(observer);
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
+        music();
 
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.017),
@@ -242,6 +247,16 @@ public class Game {
     public static void clearObstaclesAndCollectibles() {
         collectibles.clear();
         testObstacles.clear();
+    }
+
+    public static void music(){
+        String path = "music.wav";
+        Media media = new Media(new File(path).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+        MediaView mediaView = new MediaView(mediaPlayer);
+        mediaPlayer.play();
+
     }
 
     public static CurrentPoints getCurrentPoints() {
