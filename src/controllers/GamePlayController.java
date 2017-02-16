@@ -11,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,10 +27,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import static controllers.ScreenController.gameOverStage;
-import static controllers.ScreenController.gameWinStage;
-import static controllers.ScreenController.gamePlayStage;
-import static controllers.ScreenController.loadStage;
+import static controllers.ScreenController.*;
 
 public class GamePlayController implements Initializable {
 
@@ -281,8 +277,8 @@ public class GamePlayController implements Initializable {
         return velocity;
     }
 
-    public static void setVelocity(float velocity) {
-        velocity = velocity;
+    public static void setVelocity(float v) {
+        velocity = v;
     }
 
     public static void printHealthBar(Integer healthPoints) {
