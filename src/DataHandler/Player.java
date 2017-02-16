@@ -2,9 +2,6 @@ package DataHandler;
 
 
 import GameLogic.Game;
-import KeyHandler.KeyHandlerOnPress;
-import javafx.event.EventHandler;
-import javafx.scene.input.KeyEvent;
 
 public class Player extends Sprite {
 
@@ -91,12 +88,10 @@ public class Player extends Sprite {
 
     public void accelerate() {
         this.accelerating = true;
-        System.out.println("accelerate");
     }
 
     public void stopAccelerate() {
         this.accelerating = false;
-        System.out.println("stopAccelerate");
 
     }
 
@@ -107,19 +102,15 @@ public class Player extends Sprite {
             this.addVelocity(0,-2);
             if (Game.getVelocity() < 20) {
                 Game.setVelocity((float) (Game.getVelocity()+0.1));
-                System.out.println(Game.getVelocity()  + "accelerating" );
             }
         } else {
             this.addVelocity(0,1);
             if (Game.getVelocity() > 5) {
                 Game.setVelocity((float) (Game.getVelocity()-0.1));
-                System.out.println(Game.getVelocity() + "    other accelerating  ");
             }
         }
 
         super.update();
-        // this.setPosition(this.getPoints().positionX += this.velocityX;
-        //   positionY += velocityY;
 
     }
 }

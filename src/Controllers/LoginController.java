@@ -1,5 +1,6 @@
 package Controllers;
 
+import DataHandler.Constants;
 import DataHandler.Player;
 import DataHandler.PlayerData;
 import javafx.fxml.FXML;
@@ -8,7 +9,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,9 +22,6 @@ import static Controllers.ScreenController.startStage;
 public class LoginController implements Initializable{
 
     public static Player player;
-
-    @FXML
-    private AnchorPane loginPage;
     @FXML
     private TextField playerName;
     @FXML
@@ -51,7 +48,7 @@ public class LoginController implements Initializable{
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
                 player = PlayerData.getInstance().returnPlayer(name);
                 player.setHealthPoints(100);
-                loadStage(currentStage, startStage, "../views/start.fxml");
+                loadStage(currentStage, startStage, Constants.START_FXML_PATH);
 
             }
         } else {
@@ -63,11 +60,10 @@ public class LoginController implements Initializable{
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
                 player = new Player(name, 0L, 0.0, 0L, 0L, 100);
 
-                /* remove the comments to save every newly created player*/
                 PlayerData.getInstance().addPlayer(player);
                 PlayerData.getInstance().storePlayersData();
 
-                loadStage(currentStage, startStage, "../views/start.fxml");
+                loadStage(currentStage, startStage, Constants.START_FXML_PATH);
 
             }
         }

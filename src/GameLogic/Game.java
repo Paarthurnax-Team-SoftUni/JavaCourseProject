@@ -15,7 +15,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -27,9 +26,8 @@ import java.util.Observer;
 import static Controllers.ScreenController.*;
 
 public class Game {
-    private static float velocity = 5;
+    private static float velocity = Constants.START_GAME_VELOCITY;
     private static CurrentDistance currentDistance = new CurrentDistance(0);
-    private static AnchorPane root = ScreenController.root;
     private static int frame = 0;
     private static long time = 0;
     private static boolean isPaused = false;
@@ -41,7 +39,6 @@ public class Game {
     private static CurrentPoints currentPoints = new CurrentPoints(0);
     private static CurrentTime currentTime = new CurrentTime(0);
     private static HealthBar currentHealth;
-    private static String projectPath =System.getProperty("user.dir")+"/src/resources/";
 
     private static Observer observer = new Observer() {
         @Override
@@ -51,12 +48,12 @@ public class Game {
 
     public static void RunTrack(Image background) {
         AnchorPane root = ScreenController.root;
-        Canvas canvas = new Canvas(500, 600);
+        Canvas canvas = new Canvas(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
         //EventHandler<? super KeyEvent> onKeyPressed = root.getOnKeyPressed();
         if (ScreenController.gamePlayStage != null) {
             Stage stage = (Stage) canvas.getScene().getWindow();
             try {
-                loadStage(stage, gamePlayStage, "../views/gameOver.fxml");
+                loadStage(stage, gamePlayStage, Constants.GAME_OVER_VIEW_PATH);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -67,9 +64,8 @@ public class Game {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         carId = ChooseCarController.getCarId();
         carId = carId == null ? "car1" : carId;
-        String carImg = "/resources/images/player_" + carId + ".png";
+        String carImg = Constants.CAR_IMAGES_PATH + carId + ".png";
         player.setImage(carImg);
-        //playerCar.setImage("/resources/images/player_car3.png");  depending on level?
         player.setPosition(200, 430);
         player.setPoints(0L);
         currentHealth = new HealthBar(player);
@@ -99,8 +95,8 @@ public class Game {
                         observer.update(currentPoints, observer);
                         observer.update(currentTime, observer);
                         observer.update(currentDistance, observer);
-                        if (Math.abs(y) >= 600) {
-                            y = y - 600;
+                        if (Math.abs(y) >= Constants.CANVAS_HEIGHT) {
+                            y = y - Constants.CANVAS_HEIGHT;
                             frame = 0;
                         }
                         player.setVelocity(0, 0);
@@ -115,8 +111,8 @@ public class Game {
                             testObstacles.add(Obstacle.generateObstacle());
                         }
 
-                        gc.clearRect(0, 0, 500, 600);
-                        gc.drawImage(background, 0, y - 600);
+                        gc.clearRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
+                        gc.drawImage(background, 0, y - Constants.CANVAS_HEIGHT);
                         gc.drawImage(background, 0, y);
                         player.update();
                         player.render(gc);
@@ -140,13 +136,13 @@ public class Game {
                             Stage stage = (Stage) canvas.getScene().getWindow();
                             root.getChildren().remove(canvas);
                             try {
-                                loadStage(stage, gameOverStage, "../views/gameOver.fxml");
+                                loadStage(stage, gameOverStage, Constants.GAME_OVER_VIEW_PATH);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
 
-                        if (frame % 50000 == 0) {
+                        if (frame % Constants.COLLECTIBLES_OFFSET == 0) {
                             collectibles.add(Collectible.generateCollectible());
                         }
                         visualizeCollectible(gc, velocity);
@@ -197,9 +193,9 @@ public class Game {
                                 pauseloop.stop();
                             }
 
-                            gc.clearRect(0, 0, 500, 600);
+                            gc.clearRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
                             gc.drawImage(background, 0, y);
-                            gc.drawImage(background, 0, y - 600);
+                            gc.drawImage(background, 0, y - Constants.CANVAS_HEIGHT);
                             player.render(gc);
 
                             for (Sprite collectible : collectibles) {
@@ -225,19 +221,19 @@ public class Game {
             if (collectible.getBoundary().intersects(player.getBoundary())) {
                 switch (collectible.getName()) {
                     case "1":      //Fuel Bottle/Pack
-                        player.setPoints(player.getPoints() + 250);
+                        player.setPoints(player.getPoints() + Constants.FUEL_TANK_BONUS);
                         break;
                     case "2":        //Health Pack
-                        player.setPoints(player.getPoints() + 500);
+                        player.setPoints(player.getPoints() + Constants.HEALTH_PACK_BONUS_POINTS);
                         if (player.getHealthPoints() < 100) {
-                            player.setHealthPoints(player.getHealthPoints() + 25);
+                            player.setHealthPoints(player.getHealthPoints() + Constants.HEALTH_BONUS);
                         }
                         break;
                     case "3":     //Bonus
-                        player.setPoints(player.getPoints() + 1000);
+                        player.setPoints(player.getPoints() + Constants.BONUS_POINTS);
                         break;
                 }
-                collectible.setPosition(800, 800);
+                collectible.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
             }
         }
     }

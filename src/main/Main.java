@@ -1,6 +1,7 @@
 package main;
 
 import Controllers.ScreenController;
+import DataHandler.Constants;
 import DataHandler.PlayerData;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -9,7 +10,7 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    public static final String TITLE = "Race Game";
+    public static final String TITLE = Constants.GAME_TITLE;
 
     public static void main(String[] args) {
         launch(args);

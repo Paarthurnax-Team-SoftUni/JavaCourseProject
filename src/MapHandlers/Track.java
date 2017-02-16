@@ -1,17 +1,14 @@
 package MapHandlers;
 
-import Controllers.GamePlayController;
+import DataHandler.Constants;
 import GameLogic.Game;
 import javafx.scene.image.Image;
-import resources.MyImage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class Track {
 
-    private static final Image backgroundLevel1 = new Image("/resources/images/background2.jpg");
-    private ArrayList<MyImage> images = new ArrayList<>();
+    private static final Image backgroundLevel1 = new Image(Constants.TRACK_BACKGROUND_PATH);
     public Track(int level) throws IOException {
         initializeLevel(level);
     }

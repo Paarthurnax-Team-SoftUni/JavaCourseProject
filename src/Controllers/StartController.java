@@ -1,5 +1,6 @@
 package Controllers;
 
+import DataHandler.Constants;
 import MapHandlers.Track;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -35,7 +36,7 @@ public class StartController {
     @FXML
     private void chooseCar() throws IOException {
         Stage currentStage = (Stage) startBtn.getScene().getWindow();
-        loadStage(currentStage, chooseCarStage, "../views/chooseCar.fxml");
+        loadStage(currentStage, chooseCarStage, Constants.CHOOSE_CAR_VIEW_PATH);
 
     }
 
@@ -43,7 +44,7 @@ public class StartController {
 
     private void startNewGame() throws IOException {
         Stage currentStage = (Stage) startBtn.getScene().getWindow();
-        loadStage(currentStage, gamePlayStage, "../views/gamePlay.fxml");
+        loadStage(currentStage, gamePlayStage, Constants.GAME_PLAY_VIEW_PATH);
         try {
             Track.initializeLevel(1);
         } catch (IOException e) {
@@ -62,13 +63,13 @@ public class StartController {
     @FXML
     private void showHighScoresDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Best Slav Ranking");
+        dialog.setTitle(Constants.HIGH_SCORE_DIALOG_TITLE);
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/views/highScoresDialog.fxml"));
+        fxmlLoader.setLocation(getClass().getResource(Constants.HIGH_SCORES_DIALOG));
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
         } catch (IOException e) {
-            System.out.println("Can't load the High Scores dialog");
+            System.out.println(Constants.DIALOG_MESSAGE);
             e.printStackTrace();
             return;
         }

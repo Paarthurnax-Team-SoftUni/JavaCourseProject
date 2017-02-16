@@ -13,7 +13,6 @@ import java.util.Iterator;
 
 public class PlayerData {
     private static PlayerData instance = new PlayerData();
-    private static String fileName = "PlayerList.txt";
 
     private ObservableList<Player> playersList;
 
@@ -31,7 +30,7 @@ public class PlayerData {
 
     public void loadPlayersData() {
         playersList = FXCollections.observableArrayList();
-        Path path = Paths.get(fileName);
+        Path path = Paths.get(Constants.HIGH_SCORES_FILE_NAME);
 
         String input;
 
@@ -53,7 +52,7 @@ public class PlayerData {
     }
 
     public void storePlayersData() {
-        Path path = Paths.get(fileName);
+        Path path = Paths.get(Constants.HIGH_SCORES_FILE_NAME);
         try (BufferedWriter bw = Files.newBufferedWriter(path)) {
             Iterator<Player> iter = playersList.iterator();
             while (iter.hasNext()) {

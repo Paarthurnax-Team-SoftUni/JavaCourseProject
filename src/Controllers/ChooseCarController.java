@@ -1,5 +1,6 @@
 package Controllers;
 
+import DataHandler.Constants;
 import DataHandler.Player;
 import DataHandler.PlayerData;
 import javafx.event.ActionEvent;
@@ -86,9 +87,8 @@ public class ChooseCarController{
 
     public void renderStartMenu(ActionEvent actionEvent) throws IOException {
         Stage currentStage = (Stage) returnBtn.getScene().getWindow();
-        loadStage(currentStage, startStage, "../views/start.fxml");
+        loadStage(currentStage, startStage, Constants.START_FXML_PATH);
     }
-
     public void chooseCar(MouseEvent ev) {
         Node source = (Node) ev.getSource();
 

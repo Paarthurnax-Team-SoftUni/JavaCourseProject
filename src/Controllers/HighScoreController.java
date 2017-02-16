@@ -23,7 +23,6 @@ public class HighScoreController {
     private Predicate<Player> wantAllItems;
 
     public void initialize() {
-//        highScoresListView = new TableView<>();
 
         wantAllItems = new Predicate<Player>() {
             @Override

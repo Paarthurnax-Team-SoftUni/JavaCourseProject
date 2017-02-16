@@ -69,7 +69,7 @@ public class Sprite {
                 velocityY += y;
             }
         } else if (y > 0) {
-            if (positionY < 600-this.height) {
+            if (positionY < Constants.CANVAS_HEIGHT-this.height) {
                 velocityY += y;
             }
         }
@@ -97,7 +97,7 @@ public class Sprite {
     }
 
     public void setDestroyed(boolean destroyed) {
-        this.setImage("resources/images/flame.png");
+        this.setImage(Constants.FLAME_PATH);
         this.setVelocity(0, 0);
         isDestroyed = destroyed;
     }

@@ -8,7 +8,7 @@ public class Collectible {
         Random collectibleX = new Random();
         long numb = System.currentTimeMillis() % 3;
         //TODO: change stringDirectory to the correct images!
-        String stringDirectory = "/resources/images/collectable" + (numb + 1) + ".png";
+        String stringDirectory = Constants.COLLECTIBLES_PATH + (numb + 1) + ".png";
 
         Sprite collectible = new Sprite();
         collectible.setName(String.valueOf(numb + 1));

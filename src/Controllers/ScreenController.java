@@ -1,5 +1,6 @@
 package Controllers;
 
+import DataHandler.Constants;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,7 +23,7 @@ public class ScreenController{
 
     public static void setPrimaryStage(Stage primaryStage) throws IOException {
         primaryStage.setTitle(Main.TITLE);
-        root = FXMLLoader.load(Main.class.getResource("../views/login.fxml"));
+        root = FXMLLoader.load(Main.class.getResource(Constants.LOGIN_VIEW_PATH));
         primaryStage.setScene(new Scene(root,800,600));
         primaryStage.setMaxHeight(640);
         primaryStage.setMaxWidth(800);
@@ -39,7 +40,7 @@ public class ScreenController{
             currentStage = new Stage();
         }
 
-        currentStage.getIcons().add(new Image("/resources/images/logo.png"));
+        currentStage.getIcons().add(new Image(Constants.LOGO_PATH));
 
         root = FXMLLoader.load(Main.class.getResource(path));
 
@@ -64,7 +65,7 @@ public class ScreenController{
     }
 
     public static void showLogin() throws IOException {
-        loadStage(null, primaryStage, "../views/login.fxml");
+        loadStage(null, primaryStage, Constants.LOGIN_VIEW_PATH);
     }
 
     public static void closeStage(Stage curStage){
