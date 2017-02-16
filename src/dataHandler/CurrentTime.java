@@ -18,7 +18,8 @@ public class CurrentTime extends Observable {
     }
 
     public void setValue(long value){
-        int seconds= (int)(value % 60);
+
+        int seconds=180- (int)(value % 60);
         this.value.set(String.format("%02d:%02d",value/60,seconds));
 
     }

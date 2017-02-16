@@ -14,7 +14,7 @@
             <font>
                 <Font name="Chiller" size="40.0" />
             </font></TextField>
-        <Label layoutX="204.0" layoutY="193.0" text="Enter Your Username" textFill="#141414" underline="true">
+        <Label layoutX="242.0" layoutY="194.0" text="Enter Your Username" textFill="#141414" underline="true">
             <font>
                 <Font name="Chiller" size="50.0" />
             </font>

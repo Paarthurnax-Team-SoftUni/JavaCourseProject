@@ -156,7 +156,7 @@ public class GamePlayController implements Initializable {
                         player.render(gc);
                         currentHealth.render();
                         manageObstacles(gc);
-                        if(currentDistance.getValue() >= 8000){
+                        if(frame >= 10600){
                             clearObstaclesAndCollectibles();
                             gameLoop.stop();
                             MusicPlayer.StopMusic();
