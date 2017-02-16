@@ -14,7 +14,7 @@ public class Player extends Sprite {
     private Long points;
     private Long experience;
     private int healthPoints;
-    public EventHandler<KeyEvent> control;
+    private EventHandler<KeyEvent> control;
     private boolean accelerating = false;
 
     public Player(String name, Long highScore, Double money, Long points, Long experience, int healthPoints) {
