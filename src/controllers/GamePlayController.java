@@ -156,7 +156,7 @@ public class GamePlayController implements Initializable {
                         player.render(gc);
                         currentHealth.render();
                         manageObstacles(gc);
-                        if(frame >= 10600){
+                        if(time >= Constants.TRACK_1_END_TIME){
                             clearObstaclesAndCollectibles();
                             gameLoop.stop();
                             MusicPlayer.StopMusic();
@@ -240,6 +240,7 @@ public class GamePlayController implements Initializable {
                 switch (collectible.getName()) {
                     case "1":      //Fuel Bottle/Pack
                         player.setPoints(player.getPoints() + Constants.FUEL_TANK_BONUS);
+                        time-=294;
                         break;
                     case "2":        //Health Pack
                         player.setPoints(player.getPoints() + Constants.HEALTH_PACK_BONUS_POINTS);
