@@ -70,6 +70,21 @@
     -fx-background-radius: 15px;
 }
 
+
+#gameWinPage{
+    -fx-background-image: url('/resources/images/game-win.gif');
+}
+
+#gameWinPage #quitBtn, #startMenuBtn{
+    -fx-background-color: rgba(255,255,255, 0.6);
+    -fx-background-radius: 15px;
+}
+
+#gameWinPage #quitBtn:hover, #startMenuBtn:hover {
+    -fx-background-color: rgba(255,0,0, 0.6);
+    -fx-background-radius: 15px;
+}
+
 #menu {
     -fx-background-color: black;
 }
