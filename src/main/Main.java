@@ -1,8 +1,8 @@
 package main;
 
-import Controllers.ScreenController;
-import DataHandler.Constants;
-import DataHandler.PlayerData;
+import controllers.ScreenController;
+import dataHandler.Constants;
+import dataHandler.PlayerData;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
