@@ -6,6 +6,7 @@ import Controllers.ScreenController;
 import DataHandler.*;
 import KeyHandler.KeyHandlerOnPress;
 import KeyHandler.KeyHandlerOnRelease;
+import Music.MusicPlayer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -14,12 +15,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -35,8 +34,6 @@ public class Game {
     private static long time = 0;
     private static boolean isPaused = false;
     private static double y;
-    private static MediaPlayer mediaPlayer;
-    private static Duration resumeTime;
     private static ArrayList<Sprite> testObstacles = new ArrayList<>();
     private static ArrayList<Sprite> collectibles = new ArrayList<>();
     private static Player player = LoginController.player;
@@ -82,7 +79,7 @@ public class Game {
         currentDistance.addObserver(observer);
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
-        playMusic();
+        MusicPlayer.PlayMusic();
 
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(0.017),
@@ -130,7 +127,7 @@ public class Game {
                         if (player.getHealthPoints() <= 0) {
                             clearObstaclesAndCollectibles();
                             gameLoop.stop();
-                            stopMusic();
+                            MusicPlayer.StopMusic();
                             time = 0;
                             player.setHealthPoints(100);
                             if (player.getHighScore() < player.getPoints()) {
@@ -184,7 +181,7 @@ public class Game {
         isPaused = true;
         gameLoop.pause();
         if (isPaused) {
-            pauseMusic();
+            MusicPlayer.Pause();
 
             Timeline pauseloop = new Timeline();
             pauseloop.setCycleCount(Timeline.INDEFINITE);
@@ -196,7 +193,7 @@ public class Game {
                         public void handle(ActionEvent event) {
                             if (!isPaused) {
                                 gameLoop.play();
-                                pauseMusic();
+                                MusicPlayer.Pause();
                                 pauseloop.stop();
                             }
 
@@ -250,27 +247,6 @@ public class Game {
         testObstacles.clear();
     }
 
-    private static void playMusic(){
-        String path =  projectPath + "music.wav" ;
-        Media media = new Media(new File(path).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
-    }
-
-    private static void pauseMusic() {
-        if(mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED)){
-            System.out.println("paused");
-            mediaPlayer.setStartTime(resumeTime);
-            mediaPlayer.play();
-        } else {
-            mediaPlayer.pause();
-            resumeTime = mediaPlayer.getCurrentTime();
-        }
-    }
-
-    private static void stopMusic() {
-        mediaPlayer.stop();
-    }
 
     public static CurrentPoints getCurrentPoints() {
         return (currentPoints);
