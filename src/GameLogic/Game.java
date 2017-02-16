@@ -44,6 +44,7 @@ public class Game {
     private static CurrentPoints currentPoints = new CurrentPoints(0);
     private static CurrentTime currentTime = new CurrentTime(0);
     private static HealthBar currentHealth;
+    private static String projectPath =System.getProperty("user.dir")+"/src/resources/";
 
     private static Observer observer = new Observer() {
         @Override
@@ -250,7 +251,7 @@ public class Game {
     }
 
     private static void playMusic(){
-        String path = "music.wav";
+        String path =  projectPath + "music.wav" ;
         Media media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();

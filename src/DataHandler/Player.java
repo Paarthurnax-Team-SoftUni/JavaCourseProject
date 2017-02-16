@@ -14,7 +14,7 @@ public class Player extends Sprite {
     private Long points;
     private Long experience;
     private int healthPoints;
-    private EventHandler<KeyEvent> control;
+   // private EventHandler<KeyEvent> control;
     private boolean accelerating = false;
 
     public Player(String name, Long highScore, Double money, Long points, Long experience, int healthPoints) {
@@ -84,9 +84,9 @@ public class Player extends Sprite {
         return String.format("%s: %s", this.name, this.highScore);
     }
 
-    public void addControl() {
-        this.control = new KeyHandlerOnPress(this);
-    }
+//    public void addControl() {
+//        this.control = new KeyHandlerOnPress(this);
+//    }
 
 
     public void accelerate() {
