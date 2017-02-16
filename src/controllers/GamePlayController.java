@@ -120,6 +120,11 @@ public class GamePlayController implements Initializable {
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
+
+                        if (isPaused) {
+                            handleGamePause(gameLoop, gc, background);
+                        }
+
                         y = y + velocity ;
                         time++;
                         frame++;
@@ -140,9 +145,6 @@ public class GamePlayController implements Initializable {
                         player.setVelocity(0, 0);
 
                         //Pause
-                        if (isPaused) {
-                            handleGamePause(gameLoop, gc, background);
-                        }
 
                         //Generate obstacles
                         if (frame % 50000 == 0) {
