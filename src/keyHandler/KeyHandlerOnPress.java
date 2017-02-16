@@ -2,7 +2,6 @@ package keyHandler;
 
 import controllers.GamePlayController;
 import dataHandler.Player;
-import GameLogic.Game;
 import javafx.event.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;

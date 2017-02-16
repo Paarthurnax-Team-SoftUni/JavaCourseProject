@@ -48,8 +48,8 @@ public class ScreenController{
         currentStage.setScene(new Scene(root));
         currentStage.setTitle(Main.TITLE);
         currentStage.setResizable(false);
-        closeStage(prevStage);
         currentStage.show();
+        closeStage(prevStage);
 
         root.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
