@@ -45,11 +45,11 @@ public class GamePlayController implements Initializable {
     private static CurrentDistance currentDistance = new CurrentDistance(0);
     private static HealthBar currentHealth;
 
-    public static ImageView _health100;
-    public static ImageView _health75;
-    public static ImageView _health50;
-    public static ImageView _health25;
-    public static Rectangle _healthBar;
+    private static ImageView _health100;
+    private static ImageView _health75;
+    private static ImageView _health50;
+    private static ImageView _health25;
+    private static Rectangle _healthBar;
 
     @FXML
     public ImageView health100;
