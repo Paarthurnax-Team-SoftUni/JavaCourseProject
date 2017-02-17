@@ -17,6 +17,7 @@ public class Track {
         switch (level) {
             case 1: {
                 createBackground();
+                break;
             }
         }
     }
