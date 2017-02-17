@@ -116,7 +116,7 @@ public class GamePlayController implements Initializable {
         MusicPlayer.PlayMusic();
 
         KeyFrame kf = new KeyFrame(
-                Duration.seconds(0.017),
+                Duration.seconds(Constants.FRAMES_PER_SECOND),
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
@@ -129,7 +129,7 @@ public class GamePlayController implements Initializable {
                         time++;
                         frame++;
 
-                        currentTime.setValue((long) (time * 0.017));
+                        currentTime.setValue((long) (time * Constants.FRAMES_PER_SECOND));
                         currentDistance.setValue(currentDistance.getValue() + (long) velocity/2);
                         player.setPoints(player.getPoints()+1);
                         currentPoints.setValue(player.getPoints());
@@ -147,7 +147,7 @@ public class GamePlayController implements Initializable {
                         //Pause
 
                         //Generate obstacles
-                        if (frame % 50000 == 0) {
+                        if (frame == 0) {
                             testObstacles.add(Obstacle.generateObstacle());
                         }
 
@@ -163,13 +163,13 @@ public class GamePlayController implements Initializable {
                             gameLoop.stop();
                             MusicPlayer.StopMusic();
                             time = 0;
-                            player.setHealthPoints(100);
+                            player.setHealthPoints(Constants.HEALTH_BAR_MAX);
                             if (player.getHighScore() < player.getPoints()) {
                                 player.setHighScore(player.getPoints());
                             }
                             player.setPoints(0L);
                             player.stopAccelerate();
-                            velocity = 5;
+                            velocity = Constants.START_GAME_VELOCITY;
                             currentDistance.setValue(0);
                             Stage stage = (Stage) canvas.getScene().getWindow();
                             root.getChildren().remove(canvas);
@@ -184,7 +184,7 @@ public class GamePlayController implements Initializable {
                             gameLoop.stop();
                             MusicPlayer.StopMusic();
                             time = 0;
-                            player.setHealthPoints(100);
+                            player.setHealthPoints(Constants.HEALTH_BAR_MAX);
                             if (player.getHighScore() < player.getPoints()) {
                                 player.setHighScore(player.getPoints());
                             }
@@ -224,7 +224,7 @@ public class GamePlayController implements Initializable {
 
             if (testObst.getBoundary().intersects(player.getBoundary())) {
                 if (!testObst.isDestroyed()) {
-                    player.setHealthPoints(player.getHealthPoints() - 25);
+                    player.setHealthPoints(player.getHealthPoints() - Constants.OBSTACLE_DAMAGE);
                     testObst.setDestroyed(true);
                 }
             }
@@ -246,8 +246,8 @@ public class GamePlayController implements Initializable {
                         break;
                     case "2":        //Health Pack
                         player.setPoints(player.getPoints() + Constants.HEALTH_PACK_BONUS_POINTS);
-                        if (player.getHealthPoints() < 100) {
-                            player.setHealthPoints(player.getHealthPoints() + Constants.HEALTH_BONUS);
+                        if (player.getHealthPoints() < Constants.HEALTH_BAR_MAX) {
+                            player.setHealthPoints(Math.min(player.getHealthPoints() + Constants.HEALTH_BONUS, Constants.HEALTH_BAR_MAX));
                         }
                         break;
                     case "3":     //Bonus
@@ -288,25 +288,25 @@ public class GamePlayController implements Initializable {
 
        // _healthBar.setWidth(healthPoints*1.56);  IF WE DECIDE TO SHOW IT BY PERCENTIGE
 
-        if (healthPoints > 75 && healthPoints <= 100) {
+        if (healthPoints > Constants.HEALTH_BAR_AVERAGE_HIGH && healthPoints <= Constants.HEALTH_BAR_MAX) {
             _health100.setVisible(true);
             _health75.setVisible(false);
             _health50.setVisible(false);
             _health25.setVisible(false);
         }
-        else if (healthPoints <= 75 && healthPoints > 50) {
+        else if (healthPoints <= Constants.HEALTH_BAR_AVERAGE_HIGH && healthPoints > Constants.HEALTH_BAR_AVERAGE_LOW) {
             _health100.setVisible(false);
             _health75.setVisible(true);
             _health50.setVisible(false);
             _health25.setVisible(false);
         }
-        else if (healthPoints <= 50 && healthPoints > 25) {
+        else if (healthPoints <= Constants.HEALTH_BAR_AVERAGE_LOW && healthPoints > Constants.HEALTH_BAR_MIN) {
             _health100.setVisible(false);
             _health75.setVisible(false);
             _health50.setVisible(true);
             _health25.setVisible(false);
         }
-        else if (healthPoints <= 25) {
+        else if (healthPoints <= Constants.HEALTH_BAR_MIN) {
             _health100.setVisible(false);
             _health75.setVisible(false);
             _health50.setVisible(false);
@@ -331,7 +331,7 @@ public class GamePlayController implements Initializable {
             pauseloop.setCycleCount(Timeline.INDEFINITE);
 
             KeyFrame keyFramePause = new KeyFrame(
-                    Duration.seconds(0.017),
+                    Duration.seconds(Constants.FRAMES_PER_SECOND),
                     new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
