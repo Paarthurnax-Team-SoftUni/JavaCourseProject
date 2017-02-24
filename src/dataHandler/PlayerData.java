@@ -13,10 +13,20 @@ import java.util.Iterator;
 
 public class PlayerData {
 
-    private static PlayerData instance = new PlayerData();
+    private static volatile PlayerData instance = null;
     private ObservableList<Player> playersList;
 
+    private PlayerData() {}
+
     public static PlayerData getInstance() {
+        if(instance == null) {
+            System.out.println("new instance");
+            synchronized (PlayerData.class) {
+                if(instance == null) {
+                    instance = new PlayerData();
+                }
+            }
+        }
         return instance;
     }
 
