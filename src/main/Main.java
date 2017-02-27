@@ -1,7 +1,6 @@
 package main;
 
 import controllers.ScreenController;
-import dataHandler.Constants;
 import dataHandler.PlayerData;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -10,16 +9,14 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    public static final String TITLE = Constants.GAME_TITLE;
-
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        ScreenController.setPrimaryStage(primaryStage);
-        ScreenController.showLogin();
+        ScreenController.getInstance().setPrimaryStage(primaryStage);
+        ScreenController.getInstance().showLogin();
     }
 
     @Override

@@ -17,9 +17,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static controllers.ScreenController.loadStage;
-import static controllers.ScreenController.startStage;
-
 public class ChooseCarController{
     public static String getCarId() {
         return carId;
@@ -87,7 +84,7 @@ public class ChooseCarController{
 
     public void renderStartMenu(ActionEvent actionEvent) throws IOException {
         Stage currentStage = (Stage) returnBtn.getScene().getWindow();
-        loadStage(currentStage, startStage, Constants.START_FXML_PATH);
+        ScreenController.getInstance().loadStage(currentStage, ScreenController.getInstance().getStartStage(), Constants.START_FXML_PATH);
     }
     public void chooseCar(MouseEvent ev) {
         Node source = (Node) ev.getSource();

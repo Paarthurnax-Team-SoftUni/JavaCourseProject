@@ -16,9 +16,6 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static controllers.ScreenController.loadStage;
-import static controllers.ScreenController.startStage;
-
 public class LoginController implements Initializable{
 
     public static Player player;
@@ -48,7 +45,8 @@ public class LoginController implements Initializable{
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
                 player = PlayerData.getInstance().returnPlayer(name);
                 player.setHealthPoints(100);
-                loadStage(currentStage, startStage, Constants.START_FXML_PATH);
+                ScreenController.getInstance().loadStage(currentStage, ScreenController.getInstance().getStartStage(), Constants.START_FXML_PATH);
+
 
             }
         } else {
@@ -63,7 +61,8 @@ public class LoginController implements Initializable{
                 PlayerData.getInstance().addPlayer(player);
                 PlayerData.getInstance().storePlayersData();
 
-                loadStage(currentStage, startStage, Constants.START_FXML_PATH);
+                ScreenController.getInstance().loadStage(currentStage, ScreenController.getInstance().getStartStage(), Constants.START_FXML_PATH);
+
 
             }
         }

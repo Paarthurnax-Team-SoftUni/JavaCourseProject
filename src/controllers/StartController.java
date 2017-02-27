@@ -1,7 +1,6 @@
 package controllers;
 
 import dataHandler.Constants;
-import mapHandlers.Track;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,12 +10,9 @@ import javafx.scene.control.Dialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import mapHandlers.Track;
 
 import java.io.IOException;
-
-import static controllers.ScreenController.chooseCarStage;
-import static controllers.ScreenController.gamePlayStage;
-import static controllers.ScreenController.loadStage;
 
 public class StartController {
 
@@ -36,7 +32,7 @@ public class StartController {
     @FXML
     private void chooseCar() throws IOException {
         Stage currentStage = (Stage) startBtn.getScene().getWindow();
-        loadStage(currentStage, chooseCarStage, Constants.CHOOSE_CAR_VIEW_PATH);
+        ScreenController.getInstance().loadStage(currentStage, ScreenController.getInstance().getChooseCarStage(), Constants.CHOOSE_CAR_VIEW_PATH);
 
     }
 
@@ -44,7 +40,7 @@ public class StartController {
 
     private void startNewGame() throws IOException {
         Stage currentStage = (Stage) startBtn.getScene().getWindow();
-        loadStage(currentStage, gamePlayStage, Constants.GAME_PLAY_VIEW_PATH);
+        ScreenController.getInstance().loadStage(currentStage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_PLAY_VIEW_PATH);
         try {
             Track.initializeLevel(1);
         } catch (IOException e) {

@@ -27,8 +27,6 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
-import static controllers.ScreenController.*;
-
 public class GamePlayController implements Initializable {
 
     private static int frame = 0;
@@ -83,13 +81,13 @@ public class GamePlayController implements Initializable {
     }
 
     public static void RunTrack(Image background) {
-        AnchorPane root = ScreenController.root;
+        AnchorPane root = ScreenController.getInstance().getRoot();
         Canvas canvas = new Canvas(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
 
-        if (ScreenController.gamePlayStage != null) {
+        if (ScreenController.getInstance().getGamePlayStage() != null) {
             Stage stage = (Stage) canvas.getScene().getWindow();
             try {
-                loadStage(stage, gamePlayStage, Constants.GAME_OVER_VIEW_PATH);
+                ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_OVER_VIEW_PATH);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -174,7 +172,7 @@ public class GamePlayController implements Initializable {
                             Stage stage = (Stage) canvas.getScene().getWindow();
                             root.getChildren().remove(canvas);
                             try {
-                                loadStage(stage, gameWinStage, Constants.GAME_WIN_VIEW_PATH);
+                                ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_WIN_VIEW_PATH);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -195,7 +193,7 @@ public class GamePlayController implements Initializable {
                             Stage stage = (Stage) canvas.getScene().getWindow();
                             root.getChildren().remove(canvas);
                             try {
-                                loadStage(stage, gameOverStage, Constants.GAME_OVER_VIEW_PATH);
+                                ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGameOverStage(), Constants.GAME_OVER_VIEW_PATH);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -332,26 +330,23 @@ public class GamePlayController implements Initializable {
 
             KeyFrame keyFramePause = new KeyFrame(
                     Duration.seconds(Constants.FRAMES_PER_SECOND),
-                    new EventHandler<ActionEvent>() {
-                        @Override
-                        public void handle(ActionEvent event) {
-                            if (!isPaused) {
-                                gameLoop.play();
-                                MusicPlayer.Pause();
-                                pauseloop.stop();
-                            }
+                    event -> {
+                        if (!isPaused) {
+                            gameLoop.play();
+                            MusicPlayer.Pause();
+                            pauseloop.stop();
+                        }
 
-                            gc.clearRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
-                            gc.drawImage(background, 0, y);
-                            gc.drawImage(background, 0, y - Constants.CANVAS_HEIGHT);
-                            player.render(gc);
+                        gc.clearRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
+                        gc.drawImage(background, 0, y);
+                        gc.drawImage(background, 0, y - Constants.CANVAS_HEIGHT);
+                        player.render(gc);
 
-                            for (Sprite collectible : collectibles) {
-                                collectible.render(gc);
-                            }
-                            for (Sprite obs : testObstacles) {
-                                obs.render(gc);
-                            }
+                        for (Sprite collectible : collectibles) {
+                            collectible.render(gc);
+                        }
+                        for (Sprite obs : testObstacles) {
+                            obs.render(gc);
                         }
                     });
             pauseloop.getKeyFrames().add(keyFramePause);
