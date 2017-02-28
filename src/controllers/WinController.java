@@ -16,7 +16,7 @@ public class WinController {
 
     public void restartGame(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) quitBtn.getScene().getWindow();
-        GamePlayController.clearObstaclesAndCollectibles();
+        GamePlayController.getInstance().clearObstaclesAndCollectibles();
         ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getStartStage(), Constants.START_FXML_PATH);
     }
 

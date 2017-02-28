@@ -17,12 +17,24 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable{
+    private static volatile LoginController instance = null;
 
-    public static Player player;
     @FXML
     private TextField playerName;
     @FXML
     private Button loginBtn;
+
+    public static LoginController getInstance() {
+        if(instance == null) {
+            System.out.println("Login inst");
+            synchronized (LoginController.class) {
+                if(instance == null) {
+                    instance = new LoginController();
+                }
+            }
+        }
+        return instance;
+    }
 
     @FXML
     private void showStartPage() throws IOException {
@@ -43,11 +55,8 @@ public class LoginController implements Initializable{
             alert.setContentText("Are you sure? Press OK to continue, or Cancel to abort.");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
-                player = PlayerData.getInstance().returnPlayer(name);
-                player.setHealthPoints(100);
+                GamePlayController.getInstance().setPlayer(PlayerData.getInstance().returnPlayer(name));
                 ScreenController.getInstance().loadStage(currentStage, ScreenController.getInstance().getStartStage(), Constants.START_FXML_PATH);
-
-
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -56,7 +65,8 @@ public class LoginController implements Initializable{
             alert.setContentText("Are you sure? Press OK to continue, or Cancel to abort.");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
-                player = new Player(name, 0L, 0.0, 0L, 0L, 100);
+                Player player = new Player(name, 0L, 0.0, 0L, 0L, 100);
+                GamePlayController.getInstance().setPlayer(player);
 
                 PlayerData.getInstance().addPlayer(player);
                 PlayerData.getInstance().storePlayersData();
@@ -69,5 +79,6 @@ public class LoginController implements Initializable{
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {}
+    public void initialize(URL location, ResourceBundle resources) {
+    }
 }

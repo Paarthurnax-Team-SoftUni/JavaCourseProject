@@ -18,15 +18,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ChooseCarController{
-    public static String getCarId() {
+    private static volatile ChooseCarController instance = null;
+
+    public String getCarId() {
         return carId;
     }
 
-    public static void setCarId(String carId) {
-        ChooseCarController.carId = carId;
+    private void setCarId(String carId) {
+        this.carId = carId;
     }
 
-    public static String carId;
+    private static String carId;
     public ImageView locked2;
     public ImageView locked3;
     public ImageView locked4;
@@ -76,9 +78,22 @@ public class ChooseCarController{
     @FXML
     private Label label6;
 
+    public ChooseCarController() {
+    }
+
+    public static ChooseCarController getInstance() {
+        if(instance == null) {
+            synchronized (ChooseCarController.class) {
+                if(instance == null) {
+                    instance = new ChooseCarController();
+                }
+            }
+        }
+        return instance;
+    }
 
     public void initialize() {
-        Player p = PlayerData.getInstance().returnPlayer(LoginController.player.getName());
+        Player p = PlayerData.getInstance().returnPlayer(GamePlayController.getInstance().getPlayer().getName());
         showUnlockedCarsOnly(p.getHighScore());
     }
 
@@ -151,7 +166,7 @@ public class ChooseCarController{
     }
 
     private void backgroundFill(String id) {
-        Player p = PlayerData.getInstance().returnPlayer(LoginController.player.getName());
+        Player p = PlayerData.getInstance().returnPlayer(GamePlayController.getInstance().getPlayer().getName());
         showUnlockedCarsOnly(p.getHighScore());
 
         switch (id) {

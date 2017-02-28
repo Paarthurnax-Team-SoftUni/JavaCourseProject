@@ -22,6 +22,14 @@ public class ScreenController{
     private Stage gameOverStage;
     private AnchorPane root;
 
+    private ScreenController() {
+        this.startStage = null;
+        this.chooseCarStage = null;
+        this.gamePlayStage = null;
+        this.gameWinStage = null;
+        this.gameOverStage = null;
+    }
+
     public static ScreenController getInstance() {
         if(instance == null) {
             synchronized (ScreenController.class) {

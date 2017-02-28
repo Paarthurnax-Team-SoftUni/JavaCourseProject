@@ -6,7 +6,6 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -24,30 +23,30 @@ import music.MusicPlayer;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Observable;
 import java.util.Observer;
 
 public class GamePlayController implements Initializable {
-
-    private static int frame = 0;
-    private static long time = 0;
-    private static double y;
-    private static boolean isPaused = false;
-    private static float velocity = Constants.START_GAME_VELOCITY;
-    private static String carId;
-    private static ArrayList<Sprite> testObstacles = new ArrayList<>();
-    private static ArrayList<Sprite> collectibles = new ArrayList<>();
-    private static Player player = LoginController.player;
+    private static volatile GamePlayController instance = null;
+    private int frame;
+    private long time;
+    private double y;
+    private boolean isPaused;
+    private float velocity;
+    private String carId;
+    private ArrayList<Sprite> testObstacles;
+    private ArrayList<Sprite> collectibles;
+    private Player player;
     private static CurrentPoints currentPoints = new CurrentPoints(0);
     private static CurrentTime currentTime = new CurrentTime(0);
     private static CurrentDistance currentDistance = new CurrentDistance(0);
-    private static HealthBar currentHealth;
+    private HealthBar currentHealth;
 
     private static ImageView _health100;
     private static ImageView _health75;
     private static ImageView _health50;
     private static ImageView _health25;
     private static Rectangle _healthBar;
+
 
     @FXML
     public ImageView health100;
@@ -66,6 +65,42 @@ public class GamePlayController implements Initializable {
     @FXML
     public Label distance;
 
+    public GamePlayController(){};
+
+    private GamePlayController(int frame, long time, boolean isPaused, float velocity) {
+        this.frame = frame;
+        this.time = time;
+        this.isPaused = isPaused;
+        this.velocity = velocity;
+        this.testObstacles = new ArrayList<>();
+        this.collectibles = new ArrayList<>();
+    }
+
+    public static GamePlayController getInstance() {
+        if(instance == null) {
+            synchronized (GamePlayController.class) {
+                if(instance == null) {
+                    instance = new GamePlayController(0, 0, false, Constants.START_GAME_VELOCITY);
+                }
+            }
+        }
+        return instance;
+    }
+
+    private void setCarId(String carId) {
+        this.carId = carId;
+    }
+
+
+    public Player getPlayer() {
+        return player;
+    }
+
+
+    public  void setPlayer(Player player) {
+        this.player = player;
+    }
+
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         CurrentPoints currentPlayerPoints = getCurrentPoints();
         CurrentTime currentTime = getCurrentTime();
@@ -80,7 +115,7 @@ public class GamePlayController implements Initializable {
         _healthBar = healthBar;
     }
 
-    public static void RunTrack(Image background) {
+    public void RunTrack(Image background) {
         AnchorPane root = ScreenController.getInstance().getRoot();
         Canvas canvas = new Canvas(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
 
@@ -94,17 +129,16 @@ public class GamePlayController implements Initializable {
         }
 
         root.getChildren().add(canvas);
-        root.getScene().setOnKeyPressed(new KeyHandlerOnPress(player));
-        root.getScene().setOnKeyReleased(new KeyHandlerOnRelease(player));
+        root.getScene().setOnKeyPressed(new KeyHandlerOnPress(this.getPlayer()));
+        root.getScene().setOnKeyReleased(new KeyHandlerOnRelease(this.getPlayer()));
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        carId = ChooseCarController.getCarId();
+        this.setCarId(ChooseCarController.getInstance().getCarId());
         carId = carId == null ? "car1" : carId;
         String carImg = Constants.CAR_IMAGES_PATH + carId + ".png";
         player.setImage(carImg);
         player.setPosition(200, 430);
         player.setPoints(0L);
         currentHealth = new HealthBar(player);
-
         currentPoints.addObserver(observer);
         currentTime.addObserver(observer);
         currentDistance.addObserver(observer);
@@ -115,102 +149,99 @@ public class GamePlayController implements Initializable {
 
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(Constants.FRAMES_PER_SECOND),
-                new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
+                event -> {
 
-                        if (isPaused) {
-                            handleGamePause(gameLoop, gc, background);
-                        }
-
-                        y = y + velocity ;
-                        time++;
-                        frame++;
-
-                        currentTime.setValue((long) (time * Constants.FRAMES_PER_SECOND));
-                        currentDistance.setValue(currentDistance.getValue() + (long) velocity/2);
-                        player.setPoints(player.getPoints()+1);
-                        currentPoints.setValue(player.getPoints());
-
-                        observer.update(currentPoints, observer);
-                        observer.update(currentTime, observer);
-                        observer.update(currentDistance, observer);
-
-                        if (Math.abs(y) >= Constants.CANVAS_HEIGHT) {
-                            y = y - Constants.CANVAS_HEIGHT;
-                            frame = 0;
-                        }
-                        player.setVelocity(0, 0);
-
-                        //Pause
-
-                        //Generate obstacles
-                        if (frame == 0) {
-                            testObstacles.add(Obstacle.generateObstacle());
-                        }
-
-                        gc.clearRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
-                        gc.drawImage(background, 0, y - Constants.CANVAS_HEIGHT);
-                        gc.drawImage(background, 0, y);
-                        player.update();
-                        player.render(gc);
-                        currentHealth.render();
-                        manageObstacles(gc);
-                        if(time >= Constants.TRACK_1_END_TIME){
-                            clearObstaclesAndCollectibles();
-                            gameLoop.stop();
-                            MusicPlayer.StopMusic();
-                            time = 0;
-                            player.setHealthPoints(Constants.HEALTH_BAR_MAX);
-                            if (player.getHighScore() < player.getPoints()) {
-                                player.setHighScore(player.getPoints());
-                            }
-                            player.setPoints(0L);
-                            player.stopAccelerate();
-                            velocity = Constants.START_GAME_VELOCITY;
-                            currentDistance.setValue(0);
-                            Stage stage = (Stage) canvas.getScene().getWindow();
-                            root.getChildren().remove(canvas);
-                            try {
-                                ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_WIN_VIEW_PATH);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        if (player.getHealthPoints() <= 0) {
-                            clearObstaclesAndCollectibles();
-                            gameLoop.stop();
-                            MusicPlayer.StopMusic();
-                            time = 0;
-                            player.setHealthPoints(Constants.HEALTH_BAR_MAX);
-                            if (player.getHighScore() < player.getPoints()) {
-                                player.setHighScore(player.getPoints());
-                            }
-                            player.setPoints(0L);
-                            player.stopAccelerate();
-                            velocity=5;
-                            currentDistance.setValue(0);
-                            Stage stage = (Stage) canvas.getScene().getWindow();
-                            root.getChildren().remove(canvas);
-                            try {
-                                ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGameOverStage(), Constants.GAME_OVER_VIEW_PATH);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-
-                        if (frame % Constants.COLLECTIBLES_OFFSET == 0) {
-                            collectibles.add(Collectible.generateCollectible());
-                        }
-                        visualizeCollectible(gc, velocity);
+                    if (isPaused) {
+                        handleGamePause(gameLoop, gc, background);
                     }
+
+                    y = y + velocity ;
+                    time++;
+                    frame++;
+
+                    currentTime.setValue((long) (time * Constants.FRAMES_PER_SECOND));
+                    currentDistance.setValue(currentDistance.getValue() + (long) velocity/2);
+                    player.setPoints(player.getPoints()+1);
+                    currentPoints.setValue(player.getPoints());
+
+                    observer.update(currentPoints, observer);
+                    observer.update(currentTime, observer);
+                    observer.update(currentDistance, observer);
+
+                    if (Math.abs(y) >= Constants.CANVAS_HEIGHT) {
+                        y = y - Constants.CANVAS_HEIGHT;
+                        frame = 0;
+                    }
+                    player.setVelocity(0, 0);
+
+                    //Pause
+
+                    //Generate obstacles
+                    if (frame == 0) {
+                        testObstacles.add(Obstacle.generateObstacle());
+                    }
+
+                    gc.clearRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
+                    gc.drawImage(background, 0, y - Constants.CANVAS_HEIGHT);
+                    gc.drawImage(background, 0, y);
+                    player.update();
+                    player.render(gc);
+                    currentHealth.render();
+                    manageObstacles(gc);
+                    if(time >= Constants.TRACK_1_END_TIME){
+                        clearObstaclesAndCollectibles();
+                        gameLoop.stop();
+                        MusicPlayer.StopMusic();
+                        time = 0;
+                        player.setHealthPoints(Constants.HEALTH_BAR_MAX);
+                        if (player.getHighScore() < player.getPoints()) {
+                            player.setHighScore(player.getPoints());
+                        }
+                        player.setPoints(0L);
+                        player.stopAccelerate();
+                        velocity = Constants.START_GAME_VELOCITY;
+                        currentDistance.setValue(0);
+                        Stage stage = (Stage) canvas.getScene().getWindow();
+                        root.getChildren().remove(canvas);
+                        try {
+                            ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_WIN_VIEW_PATH);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (player.getHealthPoints() <= 0) {
+                        clearObstaclesAndCollectibles();
+                        gameLoop.stop();
+                        MusicPlayer.StopMusic();
+                        time = 0;
+                        player.setHealthPoints(Constants.HEALTH_BAR_MAX);
+                        if (player.getHighScore() < player.getPoints()) {
+                            player.setHighScore(player.getPoints());
+                        }
+                        player.setPoints(0L);
+                        player.stopAccelerate();
+                        velocity=5;
+                        currentDistance.setValue(0);
+                        Stage stage = (Stage) canvas.getScene().getWindow();
+                        root.getChildren().remove(canvas);
+                        try {
+                            ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGameOverStage(), Constants.GAME_OVER_VIEW_PATH);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    if (frame % Constants.COLLECTIBLES_OFFSET == 0) {
+                        collectibles.add(Collectible.generateCollectible());
+                    }
+                    visualizeCollectible(gc, velocity);
                 });
 
         gameLoop.getKeyFrames().add(kf);
         gameLoop.playFromStart();
     }
 
-    private static void manageObstacles(GraphicsContext gc) {
+    private void manageObstacles(GraphicsContext gc) {
         for (Sprite testObst : testObstacles) {
             if (testObst.getName().substring(0, 6).equals("player") && !testObst.isDestroyed()) {
                 testObst.setVelocity(0, velocity / 2);
@@ -230,7 +261,7 @@ public class GamePlayController implements Initializable {
         }
     }
 
-    private static void visualizeCollectible(GraphicsContext gc, double velocity) {
+    private void visualizeCollectible(GraphicsContext gc, double velocity) {
         for (Sprite collectible : collectibles) {
             collectible.setVelocity(0, velocity);
             collectible.update();
@@ -257,32 +288,33 @@ public class GamePlayController implements Initializable {
         }
     }
 
-    public static void clearObstaclesAndCollectibles() {
+    public void clearObstaclesAndCollectibles() {
         collectibles.clear();
         testObstacles.clear();
     }
 
-    public static CurrentPoints getCurrentPoints() {
+    public CurrentPoints getCurrentPoints() {
+        System.out.println(currentPoints.getValue());
         return (currentPoints);
     }
 
-    public static CurrentTime getCurrentTime() {
+    public CurrentTime getCurrentTime() {
         return (currentTime);
     }
 
-    public static CurrentDistance getCurrentDistance() {
+    public CurrentDistance getCurrentDistance() {
         return (currentDistance);
     }
 
-    public static float getVelocity() {
+    public float getVelocity() {
         return velocity;
     }
 
-    public static void setVelocity(float v) {
+    public void setVelocity(float v) {
         velocity = v;
     }
 
-    public static void printHealthBar(Integer healthPoints) {
+    public void printHealthBar(Integer healthPoints) {
 
        // _healthBar.setWidth(healthPoints*1.56);  IF WE DECIDE TO SHOW IT BY PERCENTIGE
 
@@ -312,14 +344,11 @@ public class GamePlayController implements Initializable {
         }
     }
 
-    private static Observer observer = new Observer() {
-        @Override
-        public void update(Observable o, Object arg) {
-            
-        }
+    private static Observer observer = (o, arg) -> {
+
     };
 
-    private static void handleGamePause(final Timeline gameLoop, final GraphicsContext gc, final Image background) {
+    private void handleGamePause(final Timeline gameLoop, final GraphicsContext gc, final Image background) {
         isPaused = true;
         gameLoop.pause();
         if (isPaused) {
@@ -355,11 +384,11 @@ public class GamePlayController implements Initializable {
         }
     }
 
-    public static boolean isIsPaused() {
+    public boolean isIsPaused() {
         return isPaused;
     }
 
-    public static void setIsPaused(boolean newValue) {
+    public void setIsPaused(boolean newValue) {
         isPaused = newValue;
     }
 
