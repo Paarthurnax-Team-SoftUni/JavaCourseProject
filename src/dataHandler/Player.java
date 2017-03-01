@@ -11,6 +11,8 @@ public class Player extends Sprite {
     private Long experience;
     private int healthPoints;
     private boolean accelerating = false;
+    private boolean turnLeft = false;
+    private boolean turnRight = false;
 
     public Player(String name, Long highScore, Double money, Long points, Long experience, int healthPoints) {
 
@@ -95,6 +97,9 @@ public class Player extends Sprite {
             if (GamePlayController.getInstance().getVelocity() > 5) {
                 GamePlayController.getInstance().setVelocity((float) (GamePlayController.getInstance().getVelocity()-0.1));
             }
+        }
+        if (this.turnLeft){
+
         }
 
         super.update();

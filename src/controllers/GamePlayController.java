@@ -29,7 +29,7 @@ public class GamePlayController implements Initializable {
     private static volatile GamePlayController instance = null;
     private int frame;
     private long time;
-    private double y;
+    private int y;
     private boolean isPaused;
     private float velocity;
     private String carId;
@@ -134,7 +134,8 @@ public class GamePlayController implements Initializable {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         this.setCarId(ChooseCarController.getInstance().getCarId());
         carId = carId == null ? "car1" : carId;
-        String carImg = Constants.CAR_IMAGES_PATH + carId + ".png";
+        //String carImg = Constants.CAR_IMAGES_PATH + carId + ".png";
+        String carImg = Constants.CAR_IMAGES_PATH + carId + "_half_size.png";
         player.setImage(carImg);
         player.setPosition(200, 430);
         player.setPoints(0L);
@@ -146,6 +147,7 @@ public class GamePlayController implements Initializable {
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         MusicPlayer.PlayMusic();
+        MusicPlayer.Pause();
 
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(Constants.FRAMES_PER_SECOND),
@@ -155,7 +157,7 @@ public class GamePlayController implements Initializable {
                         handleGamePause(gameLoop, gc, background);
                     }
 
-                    y = y + velocity ;
+                    y = Math.round(y + velocity) ;
                     time++;
                     frame++;
 
@@ -167,10 +169,11 @@ public class GamePlayController implements Initializable {
                     observer.update(currentPoints, observer);
                     observer.update(currentTime, observer);
                     observer.update(currentDistance, observer);
-
+                    System.out.println(y);
                     if (Math.abs(y) >= Constants.CANVAS_HEIGHT) {
                         y = y - Constants.CANVAS_HEIGHT;
                         frame = 0;
+                        System.out.println("--"+ y);
                     }
                     player.setVelocity(0, 0);
 
@@ -253,7 +256,7 @@ public class GamePlayController implements Initializable {
 
             if (testObst.getBoundary().intersects(player.getBoundary())) {
                 if (!testObst.isDestroyed()) {
-                    player.setHealthPoints(player.getHealthPoints() - Constants.OBSTACLE_DAMAGE);
+                    //player.setHealthPoints(player.getHealthPoints() - Constants.OBSTACLE_DAMAGE);
                     testObst.setDestroyed(true);
                 }
             }
@@ -362,7 +365,7 @@ public class GamePlayController implements Initializable {
                     event -> {
                         if (!isPaused) {
                             gameLoop.play();
-                            MusicPlayer.Pause();
+                            //MusicPlayer.Pause();
                             pauseloop.stop();
                         }
 

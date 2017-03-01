@@ -5,9 +5,11 @@ import dataHandler.Player;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import music.MusicPlayer;
 
 
 public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
+    public static boolean[] pressedKeys = new boolean[200];
     private Player player;
 
     public KeyHandlerOnPress(Player p) {
@@ -31,15 +33,18 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                     player.update();
                     break;
                 case "Left":
-                    player.addVelocity(-50, 0);
+                    player.addVelocity(-player.getWidth() * 0.66667, 0);
                     player.update();
                     break;
                 case "Right":
-                    player.addVelocity(50, 0);
+                    player.addVelocity(player.getWidth() * 0.66667, 0);
                     player.update();
                     break;
                 case "P":
                     GamePlayController.getInstance().setIsPaused(true);
+                    break;
+                case "M":
+                    MusicPlayer.Pause();
                     break;
                 default:
                     break;

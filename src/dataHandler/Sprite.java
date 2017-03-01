@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.geometry.Rectangle2D;
 
-public class Sprite {
+public abstract class Sprite {
     private Image image;
     private String name;
     private double positionX;
@@ -15,7 +15,15 @@ public class Sprite {
     private double height;
     private boolean isDestroyed;
 
-    public Sprite() {
+    public double getWidth() {
+        return this.width;
+    }
+
+    public double getHeight() {
+        return this.height;
+    }
+
+    public  Sprite() {
         positionX = 0;
         positionY = 0;
         velocityX = 0;
@@ -38,9 +46,9 @@ public class Sprite {
     }
 
     public void setImage(Image i) {
-        image = i;
-        width = i.getWidth();
-        height = i.getHeight();
+        this.image = i;
+        this.width = i.getWidth();
+        this.height = i.getHeight();
     }
 
 

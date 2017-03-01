@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class Track {
 
-    private static final Image backgroundLevel1 = new Image(Constants.TRACK_BACKGROUND_PATH);
+    private static final Image backgroundLevel1 = new Image(Constants.TRACK_BACKGROUND_PATH_TEST);
     public Track(int level) throws IOException {
         initializeLevel(level);
     }

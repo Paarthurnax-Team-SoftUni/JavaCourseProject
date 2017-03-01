@@ -6,13 +6,13 @@ public class Obstacle extends Sprite{
 
     public  static Sprite generateObstacle(){
 
-        String[] obstacles = Constants.OBSTACLES_LIST;
+        String[] obstacles = Constants.OBSTACLES_LIST_SMALL;
         String random = (obstacles[new Random().nextInt(obstacles.length)]);
 
         Random obstacleX = new Random();
 
         String sd = Constants.IMAGES_PATH + random + ".png";
-        Sprite testObstacle = new Sprite();
+        Sprite testObstacle = new Obstacle();
         testObstacle.setImage(sd);
 
         testObstacle.setName(random);
