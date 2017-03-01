@@ -87,13 +87,13 @@ public class Player extends Sprite {
     public void update() {
         if (accelerating) {
             this.addVelocity(0,-2);
-            if (GamePlayController.getVelocity() < 20) {
-                GamePlayController.setVelocity((float) (GamePlayController.getVelocity()+0.1));
+            if (GamePlayController.getInstance().getVelocity() < 20) {
+                GamePlayController.getInstance().setVelocity((float) (GamePlayController.getInstance().getVelocity()+0.1));
             }
         } else {
             this.addVelocity(0,1);
-            if (GamePlayController.getVelocity() > 5) {
-                GamePlayController.setVelocity((float) (GamePlayController.getVelocity()-0.1));
+            if (GamePlayController.getInstance().getVelocity() > 5) {
+                GamePlayController.getInstance().setVelocity((float) (GamePlayController.getInstance().getVelocity()-0.1));
             }
         }
 

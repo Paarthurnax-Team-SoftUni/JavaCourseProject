@@ -1,7 +1,6 @@
 package controllers;
 
 import dataHandler.Constants;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -14,27 +13,72 @@ import main.Main;
 import java.io.IOException;
 
 public class ScreenController{
-    public static Stage primaryStage;
-    public static Stage startStage;
-    public static Stage chooseCarStage;
-    public static Stage gamePlayStage;
-    public static Stage gameWinStage;
-    public static Stage gameOverStage;
-    public static AnchorPane root;
+    private static volatile ScreenController instance = null;
+    private Stage primaryStage;
+    private Stage startStage;
+    private Stage chooseCarStage;
+    private Stage gamePlayStage;
+    private Stage gameWinStage;
+    private Stage gameOverStage;
+    private AnchorPane root;
 
-    public static void setPrimaryStage(Stage primaryStage) throws IOException {
-        primaryStage.setTitle(Main.TITLE);
-        root = FXMLLoader.load(Main.class.getResource(Constants.LOGIN_VIEW_PATH));
-        primaryStage.setScene(new Scene(root,800,600));
+    private ScreenController() {
+        this.startStage = null;
+        this.chooseCarStage = null;
+        this.gamePlayStage = null;
+        this.gameWinStage = null;
+        this.gameOverStage = null;
+    }
+
+    public static ScreenController getInstance() {
+        if(instance == null) {
+            synchronized (ScreenController.class) {
+                if(instance == null) {
+                    instance = new ScreenController();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public Stage getStartStage() {
+        return startStage;
+    }
+
+    public Stage getChooseCarStage() {
+        return chooseCarStage;
+    }
+
+    public Stage getGamePlayStage() {
+        return gamePlayStage;
+    }
+
+    public Stage getGameOverStage() {
+        return gameOverStage;
+    }
+
+    public AnchorPane getRoot() {
+        return root;
+    }
+
+    private void setRoot(AnchorPane root) {
+        this.root = root;
+    }
+
+    public void setPrimaryStage(Stage primaryStage) throws IOException {
+        primaryStage.setTitle(Constants.GAME_TITLE);
+        AnchorPane anchorPane = FXMLLoader.load(Main.class.getResource(Constants.LOGIN_VIEW_PATH));
+        setRoot(anchorPane);
+        primaryStage.setScene(new Scene(this.root,800,600));
         primaryStage.setMaxHeight(640);
         primaryStage.setMaxWidth(800);
         primaryStage.setMinHeight(640);
         primaryStage.setMinWidth(800);
         primaryStage.centerOnScreen();
-        ScreenController.primaryStage = primaryStage;
+        this.primaryStage = primaryStage;
     }
 
-    public static <T> T loadStage(Stage prevStage, Stage currentStage, String path) throws IOException {
+    public <T> T loadStage(Stage prevStage, Stage currentStage, String path) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(path));
 
         if (currentStage == null) {
@@ -45,19 +89,15 @@ public class ScreenController{
 
         root = FXMLLoader.load(Main.class.getResource(path));
 
-        currentStage.setScene(new Scene(root));
-        currentStage.setTitle(Main.TITLE);
+        currentStage.setScene(new Scene(this.root));
+        currentStage.setTitle(Constants.GAME_TITLE);
         currentStage.setResizable(false);
         currentStage.show();
         closeStage(prevStage);
 
-        root.getScene().addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent t) {
-                if (t.getCode() == KeyCode.SPACE) {
-                //    System.out.println(t);
-                    t.consume();
-                }
+        root.getScene().addEventFilter(KeyEvent.KEY_PRESSED, t -> {
+            if (t.getCode() == KeyCode.SPACE) {
+                t.consume();
             }
         });
 
@@ -65,11 +105,11 @@ public class ScreenController{
         return fxmlLoader.getController();
     }
 
-    public static void showLogin() throws IOException {
+    public void showLogin() throws IOException {
         loadStage(null, primaryStage, Constants.LOGIN_VIEW_PATH);
     }
 
-    public static void closeStage(Stage curStage){
+    private void closeStage(Stage curStage){
         if (curStage != null){
             curStage.close();
         }

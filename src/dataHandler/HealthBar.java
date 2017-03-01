@@ -43,7 +43,7 @@ public class HealthBar extends Observable {
 
     private void update() {
         int healthPoints = this.player.getHealthPoints();
-        GamePlayController.printHealthBar(healthPoints);
+        GamePlayController.getInstance().printHealthBar(healthPoints);
     }
 }
 

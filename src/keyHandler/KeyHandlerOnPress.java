@@ -2,7 +2,7 @@ package keyHandler;
 
 import controllers.GamePlayController;
 import dataHandler.Player;
-import javafx.event.*;
+import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -16,36 +16,37 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent e) {
-        if (!GamePlayController.isIsPaused()) {
-            KeyCode keyCode = e.getCode();
-            if ((keyCode.getName().equals("Up"))) {
-//            Game.velocity++;
-
-                player.accelerate();
-                player.update();
+        KeyCode keyCode = e.getCode();
+        if (!GamePlayController.getInstance().isIsPaused()) {
+            switch (keyCode.getName()) {
+                case "Up":
+                    player.accelerate();
+                    player.update();
+                    break;
+                case "Down":
+                    if (GamePlayController.getInstance().getVelocity() > 5) {
+                        GamePlayController.getInstance().setVelocity(GamePlayController.getInstance().getVelocity() - 1);
+                    }
+                    player.addVelocity(0, 2);
+                    player.update();
+                    break;
+                case "Left":
+                    player.addVelocity(-50, 0);
+                    player.update();
+                    break;
+                case "Right":
+                    player.addVelocity(50, 0);
+                    player.update();
+                    break;
+                case "P":
+                    GamePlayController.getInstance().setIsPaused(true);
+                    break;
+                default:
+                    break;
             }
-            if ((keyCode.getName().equals("Down"))) {
-                if (GamePlayController.getVelocity() > 5) GamePlayController.setVelocity(GamePlayController.getVelocity()-1);
-                player.addVelocity(0, 2);
-                player.update();
-            }
+        } else {
             if ((keyCode.getName().equals("P"))) {
-                if (GamePlayController.isIsPaused()) GamePlayController.setIsPaused(false);
-                else GamePlayController.setIsPaused(true);
-            }
-            if ((keyCode.getName().equals("Left"))) {
-                player.addVelocity(-50, 0);
-                player.update();
-            }
-            if ((keyCode.getName().equals("Right"))) {
-                player.addVelocity(50, 0);
-                player.update();
-            }
-        }else {
-            KeyCode keyCode = e.getCode();
-            if ((keyCode.getName().equals("P"))) {
-                if (GamePlayController.isIsPaused()) GamePlayController.setIsPaused(false);
-                else GamePlayController.setIsPaused(true);
+                GamePlayController.getInstance().setIsPaused(false);
             }
         }
     }

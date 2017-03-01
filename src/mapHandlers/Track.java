@@ -23,6 +23,6 @@ public class Track {
     }
 
     private static void createBackground() {
-       GamePlayController.RunTrack(backgroundLevel1);
+        GamePlayController.getInstance().RunTrack(backgroundLevel1);
     }
 }

@@ -13,6 +13,15 @@ Collectible superpowers
 Collectible weapons
 1.bullets
 
+
+
+
+............
+
+
+
+
+
 Adding enemies  (shooting at you)
 Adding pedestrians (crossing your path).
 
