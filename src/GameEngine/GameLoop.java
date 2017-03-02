@@ -1,28 +1,66 @@
 package GameEngine;
 
 import controllers.ScreenController;
-import dataHandler.Collectible;
-import dataHandler.Constants;
-import dataHandler.Obstacle;
+import dataHandler.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
+import javafx.fxml.Initializable;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import music.MusicPlayer;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Observer;
+import java.util.ResourceBundle;
 
 /**
  * Under Construction
+ */
+public class GameLoop implements Initializable {
+    private Timeline gameLoop;
+    private GraphicsContext gc;
+    private Image background;
+    private Player player;
+    private ArrayList<Sprite> testObstacles;
+    private ArrayList<Sprite> collectibles;
+    private Canvas canvas;
+    AnchorPane root;
 
-public class GameLoop {
-    private Timeline gameloop;
-    private
-    private
+    private int frame;
+    private long time;
+    private double y;
+    private float velocity;
+    private static CurrentTime currentTime = new CurrentTime(0);
+    private static CurrentDistance currentDistance = new CurrentDistance(0);
+    private static CurrentPoints currentPoints = new CurrentPoints(0);
+    private HealthBar currentHealth;
 
-    public GameLoop(Timeline gameloop) {
-        this.gameloop = gameloop;
-        this.gameloop.setCycleCount(Timeline.INDEFINITE);
+
+    public GameLoop(GraphicsContext gc, Image background, Player player,
+                    ArrayList<Sprite> testObstacles, ArrayList<Sprite> collectibles,
+                    Canvas canvas, AnchorPane root, int frame, long time, double y,
+                    float velocity, HealthBar currentHealth) {
+        this.gameLoop =new Timeline();
+        this.gameLoop.setCycleCount(Timeline.INDEFINITE);
+        this.gc = gc;
+        this.background = background;
+        this.player = player;
+        this.testObstacles = testObstacles;
+        this.collectibles = collectibles;
+        this.canvas = canvas;
+        this.root = root;
+        this.frame = frame;
+        this.time = time;
+        this.y = y;
+        this.velocity = velocity;
+        this.currentHealth = currentHealth;
     }
 
     public void runGame(){
@@ -32,8 +70,13 @@ public class GameLoop {
                 Duration.seconds(Constants.FRAMES_PER_SECOND),
                 event -> {
 
+                    Observer observer = (o, arg) -> {
+                    };
+
+
                     if (GamePlayController.getInstance().isIsPaused()) {
-                        handleGamePause(this.gameloop, gc, background);
+                        PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, y, player, testObstacles, collectibles);
+                        pauseHandler.activatePause();
                     }
 
                     y = y + velocity ;
@@ -122,7 +165,79 @@ public class GameLoop {
         gameLoop.playFromStart();
     }
 
+
+    private void manageObstacles(GraphicsContext gc) {
+        for (Sprite testObst : testObstacles) {
+            if (testObst.getName().substring(0, 6).equals("player") && !testObst.isDestroyed()) {
+                testObst.setVelocity(0, velocity / 2);
+            } else {
+                testObst.setVelocity(0, velocity);
+            }
+            testObst.update();
+            testObst.render(gc);
+
+            if (testObst.getBoundary().intersects(player.getBoundary())) {
+                if (!testObst.isDestroyed()) {
+                    player.setHealthPoints(player.getHealthPoints() - Constants.OBSTACLE_DAMAGE);
+                    testObst.setDestroyed(true);
+                }
+            }
+
+        }
     }
 
+    private void visualizeCollectible(GraphicsContext gc, double velocity) {
+        for (Sprite collectible : collectibles) {
+            collectible.setVelocity(0, velocity);
+            collectible.update();
+            collectible.render(gc);
+
+            if (collectible.getBoundary().intersects(player.getBoundary())) {
+                switch (collectible.getName()) {
+                    case "1":      //Fuel Bottle/Pack
+                        player.setPoints(player.getPoints() + Constants.FUEL_TANK_BONUS);
+                        time -= 294;
+                        break;
+                    case "2":        //Health Pack
+                        player.setPoints(player.getPoints() + Constants.HEALTH_PACK_BONUS_POINTS);
+                        if (player.getHealthPoints() < Constants.HEALTH_BAR_MAX) {
+                            player.setHealthPoints(Math.min(player.getHealthPoints() + Constants.HEALTH_BONUS, Constants.HEALTH_BAR_MAX));
+                        }
+                        break;
+                    case "3":     //Bonus
+                        player.setPoints(player.getPoints() + Constants.BONUS_POINTS);
+                        break;
+                }
+                collectible.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
+            }
+        }
+    }
+
+    public void clearObstaclesAndCollectibles() {
+        collectibles.clear();
+        testObstacles.clear();
+    }
+    public CurrentPoints getCurrentPoints() {
+        System.out.println(currentPoints.getValue());
+        return (currentPoints);
+    }
+
+    public CurrentTime getCurrentTime() {
+        return (currentTime);
+    }
+
+    public CurrentDistance getCurrentDistance() {
+        return (currentDistance);
+    }
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        CurrentPoints currentPlayerPoints = getCurrentPoints();
+        CurrentTime currentTime = getCurrentTime();
+        CurrentDistance currentDistance = getCurrentDistance();
+        GamePlayController.getInstance().scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
+        GamePlayController.getInstance().timeInfo.textProperty().bind(Bindings.convert(currentTime.valueProperty()));
+        GamePlayController.getInstance().distance.textProperty().bind(Bindings.convert(currentDistance.valueProperty()));
+    }
 }
- */
