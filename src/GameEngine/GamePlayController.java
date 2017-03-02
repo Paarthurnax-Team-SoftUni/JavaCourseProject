@@ -62,7 +62,7 @@ public class GamePlayController implements Initializable {
     @FXML
     public Rectangle healthBar;
     @FXML
-    private Label timeInfo;
+    public Label timeInfo;
     @FXML
     public Label scorePoints;
     @FXML
@@ -70,8 +70,6 @@ public class GamePlayController implements Initializable {
 
     public GamePlayController() {
     }
-
-    ;
 
     private GamePlayController(int frame, long time, boolean isPaused, float velocity) {
         this.frame = frame;
@@ -108,12 +106,12 @@ public class GamePlayController implements Initializable {
     }
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        CurrentPoints currentPlayerPoints = getCurrentPoints();
-        CurrentTime currentTime = getCurrentTime();
-        CurrentDistance currentDistance = getCurrentDistance();
-        scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
-        timeInfo.textProperty().bind(Bindings.convert(currentTime.valueProperty()));
-        distance.textProperty().bind(Bindings.convert(currentDistance.valueProperty()));
+//        CurrentPoints currentPlayerPoints = getCurrentPoints();
+//        CurrentTime currentTime = getCurrentTime();
+//        CurrentDistance currentDistance = getCurrentDistance();
+//        scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
+//        timeInfo.textProperty().bind(Bindings.convert(currentTime.valueProperty()));
+//        distance.textProperty().bind(Bindings.convert(currentDistance.valueProperty()));
         _health100 = health100;
         _health75 = health75;
         _health50 = health50;
@@ -149,170 +147,177 @@ public class GamePlayController implements Initializable {
         currentTime.addObserver(observer);
         currentDistance.addObserver(observer);
 
-        Timeline gameLoop = new Timeline();
-        gameLoop.setCycleCount(Timeline.INDEFINITE);
-        MusicPlayer.PlayMusic();
 
-        KeyFrame kf = new KeyFrame(
-                Duration.seconds(Constants.FRAMES_PER_SECOND),
-                event -> {
+        GameLoop gameLoopTesting =
+                new GameLoop(gc, background, player, testObstacles, collectibles, canvas, root, frame, time, y, velocity, currentHealth);
 
-                    //Pause
-
-                    if (isPaused) {
-                        PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, y, player, testObstacles, collectibles);
-                        pauseHandler.activatePause();
-                    }
-
-                    y = y + velocity;
-                    time++;
-                    frame++;
-
-                    currentTime.setValue((long) (time * Constants.FRAMES_PER_SECOND));
-                    currentDistance.setValue(currentDistance.getValue() + (long) velocity / 2);
-                    player.setPoints(player.getPoints() + 1);
-                    currentPoints.setValue(player.getPoints());
-
-                    observer.update(currentPoints, observer);
-                    observer.update(currentTime, observer);
-                    observer.update(currentDistance, observer);
-
-                    if (Math.abs(y) >= Constants.CANVAS_HEIGHT) {
-                        y = y - Constants.CANVAS_HEIGHT;
-                        frame = 0;
-                    }
-                    player.setVelocity(0, 0);
-
-
-                    //Generate obstacles
-                    if (frame == 0) {
-                        testObstacles.add(Obstacle.generateObstacle());
-                    }
-
-                    gc.clearRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
-                    gc.drawImage(background, 0, y - Constants.CANVAS_HEIGHT);
-                    gc.drawImage(background, 0, y);
-                    player.update();
-                    player.render(gc);
-                    currentHealth.render();
-                    manageObstacles(gc);
-                    if (time >= Constants.TRACK_1_END_TIME) {
-                        clearObstaclesAndCollectibles();
-                        gameLoop.stop();
-                        MusicPlayer.StopMusic();
-                        time = 0;
-                        player.setHealthPoints(Constants.HEALTH_BAR_MAX);
-                        if (player.getHighScore() < player.getPoints()) {
-                            player.setHighScore(player.getPoints());
-                        }
-                        player.setPoints(0L);
-                        player.stopAccelerate();
-                        velocity = Constants.START_GAME_VELOCITY;
-                        currentDistance.setValue(0);
-                        Stage stage = (Stage) canvas.getScene().getWindow();
-                        root.getChildren().remove(canvas);
-                        try {
-                            ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_WIN_VIEW_PATH);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    if (player.getHealthPoints() <= 0) {
-                        clearObstaclesAndCollectibles();
-                        gameLoop.stop();
-                        MusicPlayer.StopMusic();
-                        time = 0;
-                        player.setHealthPoints(Constants.HEALTH_BAR_MAX);
-                        if (player.getHighScore() < player.getPoints()) {
-                            player.setHighScore(player.getPoints());
-                        }
-                        player.setPoints(0L);
-                        player.stopAccelerate();
-                        velocity = 5;
-                        currentDistance.setValue(0);
-                        Stage stage = (Stage) canvas.getScene().getWindow();
-                        root.getChildren().remove(canvas);
-                        try {
-                            ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGameOverStage(), Constants.GAME_OVER_VIEW_PATH);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                    if (frame % Constants.COLLECTIBLES_OFFSET == 0) {
-                        collectibles.add(Collectible.generateCollectible());
-                    }
-                    visualizeCollectible(gc, velocity);
-                });
-
-        gameLoop.getKeyFrames().add(kf);
-        gameLoop.playFromStart();
+        gameLoopTesting.runGame();
     }
 
-    private void manageObstacles(GraphicsContext gc) {
-        for (Sprite testObst : testObstacles) {
-            if (testObst.getName().substring(0, 6).equals("player") && !testObst.isDestroyed()) {
-                testObst.setVelocity(0, velocity / 2);
-            } else {
-                testObst.setVelocity(0, velocity);
-            }
-            testObst.update();
-            testObst.render(gc);
-
-            if (testObst.getBoundary().intersects(player.getBoundary())) {
-                if (!testObst.isDestroyed()) {
-                    player.setHealthPoints(player.getHealthPoints() - Constants.OBSTACLE_DAMAGE);
-                    testObst.setDestroyed(true);
-                }
-            }
-
-        }
-    }
-
-    private void visualizeCollectible(GraphicsContext gc, double velocity) {
-        for (Sprite collectible : collectibles) {
-            collectible.setVelocity(0, velocity);
-            collectible.update();
-            collectible.render(gc);
-
-            if (collectible.getBoundary().intersects(player.getBoundary())) {
-                switch (collectible.getName()) {
-                    case "1":      //Fuel Bottle/Pack
-                        player.setPoints(player.getPoints() + Constants.FUEL_TANK_BONUS);
-                        time -= 294;
-                        break;
-                    case "2":        //Health Pack
-                        player.setPoints(player.getPoints() + Constants.HEALTH_PACK_BONUS_POINTS);
-                        if (player.getHealthPoints() < Constants.HEALTH_BAR_MAX) {
-                            player.setHealthPoints(Math.min(player.getHealthPoints() + Constants.HEALTH_BONUS, Constants.HEALTH_BAR_MAX));
-                        }
-                        break;
-                    case "3":     //Bonus
-                        player.setPoints(player.getPoints() + Constants.BONUS_POINTS);
-                        break;
-                }
-                collectible.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
-            }
-        }
-    }
-
+//        Timeline gameLoop = new Timeline();
+//        gameLoop.setCycleCount(Timeline.INDEFINITE);
+//        MusicPlayer.PlayMusic();
+//
+//        KeyFrame kf = new KeyFrame(
+//                Duration.seconds(Constants.FRAMES_PER_SECOND),
+//                event -> {
+//
+//                    //Pause
+//
+//                    if (isPaused) {
+//                        PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, y, player, testObstacles, collectibles);
+//                        pauseHandler.activatePause();
+//                    }
+//
+//                    y = y + velocity;
+//                    time++;
+//                    frame++;
+//
+//                    currentTime.setValue((long) (time * Constants.FRAMES_PER_SECOND));
+//                    currentDistance.setValue(currentDistance.getValue() + (long) velocity / 2);
+//                    player.setPoints(player.getPoints() + 1);
+//                    currentPoints.setValue(player.getPoints());
+//
+//                    observer.update(currentPoints, observer);
+//                    observer.update(currentTime, observer);
+//                    observer.update(currentDistance, observer);
+//
+//                    if (Math.abs(y) >= Constants.CANVAS_HEIGHT) {
+//                        y = y - Constants.CANVAS_HEIGHT;
+//                        frame = 0;
+//                    }
+//                    player.setVelocity(0, 0);
+//
+//
+//                    //Generate obstacles
+//                    if (frame == 0) {
+//                        testObstacles.add(Obstacle.generateObstacle());
+//                    }
+//
+//                    gc.clearRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
+//                    gc.drawImage(background, 0, y - Constants.CANVAS_HEIGHT);
+//                    gc.drawImage(background, 0, y);
+//                    player.update();
+//                    player.render(gc);
+//                    currentHealth.render();
+//                    manageObstacles(gc);
+//                    if (time >= Constants.TRACK_1_END_TIME) {
+//                        clearObstaclesAndCollectibles();
+//                        gameLoop.stop();
+//                        MusicPlayer.StopMusic();
+//                        time = 0;
+//                        player.setHealthPoints(Constants.HEALTH_BAR_MAX);
+//                        if (player.getHighScore() < player.getPoints()) {
+//                            player.setHighScore(player.getPoints());
+//                        }
+//                        player.setPoints(0L);
+//                        player.stopAccelerate();
+//                        velocity = Constants.START_GAME_VELOCITY;
+//                        currentDistance.setValue(0);
+//                        Stage stage = (Stage) canvas.getScene().getWindow();
+//                        root.getChildren().remove(canvas);
+//                        try {
+//                            ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_WIN_VIEW_PATH);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                    if (player.getHealthPoints() <= 0) {
+//                        clearObstaclesAndCollectibles();
+//                        gameLoop.stop();
+//                        MusicPlayer.StopMusic();
+//                        time = 0;
+//                        player.setHealthPoints(Constants.HEALTH_BAR_MAX);
+//                        if (player.getHighScore() < player.getPoints()) {
+//                            player.setHighScore(player.getPoints());
+//                        }
+//                        player.setPoints(0L);
+//                        player.stopAccelerate();
+//                        velocity = 5;
+//                        currentDistance.setValue(0);
+//                        Stage stage = (Stage) canvas.getScene().getWindow();
+//                        root.getChildren().remove(canvas);
+//                        try {
+//                            ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGameOverStage(), Constants.GAME_OVER_VIEW_PATH);
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    if (frame % Constants.COLLECTIBLES_OFFSET == 0) {
+//                        collectibles.add(Collectible.generateCollectible());
+//                    }
+//                    visualizeCollectible(gc, velocity);
+//                });
+//
+//        gameLoop.getKeyFrames().add(kf);
+//        gameLoop.playFromStart();
+//    }
+//
+//    private void manageObstacles(GraphicsContext gc) {
+//        for (Sprite testObst : testObstacles) {
+//            if (testObst.getName().substring(0, 6).equals("player") && !testObst.isDestroyed()) {
+//                testObst.setVelocity(0, velocity / 2);
+//            } else {
+//                testObst.setVelocity(0, velocity);
+//            }
+//            testObst.update();
+//            testObst.render(gc);
+//
+//            if (testObst.getBoundary().intersects(player.getBoundary())) {
+//                if (!testObst.isDestroyed()) {
+//                    player.setHealthPoints(player.getHealthPoints() - Constants.OBSTACLE_DAMAGE);
+//                    testObst.setDestroyed(true);
+//                }
+//            }
+//
+//        }
+//    }
+//
+//    private void visualizeCollectible(GraphicsContext gc, double velocity) {
+//        for (Sprite collectible : collectibles) {
+//            collectible.setVelocity(0, velocity);
+//            collectible.update();
+//            collectible.render(gc);
+//
+//            if (collectible.getBoundary().intersects(player.getBoundary())) {
+//                switch (collectible.getName()) {
+//                    case "1":      //Fuel Bottle/Pack
+//                        player.setPoints(player.getPoints() + Constants.FUEL_TANK_BONUS);
+//                        time -= 294;
+//                        break;
+//                    case "2":        //Health Pack
+//                        player.setPoints(player.getPoints() + Constants.HEALTH_PACK_BONUS_POINTS);
+//                        if (player.getHealthPoints() < Constants.HEALTH_BAR_MAX) {
+//                            player.setHealthPoints(Math.min(player.getHealthPoints() + Constants.HEALTH_BONUS, Constants.HEALTH_BAR_MAX));
+//                        }
+//                        break;
+//                    case "3":     //Bonus
+//                        player.setPoints(player.getPoints() + Constants.BONUS_POINTS);
+//                        break;
+//                }
+//                collectible.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
+//            }
+//        }
+//    }
+//
     public void clearObstaclesAndCollectibles() {
         collectibles.clear();
         testObstacles.clear();
     }
-
-    public CurrentPoints getCurrentPoints() {
-        System.out.println(currentPoints.getValue());
-        return (currentPoints);
-    }
-
-    public CurrentTime getCurrentTime() {
-        return (currentTime);
-    }
-
-    public CurrentDistance getCurrentDistance() {
-        return (currentDistance);
-    }
+//
+//    public CurrentPoints getCurrentPoints() {
+//        System.out.println(currentPoints.getValue());
+//        return (currentPoints);
+//    }
+//
+//    public CurrentTime getCurrentTime() {
+//        return (currentTime);
+//    }
+//
+//    public CurrentDistance getCurrentDistance() {
+//        return (currentDistance);
+//    }
 
     public float getVelocity() {
         return velocity;

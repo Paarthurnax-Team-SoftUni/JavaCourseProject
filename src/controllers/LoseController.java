@@ -1,5 +1,6 @@
 package controllers;
 
+import GameEngine.GameLoop;
 import GameEngine.GamePlayController;
 import dataHandler.Constants;
 import javafx.application.Platform;
