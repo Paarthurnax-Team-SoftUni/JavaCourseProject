@@ -1,6 +1,6 @@
 package keyHandler;
 
-import controllers.GamePlayController;
+import GameEngine.GamePlayController;
 import dataHandler.Player;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;

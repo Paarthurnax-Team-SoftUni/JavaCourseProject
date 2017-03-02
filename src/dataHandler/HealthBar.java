@@ -1,7 +1,7 @@
 package dataHandler;
 
 
-import controllers.GamePlayController;
+import GameEngine.GamePlayController;
 import javafx.scene.image.Image;
 
 import java.util.Observable;

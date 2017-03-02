@@ -103,8 +103,10 @@ public class Sprite {
     }
 
 
-    public String toString() {
-        return " Position: [" + positionX + "," + positionY + "]"
-                + " Velocity: [" + velocityX + "," + velocityY + "]";
-    }
+    //Not sure why we need this?
+
+//    public String toString() {
+//        return " Position: [" + positionX + "," + positionY + "]"
+//                + " Velocity: [" + velocityX + "," + velocityY + "]";
+//    }
 }

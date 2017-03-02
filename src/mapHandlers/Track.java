@@ -1,6 +1,6 @@
 package mapHandlers;
 
-import controllers.GamePlayController;
+import GameEngine.GamePlayController;
 import dataHandler.Constants;
 import javafx.scene.image.Image;
 

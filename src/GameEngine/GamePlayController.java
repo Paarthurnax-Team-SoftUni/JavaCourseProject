@@ -1,5 +1,7 @@
-package controllers;
+package GameEngine;
 
+import controllers.ChooseCarController;
+import controllers.ScreenController;
 import dataHandler.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -41,6 +43,7 @@ public class GamePlayController implements Initializable {
     private static CurrentDistance currentDistance = new CurrentDistance(0);
     private HealthBar currentHealth;
 
+
     private static ImageView _health100;
     private static ImageView _health75;
     private static ImageView _health50;
@@ -65,7 +68,10 @@ public class GamePlayController implements Initializable {
     @FXML
     public Label distance;
 
-    public GamePlayController(){};
+    public GamePlayController() {
+    }
+
+    ;
 
     private GamePlayController(int frame, long time, boolean isPaused, float velocity) {
         this.frame = frame;
@@ -77,9 +83,9 @@ public class GamePlayController implements Initializable {
     }
 
     public static GamePlayController getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             synchronized (GamePlayController.class) {
-                if(instance == null) {
+                if (instance == null) {
                     instance = new GamePlayController(0, 0, false, Constants.START_GAME_VELOCITY);
                 }
             }
@@ -97,7 +103,7 @@ public class GamePlayController implements Initializable {
     }
 
 
-    public  void setPlayer(Player player) {
+    public void setPlayer(Player player) {
         this.player = player;
     }
 
@@ -151,17 +157,20 @@ public class GamePlayController implements Initializable {
                 Duration.seconds(Constants.FRAMES_PER_SECOND),
                 event -> {
 
+                    //Pause
+
                     if (isPaused) {
-                        handleGamePause(gameLoop, gc, background);
+                        PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, y, player, testObstacles, collectibles);
+                        pauseHandler.activatePause();
                     }
 
-                    y = y + velocity ;
+                    y = y + velocity;
                     time++;
                     frame++;
 
                     currentTime.setValue((long) (time * Constants.FRAMES_PER_SECOND));
-                    currentDistance.setValue(currentDistance.getValue() + (long) velocity/2);
-                    player.setPoints(player.getPoints()+1);
+                    currentDistance.setValue(currentDistance.getValue() + (long) velocity / 2);
+                    player.setPoints(player.getPoints() + 1);
                     currentPoints.setValue(player.getPoints());
 
                     observer.update(currentPoints, observer);
@@ -174,7 +183,6 @@ public class GamePlayController implements Initializable {
                     }
                     player.setVelocity(0, 0);
 
-                    //Pause
 
                     //Generate obstacles
                     if (frame == 0) {
@@ -188,7 +196,7 @@ public class GamePlayController implements Initializable {
                     player.render(gc);
                     currentHealth.render();
                     manageObstacles(gc);
-                    if(time >= Constants.TRACK_1_END_TIME){
+                    if (time >= Constants.TRACK_1_END_TIME) {
                         clearObstaclesAndCollectibles();
                         gameLoop.stop();
                         MusicPlayer.StopMusic();
@@ -220,7 +228,7 @@ public class GamePlayController implements Initializable {
                         }
                         player.setPoints(0L);
                         player.stopAccelerate();
-                        velocity=5;
+                        velocity = 5;
                         currentDistance.setValue(0);
                         Stage stage = (Stage) canvas.getScene().getWindow();
                         root.getChildren().remove(canvas);
@@ -271,7 +279,7 @@ public class GamePlayController implements Initializable {
                 switch (collectible.getName()) {
                     case "1":      //Fuel Bottle/Pack
                         player.setPoints(player.getPoints() + Constants.FUEL_TANK_BONUS);
-                        time-=294;
+                        time -= 294;
                         break;
                     case "2":        //Health Pack
                         player.setPoints(player.getPoints() + Constants.HEALTH_PACK_BONUS_POINTS);
@@ -316,27 +324,24 @@ public class GamePlayController implements Initializable {
 
     public void printHealthBar(Integer healthPoints) {
 
-       // _healthBar.setWidth(healthPoints*1.56);  IF WE DECIDE TO SHOW IT BY PERCENTIGE
+        // _healthBar.setWidth(healthPoints*1.56);  IF WE DECIDE TO SHOW IT BY PERCENTIGE
 
         if (healthPoints > Constants.HEALTH_BAR_AVERAGE_HIGH && healthPoints <= Constants.HEALTH_BAR_MAX) {
             _health100.setVisible(true);
             _health75.setVisible(false);
             _health50.setVisible(false);
             _health25.setVisible(false);
-        }
-        else if (healthPoints <= Constants.HEALTH_BAR_AVERAGE_HIGH && healthPoints > Constants.HEALTH_BAR_AVERAGE_LOW) {
+        } else if (healthPoints <= Constants.HEALTH_BAR_AVERAGE_HIGH && healthPoints > Constants.HEALTH_BAR_AVERAGE_LOW) {
             _health100.setVisible(false);
             _health75.setVisible(true);
             _health50.setVisible(false);
             _health25.setVisible(false);
-        }
-        else if (healthPoints <= Constants.HEALTH_BAR_AVERAGE_LOW && healthPoints > Constants.HEALTH_BAR_MIN) {
+        } else if (healthPoints <= Constants.HEALTH_BAR_AVERAGE_LOW && healthPoints > Constants.HEALTH_BAR_MIN) {
             _health100.setVisible(false);
             _health75.setVisible(false);
             _health50.setVisible(true);
             _health25.setVisible(false);
-        }
-        else if (healthPoints <= Constants.HEALTH_BAR_MIN) {
+        } else if (healthPoints <= Constants.HEALTH_BAR_MIN) {
             _health100.setVisible(false);
             _health75.setVisible(false);
             _health50.setVisible(false);
@@ -345,44 +350,8 @@ public class GamePlayController implements Initializable {
     }
 
     private static Observer observer = (o, arg) -> {
-
     };
 
-    private void handleGamePause(final Timeline gameLoop, final GraphicsContext gc, final Image background) {
-        isPaused = true;
-        gameLoop.pause();
-        if (isPaused) {
-            MusicPlayer.Pause();
-
-            Timeline pauseloop = new Timeline();
-            pauseloop.setCycleCount(Timeline.INDEFINITE);
-
-            KeyFrame keyFramePause = new KeyFrame(
-                    Duration.seconds(Constants.FRAMES_PER_SECOND),
-                    event -> {
-                        if (!isPaused) {
-                            gameLoop.play();
-                            MusicPlayer.Pause();
-                            pauseloop.stop();
-                        }
-
-                        gc.clearRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
-                        gc.drawImage(background, 0, y);
-                        gc.drawImage(background, 0, y - Constants.CANVAS_HEIGHT);
-                        player.render(gc);
-
-                        for (Sprite collectible : collectibles) {
-                            collectible.render(gc);
-                        }
-                        for (Sprite obs : testObstacles) {
-                            obs.render(gc);
-                        }
-                    });
-            pauseloop.getKeyFrames().add(keyFramePause);
-            pauseloop.play();
-
-        }
-    }
 
     public boolean isIsPaused() {
         return isPaused;
@@ -393,10 +362,13 @@ public class GamePlayController implements Initializable {
     }
 
     public void pauseGame(ActionEvent actionEvent) {
-        if (isIsPaused()) {
-            setIsPaused(false);
+
+        System.out.println("clicked");
+
+        if (this.getInstance().isIsPaused()) {
+            this.getInstance().setIsPaused(false);
         } else {
-            setIsPaused(true);
+            this.getInstance().setIsPaused(true);
         }
     }
 
