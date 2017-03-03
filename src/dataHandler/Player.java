@@ -1,6 +1,6 @@
 package dataHandler;
 
-import controllers.GamePlayController;
+import GameEngine.GamePlayController;
 
 public class Player extends Sprite {
 

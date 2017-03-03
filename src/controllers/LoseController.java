@@ -1,5 +1,6 @@
 package controllers;
 
+import GameEngine.GamePlayController;
 import dataHandler.Constants;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -23,4 +24,9 @@ public class LoseController {
     public void quitGame(ActionEvent actionEvent) {
         Platform.exit();
     }
+
+
+
+
+
 }
