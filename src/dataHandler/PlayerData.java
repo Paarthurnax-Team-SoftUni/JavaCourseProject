@@ -2,6 +2,7 @@ package dataHandler;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.Player;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

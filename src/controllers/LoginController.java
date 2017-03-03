@@ -2,7 +2,7 @@ package controllers;
 
 import GameEngine.GamePlayController;
 import dataHandler.Constants;
-import dataHandler.Player;
+import models.Player;
 import dataHandler.PlayerData;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,24 +18,11 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable{
-    private static volatile LoginController instance = null;
 
     @FXML
     private TextField playerName;
     @FXML
     private Button loginBtn;
-
-    public static LoginController getInstance() {
-        if(instance == null) {
-            System.out.println("Login inst");
-            synchronized (LoginController.class) {
-                if(instance == null) {
-                    instance = new LoginController();
-                }
-            }
-        }
-        return instance;
-    }
 
     @FXML
     private void showStartPage() throws IOException {

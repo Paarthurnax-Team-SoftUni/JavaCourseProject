@@ -1,10 +1,11 @@
-package dataHandler;
+package models;
 
+import dataHandler.Constants;
 import javafx.scene.image.Image;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.geometry.Rectangle2D;
 
-public class Sprite {
+public abstract class Sprite {
     private Image image;
     private String name;
     private double positionX;
@@ -13,14 +14,13 @@ public class Sprite {
     private double velocityY;
     private double width;
     private double height;
-    private boolean isDestroyed;
+
 
     public Sprite() {
         positionX = 0;
         positionY = 0;
         velocityX = 0;
         velocityY = 0;
-        isDestroyed = false;
     }
 
     public void setName(String n) {
@@ -92,21 +92,5 @@ public class Sprite {
         return s.getBoundary().intersects(this.getBoundary());
     }
 
-    public boolean isDestroyed() {
-        return isDestroyed;
-    }
 
-    public void setDestroyed(boolean destroyed) {
-        this.setImage(Constants.FLAME_PATH);
-        this.setVelocity(0, 0);
-        isDestroyed = destroyed;
-    }
-
-
-    //Not sure why we need this?
-
-//    public String toString() {
-//        return " Position: [" + positionX + "," + positionY + "]"
-//                + " Velocity: [" + velocityX + "," + velocityY + "]";
-//    }
 }

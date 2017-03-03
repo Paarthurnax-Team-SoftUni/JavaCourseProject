@@ -2,13 +2,12 @@ package controllers;
 
 import GameEngine.GamePlayController;
 import dataHandler.Constants;
-import dataHandler.Player;
+import models.Player;
 import dataHandler.PlayerData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -19,7 +18,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ChooseCarController{
-    private static volatile ChooseCarController instance = null;
 
     public String getCarId() {
         return carId;
@@ -54,44 +52,7 @@ public class ChooseCarController{
     private Ellipse backgroundBox5;
     @FXML
     private Ellipse backgroundBox6;
-    @FXML
-    private ImageView car1;
-    @FXML
-    private ImageView car2;
-    @FXML
-    private ImageView car3;
-    @FXML
-    private ImageView car4;
-    @FXML
-    private ImageView car5;
-    @FXML
-    private ImageView car6;
-    @FXML
-    private Label label1;
-    @FXML
-    private Label label2;
-    @FXML
-    private Label label3;
-    @FXML
-    private Label label4;
-    @FXML
-    private Label label5;
-    @FXML
-    private Label label6;
 
-    public ChooseCarController() {
-    }
-
-    public static ChooseCarController getInstance() {
-        if(instance == null) {
-            synchronized (ChooseCarController.class) {
-                if(instance == null) {
-                    instance = new ChooseCarController();
-                }
-            }
-        }
-        return instance;
-    }
 
     public void initialize() {
         Player p = PlayerData.getInstance().returnPlayer(GamePlayController.getInstance().getPlayer().getName());

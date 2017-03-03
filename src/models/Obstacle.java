@@ -1,10 +1,17 @@
-package dataHandler;
+package models;
+
+import dataHandler.Constants;
 
 import java.util.Random;
 
 public class Obstacle extends Sprite{
+    private boolean isDestroyed;
 
-    public  static Sprite generateObstacle(){
+    public Obstacle() {
+        setDestroyed(false);
+    }
+
+    public  static Obstacle generateObstacle(){
 
         String[] obstacles = Constants.OBSTACLES_LIST;
         String random = (obstacles[new Random().nextInt(obstacles.length)]);
@@ -12,13 +19,23 @@ public class Obstacle extends Sprite{
         Random obstacleX = new Random();
 
         String sd = Constants.IMAGES_PATH + random + ".png";
-        Sprite testObstacle = new Sprite();
+        Obstacle testObstacle = new Obstacle();
         testObstacle.setImage(sd);
 
         testObstacle.setName(random);
         testObstacle.setPosition(50 + obstacleX.nextInt(300), -166);
 
         return testObstacle;
+    }
+
+    public boolean isDestroyed() {
+        return isDestroyed;
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        this.setImage(Constants.FLAME_PATH);
+        this.setVelocity(0, 0);
+        isDestroyed = destroyed;
     }
 
 }

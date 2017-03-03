@@ -3,6 +3,7 @@ package dataHandler;
 
 import GameEngine.GamePlayController;
 import javafx.scene.image.Image;
+import models.Player;
 
 import java.util.Observable;
 

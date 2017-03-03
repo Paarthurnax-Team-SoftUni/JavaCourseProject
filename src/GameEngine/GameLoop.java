@@ -1,17 +1,5 @@
 package GameEngine;
 
-import controllers.ScreenController;
-import dataHandler.Collectible;
-import dataHandler.Constants;
-import dataHandler.Obstacle;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.stage.Stage;
-import javafx.util.Duration;
-import music.MusicPlayer;
-
-import java.io.IOException;
-
 /**
  * Under Construction
 

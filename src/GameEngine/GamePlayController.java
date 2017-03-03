@@ -21,6 +21,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import keyHandler.KeyHandlerOnPress;
 import keyHandler.KeyHandlerOnRelease;
+import models.Collectible;
+import models.Obstacle;
+import models.Player;
+import models.Sprite;
 import music.MusicPlayer;
 
 import java.io.IOException;
@@ -35,20 +39,19 @@ public class GamePlayController implements Initializable {
     private boolean isPaused;
     private float velocity;
     private String carId;
-    private ArrayList<Sprite> testObstacles;
-    private ArrayList<Sprite> collectibles;
+    private ArrayList<Obstacle> testObstacles;
+    private ArrayList<Collectible> collectibles;
     private Player player;
-    private static CurrentPoints currentPoints = new CurrentPoints(0);
-    private static CurrentTime currentTime = new CurrentTime(0);
-    private static CurrentDistance currentDistance = new CurrentDistance(0);
+    private static CurrentPoints currentPoints;
+    private static CurrentTime currentTime;
+    private static CurrentDistance currentDistance;
     private HealthBar currentHealth;
-
+    private ChooseCarController chooseCarController;
 
     private static ImageView _health100;
     private static ImageView _health75;
     private static ImageView _health50;
     private static ImageView _health25;
-    private static Rectangle _healthBar;
 
 
     @FXML
@@ -71,8 +74,6 @@ public class GamePlayController implements Initializable {
     public GamePlayController() {
     }
 
-    ;
-
     private GamePlayController(int frame, long time, boolean isPaused, float velocity) {
         this.frame = frame;
         this.time = time;
@@ -80,6 +81,10 @@ public class GamePlayController implements Initializable {
         this.velocity = velocity;
         this.testObstacles = new ArrayList<>();
         this.collectibles = new ArrayList<>();
+        currentPoints = new CurrentPoints(0);
+        currentTime = new CurrentTime(0);
+        currentDistance = new CurrentDistance(0);
+        chooseCarController = new ChooseCarController();
     }
 
     public static GamePlayController getInstance() {
@@ -118,7 +123,6 @@ public class GamePlayController implements Initializable {
         _health75 = health75;
         _health50 = health50;
         _health25 = health25;
-        _healthBar = healthBar;
     }
 
     public void RunTrack(Image background) {
@@ -138,7 +142,7 @@ public class GamePlayController implements Initializable {
         root.getScene().setOnKeyPressed(new KeyHandlerOnPress(this.getPlayer()));
         root.getScene().setOnKeyReleased(new KeyHandlerOnRelease(this.getPlayer()));
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        this.setCarId(ChooseCarController.getInstance().getCarId());
+        this.setCarId(chooseCarController.getCarId());
         carId = carId == null ? "car1" : carId;
         String carImg = Constants.CAR_IMAGES_PATH + carId + ".png";
         player.setImage(carImg);
@@ -250,7 +254,7 @@ public class GamePlayController implements Initializable {
     }
 
     private void manageObstacles(GraphicsContext gc) {
-        for (Sprite testObst : testObstacles) {
+        for (Obstacle testObst : testObstacles) {
             if (testObst.getName().substring(0, 6).equals("player") && !testObst.isDestroyed()) {
                 testObst.setVelocity(0, velocity / 2);
             } else {
@@ -301,16 +305,15 @@ public class GamePlayController implements Initializable {
         testObstacles.clear();
     }
 
-    public CurrentPoints getCurrentPoints() {
-        System.out.println(currentPoints.getValue());
+    private CurrentPoints getCurrentPoints() {
         return (currentPoints);
     }
 
-    public CurrentTime getCurrentTime() {
+    private CurrentTime getCurrentTime() {
         return (currentTime);
     }
 
-    public CurrentDistance getCurrentDistance() {
+    private CurrentDistance getCurrentDistance() {
         return (currentDistance);
     }
 

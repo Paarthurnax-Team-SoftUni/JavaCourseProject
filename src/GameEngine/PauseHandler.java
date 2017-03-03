@@ -1,31 +1,30 @@
 package GameEngine;
 
-import dataHandler.Constants;
-import dataHandler.Player;
-import dataHandler.Sprite;
+import dataHandler.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
+import models.Collectible;
+import models.Obstacle;
+import models.Player;
+import models.Sprite;
 import music.MusicPlayer;
 
 import java.util.ArrayList;
 
-/**
- * Created by Todor Popov using Lenovo on 2.3.2017 г. at 4:51.
- */
 public class PauseHandler {
     private Timeline gameLoop;
     private GraphicsContext gc;
     private Image background;
     private double y;
     private Player player;
-    private ArrayList<Sprite> testObstacles;
-    private ArrayList<Sprite> collectibles;
+    private ArrayList<Obstacle> testObstacles;
+    private ArrayList<Collectible> collectibles;
 
     public PauseHandler(Timeline gameLoop, GraphicsContext gc, Image background,
-                        double y, Player player, ArrayList<Sprite> testObstacles, ArrayList<Sprite> collectibles) {
+                        double y, Player player, ArrayList<Obstacle> testObstacles, ArrayList<Collectible> collectibles) {
         this.gameLoop = gameLoop;
         this.gc = gc;
         this.background = background;

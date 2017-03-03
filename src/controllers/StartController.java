@@ -7,27 +7,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import mapHandlers.Track;
 
 import java.io.IOException;
 
 public class StartController {
-
-    @FXML
-    private AnchorPane homePage;
     @FXML
     private Button startBtn;
-    @FXML
-    private Button showScoresBtn;
-    @FXML
-    private Button chooseCarBtn;
-    @FXML
-    private Button closeBtn;
-    @FXML
-    private Rectangle backgroundBox;
 
     @FXML
     private void chooseCar() throws IOException {
@@ -46,18 +33,10 @@ public class StartController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        gameStarted = true;
-//        setTime();
-//        isGameRunning = true;
     }
 
     @FXML
     private void showHighScores() {
-        showHighScoresDialog();
-    }
-
-    @FXML
-    private void showHighScoresDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.setTitle(Constants.HIGH_SCORE_DIALOG_TITLE);
         FXMLLoader fxmlLoader = new FXMLLoader();
