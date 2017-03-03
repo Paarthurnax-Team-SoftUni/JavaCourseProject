@@ -7,6 +7,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -16,6 +17,8 @@ import javafx.util.Duration;
 import keyHandler.KeyHandlerOnPress;
 import keyHandler.KeyHandlerOnRelease;
 import music.MusicPlayer;
+import stageHandler.StageManager;
+import stageHandler.StageManagerImpl;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,7 +40,7 @@ public class RunTrack{
     private static CurrentDistance currentDistance = new CurrentDistance(0);
     private HealthBar currentHealth;
 
-    public RunTrack(Player player,float velocity) {
+    public RunTrack(Player player, float velocity) {
         setPlayer(PlayerData.getInstance().getCurrentPlayer());
         this.testObstacles=new ArrayList<>();
         this.collectibles=new ArrayList<>();
@@ -57,38 +60,44 @@ public class RunTrack{
         this.carId = carId;
     }
 
-
     public Player getPlayer() {
         return player;
     }
-
 
     public void setPlayer(Player player) {
         this.player = player;
     }
 
+    public void RunTrack(Image background) throws IOException {
 
-    public void RunTrack(Image background) {
+        AnchorPane root = FXMLLoader.load(getClass().getResource(Constants.GAME_PLAY_VIEW_PATH));
+        System.out.println(root);
+     
+        //Stage currentStage = (Stage) root..getWindow();
+        StageManager manager = new StageManagerImpl();
 
-        AnchorPane root = ScreenController.getInstance().getRoot();
+        //AnchorPane root = ScreenController.getInstance().getRoot();
+
+
+//        if (ScreenController.getInstance().getGamePlayStage() != null) {
+//            Stage stage = (Stage) canvas.getScene().getWindow();
+//            try {
+//                ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_OVER_VIEW_PATH);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+
         Canvas canvas = new Canvas(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
-
-        if (ScreenController.getInstance().getGamePlayStage() != null) {
-            Stage stage = (Stage) canvas.getScene().getWindow();
-            try {
-                ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_OVER_VIEW_PATH);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
         root.getChildren().add(canvas);
-        root.getScene().setOnKeyPressed(new KeyHandlerOnPress(this.getPlayer()));
-        root.getScene().setOnKeyReleased(new KeyHandlerOnRelease(this.getPlayer()));
+        root.setOnKeyPressed(new KeyHandlerOnPress(this.getPlayer()));
+        root.setOnKeyReleased(new KeyHandlerOnRelease(this.getPlayer()));
         GraphicsContext gc = canvas.getGraphicsContext2D();
+
         this.setCarId(ChooseCarController.getInstance().getCarId());
         carId = carId == null ? "car1" : carId;
         String carImg = Constants.CAR_IMAGES_PATH + carId + ".png";
+
         player.setImage(carImg);
         player.setPosition(200, 430);
         player.setPoints(0L);
@@ -97,10 +106,9 @@ public class RunTrack{
         currentTime.addObserver(observer);
         currentDistance.addObserver(observer);
 
-
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
-        MusicPlayer.PlayMusic();
+        MusicPlayer.play();
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(Constants.FRAMES_PER_SECOND),
                 event -> {
@@ -140,14 +148,20 @@ public class RunTrack{
                     gc.clearRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
                     gc.drawImage(background, 0, y - Constants.CANVAS_HEIGHT);
                     gc.drawImage(background, 0, y);
+
+                    System.out.println(y);
+                    System.out.println(Constants.CANVAS_HEIGHT);
+                    System.out.println("got here");
+
                     player.update();
                     player.render(gc);
                     currentHealth.render();
                     manageObstacles(gc);
+
                     if (time >= Constants.TRACK_1_END_TIME) {
                         clearObstaclesAndCollectibles();
                         gameLoop.stop();
-                        MusicPlayer.StopMusic();
+                        MusicPlayer.stop();
                         time = 0;
                         player.setHealthPoints(Constants.HEALTH_BAR_MAX);
                         if (player.getHighScore() < player.getPoints()) {
@@ -157,18 +171,14 @@ public class RunTrack{
                         player.stopAccelerate();
                         velocity = Constants.START_GAME_VELOCITY;
                         currentDistance.setValue(0);
-                        Stage stage = (Stage) canvas.getScene().getWindow();
+
                         root.getChildren().remove(canvas);
-                        try {
-                            ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_WIN_VIEW_PATH);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        //FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_WIN_VIEW_PATH,null);
                     }
                     if (player.getHealthPoints() <= 0) {
                         clearObstaclesAndCollectibles();
                         gameLoop.stop();
-                        MusicPlayer.StopMusic();
+                        MusicPlayer.stop();
                         time = 0;
                         player.setHealthPoints(Constants.HEALTH_BAR_MAX);
                         if (player.getHighScore() < player.getPoints()) {
@@ -178,13 +188,8 @@ public class RunTrack{
                         player.stopAccelerate();
                         velocity = 5;
                         currentDistance.setValue(0);
-                        Stage stage = (Stage) canvas.getScene().getWindow();
                         root.getChildren().remove(canvas);
-                        try {
-                            ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGameOverStage(), Constants.GAME_OVER_VIEW_PATH);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        //FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_OVER_VIEW_PATH,null);
                     }
 
                     if (frame % Constants.COLLECTIBLES_OFFSET == 0) {
@@ -270,8 +275,6 @@ public class RunTrack{
         velocity = v;
     }
 
-
-
     public static boolean isIsPaused() {
         return isPaused;
     }
@@ -281,9 +284,6 @@ public class RunTrack{
     }
 
     public void pauseGame(ActionEvent actionEvent) {
-
-        System.out.println("clicked");
-
         if (this.isIsPaused()) {
             this.setIsPaused(false);
         } else {

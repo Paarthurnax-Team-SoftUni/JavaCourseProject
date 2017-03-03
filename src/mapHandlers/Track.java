@@ -4,6 +4,7 @@ import GameEngine.RunTrack;
 import dataHandler.Constants;
 import dataHandler.PlayerData;
 import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -25,8 +26,8 @@ public class Track {
         }
     }
 
-    private static void createBackground() {
-            runTrack.RunTrack(backgroundLevel1);
+    private static void createBackground() throws IOException {
+        runTrack.RunTrack(backgroundLevel1);
         //  GamePlayController.getInstance().RunTrack(backgroundLevel1);
     }
 

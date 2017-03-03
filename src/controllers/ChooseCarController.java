@@ -5,16 +5,16 @@ import dataHandler.Player;
 import dataHandler.PlayerData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
 import mapHandlers.Track;
+import stageHandler.StageManager;
+import stageHandler.StageManagerImpl;
 
 import java.io.IOException;
 
@@ -37,11 +37,7 @@ public class ChooseCarController{
     public ImageView locked6;
 
     @FXML
-    private AnchorPane chooseCarPage;
-    @FXML
     private Button returnBtn;
-    @FXML
-    private GridPane cars;
     @FXML
     private Ellipse backgroundBox1;
     @FXML
@@ -54,33 +50,8 @@ public class ChooseCarController{
     private Ellipse backgroundBox5;
     @FXML
     private Ellipse backgroundBox6;
-    @FXML
-    private ImageView car1;
-    @FXML
-    private ImageView car2;
-    @FXML
-    private ImageView car3;
-    @FXML
-    private ImageView car4;
-    @FXML
-    private ImageView car5;
-    @FXML
-    private ImageView car6;
-    @FXML
-    private Label label1;
-    @FXML
-    private Label label2;
-    @FXML
-    private Label label3;
-    @FXML
-    private Label label4;
-    @FXML
-    private Label label5;
-    @FXML
-    private Label label6;
 
-    public ChooseCarController() {
-    }
+    public ChooseCarController() {}
 
     public static ChooseCarController getInstance() {
         if(instance == null) {
@@ -99,9 +70,11 @@ public class ChooseCarController{
     }
 
     public void renderStartMenu(ActionEvent actionEvent) throws IOException {
-        Stage currentStage = (Stage) returnBtn.getScene().getWindow();
-        ScreenController.getInstance().loadStage(currentStage, ScreenController.getInstance().getStartStage(), Constants.START_FXML_PATH);
+        Stage currentStage = (Stage)this.returnBtn.getScene().getWindow();
+        StageManager manager = new StageManagerImpl();
+        FXMLLoader loader = manager.loadSceneToStage(currentStage,Constants.START_FXML_PATH,null);
     }
+
     public void chooseCar(MouseEvent ev) {
         Node source = (Node) ev.getSource();
 
@@ -191,5 +164,4 @@ public class ChooseCarController{
                 break;
         }
     }
-
 }

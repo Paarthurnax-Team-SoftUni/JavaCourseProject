@@ -27,7 +27,6 @@ public class Sprite {
         name = n;
     }
 
-
     public String getName() {
         return name;
     }
@@ -101,12 +100,4 @@ public class Sprite {
         this.setVelocity(0, 0);
         isDestroyed = destroyed;
     }
-
-
-    //Not sure why we need this?
-
-//    public String toString() {
-//        return " Position: [" + positionX + "," + positionY + "]"
-//                + " Velocity: [" + velocityX + "," + velocityY + "]";
-//    }
 }
