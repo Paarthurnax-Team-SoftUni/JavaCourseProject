@@ -12,7 +12,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
-
 public class HighScoreController {
 
     @FXML
@@ -23,13 +22,13 @@ public class HighScoreController {
     private Predicate<Player> wantAllItems;
 
     public void initialize() {
-
         wantAllItems = new Predicate<Player>() {
             @Override
             public boolean test(Player player) {
                 return true;
             }
         };
+
         filteredList = new FilteredList<Player>(PlayerData.getInstance().getPlayersList(), wantAllItems);
 
         SortedList<Player> sortedList = new SortedList<Player>(filteredList, new Comparator<Player>() {
@@ -53,7 +52,5 @@ public class HighScoreController {
 
         highScoresListView.setItems(sortedList);
         highScoresListView.getColumns().addAll(name, money, highScore);
-
-
     }
 }

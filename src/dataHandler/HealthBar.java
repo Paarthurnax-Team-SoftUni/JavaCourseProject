@@ -1,13 +1,8 @@
 package dataHandler;
 
-
-import GameEngine.RunTrack;
 import controllers.GameController;
-
 import javafx.scene.image.Image;
-
 import java.util.Observable;
-
 
 public class HealthBar extends Observable {
 
@@ -15,7 +10,6 @@ public class HealthBar extends Observable {
     private double positionX;
     private double positionY;
     private Player player;
-
 
     public HealthBar(Player p) {
         this.positionX = 0;

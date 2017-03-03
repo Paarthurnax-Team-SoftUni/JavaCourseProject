@@ -13,7 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Observable;
@@ -37,12 +36,7 @@ public class GameController implements Initializable {
     public static ImageView _health50;
     public static ImageView _health25;
     public static Rectangle _healthBar;
-    @FXML
-    private AnchorPane gamePlayPage;
-    @FXML
-    private AnchorPane menu;
-    @FXML
-    private Button pauseBtn;
+
     @FXML
     private Button quitBtn;
     @FXML
@@ -99,15 +93,15 @@ public class GameController implements Initializable {
 
     private static Observer observer = new Observer() {
         @Override
-        public void update(Observable o, Object arg) {
-
-        }
+        public void update(Observable o, Object arg) {}
     };
 
-
     public void pauseGame(ActionEvent actionEvent) {
-        if (RunTrack.isIsPaused()) RunTrack.setIsPaused(false);
-        else RunTrack.setIsPaused(true);
+        if (RunTrack.isIsPaused()){
+            RunTrack.setIsPaused(false);
+        } else {
+            RunTrack.setIsPaused(true);
+        }
     }
 
     public void quitGame(ActionEvent actionEvent) {

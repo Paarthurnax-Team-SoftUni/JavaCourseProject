@@ -17,13 +17,13 @@ public class Constants {
     public static final String HIGH_SCORES_FILE_NAME = System.getProperty("user.dir") + "/src/resources/playerList.txt";
     public static final String FLAME_PATH ="resources/images/flame.png";
     public static final String GAME_TITLE = "SoftUni Rush";
-    public static final String TRACK_BACKGROUND_PATH = "/resources/images/background2.jpg";
+    public static final String TRACK_BACKGROUND_PATH = "resources/images/backgrounds/background2.jpg";
     public static final String SONG_PATH = System.getProperty("user.dir") + "/src/resources/music.wav";
     public static final String GAME_OVER_VIEW_PATH = "/views/gameOver.fxml";
     public static final String GAME_WIN_VIEW_PATH = "/views/gameWin.fxml";
     public static final String CAR_IMAGES_PATH = "/resources/images/player_";
     public static final long TRACK_1_END_TIME = 250; //Key Time in Frames; 3533
-    public static final int CANVAS_WIDTH = 500;
+    public static final int CANVAS_WIDTH = 800;
     public static final int CANVAS_HEIGHT = 600;
     public static final int COLLECTIBLES_OFFSET = 50000;
     public static final int FUEL_TANK_BONUS = 250;
@@ -37,6 +37,5 @@ public class Constants {
     public static final int HEALTH_BAR_AVERAGE_HIGH = 75;
     public static final int HEALTH_BAR_AVERAGE_LOW = 50;
     public static final int OBSTACLE_DAMAGE = 25;
-    public static final float FRAMES_PER_SECOND = 0.017f;   //Frames in seconds;
-
+    public static final float FRAMES_PER_SECOND = 0.017f;
 }

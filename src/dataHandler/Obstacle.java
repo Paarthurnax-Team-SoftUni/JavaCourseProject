@@ -20,5 +20,4 @@ public class Obstacle extends Sprite{
 
         return testObstacle;
     }
-
 }

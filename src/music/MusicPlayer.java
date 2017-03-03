@@ -12,13 +12,13 @@ public class MusicPlayer {
     private static MediaPlayer mediaPlayer;
     private static Duration resumeTime;
 
-    public static void PlayMusic() {
+    public static void play() {
         Media media = new Media(new File(Constants.SONG_PATH).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
     }
 
-    public static void Pause() {
+    public static void pause() {
         if (mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED)) {
             mediaPlayer.setStartTime(resumeTime);
             mediaPlayer.play();
@@ -27,8 +27,8 @@ public class MusicPlayer {
             resumeTime = mediaPlayer.getCurrentTime();
         }
     }
-    public static void StopMusic() {
+
+    public static void stop() {
         mediaPlayer.stop();
     }
-
 }

@@ -80,7 +80,6 @@ public class Player extends Sprite {
 
     public void stopAccelerate() {
         this.accelerating = false;
-
     }
 
     @Override
