@@ -36,9 +36,9 @@ public class PauseHandler {
     }
 
     public void activatePause() {
-        GamePlayController.getInstance().setIsPaused(true);
+        RunTrack.setIsPaused(true);
         this.gameLoop.pause();
-        if (GamePlayController.getInstance().isIsPaused()) {
+        if (RunTrack.isIsPaused()) {
             MusicPlayer.Pause();
 
             Timeline pauseloop = new Timeline();
@@ -47,7 +47,7 @@ public class PauseHandler {
             KeyFrame keyFramePause = new KeyFrame(
                     Duration.seconds(Constants.FRAMES_PER_SECOND),
                     event -> {
-                        if (!GamePlayController.getInstance().isIsPaused()) {
+                        if (!RunTrack.isIsPaused()) {
                             gameLoop.play();
                             MusicPlayer.Pause();
                             pauseloop.stop();

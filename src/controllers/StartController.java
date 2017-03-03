@@ -43,6 +43,7 @@ public class StartController {
         ScreenController.getInstance().loadStage(currentStage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_PLAY_VIEW_PATH);
         try {
             Track.initializeLevel(1);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

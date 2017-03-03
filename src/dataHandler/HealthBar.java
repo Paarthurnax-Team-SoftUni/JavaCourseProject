@@ -1,7 +1,9 @@
 package dataHandler;
 
 
-import GameEngine.GamePlayController;
+import GameEngine.RunTrack;
+import controllers.GameController;
+
 import javafx.scene.image.Image;
 
 import java.util.Observable;
@@ -43,7 +45,7 @@ public class HealthBar extends Observable {
 
     private void update() {
         int healthPoints = this.player.getHealthPoints();
-        GamePlayController.getInstance().printHealthBar(healthPoints);
+        GameController.printHealthBar(healthPoints);
     }
 }
 

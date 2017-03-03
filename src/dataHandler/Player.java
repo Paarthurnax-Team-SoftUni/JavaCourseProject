@@ -1,6 +1,6 @@
 package dataHandler;
 
-import GameEngine.GamePlayController;
+import GameEngine.RunTrack;
 
 public class Player extends Sprite {
 
@@ -87,13 +87,21 @@ public class Player extends Sprite {
     public void update() {
         if (accelerating) {
             this.addVelocity(0,-2);
-            if (GamePlayController.getInstance().getVelocity() < 20) {
-                GamePlayController.getInstance().setVelocity((float) (GamePlayController.getInstance().getVelocity()+0.1));
+
+            if (RunTrack.getVelocity() < 20) {
+                RunTrack.setVelocity((float) (RunTrack.getVelocity()+0.1));
+
+//            if (GamePlayController.getInstance().getVelocity() < 20) {
+//                GamePlayController.getInstance().setVelocity((float) (GamePlayController.getInstance().getVelocity()+0.1));
             }
         } else {
             this.addVelocity(0,1);
-            if (GamePlayController.getInstance().getVelocity() > 5) {
-                GamePlayController.getInstance().setVelocity((float) (GamePlayController.getInstance().getVelocity()-0.1));
+
+            if (RunTrack.getVelocity() > 5) {
+               RunTrack.setVelocity((float) (RunTrack.getVelocity()-0.1));
+
+//            if (GamePlayController.getInstance().getVelocity() > 5) {
+//                GamePlayController.getInstance().setVelocity((float) (GamePlayController.getInstance().getVelocity()-0.1));
             }
         }
 

@@ -1,6 +1,5 @@
 package controllers;
 
-import GameEngine.GamePlayController;
 import dataHandler.Constants;
 import dataHandler.Player;
 import dataHandler.PlayerData;
@@ -11,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import mapHandlers.Track;
 
 import java.io.IOException;
 import java.net.URL;
@@ -56,7 +56,8 @@ public class LoginController implements Initializable{
             alert.setContentText("Are you sure? Press OK to continue, or Cancel to abort.");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
-                GamePlayController.getInstance().setPlayer(PlayerData.getInstance().returnPlayer(name));
+                PlayerData.getInstance().setCurrentPlayer(PlayerData.getInstance().returnPlayer(name));
+               // Track.getRunTrack().setPlayer(PlayerData.getInstance().returnPlayer(name));
                 ScreenController.getInstance().loadStage(currentStage, ScreenController.getInstance().getStartStage(), Constants.START_FXML_PATH);
             }
         } else {
@@ -67,7 +68,9 @@ public class LoginController implements Initializable{
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
                 Player player = new Player(name, 0L, 0.0, 0L, 0L, 100);
-                GamePlayController.getInstance().setPlayer(player);
+                PlayerData.getInstance().setCurrentPlayer(PlayerData.getInstance().returnPlayer(name));
+
+              //  Track.getRunTrack().setPlayer(player);
 
                 PlayerData.getInstance().addPlayer(player);
                 PlayerData.getInstance().storePlayersData();

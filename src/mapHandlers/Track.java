@@ -1,7 +1,8 @@
 package mapHandlers;
 
-import GameEngine.GamePlayController;
+import GameEngine.RunTrack;
 import dataHandler.Constants;
+import dataHandler.PlayerData;
 import javafx.scene.image.Image;
 
 import java.io.IOException;
@@ -9,6 +10,8 @@ import java.io.IOException;
 public class Track {
 
     private static final Image backgroundLevel1 = new Image(Constants.TRACK_BACKGROUND_PATH);
+    private static RunTrack runTrack = new RunTrack(PlayerData.getInstance().getCurrentPlayer(),Constants.START_GAME_VELOCITY);
+
     public Track(int level) throws IOException {
         initializeLevel(level);
     }
@@ -23,6 +26,11 @@ public class Track {
     }
 
     private static void createBackground() {
-        GamePlayController.getInstance().RunTrack(backgroundLevel1);
+            runTrack.RunTrack(backgroundLevel1);
+        //  GamePlayController.getInstance().RunTrack(backgroundLevel1);
+    }
+
+    public static RunTrack getRunTrack() {
+        return runTrack;
     }
 }

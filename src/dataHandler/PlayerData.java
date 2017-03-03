@@ -15,6 +15,7 @@ public class PlayerData {
 
     private static volatile PlayerData instance = null;
     private ObservableList<Player> playersList;
+    private Player currentPlayer;
 
     private PlayerData() {}
 
@@ -28,6 +29,14 @@ public class PlayerData {
             }
         }
         return instance;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     public ObservableList<Player> getPlayersList() {
