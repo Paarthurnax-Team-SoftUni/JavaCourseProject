@@ -1,6 +1,5 @@
 package controllers;
 
-import GameEngine.GamePlayController;
 import dataHandler.Constants;
 import dataHandler.Player;
 import dataHandler.PlayerData;
@@ -15,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
+import mapHandlers.Track;
 
 import java.io.IOException;
 
@@ -94,7 +94,7 @@ public class ChooseCarController{
     }
 
     public void initialize() {
-        Player p = PlayerData.getInstance().returnPlayer(GamePlayController.getInstance().getPlayer().getName());
+        Player p = PlayerData.getInstance().returnPlayer(Track.getRunTrack().getPlayer().getName());
         showUnlockedCarsOnly(p.getHighScore());
     }
 
@@ -167,7 +167,7 @@ public class ChooseCarController{
     }
 
     private void backgroundFill(String id) {
-        Player p = PlayerData.getInstance().returnPlayer(GamePlayController.getInstance().getPlayer().getName());
+        Player p = PlayerData.getInstance().returnPlayer(Track.getRunTrack().getPlayer().getName());
         showUnlockedCarsOnly(p.getHighScore());
 
         switch (id) {

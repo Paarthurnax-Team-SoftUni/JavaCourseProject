@@ -6,17 +6,11 @@ import dataHandler.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import keyHandler.KeyHandlerOnPress;
@@ -25,15 +19,15 @@ import music.MusicPlayer;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.Observer;
 
-public class GamePlayController implements Initializable {
-    private static volatile GamePlayController instance = null;
+public class RunTrack{
     private int frame;
     private long time;
     private double y;
-    private boolean isPaused;
-    private float velocity;
+    private static boolean isPaused;
+    private static float velocity;
     private String carId;
     private ArrayList<Sprite> testObstacles;
     private ArrayList<Sprite> collectibles;
@@ -43,55 +37,21 @@ public class GamePlayController implements Initializable {
     private static CurrentDistance currentDistance = new CurrentDistance(0);
     private HealthBar currentHealth;
 
-
-    private static ImageView _health100;
-    private static ImageView _health75;
-    private static ImageView _health50;
-    private static ImageView _health25;
-    private static Rectangle _healthBar;
-
-
-    @FXML
-    public ImageView health100;
-    @FXML
-    public ImageView health75;
-    @FXML
-    public ImageView health50;
-    @FXML
-    public ImageView health25;
-    @FXML
-    public Rectangle healthBar;
-    @FXML
-    private Label timeInfo;
-    @FXML
-    public Label scorePoints;
-    @FXML
-    public Label distance;
-
-    public GamePlayController() {
-    }
-
-    ;
-
-    private GamePlayController(int frame, long time, boolean isPaused, float velocity) {
-        this.frame = frame;
-        this.time = time;
-        this.isPaused = isPaused;
+    public RunTrack(Player player,float velocity) {
+        setPlayer(PlayerData.getInstance().getCurrentPlayer());
+        this.testObstacles=new ArrayList<>();
+        this.collectibles=new ArrayList<>();
+        this.frame = 0;
+        this.time = 0;
+        this.isPaused = false;
         this.velocity = velocity;
-        this.testObstacles = new ArrayList<>();
-        this.collectibles = new ArrayList<>();
     }
 
-    public static GamePlayController getInstance() {
-        if (instance == null) {
-            synchronized (GamePlayController.class) {
-                if (instance == null) {
-                    instance = new GamePlayController(0, 0, false, Constants.START_GAME_VELOCITY);
-                }
-            }
+    private static Observer observer = new Observer() {
+        @Override
+        public void update(Observable o, Object arg) {
         }
-        return instance;
-    }
+    };
 
     private void setCarId(String carId) {
         this.carId = carId;
@@ -107,21 +67,9 @@ public class GamePlayController implements Initializable {
         this.player = player;
     }
 
-    public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        CurrentPoints currentPlayerPoints = getCurrentPoints();
-        CurrentTime currentTime = getCurrentTime();
-        CurrentDistance currentDistance = getCurrentDistance();
-        scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
-        timeInfo.textProperty().bind(Bindings.convert(currentTime.valueProperty()));
-        distance.textProperty().bind(Bindings.convert(currentDistance.valueProperty()));
-        _health100 = health100;
-        _health75 = health75;
-        _health50 = health50;
-        _health25 = health25;
-        _healthBar = healthBar;
-    }
 
     public void RunTrack(Image background) {
+
         AnchorPane root = ScreenController.getInstance().getRoot();
         Canvas canvas = new Canvas(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
 
@@ -149,10 +97,10 @@ public class GamePlayController implements Initializable {
         currentTime.addObserver(observer);
         currentDistance.addObserver(observer);
 
+
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         MusicPlayer.PlayMusic();
-
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(Constants.FRAMES_PER_SECOND),
                 event -> {
@@ -301,63 +249,34 @@ public class GamePlayController implements Initializable {
         testObstacles.clear();
     }
 
-    public CurrentPoints getCurrentPoints() {
+    public static CurrentPoints getCurrentPoints() {
         System.out.println(currentPoints.getValue());
         return (currentPoints);
     }
 
-    public CurrentTime getCurrentTime() {
+    public static CurrentTime getCurrentTime() {
         return (currentTime);
     }
 
-    public CurrentDistance getCurrentDistance() {
+    public static CurrentDistance getCurrentDistance() {
         return (currentDistance);
     }
 
-    public float getVelocity() {
+    public static float getVelocity() {
         return velocity;
     }
 
-    public void setVelocity(float v) {
+    public static void setVelocity(float v) {
         velocity = v;
     }
 
-    public void printHealthBar(Integer healthPoints) {
-
-        // _healthBar.setWidth(healthPoints*1.56);  IF WE DECIDE TO SHOW IT BY PERCENTIGE
-
-        if (healthPoints > Constants.HEALTH_BAR_AVERAGE_HIGH && healthPoints <= Constants.HEALTH_BAR_MAX) {
-            _health100.setVisible(true);
-            _health75.setVisible(false);
-            _health50.setVisible(false);
-            _health25.setVisible(false);
-        } else if (healthPoints <= Constants.HEALTH_BAR_AVERAGE_HIGH && healthPoints > Constants.HEALTH_BAR_AVERAGE_LOW) {
-            _health100.setVisible(false);
-            _health75.setVisible(true);
-            _health50.setVisible(false);
-            _health25.setVisible(false);
-        } else if (healthPoints <= Constants.HEALTH_BAR_AVERAGE_LOW && healthPoints > Constants.HEALTH_BAR_MIN) {
-            _health100.setVisible(false);
-            _health75.setVisible(false);
-            _health50.setVisible(true);
-            _health25.setVisible(false);
-        } else if (healthPoints <= Constants.HEALTH_BAR_MIN) {
-            _health100.setVisible(false);
-            _health75.setVisible(false);
-            _health50.setVisible(false);
-            _health25.setVisible(true);
-        }
-    }
-
-    private static Observer observer = (o, arg) -> {
-    };
 
 
-    public boolean isIsPaused() {
+    public static boolean isIsPaused() {
         return isPaused;
     }
 
-    public void setIsPaused(boolean newValue) {
+    public static void setIsPaused(boolean newValue) {
         isPaused = newValue;
     }
 
@@ -365,10 +284,10 @@ public class GamePlayController implements Initializable {
 
         System.out.println("clicked");
 
-        if (this.getInstance().isIsPaused()) {
-            this.getInstance().setIsPaused(false);
+        if (this.isIsPaused()) {
+            this.setIsPaused(false);
         } else {
-            this.getInstance().setIsPaused(true);
+            this.setIsPaused(true);
         }
     }
 
