@@ -22,7 +22,7 @@ public class Constants {
     public static final String GAME_OVER_VIEW_PATH = "/views/gameOver.fxml";
     public static final String GAME_WIN_VIEW_PATH = "/views/gameWin.fxml";
     public static final String CAR_IMAGES_PATH = "/resources/images/player_";
-    public static final long TRACK_1_END_TIME = 3533; //Key Time in Frames;
+    public static final long TRACK_1_END_TIME = 3533; //Key Time in Frames; 3533
     public static final int CANVAS_WIDTH = 500;
     public static final int CANVAS_HEIGHT = 600;
     public static final int COLLECTIBLES_OFFSET = 50000;

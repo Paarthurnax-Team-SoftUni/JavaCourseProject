@@ -1,6 +1,7 @@
 package controllers;
 
 import dataHandler.Constants;
+import dataHandler.PlayerData;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,10 +27,12 @@ public class StartController {
     @FXML
 
     private void startNewGame() throws IOException {
+        PlayerData.getInstance().returnPlayer(Track.getRunTrack().getPlayer().getName());
         Stage currentStage = (Stage) startBtn.getScene().getWindow();
         ScreenController.getInstance().loadStage(currentStage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_PLAY_VIEW_PATH);
         try {
             Track.initializeLevel(1);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

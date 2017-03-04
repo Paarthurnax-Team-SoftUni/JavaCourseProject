@@ -22,8 +22,7 @@ public class ScreenController{
     private Stage gameOverStage;
     private AnchorPane root;
 
-    private ScreenController() {
-    }
+    private ScreenController() {}
 
     public static ScreenController getInstance() {
         if(instance == null) {

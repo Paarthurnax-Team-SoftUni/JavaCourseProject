@@ -1,9 +1,10 @@
 package keyHandler;
 
-import models.Player;
+
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import models.Player;
 
 
 public class KeyHandlerOnRelease implements EventHandler<KeyEvent> {

@@ -1,8 +1,6 @@
 package controllers;
 
-import GameEngine.GamePlayController;
 import dataHandler.Constants;
-import models.Player;
 import dataHandler.PlayerData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,10 +8,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
+import mapHandlers.Track;
+import models.Player;
 
 import java.io.IOException;
 
@@ -35,8 +34,6 @@ public class ChooseCarController{
     public ImageView locked6;
 
     @FXML
-    private AnchorPane chooseCarPage;
-    @FXML
     private Button returnBtn;
     @FXML
     private GridPane cars;
@@ -52,10 +49,8 @@ public class ChooseCarController{
     private Ellipse backgroundBox5;
     @FXML
     private Ellipse backgroundBox6;
-
-
     public void initialize() {
-        Player p = PlayerData.getInstance().returnPlayer(GamePlayController.getInstance().getPlayer().getName());
+        Player p = PlayerData.getInstance().returnPlayer(Track.getRunTrack().getPlayer().getName());
         showUnlockedCarsOnly(p.getHighScore());
     }
 
@@ -128,7 +123,7 @@ public class ChooseCarController{
     }
 
     private void backgroundFill(String id) {
-        Player p = PlayerData.getInstance().returnPlayer(GamePlayController.getInstance().getPlayer().getName());
+        Player p = PlayerData.getInstance().returnPlayer(Track.getRunTrack().getPlayer().getName());
         showUnlockedCarsOnly(p.getHighScore());
 
         switch (id) {

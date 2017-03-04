@@ -1,6 +1,6 @@
 package GameEngine;
 
-import dataHandler.*;
+import dataHandler.Constants;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
@@ -9,7 +9,6 @@ import javafx.util.Duration;
 import models.Collectible;
 import models.Obstacle;
 import models.Player;
-import models.Sprite;
 import music.MusicPlayer;
 
 import java.util.ArrayList;
@@ -35,9 +34,9 @@ public class PauseHandler {
     }
 
     public void activatePause() {
-        GamePlayController.getInstance().setIsPaused(true);
+        RunTrack.setIsPaused(true);
         this.gameLoop.pause();
-        if (GamePlayController.getInstance().isIsPaused()) {
+        if (RunTrack.isIsPaused()) {
             MusicPlayer.Pause();
 
             Timeline pauseloop = new Timeline();
@@ -46,7 +45,7 @@ public class PauseHandler {
             KeyFrame keyFramePause = new KeyFrame(
                     Duration.seconds(Constants.FRAMES_PER_SECOND),
                     event -> {
-                        if (!GamePlayController.getInstance().isIsPaused()) {
+                        if (!RunTrack.isIsPaused()) {
                             gameLoop.play();
                             MusicPlayer.Pause();
                             pauseloop.stop();
@@ -57,10 +56,10 @@ public class PauseHandler {
                         gc.drawImage(background, 0, y - Constants.CANVAS_HEIGHT);
                         player.render(gc);
 
-                        for (Sprite collectible : collectibles) {
+                        for (Collectible collectible : collectibles) {
                             collectible.render(gc);
                         }
-                        for (Sprite obs : testObstacles) {
+                        for (Obstacle obs : testObstacles) {
                             obs.render(gc);
                         }
                     });
