@@ -138,7 +138,7 @@ public class Player extends Sprite {
 
     @Override
     public void render(GraphicsContext gc) {
-        RotatedImageInCanvas.drawRotatedImage(gc, this.image, angle, positionX, positionY);
+        RotatedImageInCanvas.drawRotatedImage(gc, this.getImage(), angle, getPositionX(), getPositionY());
         //super.render(gc);
     }
 

@@ -6,14 +6,14 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 public abstract class Sprite {
-    protected Image image;
-    protected String name;
-    protected double positionX;
-    protected double positionY;
-    protected double velocityX;
-    protected double velocityY;
-    protected double width;
-    protected double height;
+    private Image image;
+    private String name;
+    private double positionX;
+    private double positionY;
+    private double velocityX;
+    private double velocityY;
+    private double width;
+    private double height;
     protected boolean isDestroyed;
 
     public double getWidth() {
@@ -46,12 +46,23 @@ public abstract class Sprite {
         setImage(i);
     }
 
+    public Image getImage() {
+        return this.image;
+    }
+
     public void setImage(Image i) {
         this.image = i;
         this.width = i.getWidth();
         this.height = i.getHeight();
     }
 
+    public double getPositionX() {
+        return this.positionX;
+    }
+
+    public double getPositionY() {
+        return this.positionY;
+    }
 
     public void setPosition(double x, double y) {
         positionX = x;

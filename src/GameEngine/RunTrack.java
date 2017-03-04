@@ -226,7 +226,7 @@ public class RunTrack{
                     testObst.setDestroyed(true);
                 }
                 if (!testObst.isDestroyed()) {
-                    //player.setHealthPoints(player.getHealthPoints() - Constants.OBSTACLE_DAMAGE);
+                    player.setHealthPoints(player.getHealthPoints() - Constants.OBSTACLE_DAMAGE);
                     testObst.setDestroyed(true);
                 }
             }
