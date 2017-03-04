@@ -1,7 +1,10 @@
 package models;
 
+import GameEngine.RotatedImageInCanvas;
 import GameEngine.RunTrack;
+import javafx.scene.Node;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.ImageView;
 
 public class Player extends Sprite {
 
@@ -46,7 +49,7 @@ public class Player extends Sprite {
         return this.angle;
     }
 
-    public void addAngle(double angle){
+    public void addAngle(double angle) {
 
     }
 
@@ -135,39 +138,34 @@ public class Player extends Sprite {
 
     @Override
     public void render(GraphicsContext gc) {
-
+        RotatedImageInCanvas.drawRotatedImage(gc, this.image, angle, positionX, positionY);
         //super.render(gc);
-        gc.save();
-        //gc.translate(height/2 , width/2 );
-        gc.rotate(angle);
-        gc.drawImage(image, positionX, positionY);
-        gc.restore();
     }
 
     @Override
     public void update() {
         if (turnLeft) {
-            setAngle(getAngle() - 5);
+            setAngle(getAngle() - 2);
         }
         if (turnRight) {
-            setAngle(getAngle() + 5);
+            setAngle(getAngle() + 2);
         }
         if (centerWheel) {
             if (this.angle < 0) {
-                this.setAngle(this.getAngle() + 5);
+                this.setAngle(this.getAngle() + 2);
             } else if (this.angle > 0)
-                this.setAngle(this.getAngle() - 5);
+                this.setAngle(this.getAngle() - 2);
             else centerWheel = false;
         }
         if (accelerating) {
-            this.addVelocity(0,-2);
+            this.addVelocity(this.getAngle()/5, -2);
             if (RunTrack.getVelocity() < 20) {
-                RunTrack.setVelocity((float) (RunTrack.getVelocity()+0.1));
+                RunTrack.setVelocity((float) (RunTrack.getVelocity() + 0.1));
             }
         } else {
-            this.addVelocity(0,1);
+            this.addVelocity(this.getAngle()/5, 1);
             if (RunTrack.getVelocity() > 5) {
-                RunTrack.setVelocity((float) (RunTrack.getVelocity()-0.1));
+                RunTrack.setVelocity((float) (RunTrack.getVelocity() - 0.1));
             }
         }
 
@@ -179,4 +177,6 @@ public class Player extends Sprite {
     public String toString() {
         return String.format("%s: %s", this.name, this.highScore);
     }
+
+
 }
