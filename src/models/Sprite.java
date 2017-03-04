@@ -58,7 +58,7 @@ public abstract class Sprite {
         return this.height;
     }
 
-    public  Sprite() {
+    public Sprite() {
 
         positionX = 0;
         positionY = 0;
@@ -119,12 +119,12 @@ public abstract class Sprite {
                 velocityX += x;
             }
         }
-        if(y < 0) {
-            if(positionY > 300) {
+        if (y < 0) {
+            if (positionY > 300) {
                 velocityY += y;
             }
         } else if (y > 0) {
-            if (positionY < Constants.CANVAS_HEIGHT-this.height*2) {
+            if (positionY < Constants.CANVAS_HEIGHT - this.height * 2) {
                 velocityY += y;
             }
         }
@@ -137,7 +137,7 @@ public abstract class Sprite {
         if (this.getTurnRight()) {
             setAngle(getAngle() + 4);
         }
-        this.addVelocity(Math.tan(this.getAngle()*0.01745329252)* RunTrack.getVelocity()/3, 0);
+        this.addVelocity(Math.tan(Math.toRadians(this.getAngle())) * RunTrack.getVelocity() / 3, 0);
         positionX += velocityX;
         positionY += velocityY;
     }

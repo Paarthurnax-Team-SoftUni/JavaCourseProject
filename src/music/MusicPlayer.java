@@ -19,7 +19,9 @@ public class MusicPlayer {
     }
 
     public static void Pause() {
-        if (mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED)) {
+        System.out.println(mediaPlayer.getStatus());
+        if (mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED)||
+                mediaPlayer.getStatus().equals(MediaPlayer.Status.READY)) {
             mediaPlayer.setStartTime(resumeTime);
             mediaPlayer.play();
         } else {
