@@ -38,4 +38,8 @@ public class Obstacle extends Sprite{
         isDestroyed = destroyed;
     }
 
+    public String getObstacleType(){
+        return this.getName().substring(0, this.getName().length()-1);
+    }
+
 }
