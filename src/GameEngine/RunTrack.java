@@ -79,7 +79,7 @@ public class RunTrack {
     }
 
 
-    public void RunTrack(Image background) {
+    public void runGame(Image background) {
 
         AnchorPane root = ScreenController.getInstance().getRoot();
         Canvas canvas = new Canvas(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
@@ -218,13 +218,16 @@ public class RunTrack {
             if (obstacleType.contains("player_car") && !testObst.isDestroyed()) {
 
                 testObst.setVelocity(0, velocity / 3);
-                int i = new Random().nextInt(2);
-                if (i == 0) {
-                    testObst.setTurnLeft(true);
-                    testObst.setTurnRight(false);
-                } else {
-                    testObst.setTurnRight(true);
-                    testObst.setTurnLeft(false);
+                if (testObst.getIsDrunk()) {
+                    if (new Random().nextInt(100)> 90) {
+                        if (new Random().nextInt(2) == 0) {
+                            testObst.setTurnLeft(true);
+                            testObst.setTurnRight(false);
+                        } else {
+                            testObst.setTurnRight(true);
+                            testObst.setTurnLeft(false);
+                        }
+                    }
                 }
 
             } else {
