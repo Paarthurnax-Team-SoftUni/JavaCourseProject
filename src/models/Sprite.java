@@ -105,8 +105,7 @@ public abstract class Sprite {
     }
 
     public Rectangle2D getBoundary() {
-        Rectangle2D rectangle2D = new Rectangle2D(positionX, positionY, width, height);
-        return rectangle2D;
+        return new Rectangle2D(positionX, positionY, width, height);
     }
 
     public boolean intersects(Sprite s) {

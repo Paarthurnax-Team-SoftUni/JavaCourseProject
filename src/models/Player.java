@@ -55,7 +55,7 @@ public class Player extends Sprite {
 
     public void setAngle(double angle) {
         System.out.println(this.angle + " - " + angle);
-        if (angle < 45 && angle > -45) {
+        if (angle < 43 && angle > -43) {
             this.angle = angle;
         }
 //        else {
@@ -158,12 +158,12 @@ public class Player extends Sprite {
             else centerWheel = false;
         }
         if (accelerating) {
-            this.addVelocity(this.getAngle()/5, -2);
+            this.addVelocity(Math.tan(this.getAngle()*0.01745329252)*RunTrack.getVelocity()/3, -2);
             if (RunTrack.getVelocity() < 20) {
                 RunTrack.setVelocity((float) (RunTrack.getVelocity() + 0.1));
             }
         } else {
-            this.addVelocity(this.getAngle()/5, 1);
+            this.addVelocity(Math.tan(this.getAngle()*0.01745329252)*RunTrack.getVelocity()/3, 1);
             if (RunTrack.getVelocity() > 5) {
                 RunTrack.setVelocity((float) (RunTrack.getVelocity() - 0.1));
             }
