@@ -17,7 +17,23 @@ public class KeyHandlerOnRelease implements EventHandler<KeyEvent> {
     public void handle(KeyEvent e) {
         KeyCode keyCode = e.getCode();
         if ((keyCode.getName().equals("Up"))) {
-            this.player.stopAccelerate();
+        }
+        switch (keyCode.getName()) {
+            case "Up":
+                this.player.stopAccelerate();
+                break;
+            case "Down":
+                break;
+            case "Left":
+                player.setTurnLeft(false);
+                player.setCenterWheel(true);
+                player.update();
+                break;
+            case "Right":
+                player.setTurnRight(false);
+                player.setCenterWheel(true);
+                player.update();
+                break;
         }
     }
 }

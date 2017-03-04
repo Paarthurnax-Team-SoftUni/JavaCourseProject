@@ -178,11 +178,9 @@ public class GamePlayController implements Initializable {
                     observer.update(currentPoints, observer);
                     observer.update(currentTime, observer);
                     observer.update(currentDistance, observer);
-                    System.out.println(y);
                     if (Math.abs(y) >= Constants.CANVAS_HEIGHT) {
                         y = y - Constants.CANVAS_HEIGHT;
                         frame = 0;
-                        System.out.println("--"+ y);
                     }
                     player.setVelocity(0, 0);
 

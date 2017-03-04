@@ -5,15 +5,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.geometry.Rectangle2D;
 
 public abstract class Sprite {
-    private Image image;
-    private String name;
-    private double positionX;
-    private double positionY;
-    private double velocityX;
-    private double velocityY;
-    private double width;
-    private double height;
-    private boolean isDestroyed;
+    protected Image image;
+    protected String name;
+    protected double positionX;
+    protected double positionY;
+    protected double velocityX;
+    protected double velocityY;
+    protected double width;
+    protected double height;
+    protected boolean isDestroyed;
 
     public double getWidth() {
         return this.width;
@@ -68,7 +68,7 @@ public abstract class Sprite {
                 velocityX += x;
             }
         } else if (x > 0) {
-            if (positionX < 350) {
+            if (positionX < 400) {
                 velocityX += x;
             }
         }
@@ -77,7 +77,7 @@ public abstract class Sprite {
                 velocityY += y;
             }
         } else if (y > 0) {
-            if (positionY < Constants.CANVAS_HEIGHT-this.height) {
+            if (positionY < Constants.CANVAS_HEIGHT-this.height*2) {
                 velocityY += y;
             }
         }
@@ -93,7 +93,8 @@ public abstract class Sprite {
     }
 
     public Rectangle2D getBoundary() {
-        return new Rectangle2D(positionX, positionY, width, height);
+        Rectangle2D rectangle2D = new Rectangle2D(positionX, positionY, width, height);
+        return rectangle2D;
     }
 
     public boolean intersects(Sprite s) {

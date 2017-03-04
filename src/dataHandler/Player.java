@@ -1,6 +1,8 @@
 package dataHandler;
 
 import GameEngine.GamePlayController;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 
 public class Player extends Sprite {
 
@@ -10,9 +12,55 @@ public class Player extends Sprite {
     private Long points;
     private Long experience;
     private int healthPoints;
+    private double angle;
     private boolean accelerating = false;
-    private boolean turnLeft = false;
-    private boolean turnRight = false;
+    private boolean centerWheel;
+    private boolean turnRight;
+    private boolean turnLeft;
+
+
+    public boolean getTurnRight() {
+        return this.turnRight;
+    }
+
+    public void setTurnRight(boolean b) {
+        this.turnRight = b;
+    }
+
+    public boolean getTurnLeft() {
+        return this.turnLeft;
+    }
+
+    public void setTurnLeft(boolean b) {
+        this.turnLeft = b;
+    }
+
+    public boolean getCenterWheel() {
+        return this.centerWheel;
+    }
+
+    public void setCenterWheel(boolean b) {
+        this.centerWheel = b;
+    }
+
+    public double getAngle() {
+        return this.angle;
+    }
+
+    public void addAngle(double angle){
+
+    }
+
+    public void setAngle(double angle) {
+        System.out.println(this.angle + " - " + angle);
+        if (angle < 45 && angle > -45) {
+            this.angle = angle;
+        }
+//        else {
+//            if (this.angle >= 45) this.angle--;
+//            if (this.angle <= -45) this.angle++;
+//        }
+    }
 
     public Player(String name, Long highScore, Double money, Long points, Long experience, int healthPoints) {
 
@@ -22,6 +70,7 @@ public class Player extends Sprite {
         this.points = points;
         this.experience = experience;
         this.healthPoints = healthPoints;
+        this.angle = 0;
     }
 
     public String getName() {
@@ -86,20 +135,41 @@ public class Player extends Sprite {
     }
 
     @Override
+    public void render(GraphicsContext gc) {
+
+        //super.render(gc);
+        gc.save();
+        //gc.translate(height/2 , width/2 );
+        gc.rotate(angle);
+        gc.drawImage(image, positionX, positionY);
+        gc.restore();
+    }
+
+    @Override
     public void update() {
+        if (turnLeft) {
+            setAngle(getAngle() - 5);
+        }
+        if (turnRight) {
+            setAngle(getAngle() + 5);
+        }
+        if (centerWheel) {
+            if (this.angle < 0) {
+                this.setAngle(this.getAngle() + 5);
+            } else if (this.angle > 0)
+                this.setAngle(this.getAngle() - 5);
+            else centerWheel = false;
+        }
         if (accelerating) {
-            this.addVelocity(0,-2);
+            this.addVelocity(angle / 5, -2);
             if (GamePlayController.getInstance().getVelocity() < 20) {
-                GamePlayController.getInstance().setVelocity((float) (GamePlayController.getInstance().getVelocity()+0.1));
+                GamePlayController.getInstance().setVelocity((float) (GamePlayController.getInstance().getVelocity() + 0.1));
             }
         } else {
-            this.addVelocity(0,1);
+            this.addVelocity(angle / 5, 1);
             if (GamePlayController.getInstance().getVelocity() > 5) {
-                GamePlayController.getInstance().setVelocity((float) (GamePlayController.getInstance().getVelocity()-0.1));
+                GamePlayController.getInstance().setVelocity((float) (GamePlayController.getInstance().getVelocity() - 0.1));
             }
-        }
-        if (this.turnLeft){
-
         }
 
         super.update();
