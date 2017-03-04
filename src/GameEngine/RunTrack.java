@@ -23,7 +23,7 @@ import music.MusicPlayer;
 import java.io.IOException;
 import java.util.*;
 
-public class RunTrack{
+public class RunTrack {
     private int frame;
     private long time;
     private int y;
@@ -35,25 +35,26 @@ public class RunTrack{
     private ArrayList<Obstacle> testObstacles;
     private ArrayList<Collectible> collectibles;
     private Player player;
-    private static CurrentPoints currentPoints ;
+    private static CurrentPoints currentPoints;
     private static CurrentTime currentTime;
     private static CurrentDistance currentDistance;
     private HealthBar currentHealth;
     private ChooseCarController chooseCarController;
     private Timer immortalityTimer = new Timer();
+    private Random rnd;
 
-    public RunTrack(Player player,float velocity) {
+    public RunTrack(Player player, float velocity) {
         setPlayer(player);
-        this.testObstacles=new ArrayList<>();
-        this.collectibles=new ArrayList<>();
+        this.testObstacles = new ArrayList<>();
+        this.collectibles = new ArrayList<>();
         this.frame = 0;
         this.time = 0;
         isPaused = false;
         isImmortable = false;
         RunTrack.velocity = velocity;
-        currentPoints= new CurrentPoints(0);
-        currentDistance=new CurrentDistance(0);
-        currentTime=new CurrentTime(0);
+        currentPoints = new CurrentPoints(0);
+        currentDistance = new CurrentDistance(0);
+        currentTime = new CurrentTime(0);
         chooseCarController = new ChooseCarController();
     }
 
@@ -124,7 +125,7 @@ public class RunTrack{
                         pauseHandler.activatePause();
                     }
 
-                    y = Math.round(y + velocity) ;
+                    y = Math.round(y + velocity);
                     time++;
                     frame++;
 
@@ -213,8 +214,19 @@ public class RunTrack{
 
     private void manageObstacles(GraphicsContext gc) {
         for (Obstacle testObst : testObstacles) {
-            if (testObst.getObstacleType().equals("player_car") && !testObst.isDestroyed()) {
-                testObst.setVelocity(0, velocity / 2);
+            String obstacleType = testObst.getObstacleType();
+            if (obstacleType.contains("player_car") && !testObst.isDestroyed()) {
+
+                testObst.setVelocity(0, velocity / 3);
+                int i = new Random().nextInt(2);
+                if (i == 0) {
+                    testObst.setTurnLeft(true);
+                    testObst.setTurnRight(false);
+                } else {
+                    testObst.setTurnRight(true);
+                    testObst.setTurnLeft(false);
+                }
+
             } else {
                 testObst.setVelocity(0, velocity);
             }
@@ -222,7 +234,7 @@ public class RunTrack{
             testObst.render(gc);
 
             if (testObst.getBoundary().intersects(player.getBoundary())) {
-                if(isImmortable){
+                if (isImmortable) {
                     testObst.setDestroyed(true);
                 }
                 if (!testObst.isDestroyed()) {
@@ -257,7 +269,7 @@ public class RunTrack{
                         break;
                     case "immortality":
                         player.setPoints(player.getPoints() + Constants.IMMORTALITY_BONUS);
-                        if(!isImmortable) {
+                        if (!isImmortable) {
                             startImmortalityTimer();
                         }
                         break;
@@ -281,12 +293,10 @@ public class RunTrack{
         return (currentPoints);
     }
 
-    public void startImmortalityTimer(){
+    public void startImmortalityTimer() {
         isImmortable = true;
-        TimerTask task = new TimerTask()
-        {
-            public void run()
-            {
+        TimerTask task = new TimerTask() {
+            public void run() {
                 isImmortable = false;
                 System.out.println("immortality");
                 System.out.println(isImmortable);
@@ -294,12 +304,12 @@ public class RunTrack{
             }
 
         };
-        immortalityTimer.schedule(task,Constants.IMMORTALITY_DURATION);
+        immortalityTimer.schedule(task, Constants.IMMORTALITY_DURATION);
     }
 
-    public void startArmageddonsPower(){
-        for(Obstacle obstacle : testObstacles){
-                obstacle.setDestroyed(true);
+    public void startArmageddonsPower() {
+        for (Obstacle obstacle : testObstacles) {
+            obstacle.setDestroyed(true);
         }
     }
 
@@ -318,7 +328,6 @@ public class RunTrack{
     public static void setVelocity(float v) {
         velocity = v;
     }
-
 
 
     public static boolean isIsPaused() {

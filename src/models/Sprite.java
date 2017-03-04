@@ -1,5 +1,7 @@
 package models;
 
+import GameEngine.RotatedImageInCanvas;
+import GameEngine.RunTrack;
 import dataHandler.Constants;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,6 +17,38 @@ public abstract class Sprite {
     private double width;
     private double height;
     protected boolean isDestroyed;
+    private boolean turnRight;
+    private boolean turnLeft;
+    private double angle;
+
+    public double getAngle() {
+        return this.angle;
+    }
+
+
+    public void setAngle(double angle) {
+        if (angle < 43 && angle > -43) {
+            this.angle = angle;
+        }
+    }
+
+
+    public boolean getTurnRight() {
+        return this.turnRight;
+    }
+
+    public void setTurnRight(boolean b) {
+        this.turnRight = b;
+
+    }
+
+    public boolean getTurnLeft() {
+        return this.turnLeft;
+    }
+
+    public void setTurnLeft(boolean b) {
+        this.turnLeft = b;
+    }
 
     public double getWidth() {
         return this.width;
@@ -30,6 +64,7 @@ public abstract class Sprite {
         positionY = 0;
         velocityX = 0;
         velocityY = 0;
+        this.angle = 0;
     }
 
     public void setName(String n) {
@@ -96,12 +131,19 @@ public abstract class Sprite {
     }
 
     public void update() {
+        if (this.getTurnLeft()) {
+            setAngle(getAngle() - 4);
+        }
+        if (this.getTurnRight()) {
+            setAngle(getAngle() + 4);
+        }
+        this.addVelocity(Math.tan(this.getAngle()*0.01745329252)* RunTrack.getVelocity()/3, 0);
         positionX += velocityX;
         positionY += velocityY;
     }
 
     public void render(GraphicsContext gc) {
-        gc.drawImage(image, positionX, positionY);
+        RotatedImageInCanvas.drawRotatedImage(gc, this.getImage(), this.getAngle(), this.getPositionX(), this.getPositionY());
     }
 
     public Rectangle2D getBoundary() {

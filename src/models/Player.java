@@ -14,28 +14,8 @@ public class Player extends Sprite {
     private Long points;
     private Long experience;
     private int healthPoints;
-    private double angle;
     private boolean accelerating = false;
     private boolean centerWheel;
-    private boolean turnRight;
-    private boolean turnLeft;
-
-
-    public boolean getTurnRight() {
-        return this.turnRight;
-    }
-
-    public void setTurnRight(boolean b) {
-        this.turnRight = b;
-    }
-
-    public boolean getTurnLeft() {
-        return this.turnLeft;
-    }
-
-    public void setTurnLeft(boolean b) {
-        this.turnLeft = b;
-    }
 
     public boolean getCenterWheel() {
         return this.centerWheel;
@@ -45,24 +25,6 @@ public class Player extends Sprite {
         this.centerWheel = b;
     }
 
-    public double getAngle() {
-        return this.angle;
-    }
-
-    public void addAngle(double angle) {
-
-    }
-
-    public void setAngle(double angle) {
-        System.out.println(this.angle + " - " + angle);
-        if (angle < 43 && angle > -43) {
-            this.angle = angle;
-        }
-//        else {
-//            if (this.angle >= 45) this.angle--;
-//            if (this.angle <= -45) this.angle++;
-//        }
-    }
 
     public Player(String name, Long highScore, Double money, Long points, Long experience, int healthPoints) {
 
@@ -72,7 +34,6 @@ public class Player extends Sprite {
         this.points = points;
         this.experience = experience;
         this.healthPoints = healthPoints;
-        this.angle = 0;
     }
 
     public String getName() {
@@ -136,34 +97,23 @@ public class Player extends Sprite {
 
     }
 
-    @Override
-    public void render(GraphicsContext gc) {
-        RotatedImageInCanvas.drawRotatedImage(gc, this.getImage(), angle, getPositionX(), getPositionY());
-        //super.render(gc);
-    }
 
     @Override
     public void update() {
-        if (turnLeft) {
-            setAngle(getAngle() - 2);
-        }
-        if (turnRight) {
-            setAngle(getAngle() + 2);
-        }
-        if (centerWheel) {
-            if (this.angle < 0) {
-                this.setAngle(this.getAngle() + 2);
-            } else if (this.angle > 0)
-                this.setAngle(this.getAngle() - 2);
-            else centerWheel = false;
+        if (this.centerWheel) {
+            if (this.getAngle() < 0) {
+                this.setAngle(this.getAngle() + 5);
+            } else if (this.getAngle() > 0)
+                this.setAngle(this.getAngle() - 5);
+            else this.centerWheel = false;
         }
         if (accelerating) {
-            this.addVelocity(Math.tan(this.getAngle()*0.01745329252)*RunTrack.getVelocity()/3, -2);
+            this.addVelocity(0, -2);
             if (RunTrack.getVelocity() < 20) {
                 RunTrack.setVelocity((float) (RunTrack.getVelocity() + 0.1));
             }
         } else {
-            this.addVelocity(Math.tan(this.getAngle()*0.01745329252)*RunTrack.getVelocity()/3, 1);
+            this.addVelocity(0, 1);
             if (RunTrack.getVelocity() > 5) {
                 RunTrack.setVelocity((float) (RunTrack.getVelocity() - 0.1));
             }
