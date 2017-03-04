@@ -2,6 +2,8 @@ package dataHandler;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.Player;
+
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,16 +13,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Iterator;
 
+
 public class PlayerData {
 
     private static volatile PlayerData instance = null;
     private ObservableList<Player> playersList;
+    private Player currentPlayer;
 
     private PlayerData() {}
 
     public static PlayerData getInstance() {
         if(instance == null) {
-            System.out.println("new instance");
             synchronized (PlayerData.class) {
                 if(instance == null) {
                     instance = new PlayerData();
@@ -28,6 +31,14 @@ public class PlayerData {
             }
         }
         return instance;
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     public ObservableList<Player> getPlayersList() {

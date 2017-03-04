@@ -6,8 +6,8 @@ Connect to a DB?
 More background for next stages/continuation.
 
 Collectible superpowers 
-1. Invincibility/Immortality for duration of time or collisuon count.
-2. Armagedon power to blow or obsticales/enemies around.
+1. Invincibility/Immortality for duration of time or collision count.
+2. Armagedon power to blow or obstacles/enemies around.
 3. Double points for time
 
 Collectible weapons
@@ -32,6 +32,6 @@ Different car properties for each car (velocity, health etc.)
 Game will be infinite? or in stages ? 
 
 
-Front end sign when collectable is taken.
+Front end sign when collectible is taken.
 
 Sound introduction 

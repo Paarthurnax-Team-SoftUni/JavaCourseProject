@@ -1,6 +1,7 @@
 package controllers;
 
-import dataHandler.Player;
+import dataHandler.PlayerData;
+import javafx.fxml.FXML;
 import dataHandler.PlayerData;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -8,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import models.Player;
 
 import java.util.Comparator;
 import java.util.function.Predicate;
@@ -18,19 +20,10 @@ public class HighScoreController {
     @FXML
     private TableView<Player> highScoresListView;
 
-    private FilteredList<Player> filteredList;
-
-    private Predicate<Player> wantAllItems;
-
     public void initialize() {
 
-        wantAllItems = new Predicate<Player>() {
-            @Override
-            public boolean test(Player player) {
-                return true;
-            }
-        };
-        filteredList = new FilteredList<Player>(PlayerData.getInstance().getPlayersList(), wantAllItems);
+        Predicate<Player> wantAllItems = player -> true;
+        FilteredList<Player> filteredList = new FilteredList<Player>(PlayerData.getInstance().getPlayersList(), wantAllItems);
 
         SortedList<Player> sortedList = new SortedList<Player>(filteredList, new Comparator<Player>() {
             @Override

@@ -1,10 +1,9 @@
 package dataHandler;
 
+import models.Sprite;
+
 import java.util.Random;
 
-/**
- * Under Construction.
- */
 public class GetRandomToken extends Sprite {
 
     private String imagesDirectory;
