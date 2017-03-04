@@ -1,13 +1,11 @@
 package controllers;
 
-import GameEngine.RunTrack;
 import dataHandler.Constants;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import mapHandlers.Track;
 
 import java.io.IOException;
 
@@ -19,7 +17,7 @@ public class WinController {
     public void restartGame(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) quitBtn.getScene().getWindow();
 
-        Track.getRunTrack().clearObstaclesAndCollectibles();
+//        Track.getRunTrack().clearObstaclesAndCollectibles();
         ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getStartStage(), Constants.START_FXML_PATH);
     }
 
