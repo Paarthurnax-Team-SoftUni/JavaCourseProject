@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
+import mapHandlers.Levels.FirstLevel;
 import mapHandlers.Track;
 import models.Player;
 
@@ -33,6 +34,8 @@ public class ChooseCarController{
     public ImageView locked5;
     public ImageView locked6;
 
+    private Track track;
+
     @FXML
     private Button returnBtn;
     @FXML
@@ -50,7 +53,8 @@ public class ChooseCarController{
     @FXML
     private Ellipse backgroundBox6;
     public void initialize() {
-        Player p = PlayerData.getInstance().returnPlayer(Track.getRunTrack().getPlayer().getName());
+        track = new FirstLevel();
+        Player p = PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
         showUnlockedCarsOnly(p.getHighScore());
     }
 
@@ -123,7 +127,7 @@ public class ChooseCarController{
     }
 
     private void backgroundFill(String id) {
-        Player p = PlayerData.getInstance().returnPlayer(Track.getRunTrack().getPlayer().getName());
+        Player p = PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
         showUnlockedCarsOnly(p.getHighScore());
 
         switch (id) {

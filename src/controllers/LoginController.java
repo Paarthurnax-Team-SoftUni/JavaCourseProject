@@ -32,7 +32,7 @@ public class LoginController{
             alert.setTitle("You have to fill in the username field!");
             alert.setContentText("Please click on OK to retry!");
             alert.setHeaderText("You have to fill in the username field!");
-            Optional<ButtonType> result = alert.showAndWait();
+            alert.showAndWait();
         } else if (!PlayerData.getInstance().checkForPlayer(name)) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Login with this username");

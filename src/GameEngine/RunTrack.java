@@ -77,7 +77,7 @@ public class RunTrack{
     }
 
 
-    public void RunTrack(Image background) {
+    public void runGame(Image background) {
 
         AnchorPane root = ScreenController.getInstance().getRoot();
         Canvas canvas = new Canvas(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);

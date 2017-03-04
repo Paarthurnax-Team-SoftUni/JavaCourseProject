@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.stage.Stage;
+import mapHandlers.Levels.FirstLevel;
 import mapHandlers.Track;
 
 import java.io.IOException;
@@ -27,15 +28,11 @@ public class StartController {
     @FXML
 
     private void startNewGame() throws IOException {
-        PlayerData.getInstance().returnPlayer(Track.getRunTrack().getPlayer().getName());
+        Track track = new FirstLevel();
+        PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
         Stage currentStage = (Stage) startBtn.getScene().getWindow();
         ScreenController.getInstance().loadStage(currentStage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_PLAY_VIEW_PATH);
-        try {
-            Track.initializeLevel(1);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        track.createBackground();
     }
 
     @FXML
