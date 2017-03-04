@@ -42,16 +42,16 @@ public class RunTrack{
     private ChooseCarController chooseCarController;
 
     public RunTrack(Player player,float velocity) {
-        setPlayer(PlayerData.getInstance().getCurrentPlayer());
+        setPlayer(player);
         this.testObstacles=new ArrayList<>();
         this.collectibles=new ArrayList<>();
         this.frame = 0;
         this.time = 0;
-        this.isPaused = false;
-        this.velocity = velocity;
-        this.currentPoints= new CurrentPoints(0);
-        this.currentDistance=new CurrentDistance(0);
-        this.currentTime=new CurrentTime(0);
+        isPaused = false;
+        RunTrack.velocity = velocity;
+        currentPoints= new CurrentPoints(0);
+        currentDistance=new CurrentDistance(0);
+        currentTime=new CurrentTime(0);
         chooseCarController = new ChooseCarController();
     }
 
