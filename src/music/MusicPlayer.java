@@ -12,14 +12,15 @@ public class MusicPlayer {
     private static MediaPlayer mediaPlayer;
     private static Duration resumeTime;
 
-    public static void PlayMusic() {
+    public static void play() {
+        System.out.println("play");
         Media media = new Media(new File(Constants.SONG_PATH).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
     }
 
-    public static void Pause() {
-        System.out.println(mediaPlayer.getStatus());
+    public static void pause() {
+        System.out.println("pause");
         if (mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED)||
                 mediaPlayer.getStatus().equals(MediaPlayer.Status.READY)) {
             mediaPlayer.setStartTime(resumeTime);
@@ -29,7 +30,8 @@ public class MusicPlayer {
             resumeTime = mediaPlayer.getCurrentTime();
         }
     }
-    public static void StopMusic() {
+
+    public static void stop() {
         mediaPlayer.stop();
     }
 

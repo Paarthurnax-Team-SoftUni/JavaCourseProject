@@ -2,6 +2,7 @@ package keyHandler;
 
 import GameEngine.RunTrack;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -20,7 +21,7 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
     @Override
     public void handle(KeyEvent e) {
         KeyCode keyCode = e.getCode();
-        if (!RunTrack.isIsPaused()) {
+        if (!RunTrack.isPaused()) {
             switch (keyCode.getName()) {
                 case "Up":
                     player.accelerate();
@@ -31,8 +32,7 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                         RunTrack.setVelocity(RunTrack.getVelocity() - 1);
                     }
                     player.setCenterWheel(false);
-
-                     player.addVelocity(0, 2);
+                    player.addVelocity(0, 2);
                     player.update();
                     break;
                 case "Left":
@@ -52,15 +52,26 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                     RunTrack.setIsPaused(true);
                     break;
                 case "M":
-                    MusicPlayer.Pause();
+                    MusicPlayer.play();
+                    break;
+                case "Q":
+                    Platform.exit();
                     break;
                 default:
                     break;
             }
         } else {
-            if ((keyCode.getName().equals("P"))) {
-                RunTrack.setIsPaused(false);
+            switch (keyCode.getName()){
+                case "P":
+                    RunTrack.setIsPaused(false);
+                    break;
+                case "M":
+                    MusicPlayer.play();
+                    break;
             }
+//            if(keyCode.getName().equals("P")){
+//                RunTrack.setIsPaused(false);
+//            }
         }
     }
 }

@@ -1,9 +1,9 @@
 #homePage, #loginPage{
-    -fx-background-image: url('/resources/images/background-home-1.jpg');
+    -fx-background-image: url('/images/backgrounds/background-home-1.jpg');
 }
 
 #chooseCarPage{
-    -fx-background-image: url('/resources/images/background-home.jpg');
+    -fx-background-image: url('/images/backgrounds/background-home.jpg');
 }
 
 
@@ -57,7 +57,7 @@
 }
 
 #gameOverPage{
-    -fx-background-image: url('/resources/images/game-over.gif');
+    -fx-background-image: url('/images/gifs/game-over.gif');
 }
 
 #gameOverPage #quitBtn, #newGameBtn{
@@ -72,7 +72,7 @@
 
 
 #gameWinPage{
-    -fx-background-image: url('/resources/images/game-win.gif');
+    -fx-background-image: url('/images/gifs/game-win.gif');
 }
 
 #gameWinPage #quitBtn, #startMenuBtn{

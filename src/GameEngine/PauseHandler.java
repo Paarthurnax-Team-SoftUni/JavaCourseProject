@@ -36,8 +36,8 @@ public class PauseHandler {
     public void activatePause() {
         RunTrack.setIsPaused(true);
         this.gameLoop.pause();
-        if (RunTrack.isIsPaused()) {
-            MusicPlayer.Pause();
+        if (RunTrack.isPaused()) {
+            MusicPlayer.pause();
 
             Timeline pauseloop = new Timeline();
             pauseloop.setCycleCount(Timeline.INDEFINITE);
@@ -45,9 +45,9 @@ public class PauseHandler {
             KeyFrame keyFramePause = new KeyFrame(
                     Duration.seconds(Constants.FRAMES_PER_SECOND),
                     event -> {
-                        if (!RunTrack.isIsPaused()) {
+                        if (!RunTrack.isPaused()) {
                             gameLoop.play();
-                            MusicPlayer.Pause();
+                            MusicPlayer.play();
                             pauseloop.stop();
                         }
 
@@ -65,7 +65,6 @@ public class PauseHandler {
                     });
             pauseloop.getKeyFrames().add(keyFramePause);
             pauseloop.play();
-
         }
     }
 }

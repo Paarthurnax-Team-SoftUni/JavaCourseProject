@@ -3,12 +3,15 @@ package controllers;
 import dataHandler.Constants;
 import dataHandler.PlayerData;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Player;
+import stageHandler.StageManager;
+import stageHandler.StageManagerImpl;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -20,12 +23,12 @@ public class LoginController{
     @FXML
     private Button loginBtn;
 
-
     @FXML
     private void showStartPage() throws IOException {
 
         String name = playerName.getText().trim();
-        Stage currentStage = (Stage) loginBtn.getScene().getWindow();
+        Stage currentStage = (Stage) this.loginBtn.getScene().getWindow();
+        StageManager manager = new StageManagerImpl();
 
         if ("".equals(name)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -42,7 +45,7 @@ public class LoginController{
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
                 PlayerData.getInstance().setCurrentPlayer(PlayerData.getInstance().returnPlayer(name));
                 // Track.getRunTrack().setPlayer(PlayerData.getInstance().returnPlayer(name));
-                ScreenController.getInstance().loadStage(currentStage, ScreenController.getInstance().getStartStage(), Constants.START_FXML_PATH);
+                FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.START_FXML_PATH,null);
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -58,10 +61,8 @@ public class LoginController{
                 PlayerData.getInstance().addPlayer(player);
                 PlayerData.getInstance().storePlayersData();
                 PlayerData.getInstance().setCurrentPlayer(PlayerData.getInstance().returnPlayer(name));
-                
-                ScreenController.getInstance().loadStage(currentStage, ScreenController.getInstance().getStartStage(), Constants.START_FXML_PATH);
 
-
+                FXMLLoader loader = manager.loadSceneToStage(currentStage,Constants.START_FXML_PATH,null);
             }
         }
     }
