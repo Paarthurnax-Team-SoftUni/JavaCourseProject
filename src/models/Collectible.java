@@ -73,7 +73,6 @@ public class Collectible extends Sprite {
         if (this.getDoublePtsTimer() < 0) {
             isDoublePtsOn = false;
             bonusCoefficient = 1;
-            System.out.println("double points off");
         }
     }
 
@@ -86,7 +85,6 @@ public class Collectible extends Sprite {
         this.setImmortalityTimer(this.getImmortalityTimer() - 1);
         if (this.getImmortalityTimer() < 0) {
             isImmortal = false;
-            System.out.println("immortality off");
         }
     }
 

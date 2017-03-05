@@ -39,7 +39,6 @@ public class RunTrack {
     private static CurrentDistance currentDistance;
     private HealthBar currentHealth;
     private ChooseCarController chooseCarController;
-    private static Stage crntStage;
     private Collectible collectible;
     private Obstacle obstacle;
 
@@ -192,13 +191,12 @@ public class RunTrack {
     }
 
     private void startArmageddonsPower() {
-        for (Obstacle obstacle : obstacle.getObstacles()) {
-            obstacle.handleImpactByCarPlayer(velocity);
+        for (Obstacle o : obstacle.getObstacles()) {
+            o.handleImpactByCarPlayer(velocity);
         }
     }
 
     public static CurrentPoints getCurrentPoints() {
-        System.out.println(currentPoints.getValue());
         return (currentPoints);
     }
 

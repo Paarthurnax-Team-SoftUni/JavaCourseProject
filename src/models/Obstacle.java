@@ -2,13 +2,12 @@ package models;
 
 import dataHandler.Constants;
 import javafx.scene.canvas.GraphicsContext;
-import models.interfaces.ObstacleInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Obstacle extends Sprite implements ObstacleInterface {
+public class Obstacle extends Sprite {
     protected boolean isDrunk;
     private List<Obstacle> obstacles;
 
