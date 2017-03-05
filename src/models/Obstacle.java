@@ -33,6 +33,14 @@ public class Obstacle extends Sprite implements ObstacleInterface {
         isDestroyed = destroyed;
     }
 
+    public void handleImpactByCarPlayer(){
+        this.setDestroyed(true);
+        this.setIsDrunk(false);
+        this.setTurnLeft(false);
+        this.setTurnRight(false);
+
+    }
+
     public String getObstacleType() {
         return this.getName().substring(0, this.getName().length() - 1);
     }

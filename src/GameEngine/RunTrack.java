@@ -185,8 +185,8 @@ public class RunTrack {
                     currentHealth.update();
                     manageObstacles(gc);
                     Stage currentStage = (Stage) canvas.getScene().getWindow();
-                    //CHECK FOR END
-                    if (currentDistance.getValue() >= 10000) {       //if(time >= Constants.TRACK_1_END_TIME){
+                    //CHECK FOR END && CHECK FOR LOSE
+                    if (currentDistance.getValue() >= 10000 || player.getHealthPoints() <= 0) {       //if(time >= Constants.TRACK_1_END_TIME){
                         clearObstaclesAndCollectibles();
                         gameLoop.stop();
                         MusicPlayer.stop();
@@ -197,22 +197,10 @@ public class RunTrack {
                         currentDistance.setValue(0);
 
                         root.getChildren().remove(canvas);
-                        FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_WIN_VIEW_PATH,null);
-                    }
 
-                    //CHECK FOR LOSE
-                    if (player.getHealthPoints() <= 0) {
-                        clearObstaclesAndCollectibles();
-                        gameLoop.stop();
-                        MusicPlayer.stop();
-                        time = 0;
-
-                        player.updateStatsAtEnd();
-                        velocity = 5;
-                        currentDistance.setValue(0);
-
-                        root.getChildren().remove(canvas);
-                        FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_OVER_VIEW_PATH,null);
+                        // Ternar operator If final time is achieved -> GAME_WITN_VIEW else Game Lose View;
+                        FXMLLoader loader =
+                                manager.loadSceneToStage(currentStage, currentDistance.getValue()>=10000?Constants.GAME_WIN_VIEW_PATH:Constants.GAME_OVER_VIEW_PATH ,null);
                     }
 
                     if (frame % Constants.COLLECTIBLES_OFFSET == 0) {
@@ -252,12 +240,10 @@ public class RunTrack {
             if (testObst.getBoundary().intersects(player.getBoundary())) {
                 if (isImmortable) {
                     player.setPoints(player.getPoints()+Constants.BONUS_POINTS_HIT_WITH_SHIELD*bonusCoefficient);
-                    testObst.setDestroyed(true);
-                }
-                if (!testObst.isDestroyed()) {
+                } else if (!testObst.isDestroyed()) {
                     player.setHealthPoints(player.getHealthPoints() - Constants.OBSTACLE_DAMAGE);
-                    testObst.setDestroyed(true);
                 }
+                testObst.handleImpactByCarPlayer();// Comment if you want flames to go around :) .
             }
         }
     }
@@ -343,7 +329,7 @@ public class RunTrack {
 
     private void startArmageddonsPower() {
         for (Obstacle obstacle : testObstacles) {
-            obstacle.setDestroyed(true);
+            obstacle.handleImpactByCarPlayer();
         }
     }
 
