@@ -1,10 +1,11 @@
 package models;
 
 import dataHandler.Constants;
+import models.interfaces.ObstacleInterface;
 
 import java.util.Random;
 
-public class Obstacle extends Sprite {
+public class Obstacle extends Sprite implements ObstacleInterface {
     private boolean isDestroyed;
     private boolean isDrunk;
 
@@ -22,7 +23,7 @@ public class Obstacle extends Sprite {
         this.isDrunk = b;
     }
 
-    public static Obstacle generateObstacle() {
+    public Obstacle generateObstacle() {
 
         String[] obstacles = Constants.OBSTACLES_LIST_SMALL;
         String random = (obstacles[new Random().nextInt(obstacles.length)]);
