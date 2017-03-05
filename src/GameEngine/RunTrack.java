@@ -184,7 +184,7 @@ public class RunTrack {
                     player.render(gc);
                     currentHealth.update();
                     manageObstacles(gc);
-
+                    Stage currentStage = (Stage) canvas.getScene().getWindow();
                     //CHECK FOR END
                     if (currentDistance.getValue() >= 10000) {       //if(time >= Constants.TRACK_1_END_TIME){
                         clearObstaclesAndCollectibles();
@@ -196,8 +196,6 @@ public class RunTrack {
                         velocity = Constants.START_GAME_VELOCITY;
                         currentDistance.setValue(0);
 
-                        Stage currentStage = (Stage) canvas.getScene().getWindow();
-                        crntStage = currentStage;
                         root.getChildren().remove(canvas);
                         FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_WIN_VIEW_PATH,null);
                     }
@@ -213,7 +211,6 @@ public class RunTrack {
                         velocity = 5;
                         currentDistance.setValue(0);
 
-                        Stage currentStage = (Stage) canvas.getScene().getWindow();
                         root.getChildren().remove(canvas);
                         FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_OVER_VIEW_PATH,null);
                     }
@@ -221,7 +218,7 @@ public class RunTrack {
                     if (frame % Constants.COLLECTIBLES_OFFSET == 0) {
                         collectibles.add(CollectibleInterface.generateCollectible());
                     }
-                    visualizeCollectible(gc, velocity);
+                    visualizeCollectible(gc, velocity, currentStage);
                 });
 
         gameLoop.getKeyFrames().add(kf);
@@ -265,7 +262,7 @@ public class RunTrack {
         }
     }
 
-    private void visualizeCollectible(GraphicsContext gc, double velocity) {
+    private void visualizeCollectible(GraphicsContext gc, double velocity, Stage currentStage) {
         for (Collectible collectible : collectibles) {
 
             collectible.setVelocity(0, velocity);
@@ -278,7 +275,7 @@ public class RunTrack {
                         player.setPoints(player.getPoints() + Constants.FUEL_TANK_BONUS*bonusCoefficient);
                         time -= Constants.FUEL_TANK_BONUS_TIME;
 
-                        //Notification.showPopupMessage("fuel", stage??);
+                        Notification.showPopupMessage("fuel", currentStage);
                         
                         break;
                     case "health":

@@ -24,8 +24,6 @@ public class GameController implements Initializable {
     public ImageView healthFourth;
 
     @FXML
-    private Button quitBtn;
-    @FXML
     private Label timeInfo;
     @FXML
     public Label scorePoints;
