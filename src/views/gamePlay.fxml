@@ -27,12 +27,12 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label fx:id="timeInfo" layoutX="164.0" layoutY="58.0" prefHeight="31.0" prefWidth="0.0" textFill="WHITE">
+            <Label fx:id="timeInfo" layoutX="190.0" layoutY="58.0" prefHeight="31.0" prefWidth="122.0" textFill="WHITE">
                <font>
                   <Font size="26.0" />
                </font>
             </Label>
-            <Label fx:id="scorePoints" layoutX="186.0" layoutY="108.0" prefHeight="31.0" prefWidth="0.0" textFill="WHITE">
+            <Label fx:id="scorePoints" layoutX="190.0" layoutY="108.0" prefHeight="31.0" prefWidth="122.0" textFill="WHITE">
                <font>
                   <Font size="26.0" />
                </font>
@@ -42,7 +42,7 @@
                   <Font size="22.0" />
                </font>
             </Label>
-            <Label fx:id="distance" layoutX="191.0" layoutY="204.0" prefHeight="38.0" prefWidth="98.0" textFill="WHITE">
+            <Label fx:id="distance" layoutX="190.0" layoutY="204.0" prefHeight="38.0" prefWidth="98.0" textFill="WHITE">
                <font>
                   <Font size="26.0" />
                </font>
@@ -65,51 +65,66 @@
             </image>
          </ImageView>
             <Rectangle fx:id="health" fill="GREEN" height="30.0" layoutX="171.0" layoutY="277.0" visible="false" width="156.0" />
-            <Label layoutX="112.0" layoutY="321.0" text="CONTROLS" textFill="WHITE">
+            <Label layoutX="112.0" layoutY="321.0" text="CONTROLS" textFill="#818181">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
             <Separator layoutX="71.0" layoutY="306.0" prefWidth="200.0" />
             <Separator layoutX="73.0" layoutY="353.0" prefWidth="200.0" />
-            <Label layoutX="127.0" layoutY="378.0" text="PAUSE GAME" textFill="#818181">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-            <Label layoutX="136.0" layoutY="430.0" text="QUIT GAME" textFill="#818181">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-            <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="210.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="202.0" layoutY="436.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/images/controlKeys/computer_key_Arrow_Right.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="106.0" layoutY="521.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="104.0" layoutY="436.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/images/controlKeys/computer_key_Arrow_Left.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="158.0" layoutY="473.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="154.0" layoutY="397.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/images/controlKeys/computer_key_Arrow_Up.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="68.0" layoutY="372.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../resources/images/controlKeys/computer_key_P.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="68.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../resources/images/controlKeys/computer_key_Q.png" />
                </image>
             </ImageView>
             <Label layoutX="44.0" layoutY="255.0" prefHeight="31.0" prefWidth="29.0" textFill="WHITE">
                <font>
                   <Font size="26.0" />
+               </font>
+            </Label>
+            <Label layoutX="53.0" layoutY="444.0" text="LEFT" textFill="#818181">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="160.0" layoutY="371.0" text="UP" textFill="#818181">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="246.0" layoutY="444.0" text="RIGHT" textFill="#818181">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="72.0" layoutY="500.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/images/controlKeys/computer_key_P.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="72.0" layoutY="547.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../resources/images/controlKeys/computer_key_Q.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="138.0" layoutY="508.0" text="PAUSE GAME" textFill="#818181">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Label layoutX="139.0" layoutY="552.0" text="QUIT GAME" textFill="#818181">
+               <font>
+                  <Font size="22.0" />
                </font>
             </Label>
          </children>
