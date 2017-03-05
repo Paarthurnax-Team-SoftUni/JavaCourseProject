@@ -9,6 +9,7 @@ public abstract class Track {
 
     public abstract void createBackground();
 
+
     public final RunTrack getRunTrack() {
         if(runTrack == null) {
             this.runTrack = new RunTrack(PlayerData.getInstance().getCurrentPlayer(), Constants.START_GAME_VELOCITY);

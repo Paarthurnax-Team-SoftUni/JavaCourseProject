@@ -26,7 +26,8 @@ import java.util.*;
 public class RunTrack {
     private int frame;
     private long time;
-    private double y;
+
+    private int y;
     private double immortalityTimer;
     private float currentFramesPerSecond;
     private static boolean isPaused;
@@ -41,6 +42,7 @@ public class RunTrack {
     private static CurrentDistance currentDistance;
     private HealthBar currentHealth;
     private ChooseCarController chooseCarController;
+
 
     public RunTrack(Player player, float velocity) {
         setPlayer(player);
@@ -110,7 +112,8 @@ public class RunTrack {
         GraphicsContext gc = canvas.getGraphicsContext2D();
         this.setCarId(chooseCarController.getCarId());
         carId = carId == null ? "car1" : carId;
-        String carImg = Constants.CAR_IMAGES_PATH + carId + ".png";
+        //String carImg = Constants.CAR_IMAGES_PATH + carId + ".png";
+        String carImg = Constants.CAR_IMAGES_PATH + carId + "_half_size.png";
         player.setImage(carImg);
         player.setPosition(200, 430);
         player.setPoints(0L);
@@ -123,6 +126,7 @@ public class RunTrack {
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         MusicPlayer.PlayMusic();
+        MusicPlayer.Pause();
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(currentFramesPerSecond),
                 event -> {
@@ -134,10 +138,8 @@ public class RunTrack {
                         pauseHandler.activatePause();
                     }
 
-                    //check if Immortality is over
+                    y = Math.round(y + velocity);
 
-
-                    y = y + velocity;
                     time++;
                     frame++;
 
@@ -155,7 +157,6 @@ public class RunTrack {
                     observer.update(currentPoints, observer);
                     observer.update(currentTime, observer);
                     observer.update(currentDistance, observer);
-
                     if (Math.abs(y) >= Constants.CANVAS_HEIGHT) {
                         y = y - Constants.CANVAS_HEIGHT;
                         frame = 0;
@@ -227,8 +228,22 @@ public class RunTrack {
 
     private void manageObstacles(GraphicsContext gc) {
         for (Obstacle testObst : testObstacles) {
-            if (testObst.getObstacleType().equals("player_car") && !testObst.isDestroyed()) {
-                testObst.setVelocity(0, velocity / 2);
+            String obstacleType = testObst.getObstacleType();
+            if (obstacleType.contains("player_car") && !testObst.isDestroyed()) {
+
+                testObst.setVelocity(0, velocity / 3);
+                if (testObst.getIsDrunk()) {
+                    if (new Random().nextInt(100)> 90) {
+                        if (new Random().nextInt(2) == 0) {
+                            testObst.setTurnLeft(true);
+                            testObst.setTurnRight(false);
+                        } else {
+                            testObst.setTurnRight(true);
+                            testObst.setTurnLeft(false);
+                        }
+                    }
+                }
+
             } else {
                 testObst.setVelocity(0, velocity);
             }
@@ -237,6 +252,7 @@ public class RunTrack {
 
             if (testObst.getBoundary().intersects(player.getBoundary())) {
                 if (isImmortable) {
+
                     player.setPoints(player.getPoints()+Constants.BONUS_POINTS_HIT_WITH_SHIELD);
                     testObst.setDestroyed(true);
                 }
@@ -297,6 +313,7 @@ public class RunTrack {
         System.out.println(currentPoints.getValue());
         return (currentPoints);
     }
+
 
     private void startImmortalityTimer() {
         isImmortable = true;

@@ -1,5 +1,7 @@
 package models;
 
+import GameEngine.RotatedImageInCanvas;
+import GameEngine.RunTrack;
 import dataHandler.Constants;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -14,13 +16,55 @@ public abstract class Sprite {
     private double velocityY;
     private double width;
     private double height;
+    protected boolean isDestroyed;
+    private boolean turnRight;
+    private boolean turnLeft;
+    private double angle;
 
+    public double getAngle() {
+        return this.angle;
+    }
+
+
+    public void setAngle(double angle) {
+        if (angle < 43 && angle > -43) {
+            this.angle = angle;
+        }
+    }
+
+
+    public boolean getTurnRight() {
+        return this.turnRight;
+    }
+
+    public void setTurnRight(boolean b) {
+        this.turnRight = b;
+
+    }
+
+    public boolean getTurnLeft() {
+        return this.turnLeft;
+    }
+
+    public void setTurnLeft(boolean b) {
+        this.turnLeft = b;
+    }
+
+    public double getWidth() {
+        return this.width;
+    }
+
+    public double getHeight() {
+        return this.height;
+    }
 
     public Sprite() {
+
         positionX = 0;
         positionY = 0;
         velocityX = 0;
         velocityY = 0;
+        this.angle = 0;
     }
 
     public void setName(String n) {
@@ -37,12 +81,23 @@ public abstract class Sprite {
         setImage(i);
     }
 
-    public void setImage(Image i) {
-        image = i;
-        width = i.getWidth();
-        height = i.getHeight();
+    public Image getImage() {
+        return this.image;
     }
 
+    public void setImage(Image i) {
+        this.image = i;
+        this.width = i.getWidth();
+        this.height = i.getHeight();
+    }
+
+    public double getPositionX() {
+        return this.positionX;
+    }
+
+    public double getPositionY() {
+        return this.positionY;
+    }
 
     public void setPosition(double x, double y) {
         positionX = x;
@@ -60,28 +115,35 @@ public abstract class Sprite {
                 velocityX += x;
             }
         } else if (x > 0) {
-            if (positionX < 350) {
+            if (positionX < 400) {
                 velocityX += x;
             }
         }
-        if(y < 0) {
-            if(positionY > 300) {
+        if (y < 0) {
+            if (positionY > 300) {
                 velocityY += y;
             }
         } else if (y > 0) {
-            if (positionY < Constants.CANVAS_HEIGHT-this.height) {
+            if (positionY < Constants.CANVAS_HEIGHT - this.height * 2) {
                 velocityY += y;
             }
         }
     }
 
     public void update() {
+        if (this.getTurnLeft()) {
+            setAngle(getAngle() - 4);
+        }
+        if (this.getTurnRight()) {
+            setAngle(getAngle() + 4);
+        }
+        this.addVelocity(Math.tan(Math.toRadians(this.getAngle())) * RunTrack.getVelocity() / 3, 0);
         positionX += velocityX;
         positionY += velocityY;
     }
 
     public void render(GraphicsContext gc) {
-        gc.drawImage(image, positionX, positionY);
+        RotatedImageInCanvas.drawRotatedImage(gc, this.getImage(), this.getAngle(), this.getPositionX(), this.getPositionY());
     }
 
     public Rectangle2D getBoundary() {
