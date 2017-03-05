@@ -9,7 +9,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
 import mapHandlers.Levels.FirstLevel;
@@ -17,8 +16,6 @@ import mapHandlers.Track;
 import models.Player;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
-
-import java.io.IOException;
 
 public class ChooseCarController{
 
@@ -63,7 +60,7 @@ public class ChooseCarController{
     public void goToChooseLevel(ActionEvent actionEvent) {
         Stage currentStage = (Stage)this.goNextBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
-        FXMLLoader loader = manager.loadSceneToStage(currentStage,Constants.CHOOSE_LEVEL_VIEW_PATH,null);
+        FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.CHOOSE_LEVEL_VIEW_PATH,null);
     }
 
     public void chooseCar(MouseEvent ev) {

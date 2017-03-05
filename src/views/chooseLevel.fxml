@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="chooseLevel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChooseCarController">
+<AnchorPane fx:id="chooseLevelPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChooseLevelController">
    <children>
        <Button fx:id="startGameBtn" layoutX="239.0" layoutY="466.0" mnemonicParsing="false" onAction="#startGame" prefHeight="60.0" prefWidth="323.0" text="Ready" textAlignment="CENTER" textFill="#1b1a1a" underline="true" visible="false">
            <font>
@@ -33,7 +33,7 @@
          <children>
              <Ellipse fx:id="backgroundBox1" fill="TRANSPARENT" radiusX="106.0" radiusY="136.0" stroke="TRANSPARENT" strokeType="INSIDE" />
              <Ellipse fx:id="backgroundBox2" fill="TRANSPARENT" radiusX="107.0" radiusY="134.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="1" />
-            <Label fx:id="label1" contentDisplay="TOP" onMouseClicked="#chooseCar" text="LEVEL 1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Label fx:id="label1" contentDisplay="TOP" onMouseClicked="#chooseLevel" text="LEVEL 1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
@@ -41,7 +41,7 @@
                   <Font name="Chiller" size="24.0" />
                </font>
             </Label>
-            <Label fx:id="label2" onMouseClicked="#chooseCar" text="LEVEL 2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Label fx:id="label2" onMouseClicked="#chooseLevel" text="LEVEL 2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
