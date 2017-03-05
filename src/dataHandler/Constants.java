@@ -31,7 +31,7 @@ public class Constants {
     public static final int HEALTH_BONUS = 25;
     public static final int HEALTH_PACK_BONUS_POINTS = 500;
     public static final int IMMORTALITY_BONUS = 500;
-    public static final long IMMORTALITY_DURATION = 10000L;
+    public static final long IMMORTALITY_DURATION = 5;    //data in Seconds
     public static final int ARMAGEDDONS_BONUS = 500;
     public static final int BONUS_POINTS = 1000;
     public static final int DESTROY_OBJECT_COORDINATES = 800;
@@ -41,6 +41,6 @@ public class Constants {
     public static final int HEALTH_BAR_AVERAGE_HIGH = 75;
     public static final int HEALTH_BAR_AVERAGE_LOW = 50;
     public static final int OBSTACLE_DAMAGE = 25;
-    public static final float FRAMES_PER_SECOND = 0.017f;   //Frames in seconds;
+    public static final float FRAMES_PER_SECOND = 0.017f;   //Seconds per frame [ 1 Frame == the given time in seconds];
 
 }

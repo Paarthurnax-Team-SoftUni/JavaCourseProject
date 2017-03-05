@@ -23,10 +23,12 @@ import music.MusicPlayer;
 import java.io.IOException;
 import java.util.*;
 
-public class RunTrack{
+public class RunTrack {
     private int frame;
     private long time;
     private double y;
+    private double immortalityTimer;
+    private float currentFramesPerSecond;
     private static boolean isPaused;
     private static boolean isImmortable;
     private static float velocity;
@@ -34,25 +36,25 @@ public class RunTrack{
     private ArrayList<Obstacle> testObstacles;
     private ArrayList<Collectible> collectibles;
     private Player player;
-    private static CurrentPoints currentPoints ;
+    private static CurrentPoints currentPoints;
     private static CurrentTime currentTime;
     private static CurrentDistance currentDistance;
     private HealthBar currentHealth;
     private ChooseCarController chooseCarController;
-    private Timer immortalityTimer = new Timer();
 
-    public RunTrack(Player player,float velocity) {
+    public RunTrack(Player player, float velocity) {
         setPlayer(player);
-        this.testObstacles=new ArrayList<>();
-        this.collectibles=new ArrayList<>();
+        this.testObstacles = new ArrayList<>();
+        this.collectibles = new ArrayList<>();
         this.frame = 0;
         this.time = 0;
+        this.setCurrentFramesPerSecond(Constants.FRAMES_PER_SECOND);
         isPaused = false;
         isImmortable = false;
         RunTrack.velocity = velocity;
-        currentPoints= new CurrentPoints(0);
-        currentDistance=new CurrentDistance(0);
-        currentTime=new CurrentTime(0);
+        currentPoints = new CurrentPoints(0);
+        currentDistance = new CurrentDistance(0);
+        currentTime = new CurrentTime(0);
         chooseCarController = new ChooseCarController();
     }
 
@@ -61,6 +63,10 @@ public class RunTrack{
         public void update(Observable o, Object arg) {
         }
     };
+
+    public void setCurrentFramesPerSecond(float currentFramesPerSecond) {
+        this.currentFramesPerSecond = currentFramesPerSecond;
+    }
 
     private void setCarId(String carId) {
         this.carId = carId;
@@ -76,6 +82,13 @@ public class RunTrack{
         this.player = player;
     }
 
+    private double getImmortalityTimer() {
+        return immortalityTimer;
+    }
+
+    private void setImmortalityTimer(double immortalityTimer) {
+        this.immortalityTimer = immortalityTimer;
+    }
 
     public void runGame(Image background) {
 
@@ -111,7 +124,7 @@ public class RunTrack{
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         MusicPlayer.PlayMusic();
         KeyFrame kf = new KeyFrame(
-                Duration.seconds(Constants.FRAMES_PER_SECOND),
+                Duration.seconds(currentFramesPerSecond),
                 event -> {
 
                     //Pause
@@ -121,11 +134,20 @@ public class RunTrack{
                         pauseHandler.activatePause();
                     }
 
+                    //check if Immortality is over
+
+
                     y = y + velocity;
                     time++;
                     frame++;
 
-                    currentTime.setValue((long) (time * Constants.FRAMES_PER_SECOND));
+                    //update immortality status if its actuvated
+                    if (isImmortable) {
+                        updateImmortalityStatus();
+                    }
+
+
+                    currentTime.setValue((long) (time * currentFramesPerSecond));
                     currentDistance.setValue(currentDistance.getValue() + (long) velocity / 2);
                     player.setPoints(player.getPoints() + 1);
                     currentPoints.setValue(player.getPoints());
@@ -213,7 +235,7 @@ public class RunTrack{
             testObst.render(gc);
 
             if (testObst.getBoundary().intersects(player.getBoundary())) {
-                if(isImmortable){
+                if (isImmortable) {
                     testObst.setDestroyed(true);
                 }
                 if (!testObst.isDestroyed()) {
@@ -248,7 +270,7 @@ public class RunTrack{
                         break;
                     case "immortality":
                         player.setPoints(player.getPoints() + Constants.IMMORTALITY_BONUS);
-                        if(!isImmortable) {
+                        if (!isImmortable) {
                             startImmortalityTimer();
                         }
                         break;
@@ -262,7 +284,7 @@ public class RunTrack{
         }
     }
 
-    public void clearObstaclesAndCollectibles() {
+    private void clearObstaclesAndCollectibles() {
         collectibles.clear();
         testObstacles.clear();
     }
@@ -272,25 +294,24 @@ public class RunTrack{
         return (currentPoints);
     }
 
-    public void startImmortalityTimer(){
+    private void startImmortalityTimer() {
         isImmortable = true;
-        TimerTask task = new TimerTask()
-        {
-            public void run()
-            {
-                isImmortable = false;
-                System.out.println("immortality");
-                System.out.println(isImmortable);
-                return;
-            }
-
-        };
-        immortalityTimer.schedule(task,Constants.IMMORTALITY_DURATION);
+        this.setImmortalityTimer(Constants.IMMORTALITY_DURATION / currentFramesPerSecond);
     }
 
-    public void startArmageddonsPower(){
-        for(Obstacle obstacle : testObstacles){
-                obstacle.setDestroyed(true);
+    private void updateImmortalityStatus() {
+        this.setImmortalityTimer(this.getImmortalityTimer() - 1);
+        if (this.getImmortalityTimer() < 0) {
+            isImmortable = false;
+            System.out.println("immortality off");
+            System.out.println(isImmortable);
+        }
+    }
+
+
+    private void startArmageddonsPower() {
+        for (Obstacle obstacle : testObstacles) {
+            obstacle.setDestroyed(true);
         }
     }
 
@@ -309,7 +330,6 @@ public class RunTrack{
     public static void setVelocity(float v) {
         velocity = v;
     }
-
 
 
     public static boolean isIsPaused() {
