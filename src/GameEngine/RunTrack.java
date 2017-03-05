@@ -243,7 +243,7 @@ public class RunTrack {
                 } else if (!testObst.isDestroyed()) {
                     player.setHealthPoints(player.getHealthPoints() - Constants.OBSTACLE_DAMAGE);
                 }
-                testObst.handleImpactByCarPlayer();// Comment if you want flames to go around :) .
+                testObst.handleImpactByCarPlayer(velocity);// Comment if you want flames to go around :) .
             }
         }
     }
@@ -260,7 +260,6 @@ public class RunTrack {
                     case "fuelBottle":
                         player.setPoints(player.getPoints() + Constants.FUEL_TANK_BONUS*bonusCoefficient);
                         time -= Constants.FUEL_TANK_BONUS_TIME;
-
                         Notification.showPopupMessage("fuel", currentStage);
                         
                         break;
@@ -329,7 +328,7 @@ public class RunTrack {
 
     private void startArmageddonsPower() {
         for (Obstacle obstacle : testObstacles) {
-            obstacle.handleImpactByCarPlayer();
+            obstacle.handleImpactByCarPlayer(velocity);
         }
     }
 

@@ -100,6 +100,8 @@ public class Player extends Sprite {
         this.updateHighScore();
         this.setPoints(0L);
         this.stopAccelerate();
+        this.setCenterWheel(true);
+        this.removeWind();
     }
 
 

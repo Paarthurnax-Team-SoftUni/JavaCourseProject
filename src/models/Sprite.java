@@ -142,6 +142,14 @@ public abstract class Sprite {
         positionY += velocityY;
     }
 
+    public void removeWind(){
+        this.velocityX=0;
+        this.velocityY=0;
+        this.setAngle(0);
+        this.setTurnRight(false);
+        this.setTurnLeft(false);
+    }
+
     public void render(GraphicsContext gc) {
         RotatedImageInCanvas.drawRotatedImage(gc, this.getImage(), this.getAngle(), this.getPositionX(), this.getPositionY());
     }
