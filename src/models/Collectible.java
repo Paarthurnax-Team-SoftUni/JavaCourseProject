@@ -31,7 +31,7 @@ public class Collectible extends Sprite {
             case "collectable2_half_size":
                 return "health";
             case "collectable3_half_size":
-                return "bonusPts";
+                return "doublePts";
             case "collectable4_half_size":
                 return "immortality";
             case "collectable5_half_size":

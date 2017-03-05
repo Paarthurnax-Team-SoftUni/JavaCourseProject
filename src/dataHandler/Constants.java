@@ -40,7 +40,8 @@ public class Constants {
     public static final int IMMORTALITY_BONUS = 500;
     public static final long IMMORTALITY_DURATION = 5;    //data in Seconds
     public static final int ARMAGEDDONS_BONUS = 500;
-    public static final int BONUS_POINTS = 1000;
+    public static final int DOUBLE_BONUS_POINTS = 1000;
+    public static final long DOUBLE_PTS_DURATION = 5;
     public static final int DESTROY_OBJECT_COORDINATES = 800;
     public static final int START_GAME_VELOCITY = 5;
     public static final int HEALTH_BAR_MIN = 25;
