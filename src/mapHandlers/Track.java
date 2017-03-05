@@ -3,11 +3,12 @@ package mapHandlers;
 import GameEngine.RunTrack;
 import dataHandler.Constants;
 import dataHandler.PlayerData;
+import javafx.scene.layout.AnchorPane;
 
 public abstract class Track {
     private RunTrack runTrack;
 
-    public abstract void createBackground();
+    public abstract void createBackground(AnchorPane root);
 
 
     public final RunTrack getRunTrack() {

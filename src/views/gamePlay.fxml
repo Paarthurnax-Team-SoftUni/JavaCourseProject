@@ -12,16 +12,6 @@
    <children>
       <AnchorPane fx:id="menu" layoutX="455.0" prefHeight="600.0" prefWidth="345.0" stylesheets="@../resources/styles/styles.css">
          <children>
-            <Button fx:id="pauseBtn" layoutX="80.0" layoutY="414.0" mnemonicParsing="false" onAction="#pauseGame" prefHeight="49.0" prefWidth="196.0" text="Pause">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Button>
-            <Button fx:id="quitBtn" layoutX="80.0" layoutY="494.0" mnemonicParsing="false" onAction="#quitGame" prefHeight="49.0" prefWidth="196.0" text="Quit">
-               <font>
-                  <Font size="26.0" />
-               </font>
-            </Button>
             <Label layoutX="80.0" layoutY="135.0" text="Time:" textFill="WHITE">
                <font>
                   <Font size="26.0" />
@@ -64,19 +54,19 @@
             </Label>
             <ImageView fx:id="healthFirst" fitHeight="30.0" fitWidth="156.0" layoutX="171.0" layoutY="277.0" visible="true">
                <image>
-                  <Image url="@../resources/images/health-100.png" />
+                  <Image url="@../resources/images/healtbar/health-100.png" />
                </image>
             </ImageView> <ImageView fx:id="healthSecond" fitHeight="30.0" fitWidth="156.0" layoutX="171.0" layoutY="277.0" visible="false">
             <image>
-               <Image url="@../resources/images/health-75.png" />
+               <Image url="@../resources/images/healtbar/health-75.png" />
             </image>
          </ImageView> <ImageView fx:id="healthThird" fitHeight="30.0" fitWidth="156.0" layoutX="171.0" layoutY="277.0" visible="false">
             <image>
-               <Image url="@../resources/images/health-50.png" />
+               <Image url="@../resources/images/healtbar/health-50.png" />
             </image>
          </ImageView> <ImageView fx:id="healthFourth" fitHeight="30.0" fitWidth="156.0" layoutX="171.0" layoutY="277.0" visible="false">
             <image>
-               <Image url="@../resources/images/health-25.png" />
+               <Image url="@../resources/images/healtbar/health-25.png" />
             </image>
          </ImageView>
             <Rectangle fx:id="health" fill="GREEN" height="30.0" layoutX="171.0" layoutY="277.0" visible="false" width="156.0" />

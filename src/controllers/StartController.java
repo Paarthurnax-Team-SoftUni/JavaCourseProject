@@ -8,9 +8,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import mapHandlers.Levels.FirstLevel;
 import mapHandlers.Track;
+import stageHandler.StageManager;
+import stageHandler.StageManagerImpl;
 
 import java.io.IOException;
 
@@ -20,9 +23,9 @@ public class StartController {
 
     @FXML
     private void chooseCar() throws IOException {
-        Stage currentStage = (Stage) startBtn.getScene().getWindow();
-        ScreenController.getInstance().loadStage(currentStage, ScreenController.getInstance().getChooseCarStage(), Constants.CHOOSE_CAR_VIEW_PATH);
-
+        Stage currentStage = (Stage)this.startBtn.getScene().getWindow();
+        StageManager manager = new StageManagerImpl();
+        FXMLLoader loader = manager.loadSceneToStage(currentStage,Constants.CHOOSE_CAR_VIEW_PATH,null);
     }
 
     @FXML
@@ -30,10 +33,12 @@ public class StartController {
     private void startNewGame() throws IOException {
         Track track = new FirstLevel();
         PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
-        Stage currentStage = (Stage) startBtn.getScene().getWindow();
-        ScreenController.getInstance().loadStage(currentStage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_PLAY_VIEW_PATH);
+        Stage currentStage = (Stage)this.startBtn.getScene().getWindow();
+        StageManager manager = new StageManagerImpl();
 
-        track.createBackground();
+        FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_PLAY_VIEW_PATH,null);
+        AnchorPane root = manager.getRoot();
+        track.createBackground(root);
     }
 
     @FXML

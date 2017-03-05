@@ -23,13 +23,6 @@ public class GameController implements Initializable {
     @FXML
     public ImageView healthFourth;
 
-
-    @FXML
-    private AnchorPane gamePlayPage;
-    @FXML
-    private AnchorPane menu;
-    @FXML
-    private Button pauseBtn;
     @FXML
     private Button quitBtn;
     @FXML
@@ -50,16 +43,8 @@ public class GameController implements Initializable {
         new HealthBar(healthFirst, healthSecond, healthThird, healthFourth);
     }
 
-
-    public void pauseGame(ActionEvent actionEvent) {
-        if (RunTrack.isIsPaused()) RunTrack.setIsPaused(false);
-        else RunTrack.setIsPaused(true);
-    }
-
     public void quitGame(ActionEvent actionEvent) {
-
         PlayerData.getInstance().getCurrentPlayer().updateStatsAtEnd();
-
         Platform.exit();
     }
 }

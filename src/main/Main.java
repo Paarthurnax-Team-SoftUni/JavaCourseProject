@@ -1,9 +1,11 @@
 package main;
 
-import controllers.ScreenController;
+import dataHandler.Constants;
 import dataHandler.PlayerData;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import stageHandler.StageManager;
+import stageHandler.StageManagerImpl;
 
 import java.io.IOException;
 
@@ -15,8 +17,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        ScreenController.getInstance().setPrimaryStage(primaryStage);
-        ScreenController.getInstance().showLogin();
+        StageManager manager = new StageManagerImpl();
+        manager.loadSceneToStage(primaryStage, Constants.LOGIN_VIEW_PATH,null);
     }
 
     @Override
@@ -27,6 +29,5 @@ public class Main extends Application {
     @Override
     public void stop() {
         PlayerData.getInstance().storePlayersData();
-        System.out.println("here to write");
     }
 }

@@ -1,12 +1,12 @@
 package GameEngine;
 
 import controllers.ChooseCarController;
-import controllers.ScreenController;
 import dataHandler.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -19,14 +19,14 @@ import models.Collectible;
 import models.Obstacle;
 import models.Player;
 import music.MusicPlayer;
+import stageHandler.StageManager;
+import stageHandler.StageManagerImpl;
 
-import java.io.IOException;
 import java.util.*;
 
 public class RunTrack {
     private int frame;
     private long time;
-
     private int y;
     private double immortalityTimer;
     private float currentFramesPerSecond;
@@ -74,11 +74,9 @@ public class RunTrack {
         this.carId = carId;
     }
 
-
     public Player getPlayer() {
         return player;
     }
-
 
     public void setPlayer(Player player) {
         this.player = player;
@@ -92,19 +90,11 @@ public class RunTrack {
         this.immortalityTimer = immortalityTimer;
     }
 
-    public void runGame(Image background) {
+    public void runGame(Image background, AnchorPane root) {
 
-        AnchorPane root = ScreenController.getInstance().getRoot();
+        StageManager manager = new StageManagerImpl();
+
         Canvas canvas = new Canvas(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
-
-        if (ScreenController.getInstance().getGamePlayStage() != null) {
-            Stage stage = (Stage) canvas.getScene().getWindow();
-            try {
-                ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_OVER_VIEW_PATH);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
 
         root.getChildren().add(canvas);
         root.getScene().setOnKeyPressed(new KeyHandlerOnPress(this.getPlayer()));
@@ -122,17 +112,15 @@ public class RunTrack {
         currentTime.addObserver(observer);
         currentDistance.addObserver(observer);
 
-
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
-        MusicPlayer.PlayMusic();
-        MusicPlayer.Pause();
+        MusicPlayer.play();
+        MusicPlayer.pause();
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(currentFramesPerSecond),
                 event -> {
 
                     //Pause
-
                     if (isPaused) {
                         PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, y, player, testObstacles, collectibles);
                         pauseHandler.activatePause();
@@ -148,7 +136,6 @@ public class RunTrack {
                         updateImmortalityStatus();
                     }
 
-
                     currentTime.setValue((long) (time * currentFramesPerSecond));
                     currentDistance.setValue(currentDistance.getValue() + (long) velocity / 2);
                     player.setPoints(player.getPoints() + 1);
@@ -163,7 +150,6 @@ public class RunTrack {
                     }
                     player.setVelocity(0, 0);
 
-
                     //Generate obstacles
                     if (frame == 0) {
                         testObstacles.add(Obstacle.generateObstacle());
@@ -176,28 +162,28 @@ public class RunTrack {
                     player.render(gc);
                     currentHealth.update();
                     manageObstacles(gc);
-                    if (time >= Constants.TRACK_1_END_TIME) {
+
+                    //CHECK FOR END
+                    if (currentDistance.getValue() >= 4000) {
                         clearObstaclesAndCollectibles();
                         gameLoop.stop();
-                        MusicPlayer.StopMusic();
+                        MusicPlayer.stop();
                         time = 0;
 
                         player.updateStatsAtEnd();
-
                         velocity = Constants.START_GAME_VELOCITY;
                         currentDistance.setValue(0);
-                        Stage stage = (Stage) canvas.getScene().getWindow();
+
+                        Stage currentStage = (Stage) canvas.getScene().getWindow();
                         root.getChildren().remove(canvas);
-                        try {
-                            ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_WIN_VIEW_PATH);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_WIN_VIEW_PATH,null);
                     }
+
+                    //CHECK FOR LOSE
                     if (player.getHealthPoints() <= 0) {
                         clearObstaclesAndCollectibles();
                         gameLoop.stop();
-                        MusicPlayer.StopMusic();
+                        MusicPlayer.stop();
                         time = 0;
 
                         player.updateStatsAtEnd();
@@ -207,13 +193,10 @@ public class RunTrack {
 
                         velocity = 5;
                         currentDistance.setValue(0);
-                        Stage stage = (Stage) canvas.getScene().getWindow();
+
+                        Stage currentStage = (Stage) canvas.getScene().getWindow();
                         root.getChildren().remove(canvas);
-                        try {
-                            ScreenController.getInstance().loadStage(stage, ScreenController.getInstance().getGameOverStage(), Constants.GAME_OVER_VIEW_PATH);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_OVER_VIEW_PATH,null);
                     }
 
                     if (frame % Constants.COLLECTIBLES_OFFSET == 0) {
@@ -309,12 +292,6 @@ public class RunTrack {
         testObstacles.clear();
     }
 
-    public static CurrentPoints getCurrentPoints() {
-        System.out.println(currentPoints.getValue());
-        return (currentPoints);
-    }
-
-
     private void startImmortalityTimer() {
         isImmortable = true;
         this.setImmortalityTimer(Constants.IMMORTALITY_DURATION / currentFramesPerSecond);
@@ -329,11 +306,15 @@ public class RunTrack {
         }
     }
 
-
     private void startArmageddonsPower() {
         for (Obstacle obstacle : testObstacles) {
             obstacle.setDestroyed(true);
         }
+    }
+
+    public static CurrentPoints getCurrentPoints() {
+        System.out.println(currentPoints.getValue());
+        return (currentPoints);
     }
 
     public static CurrentTime getCurrentTime() {
@@ -352,8 +333,7 @@ public class RunTrack {
         velocity = v;
     }
 
-
-    public static boolean isIsPaused() {
+    public static boolean isPaused() {
         return isPaused;
     }
 
@@ -362,17 +342,10 @@ public class RunTrack {
     }
 
     public void pauseGame(ActionEvent actionEvent) {
-
-        System.out.println("clicked");
-
-        if (this.isIsPaused()) {
-            this.setIsPaused(false);
+        if (isPaused()) {
+            setIsPaused(false);
         } else {
-            this.setIsPaused(true);
+            setIsPaused(true);
         }
-    }
-
-    public void quitGame(ActionEvent actionEvent) {
-        Platform.exit();
     }
 }
