@@ -158,12 +158,9 @@ public class RunTrack{
                         gameLoop.stop();
                         MusicPlayer.StopMusic();
                         time = 0;
-                        player.setHealthPoints(Constants.HEALTH_BAR_MAX);
-                        if (player.getHighScore() < player.getPoints()) {
-                            player.setHighScore(player.getPoints());
-                        }
-                        player.setPoints(0L);
-                        player.stopAccelerate();
+
+                        player.updateStatsAtEnd();
+
                         velocity = Constants.START_GAME_VELOCITY;
                         currentDistance.setValue(0);
                         Stage stage = (Stage) canvas.getScene().getWindow();
@@ -179,12 +176,8 @@ public class RunTrack{
                         gameLoop.stop();
                         MusicPlayer.StopMusic();
                         time = 0;
-                        player.setHealthPoints(Constants.HEALTH_BAR_MAX);
-                        if (player.getHighScore() < player.getPoints()) {
-                            player.setHighScore(player.getPoints());
-                        }
-                        player.setPoints(0L);
-                        player.stopAccelerate();
+
+                        player.updateStatsAtEnd();
 
                         // TODO: stop timers!
 
