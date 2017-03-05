@@ -50,7 +50,7 @@ public class Obstacle extends Sprite {
     }
 
     public void setDestroyed(boolean destroyed) {
-        this.setImage(Constants.FLAME_PATH);
+        this.setImage(Constants.FLAME_PATH_SMALL);
         this.setVelocity(0, 0);
         isDestroyed = destroyed;
     }

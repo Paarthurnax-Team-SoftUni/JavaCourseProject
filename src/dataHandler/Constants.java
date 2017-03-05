@@ -20,6 +20,7 @@ public class Constants {
     public static final String IMAGES_PATH = "resources/images/";
     public static final String HIGH_SCORES_FILE_NAME = System.getProperty("user.dir") + "/src/resources/playerList.txt";
     public static final String FLAME_PATH = "resources/images/flame.png";
+    public static final String FLAME_PATH_SMALL = "resources/images/flame_half_size.png";
     public static final String GAME_TITLE = "SoftUni Rush";
     public static final String TRACK_BACKGROUND_PATH = "/images/backgrounds/background2.jpg";
     public static final String TRACK_BACKGROUND_PATH_TEST = "resources/images/backgrounds/backgroundLevel2.jpg";
