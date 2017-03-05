@@ -12,9 +12,9 @@
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="chooseCarPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChooseCarController">
+<AnchorPane fx:id="chooseCarPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChooseCarController">
    <children>
-       <Button fx:id="returnBtn" layoutX="239.0" layoutY="466.0" mnemonicParsing="false" onAction="#renderStartMenu" prefHeight="60.0" prefWidth="323.0" text="Ready" textAlignment="CENTER" textFill="#1b1a1a" underline="true" visible="false">
+       <Button fx:id="goNextBtn" layoutX="239.0" layoutY="466.0" mnemonicParsing="false" onAction="#goToChooseLevel" prefHeight="60.0" prefWidth="323.0" text="GO" textAlignment="CENTER" textFill="#1b1a1a" visible="false">
            <font>
                <Font name="Chiller" size="50.0" />
            </font>
@@ -70,7 +70,7 @@
                      <Image url="@../resources/images/player_car6.png" />
                  </image>
              </ImageView>
-            <Label fx:id="label1" onMouseClicked="#chooseCar" text="Orange" underline="true" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Label fx:id="label1" onMouseClicked="#chooseCar" text="Orange" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
@@ -78,7 +78,7 @@
                   <Font name="Chiller" size="24.0" />
                </font>
             </Label>
-            <Label fx:id="label2" onMouseClicked="#chooseCar" text="Red" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Label fx:id="label2" onMouseClicked="#chooseCar" text="Red" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
@@ -86,7 +86,7 @@
                   <Font name="Chiller" size="24.0" />
                </font>
             </Label>
-            <Label fx:id="label3" onMouseClicked="#chooseCar" text="Blue" underline="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+            <Label fx:id="label3" onMouseClicked="#chooseCar" text="Blue" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets top="10.0" />
                </GridPane.margin>
@@ -94,7 +94,7 @@
                   <Font name="Chiller" size="24.0" />
                </font>
             </Label>
-             <Label fx:id="label4" onMouseClicked="#chooseCar" text="Green" underline="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+             <Label fx:id="label4" onMouseClicked="#chooseCar" text="Green" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                  <GridPane.margin>
                      <Insets top="10.0" />
                  </GridPane.margin>
@@ -102,7 +102,7 @@
                      <Font name="Chiller" size="24.0" />
                  </font>
              </Label>
-             <Label fx:id="label5" onMouseClicked="#chooseCar" text="Silver" underline="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+             <Label fx:id="label5" onMouseClicked="#chooseCar" text="Silver" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                  <GridPane.margin>
                      <Insets top="10.0" />
                  </GridPane.margin>
@@ -110,7 +110,7 @@
                      <Font name="Chiller" size="24.0" />
                  </font>
              </Label>
-             <Label fx:id="label6" onMouseClicked="#chooseCar" text="Red" underline="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+             <Label fx:id="label6" onMouseClicked="#chooseCar" text="Red" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
                  <GridPane.margin>
                      <Insets top="10.0" />
                  </GridPane.margin>

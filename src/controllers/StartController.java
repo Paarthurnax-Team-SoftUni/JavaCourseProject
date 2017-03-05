@@ -22,23 +22,19 @@ public class StartController {
     private Button startBtn;
 
     @FXML
-    private void chooseCar() throws IOException {
+
+    private void startNewGame() throws IOException {
         Stage currentStage = (Stage)this.startBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
         FXMLLoader loader = manager.loadSceneToStage(currentStage,Constants.CHOOSE_CAR_VIEW_PATH,null);
-    }
-
-    @FXML
-
-    private void startNewGame() throws IOException {
-        Track track = new FirstLevel();
-        PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
-        Stage currentStage = (Stage)this.startBtn.getScene().getWindow();
-        StageManager manager = new StageManagerImpl();
-
-        FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_PLAY_VIEW_PATH,null);
-        AnchorPane root = manager.getRoot();
-        track.createBackground(root);
+//        Track track = new FirstLevel();
+//        PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
+//        Stage currentStage = (Stage)this.startBtn.getScene().getWindow();
+//        StageManager manager = new StageManagerImpl();
+//
+//        FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_PLAY_VIEW_PATH,null);
+//        AnchorPane root = manager.getRoot();
+//        track.createBackground(root);
     }
 
     @FXML

@@ -32,7 +32,7 @@ public class ChooseCarController{
     private Track track;
 
     @FXML
-    private Button returnBtn;
+    private Button goNextBtn;
     @FXML
     private Ellipse backgroundBox1;
     @FXML
@@ -60,10 +60,10 @@ public class ChooseCarController{
         this.carId = carId;
     }
 
-    public void renderStartMenu(ActionEvent actionEvent) throws IOException {
-        Stage currentStage = (Stage)this.returnBtn.getScene().getWindow();
+    public void goToChooseLevel(ActionEvent actionEvent) {
+        Stage currentStage = (Stage)this.goNextBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
-        FXMLLoader loader = manager.loadSceneToStage(currentStage,Constants.START_FXML_PATH,null);
+        FXMLLoader loader = manager.loadSceneToStage(currentStage,Constants.CHOOSE_LEVEL_VIEW_PATH,null);
     }
 
     public void chooseCar(MouseEvent ev) {
@@ -76,7 +76,7 @@ public class ChooseCarController{
             setCarId("car" + source.getId().substring(source.getId().length() - 1));
             backgroundFill(source.getId().substring(source.getId().length() - 1));
         }
-        returnBtn.setVisible(true);
+        goNextBtn.setVisible(true);
     }
 
     private void showUnlockedCarsOnly(Long points) {
