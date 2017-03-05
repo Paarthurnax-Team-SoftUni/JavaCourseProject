@@ -162,7 +162,9 @@ public class RunTrack {
                     player.render(gc);
                     currentHealth.update();
                     manageObstacles(gc);
-                    if (currentDistance.getValue() >= 3000) {
+
+                    //CHECK FOR END
+                    if (currentDistance.getValue() >= 4000) {
                         clearObstaclesAndCollectibles();
                         gameLoop.stop();
                         MusicPlayer.stop();
@@ -176,6 +178,8 @@ public class RunTrack {
                         root.getChildren().remove(canvas);
                         FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_WIN_VIEW_PATH,null);
                     }
+
+                    //CHECK FOR LOSE
                     if (player.getHealthPoints() <= 0) {
                         clearObstaclesAndCollectibles();
                         gameLoop.stop();
@@ -189,6 +193,7 @@ public class RunTrack {
 
                         velocity = 5;
                         currentDistance.setValue(0);
+
                         Stage currentStage = (Stage) canvas.getScene().getWindow();
                         root.getChildren().remove(canvas);
                         FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_OVER_VIEW_PATH,null);
