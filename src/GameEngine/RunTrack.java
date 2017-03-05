@@ -173,7 +173,7 @@ public class RunTrack {
                     gc.drawImage(background, 0, y);
                     player.update();
                     player.render(gc);
-                    currentHealth.render();
+                    currentHealth.update();
                     manageObstacles(gc);
                     if (time >= Constants.TRACK_1_END_TIME) {
                         clearObstaclesAndCollectibles();
