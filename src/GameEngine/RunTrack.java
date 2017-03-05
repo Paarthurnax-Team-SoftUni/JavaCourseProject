@@ -31,9 +31,12 @@ public class RunTrack {
     private long time;
     private int y;
     private double immortalityTimer;
+    private double doublePtsTimer;
     private float currentFramesPerSecond;
     private static boolean isPaused;
     private static boolean isImmortable;
+    private static boolean isDoublePtsOn;
+    private static int bonusCoefficient;
     private static float velocity;
     private String carId;
     private ArrayList<Obstacle> testObstacles;
@@ -44,6 +47,7 @@ public class RunTrack {
     private static CurrentDistance currentDistance;
     private HealthBar currentHealth;
     private ChooseCarController chooseCarController;
+    private static Stage crntStage;
 
 
     public RunTrack(Player player, float velocity) {
@@ -55,6 +59,8 @@ public class RunTrack {
         this.setCurrentFramesPerSecond(Constants.FRAMES_PER_SECOND);
         isPaused = false;
         isImmortable = false;
+        isDoublePtsOn = false;
+        bonusCoefficient = 1;
         RunTrack.velocity = velocity;
         currentPoints = new CurrentPoints(0);
         currentDistance = new CurrentDistance(0);
@@ -90,6 +96,14 @@ public class RunTrack {
 
     private void setImmortalityTimer(double immortalityTimer) {
         this.immortalityTimer = immortalityTimer;
+    }
+
+    private double getDoublePtsTimer() {
+        return doublePtsTimer;
+    }
+
+    private void setDoublePtsTimer(double doublePtsTimer) {
+        this.doublePtsTimer = doublePtsTimer;
     }
 
     public void runGame(Image background, AnchorPane root) {
@@ -137,6 +151,9 @@ public class RunTrack {
                     if (isImmortable) {
                         updateImmortalityStatus();
                     }
+                    if (isDoublePtsOn) {
+                        updateDoublePtsStatus();
+                    }
 
                     currentTime.setValue((long) (time * currentFramesPerSecond));
                     currentDistance.setValue(currentDistance.getValue() + (long) velocity / 2);
@@ -178,6 +195,7 @@ public class RunTrack {
                         currentDistance.setValue(0);
 
                         Stage currentStage = (Stage) canvas.getScene().getWindow();
+                        crntStage = currentStage;
                         root.getChildren().remove(canvas);
                         FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_WIN_VIEW_PATH,null);
                     }
@@ -190,10 +208,6 @@ public class RunTrack {
                         time = 0;
 
                         player.updateStatsAtEnd();
-
-                        // TODO: stop timers!
-                        //NOt sure if timers stopeed ? as there are no timers now
-
                         velocity = 5;
                         currentDistance.setValue(0);
 
@@ -238,8 +252,7 @@ public class RunTrack {
 
             if (testObst.getBoundary().intersects(player.getBoundary())) {
                 if (isImmortable) {
-
-                    player.setPoints(player.getPoints()+Constants.BONUS_POINTS_HIT_WITH_SHIELD);
+                    player.setPoints(player.getPoints()+Constants.BONUS_POINTS_HIT_WITH_SHIELD*bonusCoefficient);
                     testObst.setDestroyed(true);
                 }
                 if (!testObst.isDestroyed()) {
@@ -247,7 +260,6 @@ public class RunTrack {
                     testObst.setDestroyed(true);
                 }
             }
-
         }
     }
 
@@ -261,27 +273,33 @@ public class RunTrack {
             if (collectible.getBoundary().intersects(player.getBoundary())) {
                 switch (collectible.getCollectibleType()) {
                     case "fuelBottle":
-                        player.setPoints(player.getPoints() + Constants.FUEL_TANK_BONUS);
+                        player.setPoints(player.getPoints() + Constants.FUEL_TANK_BONUS*bonusCoefficient);
                         time -= Constants.FUEL_TANK_BONUS_TIME;
+
+                        //Notification.showPopupMessage("fuel", stage??);
+                        
                         break;
                     case "health":
-                        player.setPoints(player.getPoints() + Constants.HEALTH_PACK_BONUS_POINTS);
+                        player.setPoints(player.getPoints() + Constants.HEALTH_PACK_BONUS_POINTS*bonusCoefficient);
                         if (player.getHealthPoints() < Constants.HEALTH_BAR_MAX) {
                             player.setHealthPoints(Math.min(player.getHealthPoints() + Constants.HEALTH_BONUS, Constants.HEALTH_BAR_MAX));
                         }
                         break;
-                    case "bonusPts":
-                        player.setPoints(player.getPoints() + Constants.BONUS_POINTS);
+                    case "doublePts":
+                        player.setPoints(player.getPoints() + Constants.DOUBLE_BONUS_POINTS*bonusCoefficient);
+                        if (!isDoublePtsOn) {
+                            startDoublePtsTimer();
+                        }
                         break;
                     case "immortality":
-                        player.setPoints(player.getPoints() + Constants.IMMORTALITY_BONUS);
+                        player.setPoints(player.getPoints() + Constants.IMMORTALITY_BONUS*bonusCoefficient);
                         if (!isImmortable) {
-                            player.setPoints(player.getPoints() + Constants.ARMAGEDDONS_BONUS);
+                            player.setPoints(player.getPoints() + Constants.ARMAGEDDONS_BONUS*bonusCoefficient);
                             startImmortalityTimer();
                         }
                         break;
                     case "armageddonsPower":
-                        player.setPoints(player.getPoints() + Constants.ARMAGEDDONS_BONUS);
+                        player.setPoints(player.getPoints() + Constants.ARMAGEDDONS_BONUS*bonusCoefficient);
                         startArmageddonsPower();
                         break;
                 }
@@ -305,7 +323,22 @@ public class RunTrack {
         if (this.getImmortalityTimer() < 0) {
             isImmortable = false;
             System.out.println("immortality off");
-            System.out.println(isImmortable);
+        }
+    }
+
+
+    private void startDoublePtsTimer() {
+        isDoublePtsOn = true;
+        bonusCoefficient = 2;
+        this.setDoublePtsTimer(Constants.DOUBLE_PTS_DURATION / currentFramesPerSecond);
+    }
+
+    private void updateDoublePtsStatus() {
+        this.setDoublePtsTimer(this.getDoublePtsTimer() - 1);
+        if (this.getDoublePtsTimer() < 0) {
+            isDoublePtsOn = false;
+            bonusCoefficient = 1;
+            System.out.println("double points off");
         }
     }
 
@@ -351,4 +384,5 @@ public class RunTrack {
             setIsPaused(true);
         }
     }
+
 }
