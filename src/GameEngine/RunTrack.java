@@ -4,7 +4,6 @@ import controllers.ChooseCarController;
 import dataHandler.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -17,7 +16,6 @@ import keyHandler.KeyHandlerOnRelease;
 import models.Collectible;
 import models.Obstacle;
 import models.Player;
-import models.interfaces.CollectibleInterface;
 import models.interfaces.ObstacleInterface;
 import music.MusicPlayer;
 import stageHandler.StageManager;
@@ -32,13 +30,10 @@ public class RunTrack {
     private int frame;
     private long time;
     private int y;
-    private double immortalityTimer;
-    private double doublePtsTimer;
+
     private float currentFramesPerSecond;
     private static boolean isPaused;
-    private static boolean isImmortable;
-    private static boolean isDoublePtsOn;
-    private static int bonusCoefficient;
+
     private static float velocity;
     private String carId;
     private ArrayList<Obstacle> testObstacles;
@@ -50,6 +45,7 @@ public class RunTrack {
     private HealthBar currentHealth;
     private ChooseCarController chooseCarController;
     private static Stage crntStage;
+    private Collectible collectible;
 
 
     public RunTrack(Player player, float velocity) {
@@ -60,14 +56,12 @@ public class RunTrack {
         this.time = 0;
         this.setCurrentFramesPerSecond(Constants.FRAMES_PER_SECOND);
         isPaused = false;
-        isImmortable = false;
-        isDoublePtsOn = false;
-        bonusCoefficient = 1;
         RunTrack.velocity = velocity;
         currentPoints = new CurrentPoints(0);
         currentDistance = new CurrentDistance(0);
         currentTime = new CurrentTime(0);
         chooseCarController = new ChooseCarController();
+        collectible = new Collectible(player);
     }
 
     private static Observer observer = new Observer() {
@@ -76,7 +70,7 @@ public class RunTrack {
         }
     };
 
-    public void setCurrentFramesPerSecond(float currentFramesPerSecond) {
+    private void setCurrentFramesPerSecond(float currentFramesPerSecond) {
         this.currentFramesPerSecond = currentFramesPerSecond;
     }
 
@@ -92,21 +86,7 @@ public class RunTrack {
         this.player = player;
     }
 
-    private double getImmortalityTimer() {
-        return immortalityTimer;
-    }
 
-    private void setImmortalityTimer(double immortalityTimer) {
-        this.immortalityTimer = immortalityTimer;
-    }
-
-    private double getDoublePtsTimer() {
-        return doublePtsTimer;
-    }
-
-    private void setDoublePtsTimer(double doublePtsTimer) {
-        this.doublePtsTimer = doublePtsTimer;
-    }
 
     public void runGame(Image background, AnchorPane root) {
 
@@ -150,12 +130,8 @@ public class RunTrack {
                     frame++;
 
                     //update immortality status if its actuvated
-                    if (isImmortable) {
-                        updateImmortalityStatus();
-                    }
-                    if (isDoublePtsOn) {
-                        updateDoublePtsStatus();
-                    }
+                    collectible.updateStatus();
+
 
                     currentTime.setValue((long) (time * currentFramesPerSecond));
                     currentDistance.setValue(currentDistance.getValue() + (long) velocity / 2);
@@ -201,9 +177,14 @@ public class RunTrack {
                     }
 
                     if (frame % Constants.COLLECTIBLES_OFFSET == 0) {
-                        collectibles.add(CollectibleInterface.generateCollectible());
+                        collectible.addCollectible(Collectible.generateCollectible());
                     }
-                    visualizeCollectible(gc, velocity, currentStage);
+                    String action = collectible.visualizeCollectible(gc, velocity, currentStage);
+                    if(action != null &&  action.equals(Constants.ARMAGEDDON_STRING)) {
+                        startArmageddonsPower();
+                    } else if (action != null && action.equals(Constants.FUEL_BOTTLE_STRING)) {
+                        time -= Constants.FUEL_TANK_BONUS_TIME;
+                    }
                 });
 
         gameLoop.getKeyFrames().add(kf);
@@ -235,8 +216,8 @@ public class RunTrack {
             testObst.render(gc);
 
             if (testObst.getBoundary().intersects(player.getBoundary())) {
-                if (isImmortable) {
-                    player.addPoints(Constants.BONUS_POINTS_HIT_WITH_SHIELD*bonusCoefficient);
+                if (collectible.isImmortal()) {
+                    player.addPoints(Constants.BONUS_POINTS_HIT_WITH_SHIELD*collectible.getBonusCoefficient());
                 } else if (!testObst.isDestroyed()) {
                     player.setHealthPoints(player.getHealthPoints() - Constants.OBSTACLE_DAMAGE);
                 }
@@ -245,82 +226,9 @@ public class RunTrack {
         }
     }
 
-    private void visualizeCollectible(GraphicsContext gc, double velocity, Stage currentStage) {
-        for (Collectible collectible : collectibles) {
-
-            collectible.setVelocity(0, velocity);
-            collectible.update();
-            collectible.render(gc);
-
-            if (collectible.getBoundary().intersects(player.getBoundary())) {
-                switch (collectible.getCollectibleType()) {
-                    case "fuelBottle":
-                        player.addPoints(Constants.FUEL_TANK_BONUS*bonusCoefficient);
-                        time -= Constants.FUEL_TANK_BONUS_TIME;
-                        Notification.showPopupMessage("fuel", currentStage);
-                        
-                        break;
-                    case "health":
-                        player.addPoints(Constants.HEALTH_PACK_BONUS_POINTS*bonusCoefficient);
-                        if (player.getHealthPoints() < Constants.HEALTH_BAR_MAX) {
-                            player.setHealthPoints(Math.min(player.getHealthPoints() + Constants.HEALTH_BONUS, Constants.HEALTH_BAR_MAX));
-                        }
-                        break;
-                    case "doublePts":
-                        player.setPoints(player.getPoints() + Constants.DOUBLE_BONUS_POINTS*bonusCoefficient);
-                        if (!isDoublePtsOn) {
-                            startDoublePtsTimer();
-                        }
-                        break;
-                    case "immortality":
-                        player.addPoints(Constants.IMMORTALITY_BONUS*bonusCoefficient);
-                        if (!isImmortable) {
-                            player.addPoints( Constants.ARMAGEDDONS_BONUS*bonusCoefficient);
-                            startImmortalityTimer();
-                        }
-                        break;
-                    case "armageddonsPower":
-                        player.addPoints( Constants.ARMAGEDDONS_BONUS*bonusCoefficient);
-                        startArmageddonsPower();
-                        break;
-                }
-                collectible.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
-            }
-        }
-    }
-
     private void clearObstaclesAndCollectibles() {
         collectibles.clear();
         testObstacles.clear();
-    }
-
-    private void startImmortalityTimer() {
-        isImmortable = true;
-        this.setImmortalityTimer(Constants.IMMORTALITY_DURATION / currentFramesPerSecond);
-    }
-
-    private void updateImmortalityStatus() {
-        this.setImmortalityTimer(this.getImmortalityTimer() - 1);
-        if (this.getImmortalityTimer() < 0) {
-            isImmortable = false;
-            System.out.println("immortality off");
-        }
-    }
-
-
-    private void startDoublePtsTimer() {
-        isDoublePtsOn = true;
-        bonusCoefficient = 2;
-        this.setDoublePtsTimer(Constants.DOUBLE_PTS_DURATION / currentFramesPerSecond);
-    }
-
-    private void updateDoublePtsStatus() {
-        this.setDoublePtsTimer(this.getDoublePtsTimer() - 1);
-        if (this.getDoublePtsTimer() < 0) {
-            isDoublePtsOn = false;
-            bonusCoefficient = 1;
-            System.out.println("double points off");
-        }
     }
 
     private void startArmageddonsPower() {
@@ -356,14 +264,6 @@ public class RunTrack {
 
     public static void setIsPaused(boolean newValue) {
         isPaused = newValue;
-    }
-
-    public void pauseGame(ActionEvent actionEvent) {
-        if (isPaused()) {
-            setIsPaused(false);
-        } else {
-            setIsPaused(true);
-        }
     }
 
 }

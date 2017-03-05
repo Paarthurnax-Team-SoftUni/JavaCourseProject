@@ -10,13 +10,20 @@ public class Constants {
     public static final String HIGH_SCORES_DIALOG = "/views/highScoresDialog.fxml";
     public static final String HIGH_SCORE_DIALOG_TITLE = "Best Slav Ranking";
     public static final String DIALOG_MESSAGE = "Best Slav Ranking";
+    public static final String FUEL_BOTTLE_STRING = "fuelBottle";
+    public static final String HEALTH_STRING = "health";
+    public static final String DOUBLE_POINTS_STRING = "doublePts";
+    public static final String IMMORTALITY_STRING = "immortality";
+    public static final String ARMAGEDDON_STRING = "armageddonsPower";
+
+
     public static final String COLLECTIBLES_PATH = "/resources/images/collectable";
     public static final String[] COLLECTABLE_LIST = {"collectable1", "collectable2", "collectable3", "collectable4", "collectable5", "collectable1", "collectable2", "collectable3"}; //to be used to refractor gameTokens
+
     public static final String[] COLLECTABLE_LIST_SMALL = {"collectable1_half_size", "collectable2_half_size", "collectable3_half_size", "collectable4_half_size", "collectable5_half_size", "collectable1_half_size", "collectable2_half_size", "collectable3_half_size"}; //to be used to refractor gameTokens
-
     public static final String[] OBSTACLES_LIST = {"obstacle1", "obstacle2", "obstacle3", "obstacle1", "obstacle2", "obstacle3", "player_car1", "player_car2", "player_car3", "player_car4", "player_car5", "player_car6"};
-    public static final String[] OBSTACLES_LIST_SMALL = {"obstacle1_half_size", "obstacle2_half_size", "obstacle3_half_size", "player_car1_half_size", "player_car2_half_size", "player_car3_half_size", "player_car4_half_size", "player_car5_half_size", "player_car6_half_size"};
 
+    public static final String[] OBSTACLES_LIST_SMALL = {"obstacle1_half_size", "obstacle2_half_size", "obstacle3_half_size", "player_car1_half_size", "player_car2_half_size", "player_car3_half_size", "player_car4_half_size", "player_car5_half_size", "player_car6_half_size"};
     public static final String IMAGES_PATH = "resources/images/";
     public static final String HIGH_SCORES_FILE_NAME = System.getProperty("user.dir") + "/src/resources/playerList.txt";
     public static final String FLAME_PATH = "resources/images/flame.png";
@@ -49,6 +56,7 @@ public class Constants {
     public static final int HEALTH_BAR_AVERAGE_HIGH = 75;
     public static final int HEALTH_BAR_AVERAGE_LOW = 50;
     public static final int OBSTACLE_DAMAGE = 25;
+
     public static final float FRAMES_PER_SECOND = 0.017f;   //Seconds per frame [ 1 Frame == the given time in seconds];
 
 }

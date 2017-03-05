@@ -162,5 +162,4 @@ public abstract class Sprite {
         return s.getBoundary().intersects(this.getBoundary());
     }
 
-
 }
