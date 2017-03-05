@@ -1,10 +1,7 @@
 package controllers;
 
 import GameEngine.RunTrack;
-import dataHandler.CurrentDistance;
-import dataHandler.CurrentPoints;
-import dataHandler.CurrentTime;
-import dataHandler.HealthBar;
+import dataHandler.*;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -60,6 +57,9 @@ public class GameController implements Initializable {
     }
 
     public void quitGame(ActionEvent actionEvent) {
+
+        PlayerData.getInstance().getCurrentPlayer().updateStatsAtEnd();
+
         Platform.exit();
     }
 }

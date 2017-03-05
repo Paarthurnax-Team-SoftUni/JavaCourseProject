@@ -202,6 +202,7 @@ public class RunTrack {
                         player.updateStatsAtEnd();
 
                         // TODO: stop timers!
+                        //NOt sure if timers stopeed ? as there are no timers now
 
                         velocity = 5;
                         currentDistance.setValue(0);
@@ -236,6 +237,7 @@ public class RunTrack {
 
             if (testObst.getBoundary().intersects(player.getBoundary())) {
                 if (isImmortable) {
+                    player.setPoints(player.getPoints()+Constants.BONUS_POINTS_HIT_WITH_SHIELD);
                     testObst.setDestroyed(true);
                 }
                 if (!testObst.isDestroyed()) {
@@ -249,6 +251,7 @@ public class RunTrack {
 
     private void visualizeCollectible(GraphicsContext gc, double velocity) {
         for (Collectible collectible : collectibles) {
+
             collectible.setVelocity(0, velocity);
             collectible.update();
             collectible.render(gc);
@@ -271,6 +274,7 @@ public class RunTrack {
                     case "immortality":
                         player.setPoints(player.getPoints() + Constants.IMMORTALITY_BONUS);
                         if (!isImmortable) {
+                            player.setPoints(player.getPoints() + Constants.ARMAGEDDONS_BONUS);
                             startImmortalityTimer();
                         }
                         break;
