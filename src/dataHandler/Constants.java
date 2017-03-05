@@ -11,7 +11,7 @@ public class Constants {
     public static final String HIGH_SCORE_DIALOG_TITLE = "Best Slav Ranking";
     public static final String DIALOG_MESSAGE = "Best Slav Ranking";
     public static final String COLLECTIBLES_PATH = "/resources/images/collectable";
-    public static final String[] COLLECTABLE_LIST = {"collectable1", "collectable2","collectable3", "collectable4", "collectable5"};  //to be used to refractor gameTokens
+    public static final String[] COLLECTABLE_LIST = {"collectable1", "collectable2","collectable3", "collectable4", "collectable5", "collectable1", "collectable2","collectable3"};  //to be used to refractor gameTokens
     public static final String[] OBSTACLES_LIST = {"obstacle1", "obstacle2", "obstacle3","obstacle1", "obstacle2", "obstacle3", "player_car1", "player_car2", "player_car3", "player_car4", "player_car5", "player_car6"};
     public static final String IMAGES_PATH = "/resources/images/";
     public static final String HIGH_SCORES_FILE_NAME = System.getProperty("user.dir") + "/src/resources/playerList.txt";
@@ -22,6 +22,7 @@ public class Constants {
     public static final String GAME_OVER_VIEW_PATH = "/views/gameOver.fxml";
     public static final String GAME_WIN_VIEW_PATH = "/views/gameWin.fxml";
     public static final String CAR_IMAGES_PATH = "/resources/images/player_";
+    public static final int BONUS_POINTS_HIT_WITH_SHIELD = 10;
     public static final long TRACK_1_END_TIME = 3533; //Key Time in Frames; 3533
     public static final int CANVAS_WIDTH = 500;
     public static final int CANVAS_HEIGHT = 600;
@@ -31,7 +32,7 @@ public class Constants {
     public static final int HEALTH_BONUS = 25;
     public static final int HEALTH_PACK_BONUS_POINTS = 500;
     public static final int IMMORTALITY_BONUS = 500;
-    public static final long IMMORTALITY_DURATION = 10000L;
+    public static final long IMMORTALITY_DURATION = 5;    //data in Seconds
     public static final int ARMAGEDDONS_BONUS = 500;
     public static final int BONUS_POINTS = 1000;
     public static final int DESTROY_OBJECT_COORDINATES = 800;
@@ -41,6 +42,6 @@ public class Constants {
     public static final int HEALTH_BAR_AVERAGE_HIGH = 75;
     public static final int HEALTH_BAR_AVERAGE_LOW = 50;
     public static final int OBSTACLE_DAMAGE = 25;
-    public static final float FRAMES_PER_SECOND = 0.017f;   //Frames in seconds;
+    public static final float FRAMES_PER_SECOND = 0.017f;   //Seconds per frame [ 1 Frame == the given time in seconds];
 
 }

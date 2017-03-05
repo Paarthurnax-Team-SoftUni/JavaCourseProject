@@ -27,5 +27,6 @@ public class Main extends Application {
     @Override
     public void stop() {
         PlayerData.getInstance().storePlayersData();
+        System.out.println("here to write");
     }
 }

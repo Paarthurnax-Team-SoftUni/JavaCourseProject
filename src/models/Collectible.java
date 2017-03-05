@@ -10,12 +10,14 @@ public class Collectible extends Sprite {
 
     public static Collectible generateCollectible() {
 
+        String[] collectales=Constants.COLLECTABLE_LIST;
+        String random=collectales[new Random().nextInt(collectales.length)];
+
         Random collectibleX = new Random();
-        long numb = System.currentTimeMillis() % Constants.COLLECTABLE_LIST.length;
-        String stringDirectory = Constants.COLLECTIBLES_PATH + (numb + 1) + ".png";
+        String stringDirectory = Constants.IMAGES_PATH + random + ".png";
 
         Collectible collectible = new Collectible();
-        collectible.setName(String.valueOf(numb + 1));
+        collectible.setName(random);
         collectible.setImage(stringDirectory);
         collectible.setPosition(50 + collectibleX.nextInt(300), -60);
 
@@ -24,15 +26,15 @@ public class Collectible extends Sprite {
 
     public String getCollectibleType(){
         switch (this.getName()){
-            case "1":
+            case "collectable1":
                 return "fuelBottle";
-            case "2":
+            case "collectable2":
                 return "health";
-            case "3":
+            case "collectable3":
                 return "bonusPts";
-            case "4":
+            case "collectable4":
                 return "immortality";
-            case "5":
+            case "collectable5":
                 return "armageddonsPower";
         }
         return "bonusPts";
