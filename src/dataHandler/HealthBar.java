@@ -1,12 +1,9 @@
 package dataHandler;
 
-
-
 import javafx.scene.image.ImageView;
 import models.Player;
 
 import java.util.Observable;
-
 
 public class HealthBar extends Observable {
 
@@ -16,8 +13,6 @@ public class HealthBar extends Observable {
     private static ImageView health75;
     private static ImageView health50;
     private static ImageView health25;
-
-
 
     public HealthBar(Player p) {
         this.player = p;
