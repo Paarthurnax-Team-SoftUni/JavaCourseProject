@@ -12,6 +12,8 @@ public class Constants {
     public static final String DIALOG_MESSAGE = "Best Slav Ranking";
     public static final String COLLECTIBLES_PATH = "/resources/images/collectable";
     public static final String[] COLLECTABLE_LIST = {"collectable1", "collectable2", "collectable3", "collectable4", "collectable5", "collectable1", "collectable2", "collectable3"}; //to be used to refractor gameTokens
+    public static final String[] COLLECTABLE_LIST_SMALL = {"collectable1_half_size", "collectable2_half_size", "collectable3_half_size", "collectable4_half_size", "collectable5_half_size", "collectable1_half_size", "collectable2_half_size", "collectable3_half_size"}; //to be used to refractor gameTokens
+
     public static final String[] OBSTACLES_LIST = {"obstacle1", "obstacle2", "obstacle3", "obstacle1", "obstacle2", "obstacle3", "player_car1", "player_car2", "player_car3", "player_car4", "player_car5", "player_car6"};
     public static final String[] OBSTACLES_LIST_SMALL = {"obstacle1_half_size", "obstacle2_half_size", "obstacle3_half_size", "player_car1_half_size", "player_car2_half_size", "player_car3_half_size", "player_car4_half_size", "player_car5_half_size", "player_car6_half_size"};
 

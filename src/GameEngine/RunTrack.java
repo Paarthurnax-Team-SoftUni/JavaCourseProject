@@ -166,7 +166,7 @@ public class RunTrack {
                     manageObstacles(gc);
 
                     //CHECK FOR END
-                    if (currentDistance.getValue() >= 4000) {       //if(time >= Constants.TRACK_1_END_TIME){
+                    if (currentDistance.getValue() >= 10000) {       //if(time >= Constants.TRACK_1_END_TIME){
                         clearObstaclesAndCollectibles();
                         gameLoop.stop();
                         MusicPlayer.stop();

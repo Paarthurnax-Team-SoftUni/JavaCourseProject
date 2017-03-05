@@ -10,7 +10,7 @@ public class Collectible extends Sprite {
 
     public static Collectible generateCollectible() {
 
-        String[] collectales=Constants.COLLECTABLE_LIST;
+        String[] collectales=Constants.COLLECTABLE_LIST_SMALL;
         String random=collectales[new Random().nextInt(collectales.length)];
 
         Random collectibleX = new Random();
@@ -26,15 +26,15 @@ public class Collectible extends Sprite {
 
     public String getCollectibleType(){
         switch (this.getName()){
-            case "collectable1":
+            case "collectable1_half_size":
                 return "fuelBottle";
-            case "collectable2":
+            case "collectable2_half_size":
                 return "health";
-            case "collectable3":
+            case "collectable3_half_size":
                 return "bonusPts";
-            case "collectable4":
+            case "collectable4_half_size":
                 return "immortality";
-            case "collectable5":
+            case "collectable5_half_size":
                 return "armageddonsPower";
         }
         return "bonusPts";
