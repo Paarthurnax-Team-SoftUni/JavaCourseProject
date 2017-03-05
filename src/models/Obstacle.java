@@ -23,7 +23,7 @@ public class Obstacle extends Sprite implements ObstacleInterface {
         this.isDrunk = b;
     }
 
-    public Obstacle generateObstacle() {
+    public static Obstacle generateObstacle() {
 
         String[] obstacles = Constants.OBSTACLES_LIST_SMALL;
         String random = (obstacles[new Random().nextInt(obstacles.length)]);
