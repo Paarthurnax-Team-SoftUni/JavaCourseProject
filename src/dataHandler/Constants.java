@@ -15,6 +15,7 @@ public class Constants {
     public static final String DOUBLE_POINTS_STRING = "doublePts";
     public static final String IMMORTALITY_STRING = "immortality";
     public static final String ARMAGEDDON_STRING = "armageddonsPower";
+    public static final String BONUS_POINTS_STRING = "bonusPts";
 
 
     public static final String COLLECTIBLES_PATH = "/resources/images/collectable";

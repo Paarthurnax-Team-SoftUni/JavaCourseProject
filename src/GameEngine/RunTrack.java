@@ -16,15 +16,12 @@ import keyHandler.KeyHandlerOnRelease;
 import models.Collectible;
 import models.Obstacle;
 import models.Player;
-import models.interfaces.ObstacleInterface;
 import music.MusicPlayer;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Random;
 
 public class RunTrack {
     private int frame;
@@ -36,8 +33,6 @@ public class RunTrack {
 
     private static float velocity;
     private String carId;
-    private ArrayList<Obstacle> testObstacles;
-    private ArrayList<Collectible> collectibles;
     private Player player;
     private static CurrentPoints currentPoints;
     private static CurrentTime currentTime;
@@ -46,12 +41,11 @@ public class RunTrack {
     private ChooseCarController chooseCarController;
     private static Stage crntStage;
     private Collectible collectible;
+    private Obstacle obstacle;
 
 
     public RunTrack(Player player, float velocity) {
         setPlayer(player);
-        this.testObstacles = new ArrayList<>();
-        this.collectibles = new ArrayList<>();
         this.frame = 0;
         this.time = 0;
         this.setCurrentFramesPerSecond(Constants.FRAMES_PER_SECOND);
@@ -60,8 +54,9 @@ public class RunTrack {
         currentPoints = new CurrentPoints(0);
         currentDistance = new CurrentDistance(0);
         currentTime = new CurrentTime(0);
-        chooseCarController = new ChooseCarController();
-        collectible = new Collectible(player);
+        this.chooseCarController = new ChooseCarController();
+        this.collectible = new Collectible(player);
+        this.obstacle = new Obstacle();
     }
 
     private static Observer observer = new Observer() {
@@ -120,7 +115,7 @@ public class RunTrack {
 
                     //Pause
                     if (isPaused) {
-                        PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, y, player, testObstacles, collectibles);
+                        PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, y, player, obstacle.getObstacles(), collectible.getCollectibles());
                         pauseHandler.activatePause();
                     }
 
@@ -141,7 +136,7 @@ public class RunTrack {
                     observer.update(currentPoints, observer);
                     observer.update(currentTime, observer);
                     observer.update(currentDistance, observer);
-                   
+
                     if (Math.abs(y) >= Constants.CANVAS_HEIGHT) {
                         y = y - Constants.CANVAS_HEIGHT;
                         frame = 0;
@@ -150,7 +145,7 @@ public class RunTrack {
 
                     //Generate obstacles
                     if (frame == 0) {
-                        testObstacles.add(ObstacleInterface.generateObstacle());
+                        obstacle.addObstacle(obstacle.generateObstacle());
                     }
 
                     gc.clearRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
@@ -159,7 +154,7 @@ public class RunTrack {
                     player.update();
                     player.render(gc);
                     currentHealth.update();
-                    manageObstacles(gc);
+                    obstacle.manageObstacles(gc, collectible, player, obstacle.getObstacles(), velocity);
                     Stage currentStage = (Stage) canvas.getScene().getWindow();
                     //CHECK FOR END && CHECK FOR LOSE
                     if (currentDistance.getValue() >= 10000 || player.getHealthPoints() <= 0) {       //if(time >= Constants.TRACK_1_END_TIME){
@@ -191,48 +186,13 @@ public class RunTrack {
         gameLoop.playFromStart();
     }
 
-    private void manageObstacles(GraphicsContext gc) {
-        for (Obstacle testObst : testObstacles) {
-            String obstacleType = testObst.getObstacleType();
-            if (obstacleType.contains("player_car") && !testObst.isDestroyed()) {
-
-                testObst.setVelocity(0, velocity / 3);
-                if (testObst.getIsDrunk()) {
-                    if (new Random().nextInt(100)> 90) {
-                        if (new Random().nextInt(2) == 0) {
-                            testObst.setTurnLeft(true);
-                            testObst.setTurnRight(false);
-                        } else {
-                            testObst.setTurnRight(true);
-                            testObst.setTurnLeft(false);
-                        }
-                    }
-                }
-
-            } else {
-                testObst.setVelocity(0, velocity);
-            }
-            testObst.update();
-            testObst.render(gc);
-
-            if (testObst.getBoundary().intersects(player.getBoundary())) {
-                if (collectible.isImmortal()) {
-                    player.addPoints(Constants.BONUS_POINTS_HIT_WITH_SHIELD*collectible.getBonusCoefficient());
-                } else if (!testObst.isDestroyed()) {
-                    player.setHealthPoints(player.getHealthPoints() - Constants.OBSTACLE_DAMAGE);
-                }
-                testObst.handleImpactByCarPlayer(velocity);// Comment if you want flames to go around :) .
-            }
-        }
-    }
-
     private void clearObstaclesAndCollectibles() {
-        collectibles.clear();
-        testObstacles.clear();
+        collectible.getCollectibles().clear();
+        obstacle.getObstacles().clear();
     }
 
     private void startArmageddonsPower() {
-        for (Obstacle obstacle : testObstacles) {
+        for (Obstacle obstacle : obstacle.getObstacles()) {
             obstacle.handleImpactByCarPlayer(velocity);
         }
     }
