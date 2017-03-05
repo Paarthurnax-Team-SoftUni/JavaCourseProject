@@ -3,6 +3,7 @@ package stageHandler;
 import dataHandler.Constants;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -61,6 +62,7 @@ public class StageManagerImpl implements StageManager {
                 currentStage.showAndWait();
                 break;
         }
+        currentStage.getIcons().add(new Image(Constants.LOGO_PATH));
         currentStage.centerOnScreen();
     }
 }

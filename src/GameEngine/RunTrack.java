@@ -4,7 +4,6 @@ import controllers.ChooseCarController;
 import dataHandler.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
@@ -22,7 +21,10 @@ import music.MusicPlayer;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Random;
 
 public class RunTrack {
     private int frame;
@@ -164,7 +166,7 @@ public class RunTrack {
                     manageObstacles(gc);
 
                     //CHECK FOR END
-                    if (currentDistance.getValue() >= 4000) {
+                    if (currentDistance.getValue() >= 4000) {       //if(time >= Constants.TRACK_1_END_TIME){
                         clearObstaclesAndCollectibles();
                         gameLoop.stop();
                         MusicPlayer.stop();

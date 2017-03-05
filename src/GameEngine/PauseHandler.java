@@ -47,7 +47,7 @@ public class PauseHandler {
                     event -> {
                         if (!RunTrack.isPaused()) {
                             gameLoop.play();
-                            MusicPlayer.play();
+                            MusicPlayer.pause();
                             pauseloop.stop();
                         }
 
