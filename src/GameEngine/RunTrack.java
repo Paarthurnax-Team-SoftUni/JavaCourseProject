@@ -17,6 +17,8 @@ import keyHandler.KeyHandlerOnRelease;
 import models.Collectible;
 import models.Obstacle;
 import models.Player;
+import models.interfaces.CollectibleInterface;
+import models.interfaces.ObstacleInterface;
 import music.MusicPlayer;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
@@ -172,7 +174,7 @@ public class RunTrack {
 
                     //Generate obstacles
                     if (frame == 0) {
-                        testObstacles.add(Obstacle.generateObstacle());
+                        testObstacles.add(ObstacleInterface.generateObstacle());
                     }
 
                     gc.clearRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
@@ -217,7 +219,7 @@ public class RunTrack {
                     }
 
                     if (frame % Constants.COLLECTIBLES_OFFSET == 0) {
-                        collectibles.add(Collectible.generateCollectible());
+                        collectibles.add(CollectibleInterface.generateCollectible());
                     }
                     visualizeCollectible(gc, velocity);
                 });
