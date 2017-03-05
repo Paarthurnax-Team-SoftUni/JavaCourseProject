@@ -41,7 +41,7 @@ public class Constants {
     public static final int CANVAS_HEIGHT = 600;
     public static final int COLLECTIBLES_OFFSET = 50000;
     public static final int FUEL_TANK_BONUS = 250;
-    public static final int FUEL_TANK_BONUS_TIME = 294;
+    public static final int FUEL_TANK_BONUS_TIME = 5;
     public static final int HEALTH_BONUS = 25;
     public static final int HEALTH_PACK_BONUS_POINTS = 500;
     public static final int IMMORTALITY_BONUS = 500;
@@ -58,5 +58,11 @@ public class Constants {
     public static final int OBSTACLE_DAMAGE = 25;
 
     public static final float FRAMES_PER_SECOND = 0.017f;   //Seconds per frame [ 1 Frame == the given time in seconds];
+
+    public static final String FUEL_NOTIFICATION_MESSAGE = "Extra fuel! +5 seconds";
+    public static final String HEALTH_NOTIFICATION_MESSAGE = "Health! Restore your full healt";
+    public static final String DOUBLE_PTS_NOTIFICATION_MESSAGE = "Bonus! Double points in the next 5 seconds";
+    public static final String IMMORTALITY_NOTIFICATION_MESSAGE = "Immortality! You are invincible for the next 5 seconds";
+    public static final String ARMAGEDDONS_NOTIFICATION_MESSAGE = "Armageddons Power! Nothing can get on your way now";
 
 }

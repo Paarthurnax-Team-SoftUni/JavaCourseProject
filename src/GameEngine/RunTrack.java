@@ -183,7 +183,7 @@ public class RunTrack {
                     if(action != null &&  action.equals(Constants.ARMAGEDDON_STRING)) {
                         startArmageddonsPower();
                     } else if (action != null && action.equals(Constants.FUEL_BOTTLE_STRING)) {
-                        time -= Constants.FUEL_TANK_BONUS_TIME;
+                        time -= Constants.FUEL_TANK_BONUS_TIME*Constants.FRAMES_PER_SECOND;
                     }
                 });
 

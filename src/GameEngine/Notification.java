@@ -8,9 +8,9 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class Notification {
+    private static Popup popup = new Popup();
 
-    public static Popup createPopup(final String message) {
-        final Popup popup = new Popup();
+    private static Popup createPopup(final String type, final String message) {
         popup.setAutoFix(true);
         popup.setAutoHide(true);
         popup.setHideOnEscape(true);
@@ -23,17 +23,18 @@ public class Notification {
         });
         label.getStylesheets().add("/resources/styles/styles.css");
         label.getStyleClass().add("popup");
+        label.getStyleClass().add(type);
         popup.getContent().add(label);
         return popup;
     }
 
-    public static void showPopupMessage(final String message, final Stage stage) {
-        final Popup popup = createPopup(message);
+    public static void showPopupMessage(final String type, final String message, final Stage stage) {
+        popup = createPopup(type, message);
         popup.setOnShown(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent e) {
-                popup.setX(stage.getX() + stage.getWidth()/2 - popup.getWidth()/2);
-                popup.setY(stage.getY() + stage.getHeight()/2 - popup.getHeight()/2);
+                popup.setX(stage.getX() + 20);
+                popup.setY(stage.getY() + stage.getHeight() - popup.getHeight()- 20);
             }
         });
         popup.show(stage);

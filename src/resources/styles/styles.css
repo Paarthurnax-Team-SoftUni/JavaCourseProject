@@ -6,14 +6,6 @@
     -fx-background-image: url('/resources/images/backgrounds/background-home.jpg');
 }
 
-
-
-#chooseCarPage #backgroundBox1:hover, #chooseCarPage #backgroundBox2:hover, #chooseCarPage #backgroundBox3:hover,
-#chooseCarPage #backgroundBox4:hover, #chooseCarPage #backgroundBox5:hover, #chooseCarPage #backgroundBox6:hover {
-   /* -fx-fill: rgba(255,0,0, 0.6);  */
-
-}
-
 #backgroundBox{
     -fx-fill: rgba(255,255,255, 0.6);
 }
@@ -100,9 +92,30 @@
 }
 
 .popup {
-    -fx-background-color: cornsilk;
+    -fx-pref-height: 45;
+    -fx-pref-width: 440;
     -fx-padding: 10;
-    -fx-border-color: black;
-    -fx-border-width: 5;
+    -fx-background-radius: 10px;
+    -fx-font-family: System Bold;
     -fx-font-size: 16;
+    -fx-text-alignment: center;
+}
+.fuelBottle{
+    -fx-background-color: #fd656c;
+}
+
+.health{
+    -fx-background-color: greenyellow;
+}
+
+.doublePts{
+    -fx-background-color: #ffd93b;
+}
+
+.immortality{
+    -fx-background-color: #79b2ff;
+}
+
+.armageddonsPower{
+    -fx-background-color: #c546ff;
 }

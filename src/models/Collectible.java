@@ -89,36 +89,50 @@ public class Collectible extends Sprite {
 
             if (collectible.getBoundary().intersects(player.getBoundary())) {
                 switch (collectible.getCollectibleType()) {
+
                     case Constants.FUEL_BOTTLE_STRING:
                         player.addPoints(Constants.FUEL_TANK_BONUS*bonusCoefficient);
+                        Notification.showPopupMessage(Constants.FUEL_BOTTLE_STRING, Constants.FUEL_NOTIFICATION_MESSAGE, currentStage);
 
-                        Notification.showPopupMessage("fuel", currentStage);
                         collectible.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
                         return Constants.FUEL_BOTTLE_STRING;
+
                     case Constants.HEALTH_STRING:
                         player.addPoints(Constants.HEALTH_PACK_BONUS_POINTS*bonusCoefficient);
                         if (player.getHealthPoints() < Constants.HEALTH_BAR_MAX) {
                             player.setHealthPoints(Math.min(player.getHealthPoints() + Constants.HEALTH_BONUS, Constants.HEALTH_BAR_MAX));
                         }
+                        Notification.showPopupMessage(Constants.HEALTH_STRING,Constants.HEALTH_NOTIFICATION_MESSAGE, currentStage);
+
                         collectible.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
                         return Constants.HEALTH_STRING;
+
                     case Constants.DOUBLE_POINTS_STRING:
                         player.setPoints(player.getPoints() + Constants.DOUBLE_BONUS_POINTS*bonusCoefficient);
                         if (!isDoublePtsOn) {
                             startDoublePtsTimer();
                         }
+                        Notification.showPopupMessage(Constants.DOUBLE_POINTS_STRING,Constants.DOUBLE_PTS_NOTIFICATION_MESSAGE, currentStage);
+
                         collectible.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
                         return Constants.DOUBLE_POINTS_STRING;
+
                     case Constants.IMMORTALITY_STRING:
                         player.addPoints(Constants.IMMORTALITY_BONUS*bonusCoefficient);
                         if (!isImmortal) {
                             player.addPoints( Constants.ARMAGEDDONS_BONUS*bonusCoefficient);
                             startImmortalityTimer();
                         }
+                        Notification.showPopupMessage(Constants.IMMORTALITY_STRING,Constants.IMMORTALITY_NOTIFICATION_MESSAGE, currentStage);
+
                         collectible.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
                         return Constants.DOUBLE_POINTS_STRING;
+
+
                     case Constants.ARMAGEDDON_STRING:
                         player.addPoints( Constants.ARMAGEDDONS_BONUS*bonusCoefficient);
+                        Notification.showPopupMessage(Constants.ARMAGEDDON_STRING,Constants.ARMAGEDDONS_NOTIFICATION_MESSAGE, currentStage);
+
                         collectible.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
                         return Constants.ARMAGEDDON_STRING;
                 }
@@ -134,7 +148,7 @@ public class Collectible extends Sprite {
         this.setDoublePtsTimer(Constants.DOUBLE_PTS_DURATION / Constants.FRAMES_PER_SECOND);
     }
 
-    public void updateDoublePtsStatus() {
+    private void updateDoublePtsStatus() {
         this.setDoublePtsTimer(this.getDoublePtsTimer() - 1);
         if (this.getDoublePtsTimer() < 0) {
             isDoublePtsOn = false;
@@ -148,7 +162,7 @@ public class Collectible extends Sprite {
         this.setImmortalityTimer(Constants.IMMORTALITY_DURATION / Constants.FRAMES_PER_SECOND);
     }
 
-    public void updateImmortalityStatus() {
+    private void updateImmortalityStatus() {
         this.setImmortalityTimer(this.getImmortalityTimer() - 1);
         if (this.getImmortalityTimer() < 0) {
             isImmortal = false;
@@ -172,4 +186,5 @@ public class Collectible extends Sprite {
     public boolean isImmortal() {
         return isImmortal;
     }
+
 }
