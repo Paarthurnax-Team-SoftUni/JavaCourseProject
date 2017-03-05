@@ -159,7 +159,7 @@ public class RunTrack {
 
                     currentTime.setValue((long) (time * currentFramesPerSecond));
                     currentDistance.setValue(currentDistance.getValue() + (long) velocity / 2);
-                    player.setPoints(player.getPoints() + 1);
+                    player.addPoints(1);
                     currentPoints.setValue(player.getPoints());
 
                     observer.update(currentPoints, observer);
@@ -191,16 +191,13 @@ public class RunTrack {
                         gameLoop.stop();
                         MusicPlayer.stop();
                         time = 0;
-
-                        player.updateStatsAtEnd();
                         velocity = Constants.START_GAME_VELOCITY;
                         currentDistance.setValue(0);
-
                         root.getChildren().remove(canvas);
-
                         // Ternar operator If final time is achieved -> GAME_WITN_VIEW else Game Lose View;
                         FXMLLoader loader =
-                                manager.loadSceneToStage(currentStage, currentDistance.getValue()>=10000?Constants.GAME_WIN_VIEW_PATH:Constants.GAME_OVER_VIEW_PATH ,null);
+                                manager.loadSceneToStage(currentStage, player.getHealthPoints() > 0?Constants.GAME_WIN_VIEW_PATH:Constants.GAME_OVER_VIEW_PATH ,null);
+                        player.updateStatsAtEnd();
                     }
 
                     if (frame % Constants.COLLECTIBLES_OFFSET == 0) {
@@ -239,7 +236,7 @@ public class RunTrack {
 
             if (testObst.getBoundary().intersects(player.getBoundary())) {
                 if (isImmortable) {
-                    player.setPoints(player.getPoints()+Constants.BONUS_POINTS_HIT_WITH_SHIELD*bonusCoefficient);
+                    player.addPoints(Constants.BONUS_POINTS_HIT_WITH_SHIELD*bonusCoefficient);
                 } else if (!testObst.isDestroyed()) {
                     player.setHealthPoints(player.getHealthPoints() - Constants.OBSTACLE_DAMAGE);
                 }
@@ -258,13 +255,13 @@ public class RunTrack {
             if (collectible.getBoundary().intersects(player.getBoundary())) {
                 switch (collectible.getCollectibleType()) {
                     case "fuelBottle":
-                        player.setPoints(player.getPoints() + Constants.FUEL_TANK_BONUS*bonusCoefficient);
+                        player.addPoints(Constants.FUEL_TANK_BONUS*bonusCoefficient);
                         time -= Constants.FUEL_TANK_BONUS_TIME;
                         Notification.showPopupMessage("fuel", currentStage);
                         
                         break;
                     case "health":
-                        player.setPoints(player.getPoints() + Constants.HEALTH_PACK_BONUS_POINTS*bonusCoefficient);
+                        player.addPoints(Constants.HEALTH_PACK_BONUS_POINTS*bonusCoefficient);
                         if (player.getHealthPoints() < Constants.HEALTH_BAR_MAX) {
                             player.setHealthPoints(Math.min(player.getHealthPoints() + Constants.HEALTH_BONUS, Constants.HEALTH_BAR_MAX));
                         }
@@ -276,14 +273,14 @@ public class RunTrack {
                         }
                         break;
                     case "immortality":
-                        player.setPoints(player.getPoints() + Constants.IMMORTALITY_BONUS*bonusCoefficient);
+                        player.addPoints(Constants.IMMORTALITY_BONUS*bonusCoefficient);
                         if (!isImmortable) {
-                            player.setPoints(player.getPoints() + Constants.ARMAGEDDONS_BONUS*bonusCoefficient);
+                            player.addPoints( Constants.ARMAGEDDONS_BONUS*bonusCoefficient);
                             startImmortalityTimer();
                         }
                         break;
                     case "armageddonsPower":
-                        player.setPoints(player.getPoints() + Constants.ARMAGEDDONS_BONUS*bonusCoefficient);
+                        player.addPoints( Constants.ARMAGEDDONS_BONUS*bonusCoefficient);
                         startArmageddonsPower();
                         break;
                 }
