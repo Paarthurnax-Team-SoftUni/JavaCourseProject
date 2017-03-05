@@ -26,8 +26,10 @@ import java.util.*;
 public class RunTrack {
     private int frame;
     private long time;
-    private int y;
 
+    private int y;
+    private double immortalityTimer;
+    private float currentFramesPerSecond;
     private static boolean isPaused;
     private static boolean isImmortable;
     private static float velocity;
@@ -40,8 +42,7 @@ public class RunTrack {
     private static CurrentDistance currentDistance;
     private HealthBar currentHealth;
     private ChooseCarController chooseCarController;
-    private Timer immortalityTimer = new Timer();
-    private Random rnd;
+
 
     public RunTrack(Player player, float velocity) {
         setPlayer(player);
@@ -49,6 +50,7 @@ public class RunTrack {
         this.collectibles = new ArrayList<>();
         this.frame = 0;
         this.time = 0;
+        this.setCurrentFramesPerSecond(Constants.FRAMES_PER_SECOND);
         isPaused = false;
         isImmortable = false;
         RunTrack.velocity = velocity;
@@ -64,6 +66,10 @@ public class RunTrack {
         }
     };
 
+    public void setCurrentFramesPerSecond(float currentFramesPerSecond) {
+        this.currentFramesPerSecond = currentFramesPerSecond;
+    }
+
     private void setCarId(String carId) {
         this.carId = carId;
     }
@@ -78,6 +84,13 @@ public class RunTrack {
         this.player = player;
     }
 
+    private double getImmortalityTimer() {
+        return immortalityTimer;
+    }
+
+    private void setImmortalityTimer(double immortalityTimer) {
+        this.immortalityTimer = immortalityTimer;
+    }
 
     public void runGame(Image background) {
 
@@ -115,7 +128,7 @@ public class RunTrack {
         MusicPlayer.PlayMusic();
         MusicPlayer.Pause();
         KeyFrame kf = new KeyFrame(
-                Duration.seconds(Constants.FRAMES_PER_SECOND),
+                Duration.seconds(currentFramesPerSecond),
                 event -> {
 
                     //Pause
@@ -126,10 +139,17 @@ public class RunTrack {
                     }
 
                     y = Math.round(y + velocity);
+
                     time++;
                     frame++;
 
-                    currentTime.setValue((long) (time * Constants.FRAMES_PER_SECOND));
+                    //update immortality status if its actuvated
+                    if (isImmortable) {
+                        updateImmortalityStatus();
+                    }
+
+
+                    currentTime.setValue((long) (time * currentFramesPerSecond));
                     currentDistance.setValue(currentDistance.getValue() + (long) velocity / 2);
                     player.setPoints(player.getPoints() + 1);
                     currentPoints.setValue(player.getPoints());
@@ -154,19 +174,16 @@ public class RunTrack {
                     gc.drawImage(background, 0, y);
                     player.update();
                     player.render(gc);
-                    currentHealth.render();
+                    currentHealth.update();
                     manageObstacles(gc);
                     if (time >= Constants.TRACK_1_END_TIME) {
                         clearObstaclesAndCollectibles();
                         gameLoop.stop();
                         MusicPlayer.StopMusic();
                         time = 0;
-                        player.setHealthPoints(Constants.HEALTH_BAR_MAX);
-                        if (player.getHighScore() < player.getPoints()) {
-                            player.setHighScore(player.getPoints());
-                        }
-                        player.setPoints(0L);
-                        player.stopAccelerate();
+
+                        player.updateStatsAtEnd();
+
                         velocity = Constants.START_GAME_VELOCITY;
                         currentDistance.setValue(0);
                         Stage stage = (Stage) canvas.getScene().getWindow();
@@ -182,14 +199,11 @@ public class RunTrack {
                         gameLoop.stop();
                         MusicPlayer.StopMusic();
                         time = 0;
-                        player.setHealthPoints(Constants.HEALTH_BAR_MAX);
-                        if (player.getHighScore() < player.getPoints()) {
-                            player.setHighScore(player.getPoints());
-                        }
-                        player.setPoints(0L);
-                        player.stopAccelerate();
+
+                        player.updateStatsAtEnd();
 
                         // TODO: stop timers!
+                        //NOt sure if timers stopeed ? as there are no timers now
 
                         velocity = 5;
                         currentDistance.setValue(0);
@@ -238,6 +252,8 @@ public class RunTrack {
 
             if (testObst.getBoundary().intersects(player.getBoundary())) {
                 if (isImmortable) {
+
+                    player.setPoints(player.getPoints()+Constants.BONUS_POINTS_HIT_WITH_SHIELD);
                     testObst.setDestroyed(true);
                 }
                 if (!testObst.isDestroyed()) {
@@ -251,6 +267,7 @@ public class RunTrack {
 
     private void visualizeCollectible(GraphicsContext gc, double velocity) {
         for (Collectible collectible : collectibles) {
+
             collectible.setVelocity(0, velocity);
             collectible.update();
             collectible.render(gc);
@@ -273,6 +290,7 @@ public class RunTrack {
                     case "immortality":
                         player.setPoints(player.getPoints() + Constants.IMMORTALITY_BONUS);
                         if (!isImmortable) {
+                            player.setPoints(player.getPoints() + Constants.ARMAGEDDONS_BONUS);
                             startImmortalityTimer();
                         }
                         break;
@@ -286,7 +304,7 @@ public class RunTrack {
         }
     }
 
-    public void clearObstaclesAndCollectibles() {
+    private void clearObstaclesAndCollectibles() {
         collectibles.clear();
         testObstacles.clear();
     }
@@ -296,21 +314,23 @@ public class RunTrack {
         return (currentPoints);
     }
 
-    public void startImmortalityTimer() {
-        isImmortable = true;
-        TimerTask task = new TimerTask() {
-            public void run() {
-                isImmortable = false;
-                System.out.println("immortality");
-                System.out.println(isImmortable);
-                return;
-            }
 
-        };
-        immortalityTimer.schedule(task, Constants.IMMORTALITY_DURATION);
+    private void startImmortalityTimer() {
+        isImmortable = true;
+        this.setImmortalityTimer(Constants.IMMORTALITY_DURATION / currentFramesPerSecond);
     }
 
-    public void startArmageddonsPower() {
+    private void updateImmortalityStatus() {
+        this.setImmortalityTimer(this.getImmortalityTimer() - 1);
+        if (this.getImmortalityTimer() < 0) {
+            isImmortable = false;
+            System.out.println("immortality off");
+            System.out.println(isImmortable);
+        }
+    }
+
+
+    private void startArmageddonsPower() {
         for (Obstacle obstacle : testObstacles) {
             obstacle.setDestroyed(true);
         }

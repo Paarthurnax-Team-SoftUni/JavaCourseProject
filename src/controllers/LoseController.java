@@ -20,6 +20,7 @@ public class LoseController {
     }
 
     public void quitGame(ActionEvent actionEvent) {
+        System.out.println("quit");
         Platform.exit();
     }
 

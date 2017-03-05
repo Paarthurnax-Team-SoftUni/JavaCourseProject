@@ -1,10 +1,7 @@
 package models;
 
-import GameEngine.RotatedImageInCanvas;
 import GameEngine.RunTrack;
-import javafx.scene.Node;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.ImageView;
+import dataHandler.Constants;
 
 public class Player extends Sprite {
 
@@ -91,6 +88,20 @@ public class Player extends Sprite {
     public void accelerate() {
         this.accelerating = true;
     }
+
+    public void updateHighScore(){
+        if (this.getHighScore() < this.getPoints()) {
+            this.setHighScore(this.getPoints());
+        }
+    }
+
+    public void updateStatsAtEnd(){
+        this.setHealthPoints(Constants.HEALTH_BAR_MAX);
+        this.updateHighScore();
+        this.setPoints(0L);
+        this.stopAccelerate();
+    }
+
 
     public void stopAccelerate() {
         this.accelerating = false;
