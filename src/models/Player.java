@@ -1,11 +1,9 @@
 package models;
 
-
 import GameEngine.RunTrack;
 import dataHandler.Constants;
 
 public class Player extends Sprite {
-
 
     private String name;
     private Long highScore;
@@ -14,6 +12,16 @@ public class Player extends Sprite {
     private Long experience;
     private int healthPoints;
     private boolean accelerating = false;
+    private boolean centerWheel;
+
+    public boolean getCenterWheel() {
+        return this.centerWheel;
+    }
+
+    public void setCenterWheel(boolean b) {
+        this.centerWheel = b;
+    }
+
 
     public Player(String name, Long highScore, Double money, Long points, Long experience, int healthPoints) {
 
@@ -100,17 +108,25 @@ public class Player extends Sprite {
 
     }
 
+
     @Override
     public void update() {
+        if (this.centerWheel) {
+            if (this.getAngle() < 0) {
+                this.setAngle(this.getAngle() + 5);
+            } else if (this.getAngle() > 0)
+                this.setAngle(this.getAngle() - 5);
+            else this.centerWheel = false;
+        }
         if (accelerating) {
-            this.addVelocity(0,-2);
+            this.addVelocity(0, -2);
             if (RunTrack.getVelocity() < 20) {
-                RunTrack.setVelocity((float) (RunTrack.getVelocity()+0.1));
+                RunTrack.setVelocity((float) (RunTrack.getVelocity() + 0.1));
             }
         } else {
-            this.addVelocity(0,1);
+            this.addVelocity(0, 1);
             if (RunTrack.getVelocity() > 5) {
-                RunTrack.setVelocity((float) (RunTrack.getVelocity()-0.1));
+                RunTrack.setVelocity((float) (RunTrack.getVelocity() - 0.1));
             }
         }
 
@@ -122,4 +138,6 @@ public class Player extends Sprite {
     public String toString() {
         return String.format("%s: %s", this.name, this.highScore);
     }
+
+
 }

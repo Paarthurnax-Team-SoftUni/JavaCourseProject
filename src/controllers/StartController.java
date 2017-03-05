@@ -32,6 +32,7 @@ public class StartController {
         PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
         Stage currentStage = (Stage) startBtn.getScene().getWindow();
         ScreenController.getInstance().loadStage(currentStage, ScreenController.getInstance().getGamePlayStage(), Constants.GAME_PLAY_VIEW_PATH);
+
         track.createBackground();
     }
 
