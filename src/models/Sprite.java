@@ -10,12 +10,12 @@ import javafx.scene.image.Image;
 public abstract class Sprite {
     private Image image;
     private String name;
-    private double positionX;
-    private double positionY;
-    private double velocityX;
-    private double velocityY;
+    protected double positionX;
+    protected double positionY;
+    protected double velocityX;
+    protected double velocityY;
     private double width;
-    private double height;
+    protected double height;
     protected boolean isDestroyed;
     private boolean turnRight;
     private boolean turnLeft;
@@ -161,5 +161,7 @@ public abstract class Sprite {
     public boolean intersects(Sprite s) {
         return s.getBoundary().intersects(this.getBoundary());
     }
+
+
 
 }

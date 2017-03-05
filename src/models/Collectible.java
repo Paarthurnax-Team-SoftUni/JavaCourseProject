@@ -13,7 +13,7 @@ public class Collectible extends Sprite {
 
     private int bonusCoefficient;
     private Player player;
-    private List<Collectible> collectibles;
+    private ArrayList<Collectible> collectibles;
     private boolean isImmortal;
     private boolean isDoublePtsOn;
     private double immortalityTimer;
@@ -32,17 +32,17 @@ public class Collectible extends Sprite {
     private String getCollectibleType(){
         switch (this.getName()){
             case "collectable1_half_size":
-                return "fuelBottle";
+                return Constants.FUEL_BOTTLE_STRING;
             case "collectable2_half_size":
-                return "health";
+                return Constants.HEALTH_STRING;
             case "collectable3_half_size":
-                return "doublePts";
+                return Constants.DOUBLE_POINTS_STRING;
             case "collectable4_half_size":
-                return "immortality";
+                return Constants.IMMORTALITY_STRING;
             case "collectable5_half_size":
-                return "armageddonsPower";
+                return Constants.ARMAGEDDON_STRING;
         }
-        return "bonusPts";
+        return Constants.BONUS_POINTS_STRING;
     }
 
     private double getImmortalityTimer() {
@@ -59,6 +59,35 @@ public class Collectible extends Sprite {
 
     private void setDoublePtsTimer(double doublePtsTimer) {
         this.doublePtsTimer = doublePtsTimer;
+    }
+
+
+    private void startDoublePtsTimer() {
+        isDoublePtsOn = true;
+        bonusCoefficient = 2;
+        this.setDoublePtsTimer(Constants.DOUBLE_PTS_DURATION / Constants.FRAMES_PER_SECOND);
+    }
+
+    private void updateDoublePtsStatus() {
+        this.setDoublePtsTimer(this.getDoublePtsTimer() - 1);
+        if (this.getDoublePtsTimer() < 0) {
+            isDoublePtsOn = false;
+            bonusCoefficient = 1;
+            System.out.println("double points off");
+        }
+    }
+
+    private void startImmortalityTimer() {
+        isImmortal = true;
+        this.setImmortalityTimer(Constants.IMMORTALITY_DURATION / Constants.FRAMES_PER_SECOND);
+    }
+
+    private void updateImmortalityStatus() {
+        this.setImmortalityTimer(this.getImmortalityTimer() - 1);
+        if (this.getImmortalityTimer() < 0) {
+            isImmortal = false;
+            System.out.println("immortality off");
+        }
     }
 
     public void addCollectible(Collectible collectible) {
@@ -128,33 +157,6 @@ public class Collectible extends Sprite {
         return null;
     }
 
-    private void startDoublePtsTimer() {
-        isDoublePtsOn = true;
-        bonusCoefficient = 2;
-        this.setDoublePtsTimer(Constants.DOUBLE_PTS_DURATION / Constants.FRAMES_PER_SECOND);
-    }
-
-    public void updateDoublePtsStatus() {
-        this.setDoublePtsTimer(this.getDoublePtsTimer() - 1);
-        if (this.getDoublePtsTimer() < 0) {
-            isDoublePtsOn = false;
-            bonusCoefficient = 1;
-            System.out.println("double points off");
-        }
-    }
-
-    private void startImmortalityTimer() {
-        isImmortal = true;
-        this.setImmortalityTimer(Constants.IMMORTALITY_DURATION / Constants.FRAMES_PER_SECOND);
-    }
-
-    public void updateImmortalityStatus() {
-        this.setImmortalityTimer(this.getImmortalityTimer() - 1);
-        if (this.getImmortalityTimer() < 0) {
-            isImmortal = false;
-            System.out.println("immortality off");
-        }
-    }
 
     public final int getBonusCoefficient() {
         return bonusCoefficient;
@@ -169,7 +171,11 @@ public class Collectible extends Sprite {
         }
     }
 
-    public boolean isImmortal() {
+    public final boolean isImmortal() {
         return isImmortal;
+    }
+
+    public List<Collectible> getCollectibles() {
+        return this.collectibles;
     }
 }

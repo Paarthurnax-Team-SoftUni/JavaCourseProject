@@ -11,7 +11,7 @@ import models.Obstacle;
 import models.Player;
 import music.MusicPlayer;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class PauseHandler {
     private Timeline gameLoop;
@@ -19,11 +19,11 @@ public class PauseHandler {
     private Image background;
     private double y;
     private Player player;
-    private ArrayList<Obstacle> testObstacles;
-    private ArrayList<Collectible> collectibles;
+    private List<Obstacle> testObstacles;
+    private List<Collectible> collectibles;
 
     public PauseHandler(Timeline gameLoop, GraphicsContext gc, Image background,
-                        double y, Player player, ArrayList<Obstacle> testObstacles, ArrayList<Collectible> collectibles) {
+                        double y, Player player, List<Obstacle> testObstacles, List<Collectible> collectibles) {
         this.gameLoop = gameLoop;
         this.gc = gc;
         this.background = background;
