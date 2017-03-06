@@ -74,7 +74,9 @@ public class Player extends Sprite {
     }
 
     public void addPoints(int PointsToAdd) {
-        this.setPoints(this.getPoints()+ PointsToAdd);
+        this.setPoints(this.getPoints() + PointsToAdd);
+    }
+
     public int getMaxLevelPassed() {
         return this.maxLevelPassed;
     }

@@ -164,9 +164,14 @@ public class RunTrack {
                         velocity = Constants.START_GAME_VELOCITY;
                         currentDistance.setValue(0);
                         root.getChildren().remove(canvas);
+
                         // Ternar operator If final time is achieved -> GAME_WITN_VIEW else Game Lose View;
-                        FXMLLoader loader =
-                                manager.loadSceneToStage(currentStage, player.getHealthPoints() > 0?Constants.GAME_WIN_VIEW_PATH:Constants.GAME_OVER_VIEW_PATH ,null);
+                        FXMLLoader loader = manager.loadSceneToStage(currentStage, player.getHealthPoints() > 0?Constants.GAME_WIN_VIEW_PATH:Constants.GAME_OVER_VIEW_PATH ,null);
+
+                        if(currentDistance.getValue() >= 10000){
+                            player.setMaxLevelPassed(player.getMaxLevelPassed() + 1);
+                        }
+
                         player.updateStatsAtEnd();
                     }
 

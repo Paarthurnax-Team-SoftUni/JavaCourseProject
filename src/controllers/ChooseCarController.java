@@ -11,8 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
-import mapHandlers.Levels.FirstLevel;
-import mapHandlers.Track;
 import models.Player;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
@@ -26,7 +24,7 @@ public class ChooseCarController{
     public ImageView locked5;
     public ImageView locked6;
 
-    private Track track;
+    private Player currentPlayer;
 
     @FXML
     private Button goNextBtn;
@@ -44,9 +42,8 @@ public class ChooseCarController{
     private Ellipse backgroundBox6;
 
     public void initialize() {
-        track = new FirstLevel();
-        Player player = PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
-        showUnlockedCarsOnly(player.getHighScore());
+        this.setCurrentPlayer(PlayerData.getInstance().getCurrentPlayer());
+        showUnlockedCarsOnly(this.getCurrentPlayer().getHighScore());
     }
 
     public String getCarId() {
@@ -57,6 +54,14 @@ public class ChooseCarController{
         this.carId = carId;
     }
 
+    public Player getCurrentPlayer() {
+        return this.currentPlayer;
+    }
+
+    private void setCurrentPlayer(Player currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
     public void goToChooseLevel(ActionEvent actionEvent) {
         Stage currentStage = (Stage)this.goNextBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
@@ -65,13 +70,12 @@ public class ChooseCarController{
 
     public void chooseCar(MouseEvent ev) {
         Node source = (Node) ev.getSource();
-
-        if (source.getId().substring(0, 3).equals("car")) {
-            setCarId(source.getId());
-            backgroundFill(source.getId().substring(source.getId().length() - 1));
+        String id = source.getId();
+        backgroundFill(id.substring(id.length() - 1));
+        if (id.substring(0, 3).equals("car")) {
+            setCarId(id);
         } else if (source.getId().substring(0, 5).equals("label")) {
-            setCarId("car" + source.getId().substring(source.getId().length() - 1));
-            backgroundFill(source.getId().substring(source.getId().length() - 1));
+            setCarId("car" + id.substring(id.length() - 1));
         }
         goNextBtn.setVisible(true);
     }
@@ -128,8 +132,7 @@ public class ChooseCarController{
     }
 
     private void backgroundFill(String id) {
-        Player player = PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
-        showUnlockedCarsOnly(player.getHighScore());
+        showUnlockedCarsOnly(this.getCurrentPlayer().getHighScore());
 
         switch (id) {
             case "1":

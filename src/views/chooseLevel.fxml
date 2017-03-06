@@ -14,7 +14,7 @@
 
 <AnchorPane fx:id="chooseLevelPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChooseLevelController">
    <children>
-       <Button fx:id="startGameBtn" layoutX="239.0" layoutY="466.0" mnemonicParsing="false" onAction="#startGame" prefHeight="60.0" prefWidth="323.0" text="Ready" textAlignment="CENTER" textFill="#1b1a1a" underline="true" visible="false">
+       <Button fx:id="startBtn" layoutX="239.0" layoutY="466.0" mnemonicParsing="false" onAction="#startGame" prefHeight="60.0" prefWidth="323.0" text="Ready" textAlignment="CENTER" textFill="#1b1a1a" underline="true" visible="false">
            <font>
                <Font name="Chiller" size="50.0" />
            </font>
@@ -49,12 +49,12 @@
                   <Font name="Chiller" size="24.0" />
                </font>
             </Label>
-            <ImageView fx:id="level1" fitHeight="280.0" fitWidth="244.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+            <ImageView fx:id="level2" fitHeight="280.0" fitWidth="244.0" nodeOrientation="INHERIT" onMouseClicked="#chooseLevel" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                <image>
                   <Image url="@../resources/images/level1.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="level2" fitHeight="280.0" fitWidth="244.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="level1" fitHeight="280.0" fitWidth="244.0" nodeOrientation="INHERIT" onMouseClicked="#chooseLevel" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../resources/images/level1.png" />
                </image>

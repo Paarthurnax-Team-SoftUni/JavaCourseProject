@@ -19,13 +19,13 @@ import stageHandler.StageManagerImpl;
 
 public class ChooseLevelController {
 
-    private static String level;
+    private static int level;
     public ImageView locked2;
 
     private Track track;
 
     @FXML
-    private Button startGameBtn;
+    private Button startBtn;
     @FXML
     private Ellipse backgroundBox1;
     @FXML
@@ -35,57 +35,51 @@ public class ChooseLevelController {
     public void initialize() {
         track = new FirstLevel();
         Player player = PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
-        showUnlockedCarsOnly(player.getHighScore());
+        showUnlockedLevelsOnly(player.getMaxLevelPassed());
     }
 
-    public String getLevel() {
+    public int getLevel() {
         return level;
     }
 
-    private void setLevel(String level) {
+    private void setLevel(int level) {
         this.level = level;
     }
 
     public void startGame(ActionEvent actionEvent) {
-        Stage currentStage = (Stage)this.startGameBtn.getScene().getWindow();
+        Stage currentStage = (Stage)this.startBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
         FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_PLAY_VIEW_PATH,null);
     }
 
     public void chooseLevel(MouseEvent ev) {
         Node source = (Node) ev.getSource();
+        int id = Integer.valueOf(source.getId().substring(5));
 
-        System.out.println(source);
-
-        if (source.getId().substring(0, 5).equals("level")) {
-            setLevel(source.getId());
-            backgroundFill(source.getId().substring(source.getId().length() - 1));
-        } else if (source.getId().substring(0, 5).equals("label")) {
-            setLevel("car" + source.getId().substring(source.getId().length() - 1));
-            backgroundFill(source.getId().substring(source.getId().length() - 1));
-        }
-        startGameBtn.setVisible(true);
+        backgroundFill(id);
+        this.setLevel(id);
+        this.startBtn.setVisible(true);
     }
 
-    private void showUnlockedCarsOnly(Long points) {
+    private void showUnlockedLevelsOnly(int level) {
         backgroundBox1.setStyle(null);
         backgroundBox2.setStyle(null);
 
         backgroundBox2.setStyle("-fx-fill: rgba(95, 88, 93, 0.7);");
-        System.out.println(backgroundBox2);
         backgroundBox2.toFront();
         locked2.setVisible(true);
     }
 
-    private void backgroundFill(String id) {
-        Player p = PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
-        showUnlockedCarsOnly(p.getHighScore());
-
+    private void backgroundFill(int id) {
+        Player player = PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
+        showUnlockedLevelsOnly(player.getMaxLevelPassed());
+        System.out.println(id);
         switch (id) {
-            case "1":
+            case 1:
                 backgroundBox1.setStyle("-fx-fill: rgba(255,0,0, 0.55);");
+                backgroundBox1.toFront();
                 break;
-            case "2":
+            case 2:
                 backgroundBox2.setStyle("-fx-fill: rgba(255,0,0, 0.55);");
                 break;
         }
