@@ -44,7 +44,7 @@ public class RunTrack {
 
 
     public RunTrack(Player player, float velocity) {
-        setPlayer(player);
+        this.setPlayer(player);
         this.frame = 0;
         this.time = 0;
         this.setCurrentFramesPerSecond(Constants.FRAMES_PER_SECOND);
@@ -73,14 +73,12 @@ public class RunTrack {
     }
 
     public Player getPlayer() {
-        return player;
+        return this.player;
     }
 
     public void setPlayer(Player player) {
         this.player = player;
     }
-
-
 
     public void runGame(Image background, AnchorPane root) {
 
@@ -140,7 +138,7 @@ public class RunTrack {
                         y = y - Constants.CANVAS_HEIGHT;
                         frame = 0;
                     }
-                    player.setVelocity(0, 0);
+                    this.player.setVelocity(0, 0);
 
                     //Generate obstacles
                     if (frame == 0) {
@@ -150,13 +148,19 @@ public class RunTrack {
                     gc.clearRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
                     gc.drawImage(background, 0, y - Constants.CANVAS_HEIGHT);
                     gc.drawImage(background, 0, y);
-                    player.update();
-                    player.render(gc);
+                    this.player.update();
+                    this.player.render(gc);
                     currentHealth.update();
                     obstacle.manageObstacles(gc, collectible, player, obstacle.getObstacles(), velocity);
                     Stage currentStage = (Stage) canvas.getScene().getWindow();
+
                     //CHECK FOR END && CHECK FOR LOSE
-                    if (currentDistance.getValue() >= 10000 || player.getHealthPoints() <= 0) {       //if(time >= Constants.TRACK_1_END_TIME){
+                    if (currentDistance.getValue() >= 5000 || player.getHealthPoints() <= 0) {       //if(time >= Constants.TRACK_1_END_TIME){
+                        if(currentDistance.getValue() >= 5000){
+                            System.out.println(this.getPlayer().getMaxLevelPassed());
+                            this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
+                            System.out.println(this.getPlayer().getMaxLevelPassed());
+                        }
                         clearObstaclesAndCollectibles();
                         gameLoop.stop();
                         MusicPlayer.stop();
@@ -168,11 +172,7 @@ public class RunTrack {
                         // Ternar operator If final time is achieved -> GAME_WITN_VIEW else Game Lose View;
                         FXMLLoader loader = manager.loadSceneToStage(currentStage, player.getHealthPoints() > 0?Constants.GAME_WIN_VIEW_PATH:Constants.GAME_OVER_VIEW_PATH ,null);
 
-                        if(currentDistance.getValue() >= 10000){
-                            player.setMaxLevelPassed(player.getMaxLevelPassed() + 1);
-                        }
-
-                        player.updateStatsAtEnd();
+                        this.player.updateStatsAtEnd();
                     }
 
                     if (frame % Constants.COLLECTIBLES_OFFSET == 0) {

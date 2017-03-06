@@ -50,7 +50,7 @@ public class Player extends Sprite {
     }
 
     public Long getPoints() {
-        return points;
+        return this.points;
     }
 
     public void setPoints(Long points) {
@@ -58,7 +58,7 @@ public class Player extends Sprite {
     }
 
     public Long getExperience() {
-        return experience;
+        return this.experience;
     }
 
     public void setExperience(Long experience) {
@@ -66,7 +66,7 @@ public class Player extends Sprite {
     }
 
     public int getHealthPoints() {
-        return healthPoints;
+        return this.healthPoints;
     }
 
     public void setHealthPoints(int healthPoints) {
@@ -118,7 +118,6 @@ public class Player extends Sprite {
 
     public void stopAccelerate() {
         this.accelerating = false;
-
     }
 
     @Override

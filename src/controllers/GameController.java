@@ -30,15 +30,14 @@ public class GameController implements Initializable {
     @FXML
     public Label distance;
 
-
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         CurrentPoints currentPlayerPoints = RunTrack.getCurrentPoints();
         CurrentTime currentTime = RunTrack.getCurrentTime();
         CurrentDistance currentDistance = RunTrack.getCurrentDistance();
-        scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
-        timeInfo.textProperty().bind(Bindings.convert(currentTime.valueProperty()));
-        distance.textProperty().bind(Bindings.convert(currentDistance.valueProperty()));
-        new HealthBar(healthFirst, healthSecond, healthThird, healthFourth);
+        this.scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
+        this.timeInfo.textProperty().bind(Bindings.convert(currentTime.valueProperty()));
+        this.distance.textProperty().bind(Bindings.convert(currentDistance.valueProperty()));
+        new HealthBar(this.healthFirst, this.healthSecond, this.healthThird, this.healthFourth);
     }
 
     public void quitGame(ActionEvent actionEvent) {
