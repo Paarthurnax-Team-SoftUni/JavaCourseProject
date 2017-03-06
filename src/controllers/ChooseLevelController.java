@@ -83,7 +83,7 @@ public class ChooseLevelController {
         this.backgroundBox1.setStyle(null);
         this.backgroundBox2.setStyle(null);
 
-        this.backgroundBox2.setStyle("-fx-fill: rgba(95, 88, 93, 0.7);");
+        this.backgroundBox2.setStyle(Constants.GREY_COLOUR);
         this.backgroundBox2.toFront();
         this.locked2.setVisible(true);
 
@@ -99,11 +99,11 @@ public class ChooseLevelController {
 
         switch (id) {
             case 1:
-                this.backgroundBox1.setStyle("-fx-fill: rgba(255,0,0, 0.55);");
+                this.backgroundBox1.setStyle(Constants.RED_COLOUR);
                 this.backgroundBox1.toFront();
                 break;
             case 2:
-                this.backgroundBox2.setStyle("-fx-fill: rgba(255,0,0, 0.55);");
+                this.backgroundBox2.setStyle(Constants.RED_COLOUR);
                 break;
         }
     }

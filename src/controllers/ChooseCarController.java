@@ -88,19 +88,19 @@ public class ChooseCarController{
         this.backgroundBox5.setStyle(null);
         this.backgroundBox6.setStyle(null);
 
-        this.backgroundBox2.setStyle("-fx-fill: rgba(95, 88, 93, 0.7);");
+        this.backgroundBox2.setStyle(Constants.GREY_COLOUR);
         this.backgroundBox2.toFront();
         this.locked2.setVisible(true);
-        this.backgroundBox3.setStyle("-fx-fill: rgba(95, 88, 93, 0.7);");
+        this.backgroundBox3.setStyle(Constants.GREY_COLOUR);
         this.backgroundBox3.toFront();
         this.locked3.setVisible(true);
-        this.backgroundBox4.setStyle("-fx-fill: rgba(95, 88, 93, 0.7);");
+        this.backgroundBox4.setStyle(Constants.GREY_COLOUR);
         this.backgroundBox4.toFront();
         this.locked4.setVisible(true);
-        this.backgroundBox5.setStyle("-fx-fill: rgba(95, 88, 93, 0.7);");
+        this.backgroundBox5.setStyle(Constants.GREY_COLOUR);
         this.backgroundBox5.toFront();
         this.locked5.setVisible(true);
-        this.backgroundBox6.setStyle("-fx-fill: rgba(95, 88, 93, 0.7);");
+        this.backgroundBox6.setStyle(Constants.GREY_COLOUR);
         this.backgroundBox6.toFront();
         this.locked6.setVisible(true);
 
@@ -136,22 +136,22 @@ public class ChooseCarController{
 
         switch (id) {
             case "1":
-                this.backgroundBox1.setStyle("-fx-fill: rgba(255,0,0, 0.55);");
+                this.backgroundBox1.setStyle(Constants.RED_COLOUR);
                 break;
             case "2":
-                this.backgroundBox2.setStyle("-fx-fill: rgba(255,0,0, 0.55);");
+                this.backgroundBox2.setStyle(Constants.RED_COLOUR);
                 break;
             case "3":
-                this.backgroundBox3.setStyle("-fx-fill: rgba(255,0,0, 0.55);");
+                this.backgroundBox3.setStyle(Constants.RED_COLOUR);
                 break;
             case "4":
-                this.backgroundBox4.setStyle("-fx-fill: rgba(255,0,0, 0.55);");
+                this.backgroundBox4.setStyle(Constants.RED_COLOUR);
                 break;
             case "5":
-                this.backgroundBox5.setStyle("-fx-fill: rgba(255,0,0, 0.55);");
+                this.backgroundBox5.setStyle(Constants.RED_COLOUR);
                 break;
             case "6":
-                this.backgroundBox6.setStyle("-fx-fill: rgba(255,0,0, 0.55);");
+                this.backgroundBox6.setStyle(Constants.RED_COLOUR);
                 break;
         }
     }

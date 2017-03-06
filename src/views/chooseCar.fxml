@@ -42,32 +42,32 @@
 
              <ImageView fx:id="car1" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../resources/images/player_car1.png" />
+                  <Image url="@../resources/images/cars/player_car1.png" />
                </image>
             </ImageView>
             <ImageView fx:id="car2" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../resources/images/player_car2.png" />
+                  <Image url="@../resources/images/cars/player_car2.png" />
                </image>
             </ImageView>
             <ImageView fx:id="car3" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
                <image>
-                  <Image url="@../resources/images/player_car3.png" />
+                  <Image url="@../resources/images/cars/player_car3.png" />
                </image>
             </ImageView>
              <ImageView fx:id="car4" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                  <image>
-                     <Image url="@../resources/images/player_car4.png" />
+                     <Image url="@../resources/images/cars/player_car4.png" />
                  </image>
              </ImageView>
              <ImageView fx:id="car5" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                  <image>
-                     <Image url="@../resources/images/player_car5.png" />
+                     <Image url="@../resources/images/cars/player_car5.png" />
                  </image>
              </ImageView>
              <ImageView fx:id="car6" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                  <image>
-                     <Image url="@../resources/images/player_car6.png" />
+                     <Image url="@../resources/images/cars/player_car6.png" />
                  </image>
              </ImageView>
             <Label fx:id="label1" onMouseClicked="#chooseCar" text="Orange" GridPane.halignment="CENTER" GridPane.valignment="TOP">

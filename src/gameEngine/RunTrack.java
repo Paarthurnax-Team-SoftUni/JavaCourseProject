@@ -178,7 +178,7 @@ public class RunTrack {
                     Stage currentStage = (Stage) canvas.getScene().getWindow();
 
                     //CHECK FOR END && CHECK FOR LOSE
-                    if (currentDistance.getValue() >= 5000 || player.getHealthPoints() <= 0) {       //if(time >= Constants.TRACK_1_END_TIME){
+                    if (currentDistance.getValue() >= 5000 || player.getHealthPoints() <= 0) {       //(time >= Constants.TRACK_1_END_TIME)
                         if(currentDistance.getValue() >= 5000){
                             this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
                         }
@@ -186,6 +186,7 @@ public class RunTrack {
                         gameLoop.stop();
                         MusicPlayer.stop();
                         time = 0;
+                        Notification.hidePopupMessage();
                         velocity = Constants.START_GAME_VELOCITY;
                         currentDistance.setValue(0);
                         root.getChildren().remove(canvas);

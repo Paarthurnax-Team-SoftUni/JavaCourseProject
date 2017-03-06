@@ -12,7 +12,6 @@ public class Notification {
         popup.setAutoHide(true);
         popup.setHideOnEscape(true);
         Label label = new Label(message);
-        label.setOnMouseReleased(e -> popup.hide());
         label.getStylesheets().add("/resources/styles/styles.css");
         label.getStyleClass().add("popup");
         label.getStyleClass().add(type);
@@ -27,6 +26,10 @@ public class Notification {
             popup.setY(stage.getY() + stage.getHeight() - popup.getHeight()- 20);
         });
         popup.show(stage);
+    }
+
+    public static void hidePopupMessage(){
+        popup.hide();
     }
 
 

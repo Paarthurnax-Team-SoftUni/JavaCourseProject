@@ -94,11 +94,11 @@ public class Collectible extends Sprite {
 
     public static Collectible generateCollectible() {
 
-        String[] collectibles= Constants.COLLECTABLE_LIST_SMALL;
+        String[] collectibles= Constants.COLLECTIBLE_LIST_SMALL;
         String random=collectibles[new Random().nextInt(collectibles.length)];
 
         Random collectibleX = new Random();
-        String stringDirectory = Constants.COLLECTABLE_PATH + random + ".png";
+        String stringDirectory = Constants.COLLECTIBLE_PATH + random + ".png";
 
         Collectible collectible = new Collectible();
         collectible.setName(random);
