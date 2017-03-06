@@ -10,12 +10,12 @@ import javafx.scene.image.Image;
 public abstract class Sprite {
     private Image image;
     private String name;
-    private double positionX;
-    private double positionY;
-    private double velocityX;
-    private double velocityY;
+    protected double positionX;
+    protected double positionY;
+    protected double velocityX;
+    protected double velocityY;
     private double width;
-    private double height;
+    protected double height;
     protected boolean isDestroyed;
     private boolean turnRight;
     private boolean turnLeft;
@@ -142,6 +142,14 @@ public abstract class Sprite {
         positionY += velocityY;
     }
 
+    public void removeWind(){
+        this.velocityX=0;
+        this.velocityY=0;
+        this.setAngle(0);
+        this.setTurnRight(false);
+        this.setTurnLeft(false);
+    }
+
     public void render(GraphicsContext gc) {
         RotatedImageInCanvas.drawRotatedImage(gc, this.getImage(), this.getAngle(), this.getPositionX(), this.getPositionY());
     }
@@ -153,6 +161,7 @@ public abstract class Sprite {
     public boolean intersects(Sprite s) {
         return s.getBoundary().intersects(this.getBoundary());
     }
+
 
 
 }

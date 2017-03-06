@@ -37,7 +37,7 @@ public class Player extends Sprite {
         return highScore;
     }
 
-    public void setHighScore(Long highScore) {
+    private void setHighScore(Long highScore) {
         this.highScore = highScore;
     }
 
@@ -73,6 +73,8 @@ public class Player extends Sprite {
         this.healthPoints = healthPoints;
     }
 
+    public void addPoints(int PointsToAdd) {
+        this.setPoints(this.getPoints()+ PointsToAdd);
     public int getMaxLevelPassed() {
         return this.maxLevelPassed;
     }
@@ -97,7 +99,7 @@ public class Player extends Sprite {
         this.accelerating = true;
     }
 
-    public void updateHighScore(){
+    private void updateHighScore(){
         if (this.getHighScore() < this.getPoints()) {
             this.setHighScore(this.getPoints());
         }
@@ -108,6 +110,8 @@ public class Player extends Sprite {
         this.updateHighScore();
         this.setPoints(0L);
         this.stopAccelerate();
+        this.setCenterWheel(true);
+        this.removeWind();
     }
 
     public void stopAccelerate() {
