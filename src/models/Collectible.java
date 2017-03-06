@@ -1,6 +1,6 @@
 package models;
 
-import GameEngine.Notification;
+import gameEngine.Notification;
 import dataHandler.Constants;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
@@ -98,7 +98,7 @@ public class Collectible extends Sprite {
         String random=collectibles[new Random().nextInt(collectibles.length)];
 
         Random collectibleX = new Random();
-        String stringDirectory = Constants.IMAGES_PATH + random + ".png";
+        String stringDirectory = Constants.COLLECTABLE_PATH + random + ".png";
 
         Collectible collectible = new Collectible();
         collectible.setName(random);

@@ -1,6 +1,6 @@
 package models;
 
-import GameEngine.RunTrack;
+import gameEngine.RunTrack;
 import dataHandler.Constants;
 
 public class Player extends Sprite {

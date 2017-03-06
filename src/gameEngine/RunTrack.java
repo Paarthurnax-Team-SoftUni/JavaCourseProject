@@ -1,4 +1,4 @@
-package GameEngine;
+package gameEngine;
 
 import controllers.ChooseCarController;
 import dataHandler.*;
@@ -180,9 +180,7 @@ public class RunTrack {
                     //CHECK FOR END && CHECK FOR LOSE
                     if (currentDistance.getValue() >= 5000 || player.getHealthPoints() <= 0) {       //if(time >= Constants.TRACK_1_END_TIME){
                         if(currentDistance.getValue() >= 5000){
-                            System.out.println(this.getPlayer().getMaxLevelPassed());
                             this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
-                            System.out.println(this.getPlayer().getMaxLevelPassed());
                         }
                         clearObstaclesAndCollectibles();
                         gameLoop.stop();

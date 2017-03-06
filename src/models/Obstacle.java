@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Random;
 
 public class Obstacle extends Sprite {
+
     protected boolean isDrunk;
     private List<Obstacle> obstacles;
-
 
     public Obstacle() {
         setDestroyed(false);
@@ -23,8 +23,6 @@ public class Obstacle extends Sprite {
         this.setVelocity(0, 0);
         isDestroyed = destroyed;
     }
-
-
 
     private boolean getIsDrunk() {
         return this.isDrunk;
