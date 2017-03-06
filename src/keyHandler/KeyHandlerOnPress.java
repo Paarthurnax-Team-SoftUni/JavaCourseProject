@@ -57,6 +57,8 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                 case "Q":
                     Platform.exit();
                     break;
+                case "Enter":
+                    break;
                 default:
                     break;
             }
