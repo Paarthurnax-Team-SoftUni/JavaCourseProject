@@ -78,7 +78,11 @@ public class Obstacle extends Sprite {
 
         return obstacle;
     }
-
+    public void handleImpactByAmmo(){
+        this.setDestroyed(true);
+        this.setIsDrunk(false);
+        this.removeWind();
+    }
 
     public void handleImpactByCarPlayer(double velocity){
         this.setDestroyed(true);

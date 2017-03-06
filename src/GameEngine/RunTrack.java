@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import keyHandler.KeyHandlerOnPress;
 import keyHandler.KeyHandlerOnRelease;
+import models.Ammo;
 import models.Collectible;
 import models.Obstacle;
 import models.Player;
@@ -41,6 +42,9 @@ public class RunTrack {
     private ChooseCarController chooseCarController;
     private Collectible collectible;
     private Obstacle obstacle;
+    private static  boolean isFire;
+    private int ammoCap;
+    private Ammo ammo;
 
 
     public RunTrack(Player player, float velocity) {
@@ -56,6 +60,9 @@ public class RunTrack {
         this.chooseCarController = new ChooseCarController();
         this.collectible = new Collectible(player);
         this.obstacle = new Obstacle();
+        this.isFire=false;
+        this.ammoCap=0;
+        this.ammo= new Ammo();
     }
 
     private static Observer observer = new Observer() {
@@ -110,11 +117,17 @@ public class RunTrack {
                 Duration.seconds(currentFramesPerSecond),
                 event -> {
 
+
+
                     //Pause
                     if (isPaused) {
                         PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, y, player, obstacle.getObstacles(), collectible.getCollectibles());
                         pauseHandler.activatePause();
                     }
+                    // Ammo logic to be done!
+                    //if(frame==0){
+                    //   ammo.addAmmo(ammo.generateAmmo(player));
+                    //}
 
                     y = Math.round(y + velocity);
 
@@ -152,6 +165,16 @@ public class RunTrack {
                     this.player.render(gc);
                     currentHealth.update();
                     obstacle.manageObstacles(gc, collectible, player, obstacle.getObstacles(), velocity);
+
+
+                    // Ammo logic to be done!
+                    //  ammo.manageObstacles(gc,obstacle.getObstacles(), ammo.getAmmunition());
+
+
+
+
+
+
                     Stage currentStage = (Stage) canvas.getScene().getWindow();
 
                     //CHECK FOR END && CHECK FOR LOSE
@@ -229,4 +252,10 @@ public class RunTrack {
         isPaused = newValue;
     }
 
+    public static boolean isFire(){
+        return isFire;
+    }
+    public static void setFire(boolean newValue){
+        isFire=newValue;
+    }
 }
