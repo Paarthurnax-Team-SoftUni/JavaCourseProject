@@ -34,7 +34,7 @@ public class PlayerData {
     }
 
     public Player getCurrentPlayer() {
-        return currentPlayer;
+        return this.currentPlayer;
     }
 
     public void setCurrentPlayer(Player currentPlayer) {
@@ -42,15 +42,15 @@ public class PlayerData {
     }
 
     public ObservableList<Player> getPlayersList() {
-        return playersList;
+        return this.playersList;
     }
 
     public void addPlayer(Player player) {
-        playersList.add(player);
+        this.playersList.add(player);
     }
 
     public void loadPlayersData() {
-        playersList = FXCollections.observableArrayList();
+        this.playersList = FXCollections.observableArrayList();
         Path path = Paths.get(Constants.HIGH_SCORES_FILE_NAME);
 
         String input;
@@ -65,7 +65,7 @@ public class PlayerData {
                 long experience = Long.parseLong(itemPieces[4]);
                 int healthPoints = Integer.parseInt(itemPieces[5]);
                 Player player = new Player(name, highScore, money, points, experience, healthPoints);
-                playersList.add(player);
+                this.playersList.add(player);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,7 +75,7 @@ public class PlayerData {
     public void storePlayersData() {
         Path path = Paths.get(Constants.HIGH_SCORES_FILE_NAME);
         try (BufferedWriter bw = Files.newBufferedWriter(path)) {
-            Iterator<Player> iter = playersList.iterator();
+            Iterator<Player> iter = this.playersList.iterator();
             while (iter.hasNext()) {
                 Player player = iter.next();
                 bw.write(String.format("%s\t%s\t%s\t%s\t%s\t%s%n",
@@ -93,7 +93,7 @@ public class PlayerData {
     }
 
     public boolean checkForPlayer(String player) {
-        for (Player savedPlayer : playersList) {
+        for (Player savedPlayer : this.playersList) {
             if (savedPlayer.getName().equals(player)) {
                 return false;
             }
@@ -102,7 +102,7 @@ public class PlayerData {
     }
 
     public Player returnPlayer(String player) {
-        for (Player savedPlayer : playersList) {
+        for (Player savedPlayer : this.playersList) {
             if (savedPlayer.getName().equals(player)) {
                 return savedPlayer;
             }

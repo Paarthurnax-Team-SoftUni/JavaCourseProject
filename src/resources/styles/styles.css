@@ -2,7 +2,7 @@
     -fx-background-image: url('/resources/images/backgrounds/background-home-1.jpg');
 }
 
-#chooseCarPage{
+#chooseCarPage, #chooseLevelPage{
     -fx-background-image: url('/resources/images/backgrounds/background-home.jpg');
 }
 
@@ -10,6 +10,7 @@
     -fx-fill: rgba(255,255,255, 0.6);
 }
 
+/* loginPage */
 #loginPage #loginBtn{
     -fx-background-color: transparent;
 }
@@ -19,6 +20,7 @@
     -fx-background-radius: 15px;
 }
 
+/* homePage */
 #homePage #showScoresBtn, #closeBtn, #chooseCarBtn{
     -fx-background-color: transparent;
 }
@@ -38,16 +40,37 @@
     -fx-background-radius: 15px;
 }
 
-#chooseCarPage #returnBtn{
+/* chooseCarPage */
+#chooseCarPage #goNextBtn{
     -fx-background-color: rgba(255,255,255, 0.6);
     -fx-background-radius: 15px;
+}
+
+#chooseCarPage #goNextBtn:hover {
+    -fx-background-color: rgba(255,0,0, 0.6);
 }
 
 #chooseCarPage #cars{
     -fx-background-color: rgba(255,255,255, 0.6);
+    -fx-border-color: black;
+}
+
+/* chooseLevelPage */
+#chooseLevelPage #startBtn{
+    -fx-background-color: rgba(255,255,255, 0.6);
     -fx-background-radius: 15px;
 }
 
+#chooseLevelPage #startBtn:hover {
+    -fx-background-color: rgba(255,0,0, 0.6);
+}
+
+#chooseLevelPage #levels{
+    -fx-background-color: rgba(255,255,255, 0.6);
+    -fx-background-radius: 15px;
+}
+
+/* gameOverPage */
 #gameOverPage{
     -fx-background-image: url('/resources/images/gifs/game-over.gif');
 }
@@ -62,7 +85,7 @@
     -fx-background-radius: 15px;
 }
 
-
+/* gameWinPage */
 #gameWinPage{
     -fx-background-image: url('/resources/images/gifs/game-win.gif');
 }
@@ -77,6 +100,7 @@
     -fx-background-radius: 15px;
 }
 
+/* gamePlayPage */
 #menu {
     -fx-background-color: black;
 }

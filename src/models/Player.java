@@ -11,17 +11,9 @@ public class Player extends Sprite {
     private Long points;
     private Long experience;
     private int healthPoints;
+    private int maxLevelPassed;
     private boolean accelerating = false;
     private boolean centerWheel;
-
-    public boolean getCenterWheel() {
-        return this.centerWheel;
-    }
-
-    public void setCenterWheel(boolean b) {
-        this.centerWheel = b;
-    }
-
 
     public Player(String name, Long highScore, Double money, Long points, Long experience, int healthPoints) {
 
@@ -58,7 +50,7 @@ public class Player extends Sprite {
     }
 
     public Long getPoints() {
-        return points;
+        return this.points;
     }
 
     public void setPoints(Long points) {
@@ -66,7 +58,7 @@ public class Player extends Sprite {
     }
 
     public Long getExperience() {
-        return experience;
+        return this.experience;
     }
 
     public void setExperience(Long experience) {
@@ -74,7 +66,7 @@ public class Player extends Sprite {
     }
 
     public int getHealthPoints() {
-        return healthPoints;
+        return this.healthPoints;
     }
 
     public void setHealthPoints(int healthPoints) {
@@ -82,7 +74,27 @@ public class Player extends Sprite {
     }
 
     public void addPoints(int PointsToAdd) {
-        this.setPoints(this.getPoints()+ PointsToAdd);
+        this.setPoints(this.getPoints() + PointsToAdd);
+    }
+
+    public int getMaxLevelPassed() {
+        return this.maxLevelPassed;
+    }
+
+    public void setMaxLevelPassed(int levelPassed) {
+        this.maxLevelPassed = levelPassed;
+    }
+
+    public boolean getCenterWheel() {
+        return this.centerWheel;
+    }
+
+    public void setCenterWheel(boolean b) {
+        this.centerWheel = b;
+    }
+
+    public void givePoints(int playerPoints) {
+        points += playerPoints;
     }
 
     public void accelerate() {
@@ -104,12 +116,9 @@ public class Player extends Sprite {
         this.removeWind();
     }
 
-
     public void stopAccelerate() {
         this.accelerating = false;
-
     }
-
 
     @Override
     public void update() {
@@ -133,13 +142,10 @@ public class Player extends Sprite {
         }
 
         super.update();
-
     }
 
     @Override
     public String toString() {
         return String.format("%s: %s", this.name, this.highScore);
     }
-
-
 }
