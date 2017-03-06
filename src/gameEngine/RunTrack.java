@@ -26,7 +26,7 @@ import java.util.Observer;
 
 public class RunTrack {
     private int frame;
-    private long time;
+    private static long time;
     private int y;
 
     private float currentFramesPerSecond;
@@ -178,7 +178,7 @@ public class RunTrack {
                     Stage currentStage = (Stage) canvas.getScene().getWindow();
 
                     //CHECK FOR END && CHECK FOR LOSE
-                    if (currentDistance.getValue() >= 5000 || player.getHealthPoints() <= 0) {       //(time >= Constants.TRACK_1_END_TIME)
+                    if (time >= Constants.TRACK_1_END_TIME || player.getHealthPoints() <= 0) {       //(time >= Constants.TRACK_1_END_TIME)
                         if(currentDistance.getValue() >= 5000){
                             this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
                         }
@@ -201,6 +201,7 @@ public class RunTrack {
                         collectible.addCollectible(Collectible.generateCollectible());
                     }
                     String action = collectible.visualizeCollectible(gc, velocity, currentStage);
+
                     if(action != null &&  action.equals(Constants.ARMAGEDDON_STRING)) {
                         startArmageddonsPower();
                     } else if (action != null && action.equals(Constants.FUEL_BOTTLE_STRING)) {
@@ -249,6 +250,11 @@ public class RunTrack {
 
     public static void setIsPaused(boolean newValue) {
         isPaused = newValue;
+    }
+
+
+    public static void addTime(long newTime) {
+        time-=newTime;
     }
 
     public static boolean isFire(){
