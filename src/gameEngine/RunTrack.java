@@ -100,7 +100,7 @@ public class RunTrack {
         this.setCarId(chooseCarController.getCarId());
         carId = carId == null ? "car1" : carId;
         //String carImg = Constants.CAR_IMAGES_PATH + carId + ".png";
-        String carImg = Constants.CAR_IMAGES_PATH + carId + "_half_size.png";
+        String carImg = Constants.CAR_IMAGES_PATH + carId + Constants.HALF_SIZE;
         player.setImage(carImg);
         player.setPosition(200, 430);
         player.setPoints(0L);

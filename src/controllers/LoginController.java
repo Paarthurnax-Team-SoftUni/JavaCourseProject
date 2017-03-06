@@ -32,15 +32,15 @@ public class LoginController{
 
         if ("".equals(name)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("You have to fill in the username field!");
-            alert.setContentText("Please click on OK to retry!");
-            alert.setHeaderText("You have to fill in the username field!");
+            alert.setTitle(Constants.ERROR_USERNAME_TITLE);
+            alert.setContentText(Constants.ERROR_USERNAME_CONTENT);
+            alert.setHeaderText(Constants.ERROR_USERNAME_HEADER);
             alert.showAndWait();
         } else if (!PlayerData.getInstance().checkForPlayer(name)) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Login with this username");
-            alert.setHeaderText("Login as user: " + name);
-            alert.setContentText("Are you sure? Press OK to continue, or Cancel to abort.");
+            alert.setTitle(Constants.LOGIN_USER_TITLE);
+            alert.setHeaderText(Constants.LOGIN_USER_HEADER + name);
+            alert.setContentText(Constants.LOGIN_USER_CONTENT);
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
                 PlayerData.getInstance().setCurrentPlayer(PlayerData.getInstance().returnPlayer(name));
@@ -49,9 +49,9 @@ public class LoginController{
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Create new user");
-            alert.setHeaderText("Create new user: " + name);
-            alert.setContentText("Are you sure? Press OK to continue, or Cancel to abort.");
+            alert.setTitle(Constants.CREATE_USER_TITLE);
+            alert.setHeaderText(Constants.CREATE_USER_HEADER + name);
+            alert.setContentText(Constants.CREATE_USER_CONTENT);
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
                 Player player = new Player(name, 0L, 0.0, 0L, 0L, 100);

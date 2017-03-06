@@ -1,11 +1,8 @@
 package gameEngine;
 
-import javafx.event.EventHandler;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 public class Notification {
     private static Popup popup = new Popup();
@@ -15,12 +12,7 @@ public class Notification {
         popup.setAutoHide(true);
         popup.setHideOnEscape(true);
         Label label = new Label(message);
-        label.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent e) {
-                popup.hide();
-            }
-        });
+        label.setOnMouseReleased(e -> popup.hide());
         label.getStylesheets().add("/resources/styles/styles.css");
         label.getStyleClass().add("popup");
         label.getStyleClass().add(type);
@@ -30,12 +22,9 @@ public class Notification {
 
     public static void showPopupMessage(final String type, final String message, final Stage stage) {
         popup = createPopup(type, message);
-        popup.setOnShown(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent e) {
-                popup.setX(stage.getX() + 20);
-                popup.setY(stage.getY() + stage.getHeight() - popup.getHeight()- 20);
-            }
+        popup.setOnShown(e -> {
+            popup.setX(stage.getX() + 20);
+            popup.setY(stage.getY() + stage.getHeight() - popup.getHeight()- 20);
         });
         popup.show(stage);
     }

@@ -31,15 +31,15 @@ public class Collectible extends Sprite {
 
     private String getCollectibleType(){
         switch (this.getName()){
-            case "collectable1_half_size":
+            case Constants.COLLECTIBLE + 1 + Constants.HALF_SIZE_NAME:
                 return Constants.FUEL_BOTTLE_STRING;
-            case "collectable2_half_size":
+            case Constants.COLLECTIBLE + 2 + Constants.HALF_SIZE_NAME:
                 return Constants.HEALTH_STRING;
-            case "collectable3_half_size":
+            case Constants.COLLECTIBLE + 3 + Constants.HALF_SIZE_NAME:
                 return Constants.DOUBLE_POINTS_STRING;
-            case "collectable4_half_size":
+            case Constants.COLLECTIBLE + 4 + Constants.HALF_SIZE_NAME:
                 return Constants.IMMORTALITY_STRING;
-            case "collectable5_half_size":
+            case Constants.COLLECTIBLE + 5 + Constants.HALF_SIZE_NAME:
                 return Constants.ARMAGEDDON_STRING;
         }
         return Constants.BONUS_POINTS_STRING;

@@ -60,7 +60,7 @@ public class Obstacle extends Sprite {
 
         if (random.contains("car")){
             obstacle = new EnemyDriver();
-            if (new Random().nextInt(100)> 0){
+            if (new Random().nextInt(100)> 60){
                 obstacle.setIsDrunk(true);
                 obstacle.setPosition(obstacleX.nextInt(350 - 100) + 100, -166);
             } else {

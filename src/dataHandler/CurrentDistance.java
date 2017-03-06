@@ -8,7 +8,7 @@ import java.util.Observable;
 
 public class CurrentDistance extends Observable{
 
-    private SimpleLongProperty value = new SimpleLongProperty(this, "value");
+    private SimpleLongProperty value = new SimpleLongProperty(this, Constants.VALUE_STRING);
 
     public CurrentDistance(long input) {
        setValue(input);

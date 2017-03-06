@@ -12,11 +12,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
-import mapHandlers.Levels.FirstLevel;
 import mapHandlers.Track;
+import mapHandlers.TrackHandler;
+import mapHandlers.TrackLevel;
 import models.Player;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
+
+import java.io.IOException;
 
 public class ChooseLevelController {
 
@@ -34,8 +37,8 @@ public class ChooseLevelController {
     private Ellipse backgroundBox2;
     @FXML
 
-    public void initialize() {
-        track = new FirstLevel();
+    public void initialize() throws IOException {
+        track = TrackHandler.getLevel(TrackLevel.FIRST_LEVEL);
         this.setCurrentPlayer(PlayerData.getInstance().getCurrentPlayer());
         showUnlockedLevelsOnly(this.getCurrentPlayer().getMaxLevelPassed());
     }
@@ -56,8 +59,8 @@ public class ChooseLevelController {
         this.currentPlayer = currentPlayer;
     }
 
-    public void startGame(ActionEvent actionEvent) {
-        Track track = new FirstLevel();
+    public void startGame(ActionEvent actionEvent) throws IOException {
+        Track track = TrackHandler.getLevel(TrackLevel.FIRST_LEVEL);
         PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
         Stage currentStage = (Stage)this.startBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();

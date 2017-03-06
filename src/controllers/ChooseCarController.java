@@ -72,10 +72,10 @@ public class ChooseCarController{
         Node source = (Node) ev.getSource();
         String id = source.getId();
         backgroundFill(id.substring(id.length() - 1));
-        if (id.substring(0, 3).equals("car")) {
+        if (id.substring(0, 3).equals(Constants.CAR_STRING)) {
             this.setCarId(id);
         } else if (source.getId().substring(0, 5).equals("label")) {
-            this.setCarId("car" + id.substring(id.length() - 1));
+            this.setCarId(Constants.CAR_STRING + id.substring(id.length() - 1));
         }
         this.goNextBtn.setVisible(true);
     }

@@ -6,7 +6,7 @@ public class Constants {
     public static final int CANVAS_WIDTH = 800;
     public static final int CANVAS_HEIGHT = 600;
     public static final float FRAMES_PER_SECOND = 0.017f;   //Seconds per frame [ 1 Frame == the given time in seconds];
-
+    //resources
     public static final String LOGO_PATH = "/resources/images/logo.png";
     public static final String LOGIN_VIEW_PATH = "/views/login.fxml";
     public static final String START_FXML_PATH = "/views/start.fxml";
@@ -16,23 +16,6 @@ public class Constants {
     public static final String GAME_OVER_VIEW_PATH = "/views/gameOver.fxml";
     public static final String GAME_WIN_VIEW_PATH = "/views/gameWin.fxml";
     public static final String HIGH_SCORES_DIALOG = "/views/highScoresDialog.fxml";
-    public static final String HIGH_SCORE_DIALOG_TITLE = "Best Slav Ranking";
-    public static final String DIALOG_MESSAGE = "Best Slav Ranking";
-    public static final String FUEL_BOTTLE_STRING = "fuelBottle";
-    public static final String HEALTH_STRING = "health";
-    public static final String DOUBLE_POINTS_STRING = "doublePts";
-    public static final String IMMORTALITY_STRING = "immortality";
-    public static final String ARMAGEDDON_STRING = "armageddonsPower";
-    public static final String BONUS_POINTS_STRING = "bonusPts";
-
-    public static final String COLLECTIBLES_PATH = "/resources/images/collectable";
-    public static final String[] COLLECTABLE_LIST = {"collectable1", "collectable2", "collectable3", "collectable4", "collectable5", "collectable1", "collectable2", "collectable3"}; //to be used to refractor gameTokens
-    public static final String[] OBSTACLES_LIST = {"obstacle1", "obstacle2", "obstacle3", "obstacle1", "obstacle2", "obstacle3", "player_car1", "player_car2", "player_car3", "player_car4", "player_car5", "player_car6"};
-
-    public static final String COLLECTABLE_PATH = "resources/images/collectables/";
-    public static final String[] COLLECTABLE_LIST_SMALL = {"collectable1_half_size", "collectable2_half_size", "collectable3_half_size", "collectable4_half_size", "collectable5_half_size", "collectable1_half_size", "collectable2_half_size", "collectable3_half_size"}; //to be used to refractor gameTokens
-
-    public static final String[] OBSTACLES_LIST_SMALL = {"obstacle1_half_size", "obstacle2_half_size", "obstacle3_half_size", "player_car1_half_size", "player_car2_half_size", "player_car3_half_size", "player_car4_half_size", "player_car5_half_size", "player_car6_half_size"};
     public static final String IMAGES_PATH = "resources/images/";
     public static final String HIGH_SCORES_FILE_NAME = System.getProperty("user.dir") + "/src/resources/playerList.txt";
     public static final String FLAME_PATH = "resources/images/flame.png";
@@ -41,6 +24,37 @@ public class Constants {
     public static final String TRACK_BACKGROUND_PATH_TEST = "resources/images/backgrounds/backgroundLevel2.jpg";
     public static final String SONG_PATH = System.getProperty("user.dir") + "/src/resources/music.wav";
     public static final String CAR_IMAGES_PATH = "/resources/images/player_";
+
+    //login strings
+    public static final String ERROR_USERNAME_TITLE = "You have to fill in the username field!";
+    public static final String ERROR_USERNAME_CONTENT = "Please click on OK to retry!";
+    public static final String ERROR_USERNAME_HEADER = "You have to fill in the username field!";
+    public static final String LOGIN_USER_TITLE = "Login with this username";
+    public static final String LOGIN_USER_HEADER = "Login as user: ";
+    public static final String LOGIN_USER_CONTENT = "Are you sure? Press OK to continue, or Cancel to abort.";
+    public static final String CREATE_USER_TITLE = "Create new user";
+    public static final String CREATE_USER_CONTENT = "Are you sure? Press OK to continue, or Cancel to abort.";
+    public static final String CREATE_USER_HEADER = "Create new user: ";
+
+    public static final String HIGH_SCORE_DIALOG_TITLE = "Best Slav Ranking";
+    public static final String DIALOG_MESSAGE = "Best Slav Ranking";
+
+    //collctibles and obstacles
+    public static final String FUEL_BOTTLE_STRING = "fuelBottle";
+    public static final String HEALTH_STRING = "health";
+    public static final String DOUBLE_POINTS_STRING = "doublePts";
+    public static final String IMMORTALITY_STRING = "immortality";
+    public static final String ARMAGEDDON_STRING = "armageddonsPower";
+    public static final String BONUS_POINTS_STRING = "bonusPts";
+    public static final String COLLECTIBLES_PATH = "/resources/images/collectable";
+    public static final String[] COLLECTABLE_LIST = {"collectable1", "collectable2", "collectable3", "collectable4", "collectable5", "collectable1", "collectable2", "collectable3"}; //to be used to refractor gameTokens
+    public static final String[] OBSTACLES_LIST = {"obstacle1", "obstacle2", "obstacle3", "obstacle1", "obstacle2", "obstacle3", "player_car1", "player_car2", "player_car3", "player_car4", "player_car5", "player_car6"};
+    public static final String COLLECTABLE_PATH = "resources/images/collectables/";
+    public static final String[] COLLECTABLE_LIST_SMALL = {"collectable1_half_size", "collectable2_half_size", "collectable3_half_size", "collectable4_half_size", "collectable5_half_size", "collectable1_half_size", "collectable2_half_size", "collectable3_half_size"}; //to be used to refractor gameTokens
+    public static final String[] OBSTACLES_LIST_SMALL = {"obstacle1_half_size", "obstacle2_half_size", "obstacle3_half_size", "player_car1_half_size", "player_car2_half_size", "player_car3_half_size", "player_car4_half_size", "player_car5_half_size", "player_car6_half_size"};
+
+
+    //gameplay constants
     public static final int BONUS_POINTS_HIT_WITH_SHIELD = 10;
     public static final long TRACK_1_END_TIME = 3533; //Key Time in Frames; 3533
     public static final int COLLECTIBLES_OFFSET = 50000;
@@ -61,10 +75,20 @@ public class Constants {
     public static final int HEALTH_BAR_AVERAGE_LOW = 50;
     public static final int OBSTACLE_DAMAGE = 25;
 
+    //notifications
     public static final String FUEL_NOTIFICATION_MESSAGE = "Extra fuel! +5 seconds";
     public static final String HEALTH_NOTIFICATION_MESSAGE = "Health! Restore your health";
     public static final String DOUBLE_PTS_NOTIFICATION_MESSAGE = "Bonus! Double points in the next 5 seconds";
     public static final String IMMORTALITY_NOTIFICATION_MESSAGE = "Immortality! You are invincible for the next 5 seconds";
     public static final String ARMAGEDDONS_NOTIFICATION_MESSAGE = "Armageddons Power! Nothing can get on your way now";
 
+    public static final String HALF_SIZE = "_half_size.png";
+    public static final java.lang.String VALUE_STRING = "value";
+    public static final String TABLE_COLUMN_NAME = "Player Name";
+    public static final String TABLE_COLUMN_MONEY = "Kinti Earned";
+    public static final String TABLE_COLUMN_SCORE = "High Score";
+    public static final String CAR_STRING = "car";
+
+    public static final String HALF_SIZE_NAME = "_half_size";
+    public static final String COLLECTIBLE = "collectable";
 }
