@@ -34,8 +34,8 @@ public class ChooseLevelController {
 
     public void initialize() {
         track = new FirstLevel();
-        Player p = PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
-        //showUnlockedCarsOnly(p.getHighScore());
+        Player player = PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
+        showUnlockedCarsOnly(player.getHighScore());
     }
 
     public String getLevel() {
@@ -49,11 +49,13 @@ public class ChooseLevelController {
     public void startGame(ActionEvent actionEvent) {
         Stage currentStage = (Stage)this.startGameBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
-        FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.START_FXML_PATH,null);
+        FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_PLAY_VIEW_PATH,null);
     }
 
     public void chooseLevel(MouseEvent ev) {
         Node source = (Node) ev.getSource();
+
+        System.out.println(source);
 
         if (source.getId().substring(0, 5).equals("level")) {
             setLevel(source.getId());
@@ -70,6 +72,7 @@ public class ChooseLevelController {
         backgroundBox2.setStyle(null);
 
         backgroundBox2.setStyle("-fx-fill: rgba(95, 88, 93, 0.7);");
+        System.out.println(backgroundBox2);
         backgroundBox2.toFront();
         locked2.setVisible(true);
     }

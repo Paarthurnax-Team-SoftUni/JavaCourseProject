@@ -52,7 +52,25 @@
     -fx-background-radius: 15px;
 }
 
+#chooseCarPage #goNextBtn:hover {
+    -fx-background-color: rgba(255,0,0, 0.6);
+}
+
 #chooseCarPage #cars{
+    -fx-background-color: rgba(255,255,255, 0.6);
+    -fx-border-color: black;
+}
+
+/* chooseLevelPage */
+#chooseLevelPage #startBtn{
+    -fx-background-color: rgba(255,255,255, 0.6);
+}
+
+#chooseLevelPage #startBtn:hover {
+    -fx-background-color: rgba(255,0,0, 0.6);
+}
+
+#chooseLevelPage #levels{
     -fx-background-color: rgba(255,255,255, 0.6);
     -fx-background-radius: 15px;
 }

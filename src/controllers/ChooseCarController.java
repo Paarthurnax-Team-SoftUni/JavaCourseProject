@@ -45,8 +45,8 @@ public class ChooseCarController{
 
     public void initialize() {
         track = new FirstLevel();
-        Player p = PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
-        showUnlockedCarsOnly(p.getHighScore());
+        Player player = PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
+        showUnlockedCarsOnly(player.getHighScore());
     }
 
     public String getCarId() {
@@ -128,8 +128,8 @@ public class ChooseCarController{
     }
 
     private void backgroundFill(String id) {
-        Player p = PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
-        showUnlockedCarsOnly(p.getHighScore());
+        Player player = PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
+        showUnlockedCarsOnly(player.getHighScore());
 
         switch (id) {
             case "1":
