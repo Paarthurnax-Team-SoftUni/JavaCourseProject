@@ -3,7 +3,7 @@
 <p>A Car Racing Game written in Java using the JavaFX client platform.</p>
 
 ##Screenshots
-![car-racing-screenshot](https://cloud.githubusercontent.com/assets/18168527/23609020/afc960e4-0274-11e7-9fa4-bf1591f4c65e.png)
+![car-racing-screenshot](https://cloud.githubusercontent.com/assets/18168527/23609226/abe1cf56-0275-11e7-9a36-15d578ade942.png)
 
 ##Functionality included:
 <ul>
