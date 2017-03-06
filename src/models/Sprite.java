@@ -1,7 +1,7 @@
 package models;
 
-import GameEngine.RotatedImageInCanvas;
-import GameEngine.RunTrack;
+import gameEngine.RotatedImageInCanvas;
+import gameEngine.RunTrack;
 import dataHandler.Constants;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -25,13 +25,11 @@ public abstract class Sprite {
         return this.angle;
     }
 
-
     public void setAngle(double angle) {
         if (angle < 43 && angle > -43) {
             this.angle = angle;
         }
     }
-
 
     public boolean getTurnRight() {
         return this.turnRight;
@@ -59,7 +57,6 @@ public abstract class Sprite {
     }
 
     public Sprite() {
-
         positionX = 0;
         positionY = 0;
         velocityX = 0;
@@ -70,7 +67,6 @@ public abstract class Sprite {
     public void setName(String n) {
         name = n;
     }
-
 
     public String getName() {
         return name;
@@ -161,7 +157,4 @@ public abstract class Sprite {
     public boolean intersects(Sprite s) {
         return s.getBoundary().intersects(this.getBoundary());
     }
-
-
-
 }

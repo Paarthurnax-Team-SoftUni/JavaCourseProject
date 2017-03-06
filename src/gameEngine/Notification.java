@@ -1,4 +1,4 @@
-package GameEngine;
+package gameEngine;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;

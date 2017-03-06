@@ -1,6 +1,6 @@
 package keyHandler;
 
-import GameEngine.RunTrack;
+import gameEngine.RunTrack;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -52,6 +52,7 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                     RunTrack.setIsPaused(true);
                     break;
                 case "M":
+                    System.out.println("clicked");
                     MusicPlayer.play();
                     break;
                 case "Q":

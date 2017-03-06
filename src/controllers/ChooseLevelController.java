@@ -84,8 +84,6 @@ public class ChooseLevelController {
         this.backgroundBox2.toFront();
         this.locked2.setVisible(true);
 
-        System.out.println(this.currentPlayer.getMaxLevelPassed());
-
         if (this.currentPlayer.getMaxLevelPassed() == 1) {
             this.backgroundBox2.setStyle(null);
             this.backgroundBox2.toBack();
