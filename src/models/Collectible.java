@@ -1,8 +1,7 @@
 package models;
 
-import gameEngine.Notification;
 import dataHandler.Constants;
-import gameEngine.RunTrack;
+import gameEngine.Notification;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
@@ -122,7 +121,6 @@ public class Collectible extends Sprite {
                         player.addPoints(Constants.FUEL_TANK_BONUS*bonusCoefficient);
                         Notification.showPopupMessage(Constants.FUEL_BOTTLE_STRING, Constants.FUEL_NOTIFICATION_MESSAGE, currentStage);
                         //not very okay with static but cant think of sthing else write now.
-                        RunTrack.addTime((long) (Constants.FUEL_TANK_BONUS_TIME/Constants.FRAMES_PER_SECOND));
                         collectible.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
                         return Constants.FUEL_BOTTLE_STRING;
 

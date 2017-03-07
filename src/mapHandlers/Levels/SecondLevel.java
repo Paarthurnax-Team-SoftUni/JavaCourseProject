@@ -1,7 +1,14 @@
 package mapHandlers.Levels;
 
-/**
- * Created by kalin on 07.03.17.
- */
-public class SecondLevel {
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import mapHandlers.Track;
+import mapHandlers.TrackLevel;
+
+public class SecondLevel extends Track{
+
+    @Override
+    public void createBackground(AnchorPane root) {
+        super.getRunTrack().runGame(new Image(TrackLevel.SECOND_LEVEL.getPath()), root, TrackLevel.SECOND_LEVEL.getValue());
+    }
 }

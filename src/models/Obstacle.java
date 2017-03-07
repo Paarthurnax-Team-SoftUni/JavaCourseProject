@@ -48,7 +48,7 @@ public class Obstacle extends Sprite {
         return obstacles;
     }
 
-    public Obstacle generateObstacle() {
+    public Obstacle generateObstacle(int valueDrunkDrivers) {
 
         String[] obstacles = Constants.OBSTACLES_LIST_SMALL;
         String random = (obstacles[new Random().nextInt(obstacles.length)]);
@@ -60,7 +60,7 @@ public class Obstacle extends Sprite {
 
         if (random.contains("car")){
             obstacle = new EnemyDriver();
-            if (new Random().nextInt(100)> 60){
+            if (new Random().nextInt(100)> valueDrunkDrivers){
                 obstacle.setIsDrunk(true);
                 obstacle.setPosition(obstacleX.nextInt(350 - 100) + 100, -166);
             } else {

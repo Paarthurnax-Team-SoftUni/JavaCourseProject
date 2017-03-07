@@ -28,6 +28,7 @@ public class ChooseLevelController {
     private static int level;
     private Track track;
     private Player currentPlayer;
+    private TrackHandler trackHandler;
 
     @FXML
     private Button startBtn;
@@ -38,9 +39,9 @@ public class ChooseLevelController {
     @FXML
 
     public void initialize() throws IOException {
-        track = TrackHandler.getLevel(TrackLevel.FIRST_LEVEL);
         this.setCurrentPlayer(PlayerData.getInstance().getCurrentPlayer());
         showUnlockedLevelsOnly(this.getCurrentPlayer().getMaxLevelPassed());
+        trackHandler = new TrackHandler();
     }
 
     public int getLevel() {
@@ -59,8 +60,7 @@ public class ChooseLevelController {
         this.currentPlayer = currentPlayer;
     }
 
-    public void startGame(ActionEvent actionEvent) throws IOException {
-        Track track = TrackHandler.getLevel(TrackLevel.FIRST_LEVEL);
+    public void startGame(ActionEvent actionEvent){
         PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
         Stage currentStage = (Stage)this.startBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
@@ -70,10 +70,10 @@ public class ChooseLevelController {
         track.createBackground(root);
     }
 
-    public void chooseLevel(MouseEvent ev) {
+    public void chooseLevel(MouseEvent ev) throws IOException {
         Node source = (Node) ev.getSource();
         int id = Integer.valueOf(source.getId().substring(5));
-
+        System.out.println(id);
         this.backgroundFill(id);
         this.setLevel(id);
         this.startBtn.setVisible(true);
@@ -94,16 +94,18 @@ public class ChooseLevelController {
         }
     }
 
-    private void backgroundFill(int id) {
+    private void backgroundFill(int id) throws IOException {
         this.showUnlockedLevelsOnly(this.currentPlayer.getMaxLevelPassed());
 
         switch (id) {
             case 1:
                 this.backgroundBox1.setStyle(Constants.RED_COLOUR);
                 this.backgroundBox1.toFront();
+                track = trackHandler.getLevel(TrackLevel.FIRST_LEVEL);
                 break;
             case 2:
                 this.backgroundBox2.setStyle(Constants.RED_COLOUR);
+                track = trackHandler.getLevel(TrackLevel.SECOND_LEVEL);
                 break;
         }
     }

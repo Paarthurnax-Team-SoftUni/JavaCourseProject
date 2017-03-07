@@ -23,8 +23,8 @@ public class Constants {
     public static final String LOGO_PATH = "/resources/images/logo.png";
     public static final String FLAME_PATH = "resources/images/flame.png";
     public static final String FLAME_PATH_SMALL = "resources/images/flame_half_size.png";
-    public static final String TRACK_BACKGROUND_PATH = "/images/backgrounds/background2.jpg";
-    public static final String TRACK_BACKGROUND_PATH_TEST = "resources/images/backgrounds/backgroundLevel2.jpg";
+    public static final String SECOND_TRACK_BACKGROUND_PATH  = "resources/images/backgrounds/backgroundLevel2.jpg";
+    public static final String TRACK_BACKGROUND_PATH = "resources/images/backgrounds/backgroundLevel1.jpg";
     public static final String SONG_PATH = System.getProperty("user.dir") + "/src/resources/music/music.wav";
     public static final String CAR_IMAGES_PATH = "/resources/images/cars/player_";
 
@@ -59,7 +59,7 @@ public class Constants {
 
     //gameplay constants
     public static final int BONUS_POINTS_HIT_WITH_SHIELD = 10;
-    public static final long TRACK_1_END_TIME = 3533;    //Key Time in Frames
+    public static final long TRACK_1_END_TIME = 1500;    //Key Time in Frames
     public static final int COLLECTIBLES_OFFSET = 50000;
     public static final int FUEL_TANK_BONUS = 250;
     public static final int FUEL_TANK_BONUS_TIME = 5;
@@ -98,7 +98,6 @@ public class Constants {
     //styles
     public static final String RED_COLOUR = "-fx-fill: rgba(255,0,0, 0.55);";
     public static final String GREY_COLOUR = "-fx-fill: rgba(95, 88, 93, 0.7);";
-
 
 
 }

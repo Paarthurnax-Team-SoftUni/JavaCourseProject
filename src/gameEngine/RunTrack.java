@@ -87,7 +87,7 @@ public class RunTrack {
         this.player = player;
     }
 
-    public void runGame(Image background, AnchorPane root) {
+    public void runGame(Image background, AnchorPane root, int drunkDrivers) {
 
         StageManager manager = new StageManagerImpl();
 
@@ -155,7 +155,7 @@ public class RunTrack {
 
                     //Generate obstacles
                     if (frame == 0) {
-                        obstacle.addObstacle(obstacle.generateObstacle());
+                        obstacle.addObstacle(obstacle.generateObstacle(drunkDrivers));
                     }
 
                     gc.clearRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
@@ -205,7 +205,7 @@ public class RunTrack {
                     if(action != null &&  action.equals(Constants.ARMAGEDDON_STRING)) {
                         startArmageddonsPower();
                     } else if (action != null && action.equals(Constants.FUEL_BOTTLE_STRING)) {
-                        time -= Constants.FUEL_TANK_BONUS_TIME*Constants.FRAMES_PER_SECOND;
+                        time -= Constants.FUEL_TANK_BONUS_TIME/Constants.FRAMES_PER_SECOND;
                     }
                 });
 
@@ -250,11 +250,6 @@ public class RunTrack {
 
     public static void setIsPaused(boolean newValue) {
         isPaused = newValue;
-    }
-
-
-    public static void addTime(long newTime) {
-        time-=newTime;
     }
 
     public static boolean isFire(){
