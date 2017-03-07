@@ -87,7 +87,7 @@ public class ChooseLevelController {
         this.backgroundBox2.toFront();
         this.locked2.setVisible(true);
 
-        if (this.currentPlayer.getMaxLevelPassed() == 1) {
+        if (this.currentPlayer.getMaxLevelPassed() >= 1) {
             this.backgroundBox2.setStyle(null);
             this.backgroundBox2.toBack();
             this.locked2.setVisible(false);
@@ -105,6 +105,7 @@ public class ChooseLevelController {
                 break;
             case 2:
                 this.backgroundBox2.setStyle(Constants.RED_COLOUR);
+                this.backgroundBox2.toFront();
                 track = trackHandler.getLevel(TrackLevel.SECOND_LEVEL);
                 break;
         }

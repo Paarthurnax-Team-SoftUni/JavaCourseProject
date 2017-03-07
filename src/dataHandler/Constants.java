@@ -34,9 +34,9 @@ public class Constants {
     public static final String ERROR_USERNAME_HEADER = "You have to fill in the username field!";
     public static final String LOGIN_USER_TITLE = "Login with this username";
     public static final String LOGIN_USER_HEADER = "Login as user: ";
-    public static final String LOGIN_USER_CONTENT = "Are you sure? Press OK to continue, or Cancel to abort.";
+    public static final String LOGIN_USER_CONTENT = "Are you sure? Press OK to continue.";
     public static final String CREATE_USER_TITLE = "Create new user";
-    public static final String CREATE_USER_CONTENT = "Are you sure? Press OK to continue, or Cancel to abort.";
+    public static final String CREATE_USER_CONTENT = "Are you sure? Press OK to continue.";
     public static final String CREATE_USER_HEADER = "Create new user: ";
 
     public static final String HIGH_SCORE_DIALOG_TITLE = "Best Slav Ranking";
