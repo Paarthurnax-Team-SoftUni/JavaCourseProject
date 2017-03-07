@@ -17,13 +17,13 @@ import stageHandler.StageManagerImpl;
 
 public class ChooseCarController{
 
-    private static String carId;
     public ImageView locked2;
     public ImageView locked3;
     public ImageView locked4;
     public ImageView locked5;
     public ImageView locked6;
 
+    private static String carId;
     private Player currentPlayer;
 
     @FXML

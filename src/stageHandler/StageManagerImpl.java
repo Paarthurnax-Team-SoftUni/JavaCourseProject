@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -36,6 +37,7 @@ public class StageManagerImpl implements StageManager {
             Scene scene = new Scene(root, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
 
             currentStage.setTitle(Constants.GAME_TITLE);
+            currentStage.setResizable(false);
             currentStage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();

@@ -61,7 +61,6 @@ public class Collectible extends Sprite {
         this.doublePtsTimer = doublePtsTimer;
     }
 
-
     private void startDoublePtsTimer() {
         isDoublePtsOn = true;
         bonusCoefficient = 2;

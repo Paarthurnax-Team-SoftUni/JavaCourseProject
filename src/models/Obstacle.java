@@ -76,6 +76,7 @@ public class Obstacle extends Sprite {
 
         return obstacle;
     }
+
     public void handleImpactByAmmo(){
         this.setDestroyed(true);
         this.setIsDrunk(false);
@@ -114,6 +115,7 @@ public class Obstacle extends Sprite {
             } else {
                 obstacle.setVelocity(0, velocity);
             }
+
             obstacle.update();
             obstacle.render(gc);
 
