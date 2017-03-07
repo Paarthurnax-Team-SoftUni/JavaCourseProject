@@ -59,6 +59,7 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                     Platform.exit();
                     break;
                 case "Enter":
+                    RunTrack.setShoot(true);
                     break;
                 default:
                     break;

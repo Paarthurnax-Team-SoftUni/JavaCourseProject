@@ -1,6 +1,7 @@
 package keyHandler;
 
 
+import gameEngine.RunTrack;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -34,6 +35,9 @@ public class KeyHandlerOnRelease implements EventHandler<KeyEvent> {
                 player.setTurnRight(false);
                 player.setCenterWheel(true);
                 player.update();
+                break;
+            case "Enter":
+                RunTrack.setShoot(false);
                 break;
         }
     }

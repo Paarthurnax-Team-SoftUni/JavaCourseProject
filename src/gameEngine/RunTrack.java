@@ -42,9 +42,10 @@ public class RunTrack {
     private ChooseCarController chooseCarController;
     private Collectible collectible;
     private Obstacle obstacle;
-    private static  boolean isFire;
+    private static  boolean shoot;
     private int ammoCap;
     private Ammo ammo;
+
 
 
     public RunTrack(Player player, float velocity) {
@@ -60,7 +61,7 @@ public class RunTrack {
         this.chooseCarController = new ChooseCarController();
         this.collectible = new Collectible(player);
         this.obstacle = new Obstacle();
-        this.isFire=false;
+        this.shoot=false;
         this.ammoCap=0;
         this.ammo= new Ammo();
     }
@@ -124,10 +125,11 @@ public class RunTrack {
                         PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, y, player, obstacle.getObstacles(), collectible.getCollectibles());
                         pauseHandler.activatePause();
                     }
-                    // Ammo logic to be done!
-                    //if(frame==0){
-                    //   ammo.addAmmo(ammo.generateAmmo(player));
-                    //}
+                    // Ammo generation
+                    if(frame==0){
+                     ammo.addAmmo(ammo.generateAmmo(player));
+                    }
+                    //
 
                     y = Math.round(y + velocity);
 
@@ -167,13 +169,14 @@ public class RunTrack {
                     obstacle.manageObstacles(gc, collectible, player, obstacle.getObstacles(), velocity);
 
 
-                    // Ammo logic to be done!
-                    //  ammo.manageObstacles(gc,obstacle.getObstacles(), ammo.getAmmunition());
-
-
-
-
-
+                    // Ammo logic
+                    if(shoot){
+                        ammo.visualizeObstacles(gc,obstacle.getObstacles(), ammo.getAmmunition());
+                    }
+                    if(!shoot){
+                        ammo.getAmmunition().clear();
+                    }
+                    //
 
                     Stage currentStage = (Stage) canvas.getScene().getWindow();
 
@@ -252,10 +255,10 @@ public class RunTrack {
         isPaused = newValue;
     }
 
-    public static boolean isFire(){
-        return isFire;
+    public static boolean getShoot(){
+        return shoot;
     }
-    public static void setFire(boolean newValue){
-        isFire=newValue;
+    public static void setShoot(boolean newValue){
+        shoot=newValue;
     }
 }

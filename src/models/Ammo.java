@@ -28,7 +28,7 @@ public class Ammo extends Sprite{
         ammo.setImage(sd);
         return ammo;
     }
-    public void manageObstacles(GraphicsContext gc, List<Obstacle> obstacles,List<Ammo> ammunition) {
+    public void visualizeObstacles(GraphicsContext gc, List<Obstacle> obstacles,List<Ammo> ammunition) {
         for (Ammo ammo : ammunition) {
             ammo.setVelocity(0,-5);
             ammo.update();
@@ -38,8 +38,6 @@ public class Ammo extends Sprite{
                     obstacle.handleImpactByAmmo();
                 }
             }
-
         }
-
     }
 }
