@@ -88,15 +88,15 @@ public class RunTrack {
         this.player = player;
     }
 
-    public void runGame(Image background, AnchorPane root, int drunkDrivers) {
+    public void runGame(Image background, AnchorPane root, int drunkDrivers, int minLeftSide, int maxRightSide) {
 
         StageManager manager = new StageManagerImpl();
 
         Canvas canvas = new Canvas(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
 
         root.getChildren().add(canvas);
-        root.getScene().setOnKeyPressed(new KeyHandlerOnPress(this.getPlayer()));
-        root.getScene().setOnKeyReleased(new KeyHandlerOnRelease(this.getPlayer()));
+        root.getScene().setOnKeyPressed(new KeyHandlerOnPress(this.getPlayer(), minLeftSide, maxRightSide));
+        root.getScene().setOnKeyReleased(new KeyHandlerOnRelease(this.getPlayer(), minLeftSide, maxRightSide));
         GraphicsContext gc = canvas.getGraphicsContext2D();
         this.setCarId(chooseCarController.getCarId());
         carId = carId == null ? "car1" : carId;
@@ -157,7 +157,7 @@ public class RunTrack {
 
                     //Generate obstacles
                     if (frame == 0) {
-                        obstacle.addObstacle(obstacle.generateObstacle(drunkDrivers));
+                        obstacle.addObstacle(obstacle.generateObstacle(drunkDrivers, minLeftSide, maxRightSide));
                     }
 
                     gc.clearRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
@@ -201,7 +201,7 @@ public class RunTrack {
                     }
 
                     if (frame % Constants.COLLECTIBLES_OFFSET == 0) {
-                        collectible.addCollectible(Collectible.generateCollectible());
+                        collectible.addCollectible(Collectible.generateCollectible(minLeftSide, maxRightSide));
                     }
                     String action = collectible.visualizeCollectible(gc, velocity, currentStage);
 

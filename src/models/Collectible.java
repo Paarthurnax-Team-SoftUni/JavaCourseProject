@@ -92,7 +92,7 @@ public class Collectible extends Sprite {
         collectibles.add(collectible);
     }
 
-    public static Collectible generateCollectible() {
+    public static Collectible generateCollectible(int minLeftSide, int maxRightSide) {
 
         String[] collectibles= Constants.COLLECTIBLE_LIST_SMALL;
         String random=collectibles[new Random().nextInt(collectibles.length)];
@@ -103,7 +103,7 @@ public class Collectible extends Sprite {
         Collectible collectible = new Collectible();
         collectible.setName(random);
         collectible.setImage(stringDirectory);
-        collectible.setPosition(50 + collectibleX.nextInt(300), -60);
+        collectible.setPosition(collectibleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, -166);
 
         return collectible;
     }

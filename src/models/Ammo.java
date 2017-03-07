@@ -5,9 +5,6 @@ import javafx.scene.canvas.GraphicsContext;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Angel of the Day on 6.3.2017 г..
- */
 
 public class Ammo extends Sprite{
     private List<Ammo> ammunition;

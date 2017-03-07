@@ -9,6 +9,6 @@ public class SecondLevel extends Track{
 
     @Override
     public void createBackground(AnchorPane root) {
-        super.getRunTrack().runGame(new Image(TrackLevel.SECOND_LEVEL.getPath()), root, TrackLevel.SECOND_LEVEL.getValue());
+        super.getRunTrack().runGame(new Image(TrackLevel.SECOND_LEVEL.getPath()), root, TrackLevel.SECOND_LEVEL.getValue(), TrackLevel.SECOND_LEVEL.getMinLeftSide(), TrackLevel.SECOND_LEVEL.getMaxRightSide());
     }
 }

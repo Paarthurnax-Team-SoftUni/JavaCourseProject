@@ -13,9 +13,13 @@ import models.Player;
 public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
     public static boolean[] pressedKeys = new boolean[256];
     private Player player;
+    private int minLeftSide;
+    private int maxRightSide;
 
-    public KeyHandlerOnPress(Player p) {
+    public KeyHandlerOnPress(Player p, int minLeftSide, int maxRightSide) {
         this.player = p;
+        this.minLeftSide = minLeftSide;
+        this.maxRightSide = maxRightSide;
     }
 
     @Override
@@ -32,21 +36,21 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                         RunTrack.setVelocity(RunTrack.getVelocity() - 1);
                     }
                     player.setCenterWheel(false);
-                    player.addVelocity(0, 2);
+                    //player.addVelocity(0, 2);
                     player.update();
                     break;
                 case "Left":
                     player.setCenterWheel(false);
                     player.setTurnLeft(true);
                     // player.addVelocity(-player.getWidth() * 0.66667, 0);
-                    player.update();
+                    player.update(minLeftSide, maxRightSide);
                     break;
                 case "Right":
                     player.setCenterWheel(false);
                     player.setTurnRight(true);
                     //player.setAngle(player.getAngle() + 15);
                     // player.addVelocity(player.getWidth() * 0.66667, 0);
-                    player.update();
+                    player.update(minLeftSide, maxRightSide);
                     break;
                 case "P":
                     RunTrack.setIsPaused(true);

@@ -20,6 +20,8 @@ public abstract class Sprite {
     private boolean turnRight;
     private boolean turnLeft;
     private double angle;
+    private int minLeftSide;
+    private int maxRightSide;
 
     public double getAngle() {
         return this.angle;
@@ -107,11 +109,11 @@ public abstract class Sprite {
 
     public void addVelocity(double x, double y) {
         if (x < 0) {
-            if (positionX > 50) {
+            if (positionX > minLeftSide) {
                 velocityX += x;
             }
         } else if (x > 0) {
-            if (positionX < 400) {
+            if (positionX < maxRightSide) {
                 velocityX += x;
             }
         }
@@ -126,6 +128,31 @@ public abstract class Sprite {
         }
     }
 
+    private void addVelocity(double x, double y, int min, int max) {
+        this.minLeftSide = min;
+        this.maxRightSide = max;
+        if (x < 0) {
+            if (positionX > min) {
+                velocityX += x;
+            }
+        } else if (x > 0) {
+            if (positionX < max) {
+                velocityX += x;
+            }
+        }
+        if (y < 0) {
+            if (positionY > 300) {
+                velocityY += y;
+            }
+        } else if (y > 0) {
+            if (positionY < Constants.CANVAS_HEIGHT - this.height * 2) {
+                velocityY += y;
+            }
+        }
+    }
+
+
+
     public void update() {
         if (this.getTurnLeft()) {
             setAngle(getAngle() - 4);
@@ -134,6 +161,18 @@ public abstract class Sprite {
             setAngle(getAngle() + 4);
         }
         this.addVelocity(Math.tan(Math.toRadians(this.getAngle())) * RunTrack.getVelocity() / 3, 0);
+        positionX += velocityX;
+        positionY += velocityY;
+    }
+
+    public void update(int min, int max) {
+        if (this.getTurnLeft()) {
+            setAngle(getAngle() - 4);
+        }
+        if (this.getTurnRight()) {
+            setAngle(getAngle() + 4);
+        }
+        this.addVelocity(Math.tan(Math.toRadians(this.getAngle())) * RunTrack.getVelocity() / 3, 0, min, max);
         positionX += velocityX;
         positionY += velocityY;
     }

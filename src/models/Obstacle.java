@@ -48,7 +48,7 @@ public class Obstacle extends Sprite {
         return obstacles;
     }
 
-    public Obstacle generateObstacle(int valueDrunkDrivers) {
+    public Obstacle generateObstacle(int valueDrunkDrivers, int minLeftSide, int maxRightSide) {
 
         String[] obstacles = Constants.OBSTACLES_LIST_SMALL;
         String random = (obstacles[new Random().nextInt(obstacles.length)]);
@@ -62,12 +62,12 @@ public class Obstacle extends Sprite {
             obstacle = new EnemyDriver();
             if (new Random().nextInt(100)> valueDrunkDrivers){
                 obstacle.setIsDrunk(true);
-                obstacle.setPosition(obstacleX.nextInt(350 - 100) + 100, -166);
+                obstacle.setPosition(obstacleX.nextInt((maxRightSide - 50) - (minLeftSide + 50)) + minLeftSide + 50, -166);
             } else {
-                obstacle.setPosition(50 + obstacleX.nextInt(300), -166);
+                obstacle.setPosition(obstacleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, -166);
             }
         } else {
-            obstacle.setPosition(50 + obstacleX.nextInt(300), -166);
+            obstacle.setPosition(obstacleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, -166);
         }
         obstacle.setImage(sd);
 
