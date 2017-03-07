@@ -27,7 +27,7 @@ public class Constants {
     public static final String TRACK_BACKGROUND_PATH = "resources/images/backgrounds/backgroundLevel1.jpg";
     public static final String SONG_PATH = System.getProperty("user.dir") + "/src/resources/music/music.wav";
     public static final String CAR_IMAGES_PATH = "/resources/images/cars/player_";
-    public static final String AMMO_PATH = "/resources/images/missile.png";
+    public static final String AMMO_PATH = "/resources/images/collectibles/collectible6.png";
 
     //login strings
     public static final String ERROR_USERNAME_TITLE = "You have to fill in the username field!";
