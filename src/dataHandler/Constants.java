@@ -85,19 +85,28 @@ public class Constants {
     public static final String IMMORTALITY_NOTIFICATION_MESSAGE = "Immortality! You are invincible for the next 5 seconds";
     public static final String ARMAGEDDONS_NOTIFICATION_MESSAGE = "Armageddons Power! Nothing can get on your way now";
 
-    public static final String HALF_SIZE = "_half_size.png";
-    public static final java.lang.String VALUE_STRING = "value";
+
+    //table columns
     public static final String TABLE_COLUMN_NAME = "Player Name";
     public static final String TABLE_COLUMN_MONEY = "Kinti Earned";
     public static final String TABLE_COLUMN_SCORE = "High Score";
     public static final String CAR_STRING = "car";
 
+    //images shortcuts
     public static final String HALF_SIZE_NAME = "_half_size";
     public static final String COLLECTIBLE = "collectible";
+    public static final String HALF_SIZE = "_half_size.png";
+    public static final java.lang.String VALUE_STRING = "value";
 
     //styles
     public static final String RED_COLOUR = "-fx-fill: rgba(255,0,0, 0.55);";
     public static final String GREY_COLOUR = "-fx-fill: rgba(95, 88, 93, 0.7);";
 
-
+    //map constants
+    public static final int FIRST_LEVEL_DRUNK_DRIVERS = 100;
+    public static final int FIRST_LEVEL_MIN_X = 120;
+    public static final int FIRST_LEVEL_MAX_X = 320;
+    public static final int SECOND_LEVEL_DRUNK_DRIVERS = 60;
+    public static final int SECOND_LEVEL_MIN_X = 50;
+    public static final int SECOND_LEVEL_MAX_X = 400;
 }
