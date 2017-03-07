@@ -33,6 +33,7 @@ public class RunTrack {
     private static CurrentPoints currentPoints;
     private static CurrentTime currentTime;
     private static CurrentDistance currentDistance;
+    private static CurrentBullets currentBullets;
     private int frame;
     private int y;
     private float currentFramesPerSecond;
@@ -53,6 +54,7 @@ public class RunTrack {
         currentPoints = new CurrentPoints(0);
         currentDistance = new CurrentDistance(0);
         currentTime = new CurrentTime(0);
+        currentBullets = new CurrentBullets(0);
         this.chooseCarController = new ChooseCarController();
         this.collectible = new Collectible(player);
         this.obstacle = new Obstacle();
@@ -107,6 +109,7 @@ public class RunTrack {
         currentPoints.addObserver(observer);
         currentTime.addObserver(observer);
         currentDistance.addObserver(observer);
+        currentBullets.addObserver(observer);
 
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -132,6 +135,7 @@ public class RunTrack {
                     currentDistance.setValue(currentDistance.getValue() + (long) velocity / 2);
                     player.addPoints(1);
                     currentPoints.setValue(player.getPoints());
+                    currentBullets.setValue(player.getAmmunition());
 
                     observer.update(currentPoints, observer);
                     observer.update(currentTime, observer);
@@ -249,8 +253,8 @@ public class RunTrack {
         isPaused = newValue;
     }
 
-    public static boolean getShoot(){
-        return shoot;
+    public static CurrentBullets getCurrentBullets() {
+        return currentBullets;
     }
 
     public static void setShoot(boolean newValue){

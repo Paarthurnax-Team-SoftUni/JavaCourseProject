@@ -36,9 +36,11 @@ public class GameController implements Initializable {
         CurrentPoints currentPlayerPoints = RunTrack.getCurrentPoints();
         CurrentTime currentTime = RunTrack.getCurrentTime();
         CurrentDistance currentDistance = RunTrack.getCurrentDistance();
+        CurrentBullets currentBullets = RunTrack.getCurrentBullets();
         this.scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
         this.timeInfo.textProperty().bind(Bindings.convert(currentTime.valueProperty()));
         this.distance.textProperty().bind(Bindings.convert(currentDistance.valueProperty()));
+        this.bullets.textProperty().bind(Bindings.convert(currentBullets.valueProperty()));
         new HealthBar(this.healthFirst, this.healthSecond, this.healthThird, this.healthFourth);
     }
 
