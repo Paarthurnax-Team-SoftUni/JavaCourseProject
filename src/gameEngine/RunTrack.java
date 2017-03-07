@@ -25,51 +25,47 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class RunTrack {
-    private int frame;
+
     private static long time;
-    private int y;
-
-    private float currentFramesPerSecond;
     private static boolean isPaused;
-
     private static float velocity;
-    private String carId;
-    private Player player;
+    private static  boolean shoot;
     private static CurrentPoints currentPoints;
     private static CurrentTime currentTime;
     private static CurrentDistance currentDistance;
+    private int frame;
+    private int y;
+    private float currentFramesPerSecond;
+    private String carId;
+    private Player player;
     private HealthBar currentHealth;
     private ChooseCarController chooseCarController;
     private Collectible collectible;
     private Obstacle obstacle;
-    private static  boolean shoot;
     private int ammoCap;
     private Ammo ammo;
 
-
-
     public RunTrack(Player player, float velocity) {
-        this.setPlayer(player);
-        this.frame = 0;
-        this.time = 0;
-        this.setCurrentFramesPerSecond(Constants.FRAMES_PER_SECOND);
+        frame = 0;
+        time = 0;
         isPaused = false;
-        RunTrack.velocity = velocity;
+        shoot = false;
         currentPoints = new CurrentPoints(0);
         currentDistance = new CurrentDistance(0);
         currentTime = new CurrentTime(0);
         this.chooseCarController = new ChooseCarController();
         this.collectible = new Collectible(player);
         this.obstacle = new Obstacle();
-        this.shoot=false;
-        this.ammoCap=0;
-        this.ammo= new Ammo();
+        this.ammoCap = 0;
+        this.ammo = new Ammo();
+        this.setPlayer(player);
+        this.setCurrentFramesPerSecond(Constants.FRAMES_PER_SECOND);
+        RunTrack.velocity = velocity;
     }
 
     private static Observer observer = new Observer() {
         @Override
-        public void update(Observable o, Object arg) {
-        }
+        public void update(Observable o, Object arg) {}
     };
 
     private void setCurrentFramesPerSecond(float currentFramesPerSecond) {
@@ -98,6 +94,7 @@ public class RunTrack {
         root.getScene().setOnKeyPressed(new KeyHandlerOnPress(this.getPlayer()));
         root.getScene().setOnKeyReleased(new KeyHandlerOnRelease(this.getPlayer()));
         GraphicsContext gc = canvas.getGraphicsContext2D();
+
         this.setCarId(chooseCarController.getCarId());
         carId = carId == null ? "car1" : carId;
         //String carImg = Constants.CAR_IMAGES_PATH + carId + ".png";
@@ -105,6 +102,7 @@ public class RunTrack {
         player.setImage(carImg);
         player.setPosition(200, 430);
         player.setPoints(0L);
+
         currentHealth = new HealthBar(player);
         currentPoints.addObserver(observer);
         currentTime.addObserver(observer);
@@ -117,28 +115,18 @@ public class RunTrack {
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(currentFramesPerSecond),
                 event -> {
-
-
-
                     //Pause
                     if (isPaused) {
                         PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, y, player, obstacle.getObstacles(), collectible.getCollectibles());
                         pauseHandler.activatePause();
                     }
-                    // Ammo generation
-                    if(frame==0){
-                     ammo.addAmmo(ammo.generateAmmo(player));
-                    }
-                    //
 
                     y = Math.round(y + velocity);
-
                     time++;
                     frame++;
 
                     //update immortality status if its actuvated
                     collectible.updateStatus();
-
 
                     currentTime.setValue((long) (time * currentFramesPerSecond));
                     currentDistance.setValue(currentDistance.getValue() + (long) velocity / 2);
@@ -155,6 +143,11 @@ public class RunTrack {
                     }
                     this.player.setVelocity(0, 0);
 
+                    // Ammo generation
+                    if(frame == 0){
+                        ammo.addAmmo(ammo.generateAmmo(player));
+                    }
+
                     //Generate obstacles
                     if (frame == 0) {
                         obstacle.addObstacle(obstacle.generateObstacle(drunkDrivers));
@@ -168,15 +161,12 @@ public class RunTrack {
                     currentHealth.update();
                     obstacle.manageObstacles(gc, collectible, player, obstacle.getObstacles(), velocity);
 
-
                     // Ammo logic
                     if(shoot){
-                        ammo.visualizeObstacles(gc,obstacle.getObstacles(), ammo.getAmmunition());
-                    }
-                    if(!shoot){
+                        ammo.visualizeAmmo(gc, obstacle.getObstacles(), ammo.getAmmunition());
+                    } else {
                         ammo.getAmmunition().clear();
                     }
-                    //
 
                     Stage currentStage = (Stage) canvas.getScene().getWindow();
 
@@ -185,6 +175,7 @@ public class RunTrack {
                         if(currentDistance.getValue() >= 5000){
                             this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
                         }
+
                         clearObstaclesAndCollectibles();
                         gameLoop.stop();
                         MusicPlayer.stop();
@@ -258,7 +249,8 @@ public class RunTrack {
     public static boolean getShoot(){
         return shoot;
     }
+
     public static void setShoot(boolean newValue){
-        shoot=newValue;
+        shoot = newValue;
     }
 }

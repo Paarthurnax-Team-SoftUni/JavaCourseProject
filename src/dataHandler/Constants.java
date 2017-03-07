@@ -3,8 +3,8 @@ package dataHandler;
 public class Constants {
 
     public static final String GAME_TITLE = "SoftUni Rush";
-    public static final int CANVAS_WIDTH = 800;
-    public static final int CANVAS_HEIGHT = 600;
+    public static final int CANVAS_WIDTH = 850;
+    public static final int CANVAS_HEIGHT = 650;
     public static final float FRAMES_PER_SECOND = 0.017f;   //Seconds per frame [ 1 Frame == the given time in seconds];
 
     //views
@@ -27,6 +27,7 @@ public class Constants {
     public static final String TRACK_BACKGROUND_PATH = "resources/images/backgrounds/backgroundLevel1.jpg";
     public static final String SONG_PATH = System.getProperty("user.dir") + "/src/resources/music/music.wav";
     public static final String CAR_IMAGES_PATH = "/resources/images/cars/player_";
+    public static final String AMMO_PATH = "/resources/images/missile.png";
 
     //login strings
     public static final String ERROR_USERNAME_TITLE = "You have to fill in the username field!";
@@ -98,6 +99,4 @@ public class Constants {
     //styles
     public static final String RED_COLOUR = "-fx-fill: rgba(255,0,0, 0.55);";
     public static final String GREY_COLOUR = "-fx-fill: rgba(95, 88, 93, 0.7);";
-
-
 }

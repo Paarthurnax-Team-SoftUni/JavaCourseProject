@@ -1,9 +1,9 @@
 #homePage, #loginPage{
-    -fx-background-image: url('/resources/images/backgrounds/background-home-1.jpg');
+    -fx-background-image: url('/resources/images/backgrounds/background2.png');
 }
 
 #chooseCarPage, #chooseLevelPage{
-    -fx-background-image: url('/resources/images/backgrounds/background-home.jpg');
+    -fx-background-image: url('/resources/images/backgrounds/background1.png');
 }
 
 #backgroundBox{

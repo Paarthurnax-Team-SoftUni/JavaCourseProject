@@ -1,19 +1,18 @@
 package models;
 
+import dataHandler.Constants;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Angel of the Day on 6.3.2017 г..
- */
-
 public class Ammo extends Sprite{
     private List<Ammo> ammunition;
+
     public Ammo(){
-        this.ammunition=new ArrayList<>();
+        this.ammunition = new ArrayList<>();
     }
+
     public void addAmmo(Ammo ammo){
         this.ammunition.add(ammo);
     }
@@ -21,14 +20,15 @@ public class Ammo extends Sprite{
     public List<Ammo> getAmmunition() {
         return ammunition;
     }
+
     public Ammo generateAmmo(Player player){
-        String sd = "/resources/images/missile.png";
         Ammo ammo = new Ammo();
-        ammo.setPosition(player.getPositionX() ,player.getPositionY()+5);
-        ammo.setImage(sd);
+        ammo.setPosition(player.getPositionX() ,player.getPositionY() + 5);
+        ammo.setImage(Constants.AMMO_PATH);
         return ammo;
     }
-    public void visualizeObstacles(GraphicsContext gc, List<Obstacle> obstacles,List<Ammo> ammunition) {
+
+    public void visualizeAmmo(GraphicsContext gc, List<Obstacle> obstacles, List<Ammo> ammunition) {
         for (Ammo ammo : ammunition) {
             ammo.setVelocity(0,-5);
             ammo.update();

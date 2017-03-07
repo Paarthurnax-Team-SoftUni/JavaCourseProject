@@ -52,7 +52,6 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                     RunTrack.setIsPaused(true);
                     break;
                 case "M":
-                    System.out.println("clicked");
                     MusicPlayer.play();
                     break;
                 case "Q":
