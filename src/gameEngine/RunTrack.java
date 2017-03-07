@@ -172,7 +172,8 @@ public class RunTrack {
 
                     //CHECK FOR END && CHECK FOR LOSE
                     if (time >= Constants.TRACK_1_END_TIME || player.getHealthPoints() <= 0) {
-                        if(currentDistance.getValue() >= 5000){
+                        boolean win = player.getHealthPoints() > 0 && currentDistance.getValue() >= Constants.TRACK_1_END_DISTANCE;
+                        if(win){
                             this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
                         }
 
@@ -185,8 +186,8 @@ public class RunTrack {
                         currentDistance.setValue(0);
                         root.getChildren().remove(canvas);
 
-                        // Ternar operator If final time is achieved -> GAME_WITN_VIEW else Game Lose View;
-                        FXMLLoader loader = manager.loadSceneToStage(currentStage, player.getHealthPoints() > 0?Constants.GAME_WIN_VIEW_PATH:Constants.GAME_OVER_VIEW_PATH ,null);
+                        // Ternar operator If final time is achieved -> GAME_WIN_VIEW else Game Lose View;
+                        FXMLLoader loader = manager.loadSceneToStage(currentStage, win ?Constants.GAME_WIN_VIEW_PATH:Constants.GAME_OVER_VIEW_PATH ,null);
 
                         this.player.updateStatsAtEnd();
                     }
