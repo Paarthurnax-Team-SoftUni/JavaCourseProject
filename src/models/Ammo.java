@@ -8,10 +8,10 @@ import java.util.List;
 
 public class Ammo extends Sprite{
     private List<Ammo> ammunition;
-
     public Ammo(){
         this.ammunition = new ArrayList<>();
     }
+
 
     public void addAmmo(Ammo ammo){
         this.ammunition.add(ammo);

@@ -41,7 +41,7 @@ public class KeyHandlerOnRelease implements EventHandler<KeyEvent> {
                 player.update(minLeftSide, maxRightSide);
                 break;
             case "S":
-                RunTrack.setShoot(false);
+               // RunTrack.setShoot(false);
                 break;
         }
     }

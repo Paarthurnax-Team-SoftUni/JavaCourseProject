@@ -143,10 +143,10 @@ public class RunTrack {
                     }
                     this.player.setVelocity(0, 0);
 
-                    // Ammo generation
-                    if(frame == 0){
-                        ammo.addAmmo(ammo.generateAmmo(player));
-                    }
+//                    // Ammo generation
+//                    if(frame == 0){
+//                        ammo.addAmmo(ammo.generateAmmo(player));
+//                    }
 
                     //Generate obstacles
                     if (frame == 0) {
@@ -162,10 +162,12 @@ public class RunTrack {
                     obstacle.manageObstacles(gc, collectible, player, obstacle.getObstacles(), velocity);
 
                     // Ammo logic
+                    ammo.visualizeAmmo(gc, obstacle.getObstacles(), ammo.getAmmunition());
                     if(shoot){
-                        ammo.visualizeAmmo(gc, obstacle.getObstacles(), ammo.getAmmunition());
+                        ammo.addAmmo(ammo.generateAmmo(player));
+                        setShoot(false);
                     } else {
-                        ammo.getAmmunition().clear();
+                       // ammo.getAmmunition().clear();
                     }
 
                     Stage currentStage = (Stage) canvas.getScene().getWindow();

@@ -62,7 +62,8 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                     Platform.exit();
                     break;
                 case "S":
-                    RunTrack.setShoot(true);
+                    player.shot();
+                    //RunTrack.setShoot(true);
                     break;
                 default:
                     break;

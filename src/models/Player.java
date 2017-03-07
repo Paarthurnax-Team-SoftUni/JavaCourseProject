@@ -10,7 +10,7 @@ public class Player extends Sprite {
     private Double money;
     private Long points;
     private Long experience;
-    private Integer ammunitions;
+    private Integer ammunition;
     private int healthPoints;
     private int maxLevelPassed;
     private boolean accelerating = false;
@@ -24,7 +24,14 @@ public class Player extends Sprite {
         this.points = points;
         this.experience = experience;
         this.healthPoints = healthPoints;
-        this.ammunitions = 5;
+        this.ammunition = 5;
+    }
+
+    public void shot() {
+        if (getAmmunition() > 0) {
+            setAmmunition(getAmmunition() - 1);
+            RunTrack.setShoot(true);
+        }
     }
 
     public String getName() {
@@ -51,12 +58,12 @@ public class Player extends Sprite {
         this.money = money;
     }
 
-    public Integer getAmmunitions() {
-        return ammunitions;
+    public Integer getAmmunition() {
+        return ammunition;
     }
 
-    public void setAmmunitions(Integer ammunitions) {
-        this.ammunitions = ammunitions;
+    public void setAmmunition(Integer ammunition) {
+        this.ammunition = ammunition;
     }
 
 
@@ -112,13 +119,13 @@ public class Player extends Sprite {
         this.accelerating = true;
     }
 
-    private void updateHighScore(){
+    private void updateHighScore() {
         if (this.getHighScore() < this.getPoints()) {
             this.setHighScore(this.getPoints());
         }
     }
 
-    public void updateStatsAtEnd(){
+    public void updateStatsAtEnd() {
         this.setHealthPoints(Constants.HEALTH_BAR_MAX);
         this.updateHighScore();
         this.setPoints(0L);

@@ -167,7 +167,7 @@ public class Collectible extends Sprite {
                     case Constants.AMMO_STRING:
                         player.addPoints( Constants.AMMO_BONUS*bonusCoefficient);
                         Notification.showPopupMessage(Constants.AMMO_STRING,Constants.AMMO_NOTIFICATION_MESSAGE, currentStage);
-                        player.setAmmunitions(player.getAmmunitions()+1);
+                        player.setAmmunition(player.getAmmunition()+1);
 
                         collectible.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
                         return Constants.AMMO_STRING;
