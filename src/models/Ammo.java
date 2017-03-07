@@ -35,10 +35,12 @@ public class Ammo extends Sprite{
             ammo.render(gc);
             for (Obstacle obstacle : obstacles) {
                 if (ammo.getBoundary().intersects(obstacle.getBoundary())) {
-                    obstacle.handleImpactByAmmo();
+                    if(!obstacle.isDestroyed) {
+                        ammo.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
+                        obstacle.handleImpactByAmmo();
+                    }
                 }
             }
         }
-        //ammunition.remove(ammunition.size()-1);
     }
 }

@@ -74,8 +74,9 @@ public class Constants {
     public static final int AMMO_BONUS = 500;
     public static final int DOUBLE_BONUS_POINTS = 1000;
     public static final long DOUBLE_PTS_DURATION = 5;
-    public static final int DESTROY_OBJECT_COORDINATES = 800;
+    public static final int DESTROY_OBJECT_COORDINATES = 1000;
     public static final int START_GAME_VELOCITY = 5;
+    public static final int START_GAME_BULLETS = 5;
     public static final int HEALTH_BAR_MIN = 25;
     public static final int HEALTH_BAR_MAX = 100;
     public static final int HEALTH_BAR_AVERAGE_HIGH = 75;

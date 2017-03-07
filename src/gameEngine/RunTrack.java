@@ -43,7 +43,6 @@ public class RunTrack {
     private ChooseCarController chooseCarController;
     private Collectible collectible;
     private Obstacle obstacle;
-    private int ammoCap;
     private Ammo ammo;
     private static Cheat cheat = new Cheat();
 
@@ -63,7 +62,6 @@ public class RunTrack {
         this.chooseCarController = new ChooseCarController();
         this.collectible = new Collectible(player);
         this.obstacle = new Obstacle();
-        this.ammoCap = 0;
         this.ammo = new Ammo();
         this.setPlayer(player);
         this.setCurrentFramesPerSecond(Constants.FRAMES_PER_SECOND);
@@ -196,6 +194,7 @@ public class RunTrack {
                         velocity = Constants.START_GAME_VELOCITY;
                         currentDistance.setValue(0);
                         root.getChildren().remove(canvas);
+                        player.setAmmunition(Constants.START_GAME_BULLETS);
 
                         // Ternar operator If final time is achieved -> GAME_WIN_VIEW else Game Lose View;
                         FXMLLoader loader = manager.loadSceneToStage(currentStage, win ? Constants.GAME_WIN_VIEW_PATH : Constants.GAME_OVER_VIEW_PATH, null);

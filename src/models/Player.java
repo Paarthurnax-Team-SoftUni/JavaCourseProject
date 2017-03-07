@@ -24,7 +24,7 @@ public class Player extends Sprite {
         this.points = points;
         this.experience = experience;
         this.healthPoints = healthPoints;
-        this.ammunition = 5;
+        this.ammunition = Constants.START_GAME_BULLETS;
     }
 
     public void shot() {
