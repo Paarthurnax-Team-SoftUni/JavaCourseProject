@@ -26,6 +26,7 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
     public void handle(KeyEvent e) {
         KeyCode keyCode = e.getCode();
         if (!RunTrack.isPaused()) {
+            RunTrack.getCheat().add(keyCode.getName());
             switch (keyCode.getName()) {
                 case "Up":
                     player.accelerate();
@@ -69,7 +70,7 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                     break;
             }
         } else {
-            switch (keyCode.getName()){
+            switch (keyCode.getName()) {
                 case "P":
                     RunTrack.setIsPaused(false);
                     break;

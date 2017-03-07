@@ -29,7 +29,7 @@ public class RunTrack {
     private static long time;
     private static boolean isPaused;
     private static float velocity;
-    private static  boolean shoot;
+    private static boolean shoot;
     private static CurrentPoints currentPoints;
     private static CurrentTime currentTime;
     private static CurrentDistance currentDistance;
@@ -45,6 +45,11 @@ public class RunTrack {
     private Obstacle obstacle;
     private int ammoCap;
     private Ammo ammo;
+    private static Cheat cheat = new Cheat();
+
+    public static Cheat getCheat() {
+        return cheat;
+    }
 
     public RunTrack(Player player, float velocity) {
         frame = 0;
@@ -63,11 +68,13 @@ public class RunTrack {
         this.setPlayer(player);
         this.setCurrentFramesPerSecond(Constants.FRAMES_PER_SECOND);
         RunTrack.velocity = velocity;
+        //this.cheat=new Cheat();
     }
 
     private static Observer observer = new Observer() {
         @Override
-        public void update(Observable o, Object arg) {}
+        public void update(Observable o, Object arg) {
+        }
     };
 
     private void setCurrentFramesPerSecond(float currentFramesPerSecond) {
@@ -147,10 +154,8 @@ public class RunTrack {
                     }
                     this.player.setVelocity(0, 0);
 
-//                    // Ammo generation
-//                    if(frame == 0){
-//                        ammo.addAmmo(ammo.generateAmmo(player));
-//                    }
+                    cheat.useCheat(player);
+
 
                     //Generate obstacles
                     if (frame == 0) {
@@ -167,11 +172,11 @@ public class RunTrack {
 
                     // Ammo logic
                     ammo.visualizeAmmo(gc, obstacle.getObstacles(), ammo.getAmmunition());
-                    if(shoot){
+                    if (shoot) {
                         ammo.addAmmo(ammo.generateAmmo(player));
                         setShoot(false);
                     } else {
-                       // ammo.getAmmunition().clear();
+                        // ammo.getAmmunition().clear();
                     }
 
                     Stage currentStage = (Stage) canvas.getScene().getWindow();
@@ -179,7 +184,7 @@ public class RunTrack {
                     //CHECK FOR END && CHECK FOR LOSE
                     if (time >= Constants.TRACK_1_END_TIME || player.getHealthPoints() <= 0) {
                         boolean win = player.getHealthPoints() > 0 && currentDistance.getValue() >= Constants.TRACK_1_END_DISTANCE;
-                        if(win){
+                        if (win) {
                             this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
                         }
 
@@ -193,7 +198,7 @@ public class RunTrack {
                         root.getChildren().remove(canvas);
 
                         // Ternar operator If final time is achieved -> GAME_WIN_VIEW else Game Lose View;
-                        FXMLLoader loader = manager.loadSceneToStage(currentStage, win ?Constants.GAME_WIN_VIEW_PATH:Constants.GAME_OVER_VIEW_PATH ,null);
+                        FXMLLoader loader = manager.loadSceneToStage(currentStage, win ? Constants.GAME_WIN_VIEW_PATH : Constants.GAME_OVER_VIEW_PATH, null);
 
                         this.player.updateStatsAtEnd();
                     }
@@ -203,10 +208,10 @@ public class RunTrack {
                     }
                     String action = collectible.visualizeCollectible(gc, velocity, currentStage);
 
-                    if(action != null &&  action.equals(Constants.ARMAGEDDON_STRING)) {
+                    if (action != null && action.equals(Constants.ARMAGEDDON_STRING)) {
                         startArmageddonsPower();
                     } else if (action != null && action.equals(Constants.FUEL_BOTTLE_STRING)) {
-                        time -= Constants.FUEL_TANK_BONUS_TIME/Constants.FRAMES_PER_SECOND;
+                        time -= Constants.FUEL_TANK_BONUS_TIME / Constants.FRAMES_PER_SECOND;
                     }
                 });
 
@@ -256,8 +261,11 @@ public class RunTrack {
     public static CurrentBullets getCurrentBullets() {
         return currentBullets;
     }
+    public static boolean getShoot() {
+        return shoot;
+    }
 
-    public static void setShoot(boolean newValue){
+    public static void setShoot(boolean newValue) {
         shoot = newValue;
     }
 }
