@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="gamePlayPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GameController">
+<AnchorPane fx:id="gamePlayPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GameController">
    <children>
       <AnchorPane fx:id="menu" layoutX="451.0" layoutY="-6.0" prefHeight="663.0" prefWidth="399.0" stylesheets="@../resources/styles/styles.css">
          <children>
@@ -65,26 +65,16 @@
             </image>
          </ImageView>
             <Rectangle fx:id="health" fill="GREEN" height="30.0" layoutX="167.0" layoutY="250.0" visible="false" width="156.0" />
-            <Label layoutX="138.0" layoutY="309.0" text="CONTROLS" textFill="#818181">
+            <Label layoutX="138.0" layoutY="299.0" text="CONTROLS" textFill="#818181">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
-            <Separator layoutX="98.0" layoutY="300.0" prefWidth="200.0" />
-            <Separator layoutX="96.0" layoutY="340.0" prefHeight="3.0" prefWidth="200.0" />
-            <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="225.0" layoutY="435.0" pickOnBounds="true" preserveRatio="true">
+            <Separator layoutX="98.0" layoutY="290.0" prefWidth="200.0" />
+            <Separator layoutX="98.0" layoutY="330.0" prefHeight="3.0" prefWidth="200.0" />
+            <ImageView fitHeight="138.0" fitWidth="141.0" layoutX="123.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../resources/images/controlKeys/computer_key_Arrow_Right.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="130.0" layoutY="434.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../resources/images/controlKeys/computer_key_Arrow_Left.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="179.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../resources/images/controlKeys/computer_key_Arrow_Up.png" />
+                  <Image url="@../resources/images/controlKeys/arrow-keys.png" />
                </image>
             </ImageView>
             <Label layoutX="40.0" layoutY="228.0" prefHeight="31.0" prefWidth="29.0" textFill="WHITE">
@@ -92,17 +82,22 @@
                   <Font size="26.0" />
                </font>
             </Label>
-            <Label layoutX="71.0" layoutY="441.0" text="LEFT" textFill="#818181">
+            <Label layoutX="71.0" layoutY="412.0" text="LEFT" textFill="#818181">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="185.0" layoutY="364.0" text="UP" textFill="#818181">
+            <Label layoutX="181.0" layoutY="333.0" text="UP" textFill="#818181">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="277.0" layoutY="442.0" text="RIGHT" textFill="#818181">
+            <Label layoutX="166.0" layoutY="450.0" text="BREAK" textFill="#818181">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="277.0" layoutY="412.0" text="RIGHT" textFill="#818181">
                <font>
                   <Font size="20.0" />
                </font>
@@ -142,14 +137,14 @@
                   <Image url="@../resources/images/controlKeys/computer_key_S.png" />
                </image>
             </ImageView>
-            <Label layoutX="140.0" layoutY="490.0" text="SHOOTING" textFill="#818181">
+            <Label layoutX="140.0" layoutY="490.0" text="SHOOT" textFill="#818181">
                <font>
                   <Font size="22.0" />
                </font>
             </Label>
             <Label layoutX="70.0" layoutY="40.0" text="HIGHSCORE" textFill="#eb7272">
                <font>
-                  <Font size="22.0" />
+                  <Font name="System Bold Italic" size="22.0" />
                </font>
             </Label>
             <Label fx:id="highscore" layoutX="215.0" layoutY="38.0" prefHeight="31.0" prefWidth="122.0" textFill="#eb7272">

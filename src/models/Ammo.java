@@ -39,5 +39,6 @@ public class Ammo extends Sprite{
                 }
             }
         }
+        //ammunition.remove(ammunition.size()-1);
     }
 }

@@ -10,6 +10,7 @@ public class Player extends Sprite {
     private Double money;
     private Long points;
     private Long experience;
+    private Integer ammunitions;
     private int healthPoints;
     private int maxLevelPassed;
     private boolean accelerating = false;
@@ -23,6 +24,7 @@ public class Player extends Sprite {
         this.points = points;
         this.experience = experience;
         this.healthPoints = healthPoints;
+        this.ammunitions = 5;
     }
 
     public String getName() {
@@ -48,6 +50,15 @@ public class Player extends Sprite {
     public void setMoney(Double money) {
         this.money = money;
     }
+
+    public Integer getAmmunitions() {
+        return ammunitions;
+    }
+
+    public void setAmmunitions(Integer ammunitions) {
+        this.ammunitions = ammunitions;
+    }
+
 
     public Long getPoints() {
         return this.points;

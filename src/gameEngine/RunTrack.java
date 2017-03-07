@@ -171,7 +171,7 @@ public class RunTrack {
                     Stage currentStage = (Stage) canvas.getScene().getWindow();
 
                     //CHECK FOR END && CHECK FOR LOSE
-                    if (time >= Constants.TRACK_1_END_TIME || player.getHealthPoints() <= 0) {       //(time >= Constants.TRACK_1_END_TIME)
+                    if (time >= Constants.TRACK_1_END_TIME || player.getHealthPoints() <= 0) {
                         if(currentDistance.getValue() >= 5000){
                             this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
                         }

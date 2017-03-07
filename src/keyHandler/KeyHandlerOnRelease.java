@@ -40,7 +40,7 @@ public class KeyHandlerOnRelease implements EventHandler<KeyEvent> {
                 player.setCenterWheel(true);
                 player.update(minLeftSide, maxRightSide);
                 break;
-            case "Enter":
+            case "S":
                 RunTrack.setShoot(false);
                 break;
         }

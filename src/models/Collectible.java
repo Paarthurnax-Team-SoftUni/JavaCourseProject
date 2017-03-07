@@ -41,6 +41,8 @@ public class Collectible extends Sprite {
                 return Constants.IMMORTALITY_STRING;
             case Constants.COLLECTIBLE + 5 + Constants.HALF_SIZE_NAME:
                 return Constants.ARMAGEDDON_STRING;
+            case Constants.COLLECTIBLE + 6 + Constants.HALF_SIZE_NAME:
+                return Constants.AMMO_STRING;
         }
         return Constants.BONUS_POINTS_STRING;
     }
@@ -161,6 +163,14 @@ public class Collectible extends Sprite {
 
                         collectible.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
                         return Constants.ARMAGEDDON_STRING;
+
+                    case Constants.AMMO_STRING:
+                        player.addPoints( Constants.AMMO_BONUS*bonusCoefficient);
+                        Notification.showPopupMessage(Constants.AMMO_STRING,Constants.AMMO_NOTIFICATION_MESSAGE, currentStage);
+                        player.setAmmunitions(player.getAmmunitions()+1);
+
+                        collectible.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
+                        return Constants.AMMO_STRING;
                 }
 
             }

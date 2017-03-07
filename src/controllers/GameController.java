@@ -29,6 +29,8 @@ public class GameController implements Initializable {
     public Label scorePoints;
     @FXML
     public Label distance;
+    @FXML
+    public Label bullets;
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         CurrentPoints currentPlayerPoints = RunTrack.getCurrentPoints();

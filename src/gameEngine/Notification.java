@@ -9,7 +9,6 @@ public class Notification {
 
     private static Popup createPopup(final String type, final String message) {
         popup.setAutoFix(true);
-        popup.setAutoHide(true);
         popup.setHideOnEscape(true);
         Label label = new Label(message);
         label.getStylesheets().add("/resources/styles/styles.css");

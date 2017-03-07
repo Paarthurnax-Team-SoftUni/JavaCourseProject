@@ -7,14 +7,14 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="loginPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+<AnchorPane fx:id="loginPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
     <children>
         <Rectangle fx:id="backgroundBox" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="386.0" layoutX="133.0" layoutY="158.0" stroke="BLACK" strokeType="INSIDE" width="587.0" />
         <TextField fx:id="playerName" alignment="CENTER" layoutX="259.0" layoutY="303.0" prefHeight="66.0" prefWidth="323.0">
             <font>
                 <Font name="Chiller" size="40.0" />
             </font></TextField>
-        <Label layoutX="163.0" layoutY="198.0" text="Enter Your Username" textFill="#141414" underline="true">
+        <Label layoutX="265.0" layoutY="198.0" text="Enter Your Username" textFill="#141414" underline="true">
             <font>
                 <Font name="Chiller" size="50.0" />
             </font>
