@@ -169,7 +169,7 @@ public class RunTrack {
                     obstacle.manageObstacles(gc, collectible, player, obstacle.getObstacles(), velocity);
 
                     // Ammo logic
-                    ammo.visualizeAmmo(gc, obstacle.getObstacles(), ammo.getAmmunition());
+                    ammo.visualizeAmmo(gc, obstacle.getObstacles(), ammo.getAmmunition(),player);
                     if (shoot) {
                         ammo.addAmmo(ammo.generateAmmo(player));
                         setShoot(false);

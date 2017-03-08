@@ -75,6 +75,7 @@ public class Constants {
     public static final int DOUBLE_BONUS_POINTS = 1000;
     public static final long DOUBLE_PTS_DURATION = 5;
     public static final int DESTROY_OBJECT_COORDINATES = 1000;
+    public static final int DESTROYED_OBJECT_BONUS = 800;
     public static final int START_GAME_VELOCITY = 5;
     public static final int START_GAME_BULLETS = 5;
     public static final int HEALTH_BAR_MIN = 25;

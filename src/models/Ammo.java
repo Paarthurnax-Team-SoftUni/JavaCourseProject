@@ -28,7 +28,7 @@ public class Ammo extends Sprite{
         return ammo;
     }
 
-    public void visualizeAmmo(GraphicsContext gc, List<Obstacle> obstacles, List<Ammo> ammunition) {
+    public void visualizeAmmo(GraphicsContext gc, List<Obstacle> obstacles, List<Ammo> ammunition, Player player) {
         for (Ammo ammo : ammunition) {
             ammo.setVelocity(0,-5);
             ammo.update();
@@ -37,7 +37,7 @@ public class Ammo extends Sprite{
                 if (ammo.getBoundary().intersects(obstacle.getBoundary())) {
                     if(!obstacle.isDestroyed) {
                         ammo.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
-                        obstacle.handleImpactByAmmo();
+                        obstacle.handleImpactByAmmo(player);
                     }
                 }
             }

@@ -77,7 +77,8 @@ public class Obstacle extends Sprite {
         return obstacle;
     }
 
-    public void handleImpactByAmmo(){
+    public void handleImpactByAmmo(Player player){
+        player.addPoints(Constants.DESTROYED_OBJECT_BONUS);
         this.setDestroyed(true);
         this.setIsDrunk(false);
         this.removeWind();
