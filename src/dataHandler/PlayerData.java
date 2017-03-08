@@ -3,15 +3,9 @@ package dataHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.Player;
+import utils.SQLConstants;
 
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Iterator;
+import java.sql.*;
 
 
 public class PlayerData {
@@ -19,6 +13,11 @@ public class PlayerData {
     private static volatile PlayerData instance = null;
     private ObservableList<Player> playersList;
     private Player currentPlayer;
+    private Connection conn;
+
+    private PreparedStatement insertPlayer;
+    private PreparedStatement queryPlayers;
+    private PreparedStatement updatePlayer;
 
     private PlayerData() {}
 
@@ -31,6 +30,51 @@ public class PlayerData {
             }
         }
         return instance;
+    }
+
+    public boolean open() {
+        try {
+            conn = DriverManager.getConnection(SQLConstants.CONNECTION_STRING);
+            insertPlayer = conn.prepareStatement(SQLConstants.INSERT_PLAYER);
+            queryPlayers = conn.prepareStatement(SQLConstants.QUERY_PLAYERS);
+            updatePlayer = conn.prepareStatement(SQLConstants.UPDATE_PLAYER_SCORE);
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Couldn't connect to database: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public void close() {
+        try {
+
+            if(insertPlayer != null) {
+                insertPlayer.close();
+            }
+
+            if(queryPlayers != null) {
+                queryPlayers.close();
+            }
+
+            if(updatePlayer != null) {
+                updatePlayer.close();
+            }
+
+            if (conn != null) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Couldn't close connection: " + e.getMessage());
+        }
+    }
+
+    public void createDb() {
+        try( Connection conn = DriverManager.getConnection(SQLConstants.CONNECTION_STRING);
+             Statement statement = conn.createStatement()) {
+            statement.execute(SQLConstants.CREATE_TABLE_COMMAND);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public Player getCurrentPlayer() {
@@ -49,47 +93,32 @@ public class PlayerData {
         this.playersList.add(player);
     }
 
-    public void loadPlayersData() {
+    public ObservableList loadPlayersData() {
         this.playersList = FXCollections.observableArrayList();
-        Path path = Paths.get(Constants.HIGH_SCORES_FILE_NAME);
-
-        String input;
-
-        try (BufferedReader br = Files.newBufferedReader(path)) {
-            while ((input = br.readLine()) != null) {
-                String[] itemPieces = input.split("\t");
-                String name = itemPieces[0];
-                long highScore = Long.parseLong(itemPieces[1]);
-                double money = Double.parseDouble(itemPieces[2]);
-                long points = Long.parseLong(itemPieces[3]);
-                long experience = Long.parseLong(itemPieces[4]);
-                int healthPoints = Integer.parseInt(itemPieces[5]);
-                Player player = new Player(name, highScore, money, points, experience, healthPoints);
+        try  {
+            ResultSet results = queryPlayers.executeQuery();
+            while (results.next()) {
+                Player player = new Player();
+                player.setId(results.getInt(SQLConstants.INDEX_COLUMN_ID));
+                player.setName(results.getString(SQLConstants.INDEX_COLUMN_NAME));
+                player.setHighScore(results.getLong(SQLConstants.INDEX_COLUMN_HIGHSCORE));
+                player.setMoney(results.getDouble(SQLConstants.INDEX_COLUMN_MONEY));
+                player.setHealthPoints(results.getInt(SQLConstants.INDEX_COLUMN_HEALTH));
                 this.playersList.add(player);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        } catch (SQLException e) {
+            System.out.println("Query failed: " + e.getMessage());
         }
+        return this.playersList;
     }
 
-    public void storePlayersData() {
-        Path path = Paths.get(Constants.HIGH_SCORES_FILE_NAME);
-        try (BufferedWriter bw = Files.newBufferedWriter(path)) {
-            Iterator<Player> iter = this.playersList.iterator();
-            while (iter.hasNext()) {
-                Player player = iter.next();
-                bw.write(String.format("%s\t%s\t%s\t%s\t%s\t%s%n",
-                        player.getName(),
-                        player.getHighScore(),
-                        player.getMoney(),
-                        player.getPoints(),
-                        player.getExperience(),
-                        player.getHealthPoints()
-                ));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void storePlayersData(Player player) throws SQLException {
+        insertPlayer.setString(1, player.getName());
+        insertPlayer.setLong(2, player.getPoints());
+        insertPlayer.setDouble(3, player.getMoney());
+        insertPlayer.setInt(4, player.getHealthPoints());
+        insertPlayer.executeUpdate();
     }
 
     public boolean checkForPlayer(String player) {
@@ -110,7 +139,16 @@ public class PlayerData {
         return null;
     }
 
-    public void deletePlayer(Player player) {
-        playersList.remove(player);
+    public void updatePlayer(Player currentPlayer) {
+        if (currentPlayer.getPoints() > currentPlayer.getHighScore()) {
+
+            try {
+                updatePlayer.setLong(1, currentPlayer.getPoints());
+                updatePlayer.setInt(2, currentPlayer.getId());
+                updatePlayer.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

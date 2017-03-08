@@ -1,6 +1,6 @@
 package controllers;
 
-import dataHandler.Constants;
+import utils.Constants;
 import dataHandler.PlayerData;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -38,5 +38,6 @@ public class HighScoreController {
 
         highScoresListView.setItems(sortedList);
         highScoresListView.getColumns().addAll(name, money, highScore);
+
     }
 }

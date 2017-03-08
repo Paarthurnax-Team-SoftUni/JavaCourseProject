@@ -1,6 +1,6 @@
 package models;
 
-import dataHandler.Constants;
+import utils.Constants;
 
 public class EnemyDriver extends Obstacle {
 

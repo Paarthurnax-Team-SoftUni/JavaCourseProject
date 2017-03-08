@@ -1,6 +1,6 @@
 package models;
 
-import dataHandler.Constants;
+import utils.Constants;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;

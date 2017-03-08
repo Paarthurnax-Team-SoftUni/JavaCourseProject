@@ -1,7 +1,7 @@
 package models;
 
 import gameEngine.RunTrack;
-import dataHandler.Constants;
+import utils.Constants;
 
 public class Player extends Sprite {
 
@@ -9,21 +9,24 @@ public class Player extends Sprite {
     private Long highScore;
     private Double money;
     private Long points;
-    private Long experience;
     private Integer ammunition;
     private int healthPoints;
     private int maxLevelPassed;
     private boolean accelerating = false;
     private boolean centerWheel;
+    private int id;
 
-    public Player(String name, Long highScore, Double money, Long points, Long experience, int healthPoints) {
-
+    public Player(String name, Long highScore, Double money, int healthPoints) {
+        this();
         this.name = name;
         this.highScore = highScore;
         this.money = money;
-        this.points = points;
-        this.experience = experience;
         this.healthPoints = healthPoints;
+
+    }
+
+    public Player() {
+        this.points = 0L;
         this.ammunition = Constants.START_GAME_BULLETS;
     }
 
@@ -32,6 +35,14 @@ public class Player extends Sprite {
             setAmmunition(getAmmunition() - 1);
             RunTrack.setShoot(true);
         }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -46,7 +57,7 @@ public class Player extends Sprite {
         return highScore;
     }
 
-    private void setHighScore(Long highScore) {
+    public void setHighScore(Long highScore) {
         this.highScore = highScore;
     }
 
@@ -73,14 +84,6 @@ public class Player extends Sprite {
 
     public void setPoints(Long points) {
         this.points = points;
-    }
-
-    public Long getExperience() {
-        return this.experience;
-    }
-
-    public void setExperience(Long experience) {
-        this.experience = experience;
     }
 
     public int getHealthPoints() {
@@ -111,24 +114,12 @@ public class Player extends Sprite {
         this.centerWheel = b;
     }
 
-    public void givePoints(int playerPoints) {
-        points += playerPoints;
-    }
-
     public void accelerate() {
         this.accelerating = true;
     }
 
-    private void updateHighScore() {
-        if (this.getHighScore() < this.getPoints()) {
-            this.setHighScore(this.getPoints());
-        }
-    }
-
     public void updateStatsAtEnd() {
         this.setHealthPoints(Constants.HEALTH_BAR_MAX);
-        this.updateHighScore();
-        this.setPoints(0L);
         this.stopAccelerate();
         this.setCenterWheel(true);
         this.removeWind();
@@ -164,6 +155,6 @@ public class Player extends Sprite {
 
     @Override
     public String toString() {
-        return String.format("%s: %s", this.name, this.highScore);
+        return String.format("%s: %s %d %s", this.name, this.highScore, this.id, this.healthPoints);
     }
 }

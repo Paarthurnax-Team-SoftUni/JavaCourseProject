@@ -1,6 +1,6 @@
 package controllers;
 
-import dataHandler.Constants;
+import utils.Constants;
 import dataHandler.PlayerData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +14,7 @@ import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class LoginController{
@@ -24,7 +25,7 @@ public class LoginController{
     private Button loginBtn;
 
     @FXML
-    private void showStartPage() throws IOException {
+    private void showStartPage() throws IOException, SQLException {
 
         String name = playerName.getText().trim();
         Stage currentStage = (Stage) this.loginBtn.getScene().getWindow();
@@ -54,12 +55,12 @@ public class LoginController{
             alert.setContentText(Constants.CREATE_USER_CONTENT);
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
-                Player player = new Player(name, 0L, 0.0, 0L, 0L, 100);
+                Player player = new Player(name, 0L, 0.0, 100);
 
                 //  Track.getRunTrack().setPlayer(player);
 
                 PlayerData.getInstance().addPlayer(player);
-                PlayerData.getInstance().storePlayersData();
+                PlayerData.getInstance().storePlayersData(player);
                 PlayerData.getInstance().setCurrentPlayer(PlayerData.getInstance().returnPlayer(name));
 
                 FXMLLoader loader = manager.loadSceneToStage(currentStage,Constants.START_FXML_PATH,null);

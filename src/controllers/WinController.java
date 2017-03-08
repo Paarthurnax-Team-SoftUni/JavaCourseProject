@@ -1,6 +1,6 @@
 package controllers;
 
-import dataHandler.Constants;
+import utils.Constants;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

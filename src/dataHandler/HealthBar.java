@@ -2,6 +2,7 @@ package dataHandler;
 
 import javafx.scene.image.ImageView;
 import models.Player;
+import utils.Constants;
 
 import java.util.Observable;
 
