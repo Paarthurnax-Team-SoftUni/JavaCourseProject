@@ -56,13 +56,10 @@ public class LoginController{
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && (result.get() == ButtonType.OK)) {
                 Player player = new Player(name, 0L, 0.0, 100);
-
-                //  Track.getRunTrack().setPlayer(player);
-
                 PlayerData.getInstance().addPlayer(player);
                 PlayerData.getInstance().storePlayersData(player);
                 PlayerData.getInstance().setCurrentPlayer(PlayerData.getInstance().returnPlayer(name));
-
+                PlayerData.getInstance().updatePlayer(player);
                 FXMLLoader loader = manager.loadSceneToStage(currentStage,Constants.START_FXML_PATH,null);
             }
         }

@@ -17,6 +17,7 @@ public class SQLConstants {
     public static final int INDEX_COLUMN_HEALTH = 5;
 
     public static final String CONNECTION_STRING = "jdbc:sqlite:src\\resources\\database\\" + DB_NAME;
+    public static final String LINUX_CONNECTION_STRING = "jdbc:sqlite:src/resources/database/" + DB_NAME;
     public static final String CREATE_TABLE_COMMAND = "CREATE TABLE IF NOT EXISTS "+
             TABLE_NAME + " (" + COLUMN_ID + "  INTEGER PRIMARY KEY, " + COLUMN_NAME + " TEXT UNIQUE, " + COLUMN_HIGHSCORE + " INTEGER, " + COLUMN_MONEY + " DOUBLE, "
             + COLUMN_HEALTH + " INTEGER)";
@@ -25,5 +26,5 @@ public class SQLConstants {
             "(" + COLUMN_NAME + ", " + COLUMN_HIGHSCORE + ", " + COLUMN_MONEY +
             ", " + COLUMN_HEALTH + ") VALUES(?, ?, ?, ?)";
     public static final String UPDATE_PLAYER_SCORE = "UPDATE " + TABLE_NAME + " SET " +
-            COLUMN_HIGHSCORE + " = ? WHERE " + COLUMN_ID + " = ?";
+            COLUMN_HIGHSCORE + " = ? WHERE " + COLUMN_NAME + " = ?";
 }

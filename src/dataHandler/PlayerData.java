@@ -147,10 +147,10 @@ public class PlayerData {
 
     public void updatePlayer(Player currentPlayer) {
         if (currentPlayer.getPoints() > currentPlayer.getHighScore()) {
-
+            currentPlayer.setHighScore(currentPlayer.getPoints());
             try {
-                updatePlayer.setLong(1, currentPlayer.getPoints());
-                updatePlayer.setInt(2, currentPlayer.getId());
+                updatePlayer.setLong(1, currentPlayer.getHighScore());
+                updatePlayer.setString(2, currentPlayer.getName());
                 updatePlayer.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();

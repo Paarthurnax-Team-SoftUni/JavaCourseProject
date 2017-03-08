@@ -21,7 +21,6 @@ public class HighScoreController {
 
         Predicate<Player> wantAllItems = player -> true;
         FilteredList<Player> filteredList = new FilteredList<Player>(PlayerData.getInstance().getPlayersList(), wantAllItems);
-
         SortedList<Player> sortedList = new SortedList<Player>(filteredList, (o1, o2) -> o2.getHighScore().compareTo(o1.getHighScore()));
 
         TableColumn name = new TableColumn(Constants.TABLE_COLUMN_NAME);

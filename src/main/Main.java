@@ -40,7 +40,7 @@ public class Main extends Application {
 
     @Override
     public void stop() throws SQLException {
-       PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
+        PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
         PlayerData.getInstance().close();
     }
 }

@@ -185,7 +185,9 @@ public class RunTrack {
                         boolean win = player.getHealthPoints() > 0 && currentDistance.getValue() >= Constants.TRACK_1_END_DISTANCE;
                         if (win) {
                             this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
+                            PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
                         }
+                        PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
 
                         clearObstaclesAndCollectibles();
                         gameLoop.stop();
