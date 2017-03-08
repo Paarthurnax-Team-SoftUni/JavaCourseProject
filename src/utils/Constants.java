@@ -115,4 +115,8 @@ public class Constants {
     public static final int SECOND_LEVEL_DRUNK_DRIVERS = 60;
     public static final int SECOND_LEVEL_MIN_X = 50;
     public static final int SECOND_LEVEL_MAX_X = 400;
+
+    //DB Errors
+    public static final String DB_INIT_ERROR_TITLE = "Error in the connection to the DB";
+    public static final String DB_INIT_ERROR_CONTENT = "Please relaunch the application";
 }
