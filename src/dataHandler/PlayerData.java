@@ -45,6 +45,12 @@ public class PlayerData {
         return this.playersList;
     }
 
+    public String getHighscores() {
+        String highscore = this.playersList.sorted((p1, p2) -> p2.getHighScore().compareTo(p1.getHighScore())).get(0).getHighScore().toString();
+
+        return highscore;
+    }
+
     public void addPlayer(Player player) {
         this.playersList.add(player);
     }

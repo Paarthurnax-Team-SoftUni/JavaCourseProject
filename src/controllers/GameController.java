@@ -37,6 +37,7 @@ public class GameController implements Initializable {
         CurrentTime currentTime = RunTrack.getCurrentTime();
         CurrentDistance currentDistance = RunTrack.getCurrentDistance();
         CurrentBullets currentBullets = RunTrack.getCurrentBullets();
+        this.highscore.textProperty().setValue(PlayerData.getInstance().getHighscores());
         this.scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
         this.timeInfo.textProperty().bind(Bindings.convert(currentTime.valueProperty()));
         this.distance.textProperty().bind(Bindings.convert(currentDistance.valueProperty()));
