@@ -187,6 +187,7 @@ public class RunTrack {
                             this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
                             PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
                         }
+
                         PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
 
                         clearObstaclesAndCollectibles();

@@ -23,20 +23,6 @@ public class HighScoreController {
         FilteredList<Player> filteredList = new FilteredList<Player>(PlayerData.getInstance().getPlayersList(), wantAllItems);
         SortedList<Player> sortedList = new SortedList<Player>(filteredList, (o1, o2) -> o2.getHighScore().compareTo(o1.getHighScore()));
 
-        TableColumn name = new TableColumn(Constants.TABLE_COLUMN_NAME);
-        name.setMinWidth(100);
-        name.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
-
-        TableColumn money = new TableColumn(Constants.TABLE_COLUMN_MONEY);
-        money.setMinWidth(100);
-        money.setCellValueFactory(new PropertyValueFactory<Player, String>("money"));
-
-        TableColumn highScore = new TableColumn(Constants.TABLE_COLUMN_SCORE);
-        highScore.setMinWidth(100);
-        highScore.setCellValueFactory(new PropertyValueFactory<Player, String>("highScore"));
-
         highScoresListView.setItems(sortedList);
-        highScoresListView.getColumns().addAll(name, money, highScore);
-
     }
 }
