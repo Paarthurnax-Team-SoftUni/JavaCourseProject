@@ -16,3 +16,6 @@
 <div class="highlight highlight-source-shell">
   <pre>https://github.com/Paarthurnax-Team-SoftUni/JavaCourseProject.git</pre>
 </div>
+
+###To install the DB:
+Download JDBC from https://bitbucket.org/xerial/sqlite-jdbc/downloads/ and add it to your project as Library.
