@@ -10,13 +10,13 @@ import javafx.scene.image.Image;
 public abstract class Sprite {
     private Image image;
     private String name;
-    protected double positionX;
-    protected double positionY;
-    protected double velocityX;
-    protected double velocityY;
+    private double positionX;
+    private double positionY;
+    private double velocityX;
+    private double velocityY;
     private double width;
-    protected double height;
-    protected boolean isDestroyed;
+    private double height;
+    private boolean isDestroyed;
     private boolean turnRight;
     private boolean turnLeft;
     private double angle;
@@ -33,7 +33,7 @@ public abstract class Sprite {
         }
     }
 
-    public boolean getTurnRight() {
+    private boolean getTurnRight() {
         return this.turnRight;
     }
 
@@ -42,7 +42,7 @@ public abstract class Sprite {
 
     }
 
-    public boolean getTurnLeft() {
+    private boolean getTurnLeft() {
         return this.turnLeft;
     }
 
@@ -50,15 +50,11 @@ public abstract class Sprite {
         this.turnLeft = b;
     }
 
-    public double getWidth() {
-        return this.width;
-    }
-
     public double getHeight() {
         return this.height;
     }
 
-    public Sprite() {
+    protected Sprite() {
         positionX = 0;
         positionY = 0;
         velocityX = 0;
@@ -79,6 +75,22 @@ public abstract class Sprite {
         setImage(i);
     }
 
+    public void setDestroyed(boolean destroyed) {
+        isDestroyed = destroyed;
+    }
+
+    public void setVelocityX(double velocityX) {
+        this.velocityX = velocityX;
+    }
+
+    public void setVelocityY(double velocityY) {
+        this.velocityY = velocityY;
+    }
+
+    public boolean isDestroyed() {
+        return isDestroyed;
+    }
+
     public Image getImage() {
         return this.image;
     }
@@ -88,7 +100,7 @@ public abstract class Sprite {
         this.width = i.getWidth();
         this.height = i.getHeight();
     }
-
+    
     public double getPositionX() {
         return this.positionX;
     }
