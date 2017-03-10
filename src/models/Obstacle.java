@@ -4,6 +4,7 @@ import utils.Constants;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -41,7 +42,7 @@ public class Obstacle extends Sprite {
     }
 
     public List<Obstacle> getObstacles() {
-        return obstacles;
+        return Collections.unmodifiableList(this.obstacles);
     }
 
     public Obstacle generateObstacle(int valueDrunkDrivers, int minLeftSide, int maxRightSide) {

@@ -4,6 +4,7 @@ import utils.Constants;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Ammo extends Sprite{
@@ -18,7 +19,7 @@ public class Ammo extends Sprite{
     }
 
     public List<Ammo> getAmmunition() {
-        return ammunition;
+        return Collections.unmodifiableList(this.ammunition);
     }
 
     public Ammo generateAmmo(Player player){
