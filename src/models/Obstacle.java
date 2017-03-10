@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class Obstacle extends Sprite {
 
-    protected boolean isDrunk;
+    private boolean isDrunk;
     private List<Obstacle> obstacles;
 
     public Obstacle() {
@@ -17,11 +17,11 @@ public class Obstacle extends Sprite {
         setIsDrunk(false);
         obstacles = new ArrayList<>();
     }
-
-    private void setDestroyed(boolean destroyed) {
+    @Override
+    public void setDestroyed(boolean destroyed) {
         this.setImage(Constants.FLAME_PATH_SMALL);
         this.setVelocity(0, 0);
-        isDestroyed = destroyed;
+        super.setDestroyed(destroyed);
     }
 
     private boolean getIsDrunk() {
@@ -30,10 +30,6 @@ public class Obstacle extends Sprite {
 
     private void setIsDrunk(boolean b) {
         this.isDrunk = b;
-    }
-
-    private boolean isDestroyed() {
-        return isDestroyed;
     }
 
     public void addObstacle(Obstacle obstacle) {

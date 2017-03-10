@@ -1,10 +1,8 @@
 package controllers;
 
-import utils.Constants;
 import dataHandler.PlayerData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -18,6 +16,7 @@ import mapHandlers.TrackLevel;
 import models.Player;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
+import utils.Constants;
 
 import java.io.IOException;
 
@@ -65,7 +64,7 @@ public class ChooseLevelController {
         Stage currentStage = (Stage)this.startBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
 
-        FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.GAME_PLAY_VIEW_PATH,null);
+        manager.loadSceneToStage(currentStage, Constants.GAME_PLAY_VIEW_PATH,null);
         AnchorPane root = manager.getRoot();
         track.createBackground(root);
     }
@@ -73,7 +72,6 @@ public class ChooseLevelController {
     public void chooseLevel(MouseEvent ev) throws IOException {
         Node source = (Node) ev.getSource();
         int id = Integer.valueOf(source.getId().substring(5));
-        System.out.println(id);
         this.backgroundFill(id);
         this.setLevel(id);
         this.startBtn.setVisible(true);
