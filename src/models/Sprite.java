@@ -139,7 +139,7 @@ public abstract class Sprite {
         }
     }
 
-    
+
 
     private void addVelocity(double x, double y, int min, int max) {
         this.minLeftSide = min;

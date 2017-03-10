@@ -1,10 +1,9 @@
 package models;
 
-import utils.Constants;
 import javafx.scene.canvas.GraphicsContext;
+import utils.Constants;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -42,7 +41,7 @@ public class Obstacle extends Sprite {
     }
 
     public List<Obstacle> getObstacles() {
-        return Collections.unmodifiableList(this.obstacles);
+        return obstacles;
     }
 
     public Obstacle generateObstacle(int valueDrunkDrivers, int minLeftSide, int maxRightSide) {
