@@ -100,8 +100,7 @@ public abstract class Sprite {
         this.width = i.getWidth();
         this.height = i.getHeight();
     }
-    
-    public double getPositionX() {
+        public double getPositionX() {
         return this.positionX;
     }
 
@@ -139,6 +138,8 @@ public abstract class Sprite {
             }
         }
     }
+
+
 
     private void addVelocity(double x, double y, int min, int max) {
         this.minLeftSide = min;
