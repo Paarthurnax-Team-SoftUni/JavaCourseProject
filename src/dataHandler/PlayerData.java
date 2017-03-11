@@ -34,7 +34,7 @@ public class PlayerData {
 
     public boolean open() {
         try {
-            conn = DriverManager.getConnection(SQLConstants.CONNECTION_STRING);
+            conn = DriverManager.getConnection(SQLConstants.returnPath(System.getProperty(SQLConstants.PROPERTY_VALUE).toLowerCase()));
             insertPlayer = conn.prepareStatement(SQLConstants.INSERT_PLAYER);
             queryPlayers = conn.prepareStatement(SQLConstants.QUERY_PLAYERS);
             updatePlayer = conn.prepareStatement(SQLConstants.UPDATE_PLAYER_SCORE);
@@ -69,7 +69,7 @@ public class PlayerData {
     }
 
     public void createDb() {
-        try( Connection conn = DriverManager.getConnection(SQLConstants.CONNECTION_STRING);
+        try( Connection conn = DriverManager.getConnection(SQLConstants.returnPath(System.getProperty(SQLConstants.PROPERTY_VALUE).toLowerCase()));
              Statement statement = conn.createStatement()) {
             statement.execute(SQLConstants.CREATE_TABLE_COMMAND);
         } catch (SQLException e) {
