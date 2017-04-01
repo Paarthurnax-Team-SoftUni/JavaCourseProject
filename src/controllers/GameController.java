@@ -13,16 +13,15 @@ import javafx.scene.image.ImageView;
 public class GameController implements Initializable {
 
     @FXML
-    public ImageView healthFirst;
+    private ImageView healthFirst;
     @FXML
-    public ImageView healthSecond;
+    private ImageView healthSecond;
     @FXML
-    public ImageView healthThird;
+    private ImageView healthThird;
     @FXML
-    public ImageView healthFourth;
-
+    private ImageView healthFourth;
     @FXML
-    private Label highscore;
+    private Label highScore;
     @FXML
     private Label timeInfo;
     @FXML
@@ -39,8 +38,8 @@ public class GameController implements Initializable {
         this.distance.textProperty().bind(Bindings.convert(currentStats.valueDistance()));
         this.bullets.textProperty().bind(Bindings.convert(currentStats.valueBullets()));
 
-        this.highscore.textProperty().setValue(PlayerData.getInstance().getHighscores());
-        new HealthBar(this.healthFirst, this.healthSecond, this.healthThird, this.healthFourth);
+        this.highScore.textProperty().setValue(PlayerData.getInstance().getHighscores());
+        new CurrentHealth(this.healthFirst, this.healthSecond, this.healthThird, this.healthFourth);
     }
 
     public void quitGame(ActionEvent actionEvent) {

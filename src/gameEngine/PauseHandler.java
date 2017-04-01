@@ -22,8 +22,7 @@ public class PauseHandler {
     private List<Obstacle> testObstacles;
     private List<Collectible> collectibles;
 
-    public PauseHandler(Timeline gameLoop, GraphicsContext gc, Image background,
-                        double y, Player player, List<Obstacle> testObstacles, List<Collectible> collectibles) {
+    public PauseHandler(Timeline gameLoop, GraphicsContext gc, Image background, double y, Player player, List<Obstacle> testObstacles, List<Collectible> collectibles) {
         this.gameLoop = gameLoop;
         this.gc = gc;
         this.background = background;

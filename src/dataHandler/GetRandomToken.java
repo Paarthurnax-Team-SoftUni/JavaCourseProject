@@ -10,7 +10,6 @@ public class GetRandomToken extends Sprite {
     private String imagesDirectory;
 
     public GetRandomToken( String[] tokens) {
-
         setImagesDirectory(tokens);
     }
 

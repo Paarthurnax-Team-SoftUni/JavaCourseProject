@@ -1,7 +1,6 @@
 package models;
 
 import constants.Constants;
-import gameEngine.Notification;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
@@ -25,8 +24,8 @@ public class Collectible extends Sprite {
         this.bonusCoefficient = 1;
         this.player = player;
         this.collectibles = new ArrayList<>();
-        isImmortal = false;
-        isDoublePtsOn = false;
+        this.isImmortal = false;
+        this.isDoublePtsOn = false;
     }
 
     private String getCollectibleType(){

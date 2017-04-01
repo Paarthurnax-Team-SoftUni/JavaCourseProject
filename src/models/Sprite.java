@@ -23,6 +23,14 @@ public abstract class Sprite {
     private int minLeftSide;
     private int maxRightSide;
 
+    protected Sprite() {
+        positionX = 0;
+        positionY = 0;
+        velocityX = 0;
+        velocityY = 0;
+        this.angle = 0;
+    }
+
     public double getAngle() {
         return this.angle;
     }
@@ -39,7 +47,6 @@ public abstract class Sprite {
 
     public void setTurnRight(boolean b) {
         this.turnRight = b;
-
     }
 
     private boolean getTurnLeft() {
@@ -52,14 +59,6 @@ public abstract class Sprite {
 
     public double getHeight() {
         return this.height;
-    }
-
-    protected Sprite() {
-        positionX = 0;
-        positionY = 0;
-        velocityX = 0;
-        velocityY = 0;
-        this.angle = 0;
     }
 
     public void setName(String n) {
@@ -100,7 +99,8 @@ public abstract class Sprite {
         this.width = i.getWidth();
         this.height = i.getHeight();
     }
-        public double getPositionX() {
+
+    public double getPositionX() {
         return this.positionX;
     }
 
@@ -139,8 +139,6 @@ public abstract class Sprite {
         }
     }
 
-
-
     private void addVelocity(double x, double y, int min, int max) {
         this.minLeftSide = min;
         this.maxRightSide = max;
@@ -163,8 +161,6 @@ public abstract class Sprite {
             }
         }
     }
-
-
 
     public void update() {
         if (this.getTurnLeft()) {

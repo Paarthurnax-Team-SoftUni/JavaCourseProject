@@ -1,12 +1,15 @@
-package gameEngine;
-
-import models.Player;
+package models;
 
 import java.util.ArrayDeque;
 import java.util.Optional;
 
 public class Cheat {
+
     private ArrayDeque<String> cheat;
+
+    public Cheat() {
+        this.cheat = new ArrayDeque<>();
+    }
 
     public void add(String s) {
         this.cheat.add(s);
@@ -24,10 +27,6 @@ public class Cheat {
             }
         }
         return -1;
-    }
-
-    public Cheat() {
-        this.cheat = new ArrayDeque<>();
     }
 
     public void useCheat(Player player) {

@@ -9,9 +9,8 @@ import javafx.scene.input.KeyEvent;
 import music.MusicPlayer;
 import models.Player;
 
-
 public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
-    public static boolean[] pressedKeys = new boolean[256];
+    //public static boolean[] pressedKeys = new boolean[256];
     private Player player;
     private int minLeftSide;
     private int maxRightSide;
@@ -64,7 +63,6 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                     break;
                 case "S":
                     player.shot();
-                    //RunTrack.setShoot(true);
                     break;
                 default:
                     break;

@@ -4,8 +4,6 @@ import constants.Constants;
 
 public class EnemyDriver extends Obstacle {
 
-
-
     @Override
     public void addVelocity(double x, double y) {
         if (x < 0) {
@@ -23,6 +21,7 @@ public class EnemyDriver extends Obstacle {
                 super.setTurnRight(false);
             }
         }
+
         if (y < 0) {
             if (super.getPositionY() > 300) {
                 super.setVelocityY(y);
@@ -33,6 +32,4 @@ public class EnemyDriver extends Obstacle {
             }
         }
     }
-
-
 }

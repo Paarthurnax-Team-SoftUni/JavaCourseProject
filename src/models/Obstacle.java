@@ -17,6 +17,7 @@ public class Obstacle extends Sprite {
         setIsDrunk(false);
         obstacles = new ArrayList<>();
     }
+
     @Override
     public void setDestroyed(boolean destroyed) {
         this.setImage(Constants.FLAME_PATH_SMALL);
@@ -66,9 +67,7 @@ public class Obstacle extends Sprite {
             obstacle.setPosition(obstacleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, -166);
         }
         obstacle.setImage(sd);
-
         obstacle.setName(random);
-
 
         return obstacle;
     }
@@ -88,7 +87,6 @@ public class Obstacle extends Sprite {
         if (this.getObstacleType().contains("player_car")){
             this.setVelocity(0, velocity);
         }
-
     }
 
     public void manageObstacles(GraphicsContext gc, Collectible collectible, Player player, List<Obstacle> obstacles, double velocity ) {
@@ -126,5 +124,4 @@ public class Obstacle extends Sprite {
             }
         }
     }
-
 }

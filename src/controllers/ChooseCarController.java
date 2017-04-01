@@ -11,20 +11,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
-import models.Player;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
 
 public class ChooseCarController{
 
-    public ImageView locked2;
-    public ImageView locked3;
-    public ImageView locked4;
-    public ImageView locked5;
-    public ImageView locked6;
-
     private static String carId;
-    private Player currentPlayer;
 
     @FXML
     private Button goNextBtn;
@@ -40,32 +32,35 @@ public class ChooseCarController{
     private Ellipse backgroundBox5;
     @FXML
     private Ellipse backgroundBox6;
+    @FXML
+    private ImageView locked2;
+    @FXML
+    private ImageView locked3;
+    @FXML
+    private ImageView locked4;
+    @FXML
+    private ImageView locked5;
+    @FXML
+    private ImageView locked6;
 
     public void initialize() {
-        this.setCurrentPlayer(PlayerData.getInstance().getCurrentPlayer());
-        showUnlockedCarsOnly(this.getCurrentPlayer().getHighScore());
+        long highScores = PlayerData.getInstance().getCurrentPlayer().getHighScore();
+        showUnlockedCarsOnly(highScores);
+    }
+
+    @FXML
+    public void goToChooseLevel(ActionEvent actionEvent) {
+        Stage currentStage = (Stage)this.goNextBtn.getScene().getWindow();
+        StageManager manager = new StageManagerImpl();
+        FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.CHOOSE_LEVEL_VIEW_PATH);
     }
 
     public String getCarId() {
         return carId;
     }
 
-    private void setCarId(String carId) {
-        this.carId = carId;
-    }
-
-    private Player getCurrentPlayer() {
-        return this.currentPlayer;
-    }
-
-    private void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
-    public void goToChooseLevel(ActionEvent actionEvent) {
-        Stage currentStage = (Stage)this.goNextBtn.getScene().getWindow();
-        StageManager manager = new StageManagerImpl();
-        FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.CHOOSE_LEVEL_VIEW_PATH);
+    private void setCarId(String id) {
+        carId = id;
     }
 
     public void chooseCar(MouseEvent ev) {
@@ -132,8 +127,6 @@ public class ChooseCarController{
     }
 
     private void backgroundFill(String id) {
-        this.showUnlockedCarsOnly(this.getCurrentPlayer().getHighScore());
-
         switch (id) {
             case "1":
                 this.backgroundBox1.setStyle(Constants.RED_COLOUR);

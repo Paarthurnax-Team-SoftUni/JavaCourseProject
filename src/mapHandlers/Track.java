@@ -6,6 +6,7 @@ import dataHandler.PlayerData;
 import javafx.scene.layout.AnchorPane;
 
 public abstract class Track {
+
     private RunTrack runTrack;
 
     public abstract void createBackground(AnchorPane root);

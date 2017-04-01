@@ -8,11 +8,12 @@ import java.util.Collections;
 import java.util.List;
 
 public class Ammo extends Sprite{
+
     private List<Ammo> ammunition;
+
     public Ammo(){
         this.ammunition = new ArrayList<>();
     }
-
 
     public void addAmmo(Ammo ammo){
         this.ammunition.add(ammo);
@@ -24,7 +25,7 @@ public class Ammo extends Sprite{
 
     public Ammo generateAmmo(Player player){
         Ammo ammo = new Ammo();
-        ammo.setPosition(player.getPositionX() ,player.getPositionY() + 5);
+        ammo.setPosition(player.getPositionX(),player.getPositionY() + 5);
         ammo.setImage(Constants.AMMO_PATH);
         return ammo;
     }

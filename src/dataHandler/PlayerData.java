@@ -7,7 +7,6 @@ import constants.SQLConstants;
 
 import java.sql.*;
 
-
 public class PlayerData {
 
     private static volatile PlayerData instance = null;

@@ -22,7 +22,6 @@ public class Player extends Sprite {
         this.highScore = highScore;
         this.money = money;
         this.healthPoints = healthPoints;
-
     }
 
     public Player() {
@@ -76,7 +75,6 @@ public class Player extends Sprite {
     public void setAmmunition(Integer ammunition) {
         this.ammunition = ammunition;
     }
-
 
     public Long getPoints() {
         return this.points;

@@ -147,7 +147,8 @@
                   <Font name="System Bold Italic" size="22.0" />
                </font>
             </Label>
-            <Label fx:id="highscore" layoutX="240.0" layoutY="38.0" prefHeight="31.0" prefWidth="122.0" textFill="#eb7272">
+            <Label fx:id="highScore" layoutX="240.0" layoutY="38.0" prefHeight="31.0" prefWidth="122.0"
+                   textFill="#eb7272">
                <font>
                   <Font name="System Bold Italic" size="22.0" />
                </font>

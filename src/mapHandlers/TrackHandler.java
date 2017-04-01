@@ -1,13 +1,12 @@
 package mapHandlers;
 
-import mapHandlers.Levels.FirstLevel;
-import mapHandlers.Levels.SecondLevel;
+import mapHandlers.levels.FirstLevel;
+import mapHandlers.levels.SecondLevel;
+import mapHandlers.levels.TrackLevel;
 
 import java.io.IOException;
 
 public class TrackHandler {
-
-//    private static final Image backgroundLevel1 = ;
 
     public Track getLevel(TrackLevel level) throws IOException {
         Track track = null;
