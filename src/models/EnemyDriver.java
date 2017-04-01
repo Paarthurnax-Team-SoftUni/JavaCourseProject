@@ -1,6 +1,6 @@
 package models;
 
-import utils.Constants;
+import constants.Constants;
 
 public class EnemyDriver extends Obstacle {
 

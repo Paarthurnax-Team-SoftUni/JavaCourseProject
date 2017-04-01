@@ -1,6 +1,6 @@
 package models;
 
-import utils.Constants;
+import constants.Constants;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;

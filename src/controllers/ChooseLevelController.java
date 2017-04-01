@@ -16,7 +16,7 @@ import mapHandlers.TrackLevel;
 import models.Player;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
-import utils.Constants;
+import constants.Constants;
 
 import java.io.IOException;
 
@@ -64,7 +64,7 @@ public class ChooseLevelController {
         Stage currentStage = (Stage)this.startBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
 
-        manager.loadSceneToStage(currentStage, Constants.GAME_PLAY_VIEW_PATH,null);
+        manager.loadSceneToStage(currentStage, Constants.GAME_PLAY_VIEW_PATH);
         AnchorPane root = manager.getRoot();
         track.createBackground(root);
     }

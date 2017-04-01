@@ -1,7 +1,7 @@
 package dataHandler;
 
 import models.Sprite;
-import utils.Constants;
+import constants.Constants;
 
 import java.util.Random;
 

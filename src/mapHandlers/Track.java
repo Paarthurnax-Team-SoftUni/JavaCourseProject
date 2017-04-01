@@ -1,7 +1,7 @@
 package mapHandlers;
 
 import gameEngine.RunTrack;
-import utils.Constants;
+import constants.Constants;
 import dataHandler.PlayerData;
 import javafx.scene.layout.AnchorPane;
 
