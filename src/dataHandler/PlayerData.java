@@ -3,7 +3,7 @@ package dataHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.Player;
-import utils.SQLConstants;
+import constants.SQLConstants;
 
 import java.sql.*;
 
@@ -89,12 +89,6 @@ public class PlayerData {
         return this.playersList;
     }
 
-    public String getHighscores() {
-        String highscore = this.playersList.sorted((p1, p2) -> p2.getHighScore().compareTo(p1.getHighScore())).get(0).getHighScore().toString();
-
-        return highscore;
-    }
-
     public void addPlayer(Player player) {
         this.playersList.add(player);
     }
@@ -156,5 +150,11 @@ public class PlayerData {
                 e.printStackTrace();
             }
         }
+    }
+
+    public String getHighscores() {
+        String highscore = this.playersList.sorted((p1, p2) -> p2.getHighScore().compareTo(p1.getHighScore())).get(0).getHighScore().toString();
+
+        return highscore;
     }
 }

@@ -1,6 +1,6 @@
 package main;
 
-import utils.Constants;
+import constants.Constants;
 import dataHandler.PlayerData;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -21,8 +21,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         StageManager manager = new StageManagerImpl();
-        manager.loadSceneToStage(primaryStage, Constants.LOGIN_VIEW_PATH,null);
-
+        manager.loadSceneToStage(primaryStage, Constants.LOGIN_VIEW_PATH);
     }
 
     @Override

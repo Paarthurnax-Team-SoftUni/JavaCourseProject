@@ -1,6 +1,6 @@
 package controllers;
 
-import utils.Constants;
+import constants.Constants;
 import dataHandler.PlayerData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -65,7 +65,7 @@ public class ChooseCarController{
     public void goToChooseLevel(ActionEvent actionEvent) {
         Stage currentStage = (Stage)this.goNextBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
-        FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.CHOOSE_LEVEL_VIEW_PATH,null);
+        FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.CHOOSE_LEVEL_VIEW_PATH);
     }
 
     public void chooseCar(MouseEvent ev) {

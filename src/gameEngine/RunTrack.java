@@ -20,7 +20,7 @@ import models.Player;
 import music.MusicPlayer;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
-import utils.Constants;
+import constants.Constants;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -31,10 +31,7 @@ public class RunTrack {
     private static boolean isPaused;
     private static float velocity;
     private static boolean shoot;
-    private static CurrentPoints currentPoints;
-    private static CurrentTime currentTime;
-    private static CurrentDistance currentDistance;
-    private static CurrentBullets currentBullets;
+    private static CurrentStats currentStats;
     private int frame;
     private int y;
     private float currentFramesPerSecond;
@@ -56,10 +53,7 @@ public class RunTrack {
         time = 0;
         isPaused = false;
         shoot = false;
-        currentPoints = new CurrentPoints(0);
-        currentDistance = new CurrentDistance(0);
-        currentTime = new CurrentTime(0);
-        currentBullets = new CurrentBullets(0);
+        currentStats = new CurrentStats(0, 0, 0, 0);
         this.chooseCarController = new ChooseCarController();
         this.collectible = new Collectible(player);
         this.obstacle = new Obstacle();
@@ -112,10 +106,7 @@ public class RunTrack {
         player.setPoints(0L);
 
         currentHealth = new HealthBar(player);
-        currentPoints.addObserver(observer);
-        currentTime.addObserver(observer);
-        currentDistance.addObserver(observer);
-        currentBullets.addObserver(observer);
+        currentStats.addObserver(observer);
 
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
@@ -137,15 +128,13 @@ public class RunTrack {
                     //update immortality status if its actuvated
                     collectible.updateStatus();
 
-                    currentTime.setValue((long) (time * currentFramesPerSecond));
-                    currentDistance.setValue(currentDistance.getValue() + (long) velocity / 2);
+                    currentStats.setTime((long) (time * currentFramesPerSecond));
+                    currentStats.setDistance(currentStats.getDistance() + (long) velocity / 2);
                     player.addPoints(1);
-                    currentPoints.setValue(player.getPoints());
-                    currentBullets.setValue(player.getAmmunition());
+                    currentStats.setPoints(player.getPoints());
+                    currentStats.setBullets(player.getAmmunition());
 
-                    observer.update(currentPoints, observer);
-                    observer.update(currentTime, observer);
-                    observer.update(currentDistance, observer);
+                    observer.update(currentStats, observer);
 
                     if (Math.abs(y) >= Constants.CANVAS_HEIGHT) {
                         y = y - Constants.CANVAS_HEIGHT;
@@ -182,7 +171,7 @@ public class RunTrack {
 
                     //CHECK FOR END && CHECK FOR LOSE
                     if (time >= Constants.TRACK_1_END_TIME || player.getHealthPoints() <= 0) {
-                        boolean win = player.getHealthPoints() > 0 && currentDistance.getValue() >= Constants.TRACK_1_END_DISTANCE;
+                        boolean win = player.getHealthPoints() > 0 && currentStats.getDistance() >= Constants.TRACK_1_END_DISTANCE;
                         if (win) {
                             this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
                             PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
@@ -196,12 +185,12 @@ public class RunTrack {
                         time = 0;
                         Notification.hidePopupMessage();
                         velocity = Constants.START_GAME_VELOCITY;
-                        currentDistance.setValue(0);
+                        currentStats.setDistance(0);
                         root.getChildren().remove(canvas);
                         player.setAmmunition(Constants.START_GAME_BULLETS);
 
                         // Ternar operator If final time is achieved -> GAME_WIN_VIEW else Game Lose View;
-                        FXMLLoader loader = manager.loadSceneToStage(currentStage, win ? Constants.GAME_WIN_VIEW_PATH : Constants.GAME_OVER_VIEW_PATH, null);
+                        FXMLLoader loader = manager.loadSceneToStage(currentStage, win ? Constants.GAME_WIN_VIEW_PATH : Constants.GAME_OVER_VIEW_PATH);
 
                         this.player.updateStatsAtEnd();
                     }
@@ -233,16 +222,8 @@ public class RunTrack {
         }
     }
 
-    public static CurrentPoints getCurrentPoints() {
-        return (currentPoints);
-    }
-
-    public static CurrentTime getCurrentTime() {
-        return (currentTime);
-    }
-
-    public static CurrentDistance getCurrentDistance() {
-        return (currentDistance);
+    public static CurrentStats getCurrentStats() {
+        return currentStats;
     }
 
     public static float getVelocity() {
@@ -261,9 +242,7 @@ public class RunTrack {
         isPaused = newValue;
     }
 
-    public static CurrentBullets getCurrentBullets() {
-        return currentBullets;
-    }
+
     public static boolean getShoot() {
         return shoot;
     }

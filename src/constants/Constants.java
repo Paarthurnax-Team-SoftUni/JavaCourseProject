@@ -1,4 +1,4 @@
-package utils;
+package constants;
 
 public class Constants {
 
@@ -15,7 +15,7 @@ public class Constants {
     public static final String GAME_PLAY_VIEW_PATH = "/views/gamePlay.fxml";
     public static final String GAME_OVER_VIEW_PATH = "/views/gameOver.fxml";
     public static final String GAME_WIN_VIEW_PATH = "/views/gameWin.fxml";
-    public static final String HIGH_SCORES_DIALOG = "/views/highScoresDialog.fxml";
+    public static final String HIGH_SCORES_DIALOG = "/views/highScores.fxml";
 
     //resources
     public static final String IMAGES_PATH = "resources/images/";
@@ -36,11 +36,6 @@ public class Constants {
     public static final String LOGIN_USER_TITLE = "Login with this username";
     public static final String LOGIN_USER_HEADER = "Login as user: ";
     public static final String LOGIN_USER_CONTENT = "Are you sure? Press OK to continue.";
-    public static final String CREATE_USER_TITLE = "Create new user";
-    public static final String CREATE_USER_CONTENT = "Are you sure? Press OK to continue.";
-    public static final String CREATE_USER_HEADER = "Create new user: ";
-
-    public static final String HIGH_SCORE_DIALOG_TITLE = "Best Slav Ranking";
 
     //collctibles and obstacles
     public static final String FUEL_BOTTLE_STRING = "fuelBottle";
@@ -92,18 +87,12 @@ public class Constants {
     public static final String ARMAGEDDONS_NOTIFICATION_MESSAGE = "Armageddons Power! Nothing can get on your way now";
     public static final String AMMO_NOTIFICATION_MESSAGE = "Ammunition! You can shoot once";
 
-
-    //table columns
-    public static final String TABLE_COLUMN_NAME = "Player Name";
-    public static final String TABLE_COLUMN_MONEY = "Kinti Earned";
-    public static final String TABLE_COLUMN_SCORE = "High Score";
     public static final String CAR_STRING = "car";
 
     //images shortcuts
     public static final String HALF_SIZE_NAME = "_half_size";
     public static final String COLLECTIBLE = "collectible";
     public static final String HALF_SIZE = "_half_size.png";
-    public static final java.lang.String VALUE_STRING = "value";
 
     //styles
     public static final String RED_COLOUR = "-fx-fill: rgba(255,0,0, 0.55);";

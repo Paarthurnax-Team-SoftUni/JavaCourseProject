@@ -1,6 +1,6 @@
 package models;
 
-import utils.Constants;
+import constants.Constants;
 import gameEngine.Notification;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;

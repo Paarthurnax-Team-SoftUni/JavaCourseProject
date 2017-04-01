@@ -33,15 +33,13 @@ public class GameController implements Initializable {
     public Label bullets;
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        CurrentPoints currentPlayerPoints = RunTrack.getCurrentPoints();
-        CurrentTime currentTime = RunTrack.getCurrentTime();
-        CurrentDistance currentDistance = RunTrack.getCurrentDistance();
-        CurrentBullets currentBullets = RunTrack.getCurrentBullets();
+        CurrentStats currentStats = RunTrack.getCurrentStats();
+        this.scorePoints.textProperty().bind(Bindings.convert(currentStats.valuePoints()));
+        this.timeInfo.textProperty().bind(Bindings.convert(currentStats.valueTime()));
+        this.distance.textProperty().bind(Bindings.convert(currentStats.valueDistance()));
+        this.bullets.textProperty().bind(Bindings.convert(currentStats.valueBullets()));
+
         this.highscore.textProperty().setValue(PlayerData.getInstance().getHighscores());
-        this.scorePoints.textProperty().bind(Bindings.convert(currentPlayerPoints.valueProperty()));
-        this.timeInfo.textProperty().bind(Bindings.convert(currentTime.valueProperty()));
-        this.distance.textProperty().bind(Bindings.convert(currentDistance.valueProperty()));
-        this.bullets.textProperty().bind(Bindings.convert(currentBullets.valueProperty()));
         new HealthBar(this.healthFirst, this.healthSecond, this.healthThird, this.healthFourth);
     }
 

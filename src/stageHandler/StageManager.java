@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 public interface StageManager {
 
-    FXMLLoader loadSceneToStage(Stage currentStage, String fxmlPath, Modality modality);
+    FXMLLoader loadSceneToStage(Stage currentStage, String fxmlPath);
 
     AnchorPane getRoot();
 }

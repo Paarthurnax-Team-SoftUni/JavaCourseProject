@@ -1,13 +1,10 @@
 package controllers;
 
-import utils.Constants;
 import dataHandler.PlayerData;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import models.Player;
 
 import java.util.function.Predicate;
