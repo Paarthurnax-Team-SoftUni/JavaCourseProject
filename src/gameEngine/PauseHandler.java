@@ -36,7 +36,7 @@ public class PauseHandler {
         RunTrack.setIsPaused(true);
         this.gameLoop.pause();
         if (RunTrack.isPaused()) {
-            MusicPlayer.pause();
+            MusicPlayer.getInstance().pause();
 
             Timeline pauseloop = new Timeline();
             pauseloop.setCycleCount(Timeline.INDEFINITE);
@@ -46,7 +46,7 @@ public class PauseHandler {
                     event -> {
                         if (!RunTrack.isPaused()) {
                             gameLoop.play();
-                            MusicPlayer.pause();
+                            MusicPlayer.getInstance().pause();
                             pauseloop.stop();
                         }
 

@@ -71,8 +71,8 @@ public class CurrentStats extends Observable {
         this.bullets.set(bullets);
     }
 
-    private void setTime(long time){
-        if (time < 0) {
+    private void setTime(long time) {
+        if (time < -1) {
             throw new IllegalArgumentException(ErrorsConstants.TIME_EXCEPTION);
         }
         time= (long)(CarConstants.TRACK_1_END_TIME* GeneralConstants.FRAMES_PER_SECOND)-time;
@@ -80,7 +80,7 @@ public class CurrentStats extends Observable {
         this.time.set(String.format(FormattingConstants.SECONDS_FORMATTER,time/CarConstants.SECONDS_DURATION,seconds));
     }
 
-    private void setPoints(long points){
+    private void setPoints(long points) {
         if (points < 0) {
             throw new IllegalArgumentException(ErrorsConstants.POINTS_EXCEPTION);
         }

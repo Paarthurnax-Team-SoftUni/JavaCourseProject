@@ -56,7 +56,7 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                     RunTrack.setIsPaused(true);
                     break;
                 case "M":
-                    MusicPlayer.play();
+                    MusicPlayer.getInstance().play();
                     break;
                 case "Q":
                     Platform.exit();
@@ -73,7 +73,7 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                     RunTrack.setIsPaused(false);
                     break;
                 case "M":
-                    MusicPlayer.play();
+                    MusicPlayer.getInstance().play();
                     break;
             }
 //            if(keyCode.getName().equals("P")){

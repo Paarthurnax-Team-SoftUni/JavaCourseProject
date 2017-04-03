@@ -1,6 +1,7 @@
 package music;
 
 import constants.CarConstants;
+import dataHandler.PlayerData;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -9,16 +10,30 @@ import java.io.File;
 
 public class MusicPlayer {
 
-    private static MediaPlayer mediaPlayer;
+    private static volatile MusicPlayer instance = null;
     private static Duration resumeTime;
+    private static MediaPlayer mediaPlayer;
 
-    public static void play() {
+    private MusicPlayer() {}
+
+    public static MusicPlayer getInstance() {
+        if(instance == null) {
+            synchronized (MusicPlayer.class) {
+                if(instance == null) {
+                    instance = new MusicPlayer();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public void play() {
         Media media = new Media(new File(CarConstants.SONG_PATH).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
     }
 
-    public static void pause() {
+    public void pause() {
         if (mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED)) {
             mediaPlayer.setStartTime(resumeTime);
             mediaPlayer.play();
@@ -28,7 +43,7 @@ public class MusicPlayer {
         }
     }
 
-    public static void stop() {
+    public void stop() {
         mediaPlayer.stop();
     }
 

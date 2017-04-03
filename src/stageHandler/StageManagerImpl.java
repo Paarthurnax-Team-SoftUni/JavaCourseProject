@@ -12,20 +12,18 @@ import java.io.IOException;
 
 public class StageManagerImpl implements StageManager {
 
-    public AnchorPane root;
+    private AnchorPane root;
 
     public StageManagerImpl() {
         this.setRoot(root);
     }
 
+    @Override
     public AnchorPane getRoot() {
         return root;
     }
 
-    public void setRoot(AnchorPane root) {
-        this.root = root;
-    }
-
+    @Override
     public FXMLLoader loadSceneToStage(Stage currentStage, String fxmlPath) {
 
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource(fxmlPath));
@@ -46,5 +44,11 @@ public class StageManagerImpl implements StageManager {
         currentStage.getIcons().add(new Image(CarConstants.LOGO_PATH));
 
         return fxmlLoader;
+    }
+
+    private void setRoot(AnchorPane root) {
+        if(root != null){
+            this.root = root;
+        }
     }
 }

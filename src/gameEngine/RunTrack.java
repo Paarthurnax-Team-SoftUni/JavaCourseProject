@@ -4,7 +4,6 @@ import controllers.ChooseCarController;
 import dataHandler.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -82,8 +81,8 @@ public class RunTrack {
 
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
-        MusicPlayer.play();
-        MusicPlayer.pause();
+        MusicPlayer.getInstance().play();
+        MusicPlayer.getInstance().pause();
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(currentFramesPerSecond),
                 event -> {
@@ -151,7 +150,7 @@ public class RunTrack {
 
                         clearObstaclesAndCollectibles();
                         gameLoop.stop();
-                        MusicPlayer.stop();
+                        MusicPlayer.getInstance().stop();
                         time = 0;
                         Notification.hidePopupMessage();
                         velocity = CarConstants.START_GAME_VELOCITY;
@@ -159,7 +158,7 @@ public class RunTrack {
                         root.getChildren().remove(canvas);
                         player.setAmmunition(CarConstants.START_GAME_BULLETS);
 
-                        FXMLLoader loader = manager.loadSceneToStage(currentStage, win ? CarConstants.GAME_WIN_VIEW_PATH : CarConstants.GAME_OVER_VIEW_PATH);
+                        manager.loadSceneToStage(currentStage, win ? CarConstants.GAME_WIN_VIEW_PATH : CarConstants.GAME_OVER_VIEW_PATH);
 
                         this.player.updateStatsAtEnd();
                     }
@@ -206,10 +205,6 @@ public class RunTrack {
 
     public static void setIsPaused(boolean newValue) {
         isPaused = newValue;
-    }
-
-    public static boolean getShoot() {
-        return shoot;
     }
 
     public static void setShoot(boolean newValue) {
