@@ -33,7 +33,7 @@ public class RunTrack {
     private int y;
     private float currentFramesPerSecond;
     private String carId;
-    private Player player;
+    private PlayerImlp player;
     private CurrentHealth currentHealth;
     private ChooseCarController chooseCarController;
     private Collectible collectible;
@@ -44,7 +44,7 @@ public class RunTrack {
         return cheat;
     }
 
-    public RunTrack(Player player, float velocityValue) {
+    public RunTrack(PlayerImlp player, float velocityValue) {
         frame = 0;
         time = 0;
         isPaused = false;
@@ -74,7 +74,7 @@ public class RunTrack {
         String carImg = CarConstants.CAR_IMAGES_PATH + this.carId + CarConstants.HALF_SIZE;
         this.player.setImage(carImg);
         this.player.setPosition(200, 430);
-        this.player.setPoints(0L);
+        this.player.addPoints(0L);
 
         this.currentHealth = new CurrentHealth(this.player);
         currentStats.addObserver(observer);
@@ -96,7 +96,7 @@ public class RunTrack {
                     time++;
                     frame++;
 
-                    //update immortality status if its actuvated
+                    //update immortality status if its activated
                     collectible.updateStatus();
 
                     currentStats.updateTime((long) (time * currentFramesPerSecond));
@@ -142,7 +142,7 @@ public class RunTrack {
                     if (time >= CarConstants.TRACK_1_END_TIME || player.getHealthPoints() <= 0) {
                         boolean win = player.getHealthPoints() > 0 && currentStats.getDistance() >= CarConstants.TRACK_1_END_DISTANCE;
                         if (win) {
-                            this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
+                            this.player.updateMaxLevel(this.player.getMaxLevelPassed() + 1);
                             PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
                         }
 
@@ -156,7 +156,7 @@ public class RunTrack {
                         velocity = CarConstants.START_GAME_VELOCITY;
                         currentStats.updateDistance(0);
                         root.getChildren().remove(canvas);
-                        player.setAmmunition(CarConstants.START_GAME_BULLETS);
+                        player.updateAmmunition(CarConstants.START_GAME_BULLETS);
 
                         manager.loadSceneToStage(currentStage, win ? CarConstants.GAME_WIN_VIEW_PATH : CarConstants.GAME_OVER_VIEW_PATH);
 
@@ -179,11 +179,11 @@ public class RunTrack {
         gameLoop.playFromStart();
     }
 
-    public Player getPlayer() {
+    public PlayerImlp getPlayer() {
         return this.player;
     }
 
-    public void setPlayer(Player player) {
+    public void setPlayer(PlayerImlp player) {
         this.player = player;
     }
 

@@ -1,5 +1,6 @@
 package models;
 
+import constants.GeneralConstants;
 import javafx.scene.canvas.GraphicsContext;
 import constants.CarConstants;
 
@@ -7,15 +8,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Obstacle extends Sprite {
+public class Obstacle extends SpriteImpl {
 
     private boolean isDrunk;
     private List<Obstacle> obstacles;
+    private String name;
 
     public Obstacle() {
         setDestroyed(false);
         setIsDrunk(false);
-        obstacles = new ArrayList<>();
+        this.obstacles = new ArrayList<>();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -34,7 +44,7 @@ public class Obstacle extends Sprite {
     }
 
     public void addObstacle(Obstacle obstacle) {
-        obstacles.add(obstacle);
+        this.obstacles.add(obstacle);
     }
 
     private String getObstacleType() {
@@ -42,7 +52,7 @@ public class Obstacle extends Sprite {
     }
 
     public List<Obstacle> getObstacles() {
-        return obstacles;
+        return new ArrayList<>(this.obstacles) ;
     }
 
     public Obstacle generateObstacle(int valueDrunkDrivers, int minLeftSide, int maxRightSide) {
@@ -52,10 +62,10 @@ public class Obstacle extends Sprite {
 
         Random obstacleX = new Random();
 
-        String sd = CarConstants.IMAGES_PATH + random + ".png";
+        String sd = CarConstants.IMAGES_PATH + random + GeneralConstants.IMAGES_ENDING;
         Obstacle obstacle = new Obstacle();
 
-        if (random.contains("car")){
+        if (random.contains(CarConstants.CAR_STRING)){
             obstacle = new EnemyDriver();
             if (new Random().nextInt(100)> valueDrunkDrivers){
                 obstacle.setIsDrunk(true);
@@ -72,7 +82,7 @@ public class Obstacle extends Sprite {
         return obstacle;
     }
 
-    public void handleImpactByAmmo(Player player){
+    public void handleImpactByAmmo(PlayerImlp player){
         player.addPoints(CarConstants.DESTROYED_OBJECT_BONUS);
         this.setDestroyed(true);
         this.setIsDrunk(false);
@@ -89,7 +99,7 @@ public class Obstacle extends Sprite {
         }
     }
 
-    public void manageObstacles(GraphicsContext gc, Collectible collectible, Player player, List<Obstacle> obstacles, double velocity ) {
+    public void manageObstacles(GraphicsContext gc, Collectible collectible, PlayerImlp player, List<Obstacle> obstacles, double velocity ) {
         for (Obstacle obstacle : obstacles) {
             String obstacleType = obstacle.getObstacleType();
             if (obstacleType.contains("player_car") && !obstacle.isDestroyed()) {
@@ -118,7 +128,7 @@ public class Obstacle extends Sprite {
                 if (collectible.isImmortal()) {
                     player.addPoints(CarConstants.BONUS_POINTS_HIT_WITH_SHIELD*collectible.getBonusCoefficient());
                 } else if (!obstacle.isDestroyed()) {
-                    player.setHealthPoints(player.getHealthPoints() - CarConstants.OBSTACLE_DAMAGE);
+                    player.updateHealthPoints(player.getHealthPoints() - CarConstants.OBSTACLE_DAMAGE);
                 }
                 obstacle.handleImpactByCarPlayer(velocity);// Comment if you want flames to go around :) .
             }

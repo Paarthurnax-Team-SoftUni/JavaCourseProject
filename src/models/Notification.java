@@ -1,5 +1,6 @@
 package models;
 
+import constants.StylesConstants;
 import javafx.scene.control.Label;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -11,8 +12,8 @@ public class Notification {
         popup.setAutoFix(true);
         popup.setHideOnEscape(true);
         Label label = new Label(message);
-        label.getStylesheets().add("/resources/styles/styles.css");
-        label.getStyleClass().add("popup");
+        label.getStylesheets().add(StylesConstants.STYLES_PATH);
+        label.getStyleClass().add(StylesConstants.STYLES_TYPE);
         label.getStyleClass().add(type);
         popup.getContent().add(label);
         return popup;
@@ -21,8 +22,8 @@ public class Notification {
     public static void showPopupMessage(final String type, final String message, final Stage stage) {
         popup = createPopup(type, message);
         popup.setOnShown(e -> {
-            popup.setX(stage.getX() + 20);
-            popup.setY(stage.getY() + stage.getHeight() - popup.getHeight()- 20);
+            popup.setX(stage.getX() + StylesConstants.WINDOW_OFFSET);
+            popup.setY(stage.getY() + stage.getHeight() - popup.getHeight()- StylesConstants.WINDOW_OFFSET);
         });
         popup.show(stage);
     }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Ammo extends Sprite{
+public class Ammo extends SpriteImpl {
 
     private List<Ammo> ammunition;
 
@@ -23,14 +23,14 @@ public class Ammo extends Sprite{
         return Collections.unmodifiableList(this.ammunition);
     }
 
-    public Ammo generateAmmo(Player player){
+    public Ammo generateAmmo(PlayerImlp player){
         Ammo ammo = new Ammo();
         ammo.setPosition(player.getPositionX(),player.getPositionY() + 5);
         ammo.setImage(CarConstants.AMMO_PATH);
         return ammo;
     }
 
-    public void visualizeAmmo(GraphicsContext gc, List<Obstacle> obstacles, List<Ammo> ammunition, Player player) {
+    public void visualizeAmmo(GraphicsContext gc, List<Obstacle> obstacles, List<Ammo> ammunition, PlayerImlp player) {
         for (Ammo ammo : ammunition) {
             ammo.setVelocity(0,-5);
             ammo.update();

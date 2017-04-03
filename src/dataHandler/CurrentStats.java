@@ -9,6 +9,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import constants.CarConstants;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Observable;
 
 public class CurrentStats extends Observable {
@@ -72,9 +74,6 @@ public class CurrentStats extends Observable {
     }
 
     private void setTime(long time) {
-        if (time < -1) {
-            throw new IllegalArgumentException(ErrorsConstants.TIME_EXCEPTION);
-        }
         time= (long)(CarConstants.TRACK_1_END_TIME* GeneralConstants.FRAMES_PER_SECOND)-time;
         int seconds=(int)(time % CarConstants.SECONDS_DURATION);
         this.time.set(String.format(FormattingConstants.SECONDS_FORMATTER,time/CarConstants.SECONDS_DURATION,seconds));

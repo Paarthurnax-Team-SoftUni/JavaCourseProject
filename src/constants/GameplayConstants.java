@@ -24,4 +24,5 @@ public class GameplayConstants extends CollctiblesAndObstaclesConstants {
     public static final int HEALTH_BAR_AVERAGE_HIGH = 75;
     public static final int HEALTH_BAR_AVERAGE_LOW = 50;
     public static final int OBSTACLE_DAMAGE = 25;
+    public static final int CHEAT_BULLETS_COUNT = 1000;
 }

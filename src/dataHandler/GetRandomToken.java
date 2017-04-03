@@ -1,11 +1,8 @@
 package dataHandler;
 
-import models.Sprite;
-import constants.CarConstants;
+import models.SpriteImpl;
 
-import java.util.Random;
-
-public class GetRandomToken extends Sprite {
+public class GetRandomToken extends SpriteImpl {
 
     private String imagesDirectory;
 
