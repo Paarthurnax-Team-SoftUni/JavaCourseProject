@@ -100,11 +100,11 @@ public class RunTrack {
                     //update immortality status if its actuvated
                     collectible.updateStatus();
 
-                    currentStats.setTime((long) (time * currentFramesPerSecond));
-                    currentStats.setDistance(currentStats.getDistance() + (long) velocity / 2);
+                    currentStats.updateTime((long) (time * currentFramesPerSecond));
+                    currentStats.updateDistance(currentStats.getDistance() + (long) velocity / 2);
                     player.addPoints(1);
-                    currentStats.setPoints(player.getPoints());
-                    currentStats.setBullets(player.getAmmunition());
+                    currentStats.updatePoints(player.getPoints());
+                    currentStats.updateBullets(player.getAmmunition());
 
                     observer.update(currentStats, observer);
 
@@ -155,7 +155,7 @@ public class RunTrack {
                         time = 0;
                         Notification.hidePopupMessage();
                         velocity = CarConstants.START_GAME_VELOCITY;
-                        currentStats.setDistance(0);
+                        currentStats.updateDistance(0);
                         root.getChildren().remove(canvas);
                         player.setAmmunition(CarConstants.START_GAME_BULLETS);
 

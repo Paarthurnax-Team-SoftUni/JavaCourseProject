@@ -1,8 +1,5 @@
 package constants;
 
-/**
- * Created by Todor Popov using Lenovo on 3.4.2017 г. at 3:27.
- */
 public class NotificationsConstants extends GameplayConstants {
     //notifications
     public static final String FUEL_NOTIFICATION_MESSAGE = "Extra fuel! +5 seconds";

@@ -1,10 +1,6 @@
 package constants;
 
-/**
- * Created by Todor Popov using Lenovo on 3.4.2017 г. at 3:25.
- */
 public class GameplayConstants extends CollctiblesAndObstaclesConstants {
-    //gameplay constants
     public static final int BONUS_POINTS_HIT_WITH_SHIELD = 10;
     public static final long TRACK_1_END_TIME = 1500;    //Key Time in Frames
     public static final long TRACK_1_END_DISTANCE = 5000;

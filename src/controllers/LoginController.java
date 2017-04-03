@@ -35,7 +35,7 @@ public class LoginController{
             boolean result = DialogBox.loadConfirmBox(name);
 
             if (result) {
-                PlayerData.getInstance().setCurrentPlayer(PlayerData.getInstance().returnPlayer(name));
+                PlayerData.getInstance().registerPlayer(PlayerData.getInstance().returnPlayer(name));
 
                 FXMLLoader loader = manager.loadSceneToStage(currentStage, CarConstants.START_FXML_PATH);
             }
@@ -46,7 +46,7 @@ public class LoginController{
                 Player player = new Player(name, 0L, 0.0, 100);
                 PlayerData.getInstance().addPlayer(player);
                 PlayerData.getInstance().storePlayersData(player);
-                PlayerData.getInstance().setCurrentPlayer(PlayerData.getInstance().returnPlayer(name));
+                PlayerData.getInstance().registerPlayer(PlayerData.getInstance().returnPlayer(name));
                 PlayerData.getInstance().updatePlayer(player);
 
                 FXMLLoader loader = manager.loadSceneToStage(currentStage, CarConstants.START_FXML_PATH);

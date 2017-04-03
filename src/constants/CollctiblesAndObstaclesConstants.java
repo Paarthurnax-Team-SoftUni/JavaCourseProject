@@ -1,10 +1,6 @@
 package constants;
 
-/**
- * Created by Todor Popov using Lenovo on 3.4.2017 г. at 3:24.
- */
 public class CollctiblesAndObstaclesConstants extends LoginStringConstants {
-    //collctibles and obstacles
     public static final String FUEL_BOTTLE_STRING = "fuelBottle";
     public static final String HEALTH_STRING = "health";
     public static final String DOUBLE_POINTS_STRING = "doublePts";

@@ -1,5 +1,6 @@
 package dataHandler;
 
+import constants.DBErrorConstants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.Player;
@@ -33,13 +34,13 @@ public class PlayerData {
 
     public boolean open() {
         try {
-            conn = DriverManager.getConnection(SQLConstants.returnPath(System.getProperty(SQLConstants.PROPERTY_VALUE).toLowerCase()));
-            insertPlayer = conn.prepareStatement(SQLConstants.INSERT_PLAYER);
-            queryPlayers = conn.prepareStatement(SQLConstants.QUERY_PLAYERS);
-            updatePlayer = conn.prepareStatement(SQLConstants.UPDATE_PLAYER_SCORE);
+            this.conn = DriverManager.getConnection(SQLConstants.returnPath(System.getProperty(SQLConstants.PROPERTY_VALUE).toLowerCase()));
+            this.insertPlayer = this.conn.prepareStatement(SQLConstants.INSERT_PLAYER);
+            this.queryPlayers = this.conn.prepareStatement(SQLConstants.QUERY_PLAYERS);
+            this.updatePlayer = this.conn.prepareStatement(SQLConstants.UPDATE_PLAYER_SCORE);
             return true;
         } catch (SQLException e) {
-            System.out.println("Couldn't connect to database: " + e.getMessage());
+            System.out.println(DBErrorConstants.SQL_CONNECTION_ERROR_MESSAGE + e.getMessage());
             return false;
         }
     }
@@ -47,23 +48,23 @@ public class PlayerData {
     public void close() {
         try {
 
-            if(insertPlayer != null) {
-                insertPlayer.close();
+            if(this.insertPlayer != null) {
+                this.insertPlayer.close();
             }
 
-            if(queryPlayers != null) {
-                queryPlayers.close();
+            if(this.queryPlayers != null) {
+                this.queryPlayers.close();
             }
 
-            if(updatePlayer != null) {
-                updatePlayer.close();
+            if(this.updatePlayer != null) {
+                this.updatePlayer.close();
             }
 
-            if (conn != null) {
-                conn.close();
+            if (this.conn != null) {
+                this.conn.close();
             }
         } catch (SQLException e) {
-            System.out.println("Couldn't close connection: " + e.getMessage());
+            throw new IllegalStateException(DBErrorConstants.SQL_EXCEPTION_ERROR_MESSAGE + e.getMessage());
         }
     }
 
@@ -80,8 +81,8 @@ public class PlayerData {
         return this.currentPlayer;
     }
 
-    public void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
+    public void registerPlayer(Player player) {
+        setCurrentPlayer(player);
     }
 
     public ObservableList<Player> getPlayersList() {
@@ -113,11 +114,11 @@ public class PlayerData {
     }
 
     public void storePlayersData(Player player) throws SQLException {
-        insertPlayer.setString(1, player.getName());
-        insertPlayer.setLong(2, player.getPoints());
-        insertPlayer.setDouble(3, player.getMoney());
-        insertPlayer.setInt(4, player.getHealthPoints());
-        insertPlayer.executeUpdate();
+        this.insertPlayer.setString(1, player.getName());
+        this.insertPlayer.setLong(2, player.getPoints());
+        this.insertPlayer.setDouble(3, player.getMoney());
+        this.insertPlayer.setInt(4, player.getHealthPoints());
+        this.insertPlayer.executeUpdate();
     }
 
     public boolean checkForPlayer(String player) {
@@ -142,9 +143,9 @@ public class PlayerData {
         if (currentPlayer.getPoints() > currentPlayer.getHighScore()) {
             currentPlayer.setHighScore(currentPlayer.getPoints());
             try {
-                updatePlayer.setLong(1, currentPlayer.getHighScore());
-                updatePlayer.setString(2, currentPlayer.getName());
-                updatePlayer.executeUpdate();
+                this.updatePlayer.setLong(1, currentPlayer.getHighScore());
+                this.updatePlayer.setString(2, currentPlayer.getName());
+                this.updatePlayer.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -155,5 +156,12 @@ public class PlayerData {
         String highscore = this.playersList.sorted((p1, p2) -> p2.getHighScore().compareTo(p1.getHighScore())).get(0).getHighScore().toString();
 
         return highscore;
+    }
+
+    private void setCurrentPlayer(Player currentPlayer) {
+        if (currentPlayer == null) {
+            throw new IllegalArgumentException("Current Player can not be null");
+        }
+        this.currentPlayer = currentPlayer;
     }
 }
