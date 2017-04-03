@@ -3,7 +3,7 @@ package stageHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import constants.Constants;
+import constants.CarConstants;
 import javafx.scene.control.Dialog;
 
 import java.io.IOException;
@@ -13,17 +13,17 @@ public class DialogBox {
 
     public static void loadErrorBox() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(Constants.ERROR_USERNAME_TITLE);
-        alert.setContentText(Constants.ERROR_USERNAME_CONTENT);
-        alert.setHeaderText(Constants.ERROR_USERNAME_HEADER);
+        alert.setTitle(CarConstants.ERROR_USERNAME_TITLE);
+        alert.setContentText(CarConstants.ERROR_USERNAME_CONTENT);
+        alert.setHeaderText(CarConstants.ERROR_USERNAME_HEADER);
         alert.showAndWait();
     }
 
     public static boolean loadConfirmBox(String name) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(Constants.LOGIN_USER_TITLE);
-        alert.setHeaderText(Constants.LOGIN_USER_HEADER + name);
-        alert.setContentText(Constants.LOGIN_USER_CONTENT);
+        alert.setTitle(CarConstants.LOGIN_USER_TITLE);
+        alert.setHeaderText(CarConstants.LOGIN_USER_HEADER + name);
+        alert.setContentText(CarConstants.LOGIN_USER_CONTENT);
 
         Optional<ButtonType> result = alert.showAndWait();
 

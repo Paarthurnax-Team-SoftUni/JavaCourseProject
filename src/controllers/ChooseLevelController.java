@@ -15,7 +15,7 @@ import mapHandlers.TrackHandler;
 import mapHandlers.levels.TrackLevel;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
-import constants.Constants;
+import constants.CarConstants;
 
 import java.io.IOException;
 
@@ -44,7 +44,7 @@ public class ChooseLevelController {
         Stage currentStage = (Stage)this.startBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
 
-        manager.loadSceneToStage(currentStage, Constants.GAME_PLAY_VIEW_PATH);
+        manager.loadSceneToStage(currentStage, CarConstants.GAME_PLAY_VIEW_PATH);
         AnchorPane root = manager.getRoot();
         track.createBackground(root);
     }
@@ -61,7 +61,7 @@ public class ChooseLevelController {
         this.backgroundBox1.setStyle(null);
         this.backgroundBox2.setStyle(null);
 
-        this.backgroundBox2.setStyle(Constants.GREY_COLOUR);
+        this.backgroundBox2.setStyle(CarConstants.GREY_COLOUR);
         this.backgroundBox2.toFront();
         this.locked2.setVisible(true);
 
@@ -77,12 +77,12 @@ public class ChooseLevelController {
     private void backgroundFill(int id) throws IOException {
         switch (id) {
             case 1:
-                this.backgroundBox1.setStyle(Constants.RED_COLOUR);
+                this.backgroundBox1.setStyle(CarConstants.RED_COLOUR);
                 this.backgroundBox1.toFront();
                 track = trackHandler.getLevel(TrackLevel.FIRST_LEVEL);
                 break;
             case 2:
-                this.backgroundBox2.setStyle(Constants.RED_COLOUR);
+                this.backgroundBox2.setStyle(CarConstants.RED_COLOUR);
                 this.backgroundBox2.toFront();
                 track = trackHandler.getLevel(TrackLevel.SECOND_LEVEL);
                 break;

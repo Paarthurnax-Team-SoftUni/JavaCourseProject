@@ -4,7 +4,7 @@ import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import constants.Constants;
+import constants.CarConstants;
 
 import java.util.Observable;
 
@@ -38,7 +38,7 @@ public class CurrentStats extends Observable {
     }
 
     public void setTime(long time){
-        time= (long)(Constants.TRACK_1_END_TIME*0.017)-time;
+        time= (long)(CarConstants.TRACK_1_END_TIME*0.017)-time;
         int seconds=(int)(time % 60);
         this.time.set(String.format("%02d:%02d",time/60,seconds));
     }

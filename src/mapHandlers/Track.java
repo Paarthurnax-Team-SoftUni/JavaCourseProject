@@ -1,7 +1,7 @@
 package mapHandlers;
 
 import gameEngine.RunTrack;
-import constants.Constants;
+import constants.CarConstants;
 import dataHandler.PlayerData;
 import javafx.scene.layout.AnchorPane;
 
@@ -13,7 +13,7 @@ public abstract class Track {
 
     public final RunTrack getRunTrack() {
         if(runTrack == null) {
-            this.runTrack = new RunTrack(PlayerData.getInstance().getCurrentPlayer(), Constants.START_GAME_VELOCITY);
+            this.runTrack = new RunTrack(PlayerData.getInstance().getCurrentPlayer(), CarConstants.START_GAME_VELOCITY);
         }
         return runTrack;
     }

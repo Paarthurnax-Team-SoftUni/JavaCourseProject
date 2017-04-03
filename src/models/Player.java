@@ -1,7 +1,7 @@
 package models;
 
 import gameEngine.RunTrack;
-import constants.Constants;
+import constants.CarConstants;
 
 public class Player extends Sprite {
 
@@ -26,7 +26,7 @@ public class Player extends Sprite {
 
     public Player() {
         this.points = 0L;
-        this.ammunition = Constants.START_GAME_BULLETS;
+        this.ammunition = CarConstants.START_GAME_BULLETS;
     }
 
     public void shot() {
@@ -117,7 +117,7 @@ public class Player extends Sprite {
     }
 
     public void updateStatsAtEnd() {
-        this.setHealthPoints(Constants.HEALTH_BAR_MAX);
+        this.setHealthPoints(CarConstants.HEALTH_BAR_MAX);
         this.stopAccelerate();
         this.setCenterWheel(true);
         this.removeWind();

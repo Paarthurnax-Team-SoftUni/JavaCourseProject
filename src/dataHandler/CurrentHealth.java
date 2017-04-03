@@ -2,7 +2,7 @@ package dataHandler;
 
 import javafx.scene.image.ImageView;
 import models.Player;
-import constants.Constants;
+import constants.CarConstants;
 
 import java.util.Observable;
 
@@ -33,22 +33,22 @@ public class CurrentHealth extends Observable {
 
     private static void printHealthBar(Integer healthPoints) {
 
-        if (healthPoints > Constants.HEALTH_BAR_AVERAGE_HIGH && healthPoints <= Constants.HEALTH_BAR_MAX) {
+        if (healthPoints > CarConstants.HEALTH_BAR_AVERAGE_HIGH && healthPoints <= CarConstants.HEALTH_BAR_MAX) {
             health100.setVisible(true);
             health75.setVisible(false);
             health50.setVisible(false);
             health25.setVisible(false);
-        } else if (healthPoints <= Constants.HEALTH_BAR_AVERAGE_HIGH && healthPoints > Constants.HEALTH_BAR_AVERAGE_LOW) {
+        } else if (healthPoints <= CarConstants.HEALTH_BAR_AVERAGE_HIGH && healthPoints > CarConstants.HEALTH_BAR_AVERAGE_LOW) {
             health100.setVisible(false);
             health75.setVisible(true);
             health50.setVisible(false);
             health25.setVisible(false);
-        } else if (healthPoints <= Constants.HEALTH_BAR_AVERAGE_LOW && healthPoints > Constants.HEALTH_BAR_MIN) {
+        } else if (healthPoints <= CarConstants.HEALTH_BAR_AVERAGE_LOW && healthPoints > CarConstants.HEALTH_BAR_MIN) {
             health100.setVisible(false);
             health75.setVisible(false);
             health50.setVisible(true);
             health25.setVisible(false);
-        } else if (healthPoints <= Constants.HEALTH_BAR_MIN) {
+        } else if (healthPoints <= CarConstants.HEALTH_BAR_MIN) {
             health100.setVisible(false);
             health75.setVisible(false);
             health50.setVisible(false);

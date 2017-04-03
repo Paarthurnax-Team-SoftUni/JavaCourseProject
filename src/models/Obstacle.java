@@ -1,7 +1,7 @@
 package models;
 
 import javafx.scene.canvas.GraphicsContext;
-import constants.Constants;
+import constants.CarConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class Obstacle extends Sprite {
 
     @Override
     public void setDestroyed(boolean destroyed) {
-        this.setImage(Constants.FLAME_PATH_SMALL);
+        this.setImage(CarConstants.FLAME_PATH_SMALL);
         this.setVelocity(0, 0);
         super.setDestroyed(destroyed);
     }
@@ -47,12 +47,12 @@ public class Obstacle extends Sprite {
 
     public Obstacle generateObstacle(int valueDrunkDrivers, int minLeftSide, int maxRightSide) {
 
-        String[] obstacles = Constants.OBSTACLES_LIST_SMALL;
+        String[] obstacles = CarConstants.OBSTACLES_LIST_SMALL;
         String random = (obstacles[new Random().nextInt(obstacles.length)]);
 
         Random obstacleX = new Random();
 
-        String sd = Constants.IMAGES_PATH + random + ".png";
+        String sd = CarConstants.IMAGES_PATH + random + ".png";
         Obstacle obstacle = new Obstacle();
 
         if (random.contains("car")){
@@ -73,7 +73,7 @@ public class Obstacle extends Sprite {
     }
 
     public void handleImpactByAmmo(Player player){
-        player.addPoints(Constants.DESTROYED_OBJECT_BONUS);
+        player.addPoints(CarConstants.DESTROYED_OBJECT_BONUS);
         this.setDestroyed(true);
         this.setIsDrunk(false);
         this.removeWind();
@@ -116,9 +116,9 @@ public class Obstacle extends Sprite {
 
             if (obstacle.getBoundary().intersects(player.getBoundary())) {
                 if (collectible.isImmortal()) {
-                    player.addPoints(Constants.BONUS_POINTS_HIT_WITH_SHIELD*collectible.getBonusCoefficient());
+                    player.addPoints(CarConstants.BONUS_POINTS_HIT_WITH_SHIELD*collectible.getBonusCoefficient());
                 } else if (!obstacle.isDestroyed()) {
-                    player.setHealthPoints(player.getHealthPoints() - Constants.OBSTACLE_DAMAGE);
+                    player.setHealthPoints(player.getHealthPoints() - CarConstants.OBSTACLE_DAMAGE);
                 }
                 obstacle.handleImpactByCarPlayer(velocity);// Comment if you want flames to go around :) .
             }

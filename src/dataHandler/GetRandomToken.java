@@ -1,7 +1,7 @@
 package dataHandler;
 
 import models.Sprite;
-import constants.Constants;
+import constants.CarConstants;
 
 import java.util.Random;
 
@@ -20,7 +20,7 @@ public class GetRandomToken extends Sprite {
     private void setImagesDirectory(String[] tokens) {
 
         String random = (tokens[new Random().nextInt(tokens.length)]);
-        this.imagesDirectory = Constants.IMAGES_PATH + random + ".png";
+        this.imagesDirectory = CarConstants.IMAGES_PATH + random + ".png";
 
     }
 }

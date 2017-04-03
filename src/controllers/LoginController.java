@@ -1,7 +1,7 @@
 package controllers;
 
 import stageHandler.DialogBox;
-import constants.Constants;
+import constants.CarConstants;
 import dataHandler.PlayerData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,7 +37,7 @@ public class LoginController{
             if (result) {
                 PlayerData.getInstance().setCurrentPlayer(PlayerData.getInstance().returnPlayer(name));
 
-                FXMLLoader loader = manager.loadSceneToStage(currentStage, Constants.START_FXML_PATH);
+                FXMLLoader loader = manager.loadSceneToStage(currentStage, CarConstants.START_FXML_PATH);
             }
         } else {
             boolean result = DialogBox.loadConfirmBox(name);
@@ -49,7 +49,7 @@ public class LoginController{
                 PlayerData.getInstance().setCurrentPlayer(PlayerData.getInstance().returnPlayer(name));
                 PlayerData.getInstance().updatePlayer(player);
 
-                FXMLLoader loader = manager.loadSceneToStage(currentStage,Constants.START_FXML_PATH);
+                FXMLLoader loader = manager.loadSceneToStage(currentStage, CarConstants.START_FXML_PATH);
             }
         }
     }

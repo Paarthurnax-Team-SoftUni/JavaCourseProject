@@ -1,6 +1,6 @@
 package models;
 
-import constants.Constants;
+import constants.CarConstants;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class Ammo extends Sprite{
     public Ammo generateAmmo(Player player){
         Ammo ammo = new Ammo();
         ammo.setPosition(player.getPositionX(),player.getPositionY() + 5);
-        ammo.setImage(Constants.AMMO_PATH);
+        ammo.setImage(CarConstants.AMMO_PATH);
         return ammo;
     }
 
@@ -38,7 +38,7 @@ public class Ammo extends Sprite{
             for (Obstacle obstacle : obstacles) {
                 if (ammo.getBoundary().intersects(obstacle.getBoundary())) {
                     if(!obstacle.isDestroyed()) {
-                        ammo.setPosition(Constants.DESTROY_OBJECT_COORDINATES, Constants.DESTROY_OBJECT_COORDINATES);
+                        ammo.setPosition(CarConstants.DESTROY_OBJECT_COORDINATES, CarConstants.DESTROY_OBJECT_COORDINATES);
                         obstacle.handleImpactByAmmo(player);
                     }
                 }

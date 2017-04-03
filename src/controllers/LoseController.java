@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
-import constants.Constants;
+import constants.CarConstants;
 
 import java.io.IOException;
 
@@ -19,7 +19,7 @@ public class LoseController {
     public void restartGame(ActionEvent actionEvent) throws IOException {
         Stage currentStage = (Stage)this.quitBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
-        manager.loadSceneToStage(currentStage,Constants.START_FXML_PATH);
+        manager.loadSceneToStage(currentStage, CarConstants.START_FXML_PATH);
     }
 
     public void quitGame(ActionEvent actionEvent) {

@@ -1,6 +1,6 @@
 package models;
 
-import constants.Constants;
+import constants.CarConstants;
 
 public class EnemyDriver extends Obstacle {
 
@@ -27,7 +27,7 @@ public class EnemyDriver extends Obstacle {
                 super.setVelocityY(y);
             }
         } else if (y > 0) {
-            if (super.getPositionY() < Constants.CANVAS_HEIGHT -super.getHeight() * 2) {
+            if (super.getPositionY() < CarConstants.CANVAS_HEIGHT -super.getHeight() * 2) {
                 super.setVelocityY(y);
             }
         }

@@ -1,6 +1,6 @@
 package main;
 
-import constants.Constants;
+import constants.CarConstants;
 import dataHandler.PlayerData;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -21,7 +21,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         StageManager manager = new StageManagerImpl();
-        manager.loadSceneToStage(primaryStage, Constants.LOGIN_VIEW_PATH);
+        manager.loadSceneToStage(primaryStage, CarConstants.LOGIN_VIEW_PATH);
     }
 
     @Override
@@ -30,8 +30,8 @@ public class Main extends Application {
         PlayerData.getInstance().createDb();
         if(!PlayerData.getInstance().open()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle(Constants.DB_INIT_ERROR_TITLE);
-            alert.setContentText(Constants.DB_INIT_ERROR_CONTENT);
+            alert.setTitle(CarConstants.DB_INIT_ERROR_TITLE);
+            alert.setContentText(CarConstants.DB_INIT_ERROR_CONTENT);
             Platform.exit();
         }
         PlayerData.getInstance().loadPlayersData();
