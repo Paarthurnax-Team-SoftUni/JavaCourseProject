@@ -3,14 +3,14 @@ package keyHandler;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import models.PlayerImlp;
+import interfaces.Playable;
 
 public class KeyHandlerOnRelease implements EventHandler<KeyEvent> {
-    private PlayerImlp player;
+    private Playable player;
     private int minLeftSide;
     private int maxRightSide;
 
-    public KeyHandlerOnRelease(PlayerImlp p, int minLeftSide, int maxRightSide) {
+    public KeyHandlerOnRelease(Playable p, int minLeftSide, int maxRightSide) {
         this.player = p;
         this.minLeftSide = minLeftSide;
         this.maxRightSide = maxRightSide;

@@ -5,19 +5,19 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
-import models.PlayerImlp;
+import interfaces.Playable;
 
 import java.util.function.Predicate;
 
 public class HighScoreController {
 
     @FXML
-    private TableView<PlayerImlp> highScoresListView;
+    private TableView<Playable> highScoresListView;
 
     public void initialize() {
-        Predicate<PlayerImlp> wantAllItems = player -> true;
-        FilteredList<PlayerImlp> filteredList = new FilteredList<PlayerImlp>(PlayerData.getInstance().getPlayersList(), wantAllItems);
-        SortedList<PlayerImlp> sortedList = new SortedList<PlayerImlp>(filteredList, (o1, o2) -> o2.getHighScore().compareTo(o1.getHighScore()));
+        Predicate<Playable> wantAllItems = player -> true;
+        FilteredList<Playable> filteredList = new FilteredList<Playable>(PlayerData.getInstance().getPlayersList(), wantAllItems);
+        SortedList<Playable> sortedList = new SortedList<Playable>(filteredList, (o1, o2) -> o2.getHighScore().compareTo(o1.getHighScore()));
 
         highScoresListView.setItems(sortedList);
     }

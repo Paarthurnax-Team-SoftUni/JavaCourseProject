@@ -1,6 +1,7 @@
 package models;
 
 import constants.GeneralConstants;
+import interfaces.Playable;
 import javafx.scene.canvas.GraphicsContext;
 import constants.CarConstants;
 
@@ -30,7 +31,7 @@ public class Obstacle extends SpriteImpl {
 
     @Override
     public void setDestroyed(boolean destroyed) {
-        this.setImage(CarConstants.FLAME_PATH_SMALL);
+        this.updateImage(CarConstants.FLAME_PATH_SMALL);
         this.setVelocity(0, 0);
         super.setDestroyed(destroyed);
     }
@@ -76,13 +77,13 @@ public class Obstacle extends SpriteImpl {
         } else {
             obstacle.setPosition(obstacleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, -166);
         }
-        obstacle.setImage(sd);
+        obstacle.updateImage(sd);
         obstacle.setName(random);
 
         return obstacle;
     }
 
-    public void handleImpactByAmmo(PlayerImlp player){
+    public void handleImpactByAmmo(Playable player){
         player.addPoints(CarConstants.DESTROYED_OBJECT_BONUS);
         this.setDestroyed(true);
         this.setIsDrunk(false);
@@ -99,7 +100,7 @@ public class Obstacle extends SpriteImpl {
         }
     }
 
-    public void manageObstacles(GraphicsContext gc, Collectible collectible, PlayerImlp player, List<Obstacle> obstacles, double velocity ) {
+    public void manageObstacles(GraphicsContext gc, Collectible collectible, Playable player, List<Obstacle> obstacles, double velocity ) {
         for (Obstacle obstacle : obstacles) {
             String obstacleType = obstacle.getObstacleType();
             if (obstacleType.contains("player_car") && !obstacle.isDestroyed()) {

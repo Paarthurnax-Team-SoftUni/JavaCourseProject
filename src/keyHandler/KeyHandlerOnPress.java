@@ -1,21 +1,20 @@
 package keyHandler;
 
 import gameEngine.RunTrack;
-
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import interfaces.Playable;
 import music.MusicPlayer;
-import models.PlayerImlp;
 
 public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
     //public static boolean[] pressedKeys = new boolean[256];
-    private PlayerImlp player;
+    private Playable player;
     private int minLeftSide;
     private int maxRightSide;
 
-    public KeyHandlerOnPress(PlayerImlp p, int minLeftSide, int maxRightSide) {
+    public KeyHandlerOnPress(Playable p, int minLeftSide, int maxRightSide) {
         this.player = p;
         this.minLeftSide = minLeftSide;
         this.maxRightSide = maxRightSide;
@@ -48,7 +47,7 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                 case "Right":
                     player.setCenterWheel(false);
                     player.setTurnRight(true);
-                    //player.setAngle(player.getAngle() + 15);
+                    //player.updateAngle(player.getAngle() + 15);
                     // player.addVelocity(player.getWidth() * 0.66667, 0);
                     player.update(minLeftSide, maxRightSide);
                     break;

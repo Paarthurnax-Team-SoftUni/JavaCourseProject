@@ -1,17 +1,16 @@
 package models;
 
-import constants.ErrorsConstants;
+import constants.CarConstants;
 import gameEngine.RotatedImageInCanvas;
 import gameEngine.RunTrack;
-import constants.CarConstants;
+import interfaces.Sprite;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import org.jetbrains.annotations.Contract;
 
 public abstract class SpriteImpl implements Sprite {
+
     private Image image;
-    private String name;
     private double positionX;
     private double positionY;
     private double velocityX;
@@ -63,15 +62,7 @@ public abstract class SpriteImpl implements Sprite {
         return this.height;
     }
 
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public String getName() {
-//        return this.name;
-//    }
-
-    public void setImage(String filename) {
+    public void updateImage(String filename) {
         Image i = new Image(filename);
         setImage(i);
     }

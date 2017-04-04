@@ -3,7 +3,8 @@ package dataHandler;
 import constants.DBErrorConstants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import models.PlayerImlp;
+import interfaces.Playable;
+import models.PlayerImpl;
 import constants.SQLConstants;
 
 import java.sql.*;
@@ -11,8 +12,8 @@ import java.sql.*;
 public class PlayerData {
 
     private static volatile PlayerData instance = null;
-    private ObservableList<PlayerImlp> playersList;
-    private PlayerImlp currentPlayer;
+    private ObservableList<Playable> playersList;
+    private Playable currentPlayer;
     private Connection conn;
 
     private PreparedStatement insertPlayer;
@@ -77,19 +78,19 @@ public class PlayerData {
         }
     }
 
-    public PlayerImlp getCurrentPlayer() {
+    public Playable getCurrentPlayer() {
         return this.currentPlayer;
     }
 
-    public void registerPlayer(PlayerImlp player) {
+    public void registerPlayer(Playable player) {
         setCurrentPlayer(player);
     }
 
-    public ObservableList<PlayerImlp> getPlayersList() {
+    public ObservableList<Playable> getPlayersList() {
         return this.playersList;
     }
 
-    public void addPlayer(PlayerImlp player) {
+    public void addPlayer(Playable player) {
         this.playersList.add(player);
     }
 
@@ -98,7 +99,7 @@ public class PlayerData {
         try  {
             ResultSet results = queryPlayers.executeQuery();
             while (results.next()) {
-                PlayerImlp player = new PlayerImlp();
+                Playable player = new PlayerImpl();
                 player.updateId(results.getInt(SQLConstants.INDEX_COLUMN_ID));
                 player.updateName(results.getString(SQLConstants.INDEX_COLUMN_NAME));
                 player.updateHighScore(results.getLong(SQLConstants.INDEX_COLUMN_HIGHSCORE));
@@ -113,7 +114,7 @@ public class PlayerData {
         return this.playersList;
     }
 
-    public void storePlayersData(PlayerImlp player) throws SQLException {
+    public void storePlayersData(Playable player) throws SQLException {
         this.insertPlayer.setString(1, player.getName());
         this.insertPlayer.setLong(2, player.getPoints());
         this.insertPlayer.setDouble(3, player.getMoney());
@@ -122,7 +123,7 @@ public class PlayerData {
     }
 
     public boolean checkForPlayer(String player) {
-        for (PlayerImlp savedPlayer : this.playersList) {
+        for (Playable savedPlayer : this.playersList) {
             if (savedPlayer.getName().equals(player)) {
                 return false;
             }
@@ -130,8 +131,8 @@ public class PlayerData {
         return true;
     }
 
-    public PlayerImlp returnPlayer(String player) {
-        for (PlayerImlp savedPlayer : this.playersList) {
+    public Playable returnPlayer(String player) {
+        for (Playable savedPlayer : this.playersList) {
             if (savedPlayer.getName().equals(player)) {
                 return savedPlayer;
             }
@@ -139,7 +140,7 @@ public class PlayerData {
         return null;
     }
 
-    public void updatePlayer(PlayerImlp currentPlayer) {
+    public void updatePlayer(Playable currentPlayer) {
         if (currentPlayer.getPoints() > currentPlayer.getHighScore()) {
             currentPlayer.updateHighScore(currentPlayer.getPoints());
             try {
@@ -158,9 +159,9 @@ public class PlayerData {
         return highscore;
     }
 
-    private void setCurrentPlayer(PlayerImlp currentPlayer) {
+    private void setCurrentPlayer(Playable currentPlayer) {
         if (currentPlayer == null) {
-            throw new IllegalArgumentException("Current PlayerImlp can not be null");
+            throw new IllegalArgumentException("Current PlayerImpl can not be null");
         }
         this.currentPlayer = currentPlayer;
     }

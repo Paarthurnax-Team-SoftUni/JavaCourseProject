@@ -1,6 +1,7 @@
 package models;
 
 import constants.GameplayConstants;
+import interfaces.Playable;
 
 import java.util.ArrayDeque;
 import java.util.Optional;
@@ -15,24 +16,13 @@ public class Cheat {
 
     public void add(String s) {
         this.cheat.add(s);
-        if (this.cheat.size() > 5) {
+        if (this.cheat.size() > GameplayConstants.CHEAT_STRING.length()) {
             this.cheat.pollFirst();
         }
     }
 
-    private int getCheatNumber() {
-        Optional<String> reduce = this.cheat.stream().reduce(String::concat);
-        if (reduce.isPresent()) {
-            String bufferString = reduce.get();
-            if (bufferString.contains("IDKFA")) {
-                return 1;
-            }
-        }
-        return -1;
-    }
-
-    public void useCheat(PlayerImlp player) {
-        switch (getCheatNumber()) {
+    public void useCheat(Playable player) {
+        switch (this.getCheatNumber()) {
             case 1:
                 player.updateAmmunition(GameplayConstants.CHEAT_BULLETS_COUNT);
                 break;
@@ -40,4 +30,16 @@ public class Cheat {
                 break;
         }
     }
+
+    private int getCheatNumber() {
+        Optional<String> reduce = this.cheat.stream().reduce(String::concat);
+        if (reduce.isPresent()) {
+            String bufferString = reduce.get();
+            if (bufferString.contains(GameplayConstants.CHEAT_STRING)) {
+                return 1;
+            }
+        }
+        return -1;
+    }
+
 }

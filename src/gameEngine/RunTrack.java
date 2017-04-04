@@ -2,6 +2,7 @@ package gameEngine;
 
 import controllers.ChooseCarController;
 import dataHandler.*;
+import interfaces.Playable;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.Canvas;
@@ -33,7 +34,7 @@ public class RunTrack {
     private int y;
     private float currentFramesPerSecond;
     private String carId;
-    private PlayerImlp player;
+    private Playable player;
     private CurrentHealth currentHealth;
     private ChooseCarController chooseCarController;
     private Collectible collectible;
@@ -44,7 +45,7 @@ public class RunTrack {
         return cheat;
     }
 
-    public RunTrack(PlayerImlp player, float velocityValue) {
+    public RunTrack(Playable player, float velocityValue) {
         frame = 0;
         time = 0;
         isPaused = false;
@@ -72,9 +73,9 @@ public class RunTrack {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         String carImg = CarConstants.CAR_IMAGES_PATH + this.carId + CarConstants.HALF_SIZE;
-        this.player.setImage(carImg);
+        this.player.updateImage(carImg);
         this.player.setPosition(200, 430);
-        this.player.addPoints(0L);
+        this.player.updatePoints(0L);
 
         this.currentHealth = new CurrentHealth(this.player);
         currentStats.addObserver(observer);
@@ -179,11 +180,11 @@ public class RunTrack {
         gameLoop.playFromStart();
     }
 
-    public PlayerImlp getPlayer() {
+    public Playable getPlayer() {
         return this.player;
     }
 
-    public void setPlayer(PlayerImlp player) {
+    public void setPlayer(Playable player) {
         this.player = player;
     }
 

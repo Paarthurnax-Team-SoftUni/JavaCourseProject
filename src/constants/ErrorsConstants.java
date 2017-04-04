@@ -10,4 +10,5 @@ public class ErrorsConstants {
     public static final String MONEY_EXCEPTION = "The money value can not be negative";
     public static final String HEALTH_POINTS_EXCEPTION = "The health points can not be negative";
     public static final String LEVEL_EXCEPTION = "The level can not be negative";
+    public static final String ANGLE_ERROR = "Unknown value for the angle";
 }

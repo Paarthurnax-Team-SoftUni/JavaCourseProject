@@ -2,6 +2,7 @@ package models;
 
 import constants.CarConstants;
 import constants.GeneralConstants;
+import interfaces.Playable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
@@ -12,7 +13,7 @@ import java.util.Random;
 public class Collectible extends SpriteImpl {
 
     private int bonusCoefficient;
-    private PlayerImlp player;
+    private Playable player;
     private ArrayList<Collectible> collectibles;
     private boolean isImmortal;
     private boolean isDoublePtsOn;
@@ -22,7 +23,7 @@ public class Collectible extends SpriteImpl {
 
     public Collectible() {}
 
-    public Collectible(PlayerImlp player) {
+    public Collectible(Playable player) {
         this.bonusCoefficient = 1;
         this.player = player;
         this.collectibles = new ArrayList<>();
@@ -52,7 +53,7 @@ public class Collectible extends SpriteImpl {
 
         Collectible collectible = new Collectible();
         collectible.setName(random);
-        collectible.setImage(stringDirectory);
+        collectible.updateImage(stringDirectory);
         collectible.setPosition(collectibleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, -166);
 
         return collectible;
@@ -68,16 +69,16 @@ public class Collectible extends SpriteImpl {
                 switch (collectible.getCollectibleType()) {
 
                     case CarConstants.FUEL_BOTTLE_STRING:
-                        player.addPoints(CarConstants.FUEL_TANK_BONUS*bonusCoefficient);
+                        this.player.addPoints(CarConstants.FUEL_TANK_BONUS * this.bonusCoefficient);
                         Notification.showPopupMessage(CarConstants.FUEL_BOTTLE_STRING, CarConstants.FUEL_NOTIFICATION_MESSAGE, currentStage);
                         //not very okay with static but cant think of sthing else write now.
                         collectible.setPosition(CarConstants.DESTROY_OBJECT_COORDINATES, CarConstants.DESTROY_OBJECT_COORDINATES);
                         return CarConstants.FUEL_BOTTLE_STRING;
 
                     case CarConstants.HEALTH_STRING:
-                        player.addPoints(CarConstants.HEALTH_PACK_BONUS_POINTS*bonusCoefficient);
-                        if (player.getHealthPoints() < CarConstants.HEALTH_BAR_MAX) {
-                            player.updateHealthPoints(Math.min(player.getHealthPoints() + CarConstants.HEALTH_BONUS, CarConstants.HEALTH_BAR_MAX));
+                        this.player.addPoints(CarConstants.HEALTH_PACK_BONUS_POINTS * this.bonusCoefficient);
+                        if (this.player.getHealthPoints() < CarConstants.HEALTH_BAR_MAX) {
+                            this.player.updateHealthPoints(Math.min(player.getHealthPoints() + CarConstants.HEALTH_BONUS, CarConstants.HEALTH_BAR_MAX));
                         }
                         Notification.showPopupMessage(CarConstants.HEALTH_STRING, CarConstants.HEALTH_NOTIFICATION_MESSAGE, currentStage);
 
@@ -85,9 +86,10 @@ public class Collectible extends SpriteImpl {
                         return CarConstants.HEALTH_STRING;
 
                     case CarConstants.DOUBLE_POINTS_STRING:
-                        player.addPoints(player.getPoints() + CarConstants.DOUBLE_BONUS_POINTS*bonusCoefficient);
-                        if (!isDoublePtsOn) {
-                            startDoublePtsTimer();
+                        player.addPoints(CarConstants.DOUBLE_BONUS_POINTS * this.bonusCoefficient);
+
+                        if (!this.isDoublePtsOn) {
+                            this.startDoublePtsTimer();
                         }
                         Notification.showPopupMessage(CarConstants.DOUBLE_POINTS_STRING, CarConstants.DOUBLE_PTS_NOTIFICATION_MESSAGE, currentStage);
 
@@ -95,9 +97,9 @@ public class Collectible extends SpriteImpl {
                         return CarConstants.DOUBLE_POINTS_STRING;
 
                     case CarConstants.IMMORTALITY_STRING:
-                        player.addPoints(CarConstants.IMMORTALITY_BONUS*bonusCoefficient);
-                        if (!isImmortal) {
-                            player.addPoints( CarConstants.ARMAGEDDONS_BONUS*bonusCoefficient);
+                        player.addPoints(CarConstants.IMMORTALITY_BONUS * this.bonusCoefficient);
+                        if (!this.isImmortal) {
+                            player.addPoints( CarConstants.ARMAGEDDONS_BONUS * this.bonusCoefficient);
                             startImmortalityTimer();
                         }
                         Notification.showPopupMessage(CarConstants.IMMORTALITY_STRING, CarConstants.IMMORTALITY_NOTIFICATION_MESSAGE, currentStage);
@@ -107,16 +109,16 @@ public class Collectible extends SpriteImpl {
 
 
                     case CarConstants.ARMAGEDDON_STRING:
-                        player.addPoints( CarConstants.ARMAGEDDONS_BONUS*bonusCoefficient);
+                        this.player.addPoints( CarConstants.ARMAGEDDONS_BONUS * this.bonusCoefficient);
                         Notification.showPopupMessage(CarConstants.ARMAGEDDON_STRING, CarConstants.ARMAGEDDONS_NOTIFICATION_MESSAGE, currentStage);
 
                         collectible.setPosition(CarConstants.DESTROY_OBJECT_COORDINATES, CarConstants.DESTROY_OBJECT_COORDINATES);
                         return CarConstants.ARMAGEDDON_STRING;
 
                     case CarConstants.AMMO_STRING:
-                        player.addPoints( CarConstants.AMMO_BONUS*bonusCoefficient);
+                        this.player.addPoints( CarConstants.AMMO_BONUS * this.bonusCoefficient);
                         Notification.showPopupMessage(CarConstants.AMMO_STRING, CarConstants.AMMO_NOTIFICATION_MESSAGE, currentStage);
-                        player.updateAmmunition(player.getAmmunition()+1);
+                        this.player.updateAmmunition(this.player.getAmmunition()+1);
 
                         collectible.setPosition(CarConstants.DESTROY_OBJECT_COORDINATES, CarConstants.DESTROY_OBJECT_COORDINATES);
                         return CarConstants.AMMO_STRING;
@@ -128,14 +130,14 @@ public class Collectible extends SpriteImpl {
     }
 
     public final int getBonusCoefficient() {
-        return bonusCoefficient;
+        return this.bonusCoefficient;
     }
 
     public void updateStatus() {
-        if (isImmortal) {
+        if (this.isImmortal) {
             this.updateImmortalityStatus();
         }
-        if (isDoublePtsOn) {
+        if (this.isDoublePtsOn) {
             this.updateDoublePtsStatus();
         }
     }
@@ -183,28 +185,28 @@ public class Collectible extends SpriteImpl {
     }
 
     private void startDoublePtsTimer() {
-        isDoublePtsOn = true;
-        bonusCoefficient = 2;
+        this.isDoublePtsOn = true;
+        this.bonusCoefficient = 2;
         this.setDoublePtsTimer(CarConstants.DOUBLE_PTS_DURATION / CarConstants.FRAMES_PER_SECOND);
     }
 
     private void updateDoublePtsStatus() {
         this.setDoublePtsTimer(this.getDoublePtsTimer() - 1);
         if (this.getDoublePtsTimer() < 0) {
-            isDoublePtsOn = false;
-            bonusCoefficient = 1;
+            this.isDoublePtsOn = false;
+            this.bonusCoefficient = 1;
         }
     }
 
     private void startImmortalityTimer() {
-        isImmortal = true;
+        this.isImmortal = true;
         this.setImmortalityTimer(CarConstants.IMMORTALITY_DURATION / CarConstants.FRAMES_PER_SECOND);
     }
 
     private void updateImmortalityStatus() {
         this.setImmortalityTimer(this.getImmortalityTimer() - 1);
         if (this.getImmortalityTimer() < 0) {
-            isImmortal = false;
+            this.isImmortal = false;
         }
     }
 }

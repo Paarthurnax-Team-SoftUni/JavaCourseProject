@@ -31,6 +31,4 @@ public class Notification {
     public static void hidePopupMessage(){
         popup.hide();
     }
-
-
 }

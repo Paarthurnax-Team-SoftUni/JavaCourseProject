@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 import models.Collectible;
 import models.Obstacle;
-import models.PlayerImlp;
+import interfaces.Playable;
 import music.MusicPlayer;
 
 import java.util.List;
@@ -18,11 +18,11 @@ public class PauseHandler {
     private GraphicsContext gc;
     private Image background;
     private double y;
-    private PlayerImlp player;
+    private Playable player;
     private List<Obstacle> testObstacles;
     private List<Collectible> collectibles;
 
-    public PauseHandler(Timeline gameLoop, GraphicsContext gc, Image background, double y, PlayerImlp player, List<Obstacle> testObstacles, List<Collectible> collectibles) {
+    public PauseHandler(Timeline gameLoop, GraphicsContext gc, Image background, double y, Playable player, List<Obstacle> testObstacles, List<Collectible> collectibles) {
         this.gameLoop = gameLoop;
         this.gc = gc;
         this.background = background;
