@@ -1,27 +1,23 @@
 package dataHandler;
 
-import models.Sprite;
-import utils.Constants;
+import models.sprites.SpriteRotatable;
 
-import java.util.Random;
-
-public class GetRandomToken extends Sprite {
+public class GetRandomToken extends SpriteRotatable {
 
     private String imagesDirectory;
 
-    public GetRandomToken( String[] tokens) {
-
-        setImagesDirectory(tokens);
-    }
-
-    protected String getImagesDirectory() {
-        return this.imagesDirectory;
-    }
-
-    private void setImagesDirectory(String[] tokens) {
-
-        String random = (tokens[new Random().nextInt(tokens.length)]);
-        this.imagesDirectory = Constants.IMAGES_PATH + random + ".png";
-
-    }
+//    public GetRandomToken( String[] tokens) {
+//        setImagesDirectory(tokens);
+//    }
+//
+//    protected String getImagesDirectory() {
+//        return this.imagesDirectory;
+//    }
+//
+//    private void setImagesDirectory(String[] tokens) {
+//
+//        String random = (tokens[new Random().nextInt(tokens.length)]);
+//        this.imagesDirectory = CarConstants.IMAGES_PATH + random + ".png";
+//
+//    }
 }

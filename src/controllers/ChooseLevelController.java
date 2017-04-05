@@ -12,21 +12,16 @@ import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
 import mapHandlers.Track;
 import mapHandlers.TrackHandler;
-import mapHandlers.TrackLevel;
-import models.Player;
+import mapHandlers.levels.TrackLevel;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
-import utils.Constants;
+import constants.CarConstants;
 
 import java.io.IOException;
 
 public class ChooseLevelController {
 
-    public ImageView locked2;
-
-    private static int level;
     private Track track;
-    private Player currentPlayer;
     private TrackHandler trackHandler;
 
     @FXML
@@ -36,56 +31,43 @@ public class ChooseLevelController {
     @FXML
     private Ellipse backgroundBox2;
     @FXML
+    private ImageView locked2;
 
     public void initialize() throws IOException {
-        this.setCurrentPlayer(PlayerData.getInstance().getCurrentPlayer());
-        showUnlockedLevelsOnly(this.getCurrentPlayer().getMaxLevelPassed());
+        showUnlockedLevelsOnly();
         trackHandler = new TrackHandler();
     }
 
-    public int getLevel() {
-        return this.level;
-    }
-
-    private void setLevel(int level) {
-        this.level = level;
-    }
-
-    private Player getCurrentPlayer() {
-        return this.currentPlayer;
-    }
-
-    private void setCurrentPlayer(Player currentPlayer) {
-        this.currentPlayer = currentPlayer;
-    }
-
+    @FXML
     public void startGame(ActionEvent actionEvent){
         PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
         Stage currentStage = (Stage)this.startBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
 
-        manager.loadSceneToStage(currentStage, Constants.GAME_PLAY_VIEW_PATH,null);
+        manager.loadSceneToStage(currentStage, CarConstants.GAME_PLAY_VIEW_PATH);
         AnchorPane root = manager.getRoot();
         track.createBackground(root);
     }
 
+    @FXML
     public void chooseLevel(MouseEvent ev) throws IOException {
         Node source = (Node) ev.getSource();
         int id = Integer.valueOf(source.getId().substring(5));
         this.backgroundFill(id);
-        this.setLevel(id);
         this.startBtn.setVisible(true);
     }
 
-    private void showUnlockedLevelsOnly(int level) {
+    private void showUnlockedLevelsOnly() {
         this.backgroundBox1.setStyle(null);
         this.backgroundBox2.setStyle(null);
 
-        this.backgroundBox2.setStyle(Constants.GREY_COLOUR);
+        this.backgroundBox2.setStyle(CarConstants.GREY_COLOUR);
         this.backgroundBox2.toFront();
         this.locked2.setVisible(true);
 
-        if (this.currentPlayer.getMaxLevelPassed() >= 1) {
+        int maxLevel = PlayerData.getInstance().getCurrentPlayer().getMaxLevelPassed();
+
+        if (maxLevel >= 1) {
             this.backgroundBox2.setStyle(null);
             this.backgroundBox2.toBack();
             this.locked2.setVisible(false);
@@ -93,16 +75,14 @@ public class ChooseLevelController {
     }
 
     private void backgroundFill(int id) throws IOException {
-        this.showUnlockedLevelsOnly(this.currentPlayer.getMaxLevelPassed());
-
         switch (id) {
             case 1:
-                this.backgroundBox1.setStyle(Constants.RED_COLOUR);
+                this.backgroundBox1.setStyle(CarConstants.RED_COLOUR);
                 this.backgroundBox1.toFront();
                 track = trackHandler.getLevel(TrackLevel.FIRST_LEVEL);
                 break;
             case 2:
-                this.backgroundBox2.setStyle(Constants.RED_COLOUR);
+                this.backgroundBox2.setStyle(CarConstants.RED_COLOUR);
                 this.backgroundBox2.toFront();
                 track = trackHandler.getLevel(TrackLevel.SECOND_LEVEL);
                 break;

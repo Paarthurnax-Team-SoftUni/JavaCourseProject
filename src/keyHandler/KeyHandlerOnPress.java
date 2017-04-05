@@ -1,17 +1,16 @@
 package keyHandler;
 
 import gameEngine.RunTrack;
-
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import music.MusicPlayer;
 import models.Player;
-
+import models.sprites.PlayerCar;
+import music.MusicPlayer;
 
 public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
-    public static boolean[] pressedKeys = new boolean[256];
+    //public static boolean[] pressedKeys = new boolean[256];
     private Player player;
     private int minLeftSide;
     private int maxRightSide;
@@ -25,46 +24,48 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
     @Override
     public void handle(KeyEvent e) {
         KeyCode keyCode = e.getCode();
+
+        PlayerCar playerCar = this.player.getCar();
+
         if (!RunTrack.isPaused()) {
             RunTrack.getCheat().add(keyCode.getName());
             switch (keyCode.getName()) {
                 case "Up":
-                    player.accelerate();
-                    player.update();
+                    playerCar.accelerate();
+                    playerCar.update();
                     break;
                 case "Down":
                     if (RunTrack.getVelocity() > 5) {
                         RunTrack.setVelocity(RunTrack.getVelocity() - 1);
                     }
-                    player.setCenterWheel(false);
+                    playerCar.setCenterWheel(false);
                     //player.addVelocity(0, 2);
-                    player.update();
+                    playerCar.update();
                     break;
                 case "Left":
-                    player.setCenterWheel(false);
-                    player.setTurnLeft(true);
+                    playerCar.setCenterWheel(false);
+                    playerCar.setTurnLeft(true);
                     // player.addVelocity(-player.getWidth() * 0.66667, 0);
-                    player.update(minLeftSide, maxRightSide);
+                    playerCar.update(minLeftSide, maxRightSide);
                     break;
                 case "Right":
-                    player.setCenterWheel(false);
-                    player.setTurnRight(true);
+                    playerCar.setCenterWheel(false);
+                    playerCar.setTurnRight(true);
                     //player.setAngle(player.getAngle() + 15);
                     // player.addVelocity(player.getWidth() * 0.66667, 0);
-                    player.update(minLeftSide, maxRightSide);
+                    playerCar.update(minLeftSide, maxRightSide);
                     break;
                 case "P":
                     RunTrack.setIsPaused(true);
                     break;
                 case "M":
-                    MusicPlayer.play();
+                    MusicPlayer.getInstance().play();
                     break;
                 case "Q":
                     Platform.exit();
                     break;
                 case "S":
-                    player.shot();
-                    //RunTrack.setShoot(true);
+                    playerCar.shoot();
                     break;
                 default:
                     break;
@@ -75,7 +76,7 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                     RunTrack.setIsPaused(false);
                     break;
                 case "M":
-                    MusicPlayer.play();
+                    MusicPlayer.getInstance().play();
                     break;
             }
 //            if(keyCode.getName().equals("P")){

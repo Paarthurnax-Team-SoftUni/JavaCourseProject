@@ -1,13 +1,13 @@
 package gameEngine;
 
-import utils.Constants;
+import constants.CarConstants;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
-import models.Collectible;
-import models.Obstacle;
+import models.sprites.Collectible;
+import models.sprites.Obstacle;
 import models.Player;
 import music.MusicPlayer;
 
@@ -22,8 +22,7 @@ public class PauseHandler {
     private List<Obstacle> testObstacles;
     private List<Collectible> collectibles;
 
-    public PauseHandler(Timeline gameLoop, GraphicsContext gc, Image background,
-                        double y, Player player, List<Obstacle> testObstacles, List<Collectible> collectibles) {
+    public PauseHandler(Timeline gameLoop, GraphicsContext gc, Image background, double y, Player player, List<Obstacle> testObstacles, List<Collectible> collectibles) {
         this.gameLoop = gameLoop;
         this.gc = gc;
         this.background = background;
@@ -37,24 +36,24 @@ public class PauseHandler {
         RunTrack.setIsPaused(true);
         this.gameLoop.pause();
         if (RunTrack.isPaused()) {
-            MusicPlayer.pause();
+            MusicPlayer.getInstance().pause();
 
             Timeline pauseloop = new Timeline();
             pauseloop.setCycleCount(Timeline.INDEFINITE);
 
             KeyFrame keyFramePause = new KeyFrame(
-                    Duration.seconds(Constants.FRAMES_PER_SECOND),
+                    Duration.seconds(CarConstants.FRAMES_PER_SECOND),
                     event -> {
                         if (!RunTrack.isPaused()) {
                             gameLoop.play();
-                            MusicPlayer.pause();
+                            MusicPlayer.getInstance().pause();
                             pauseloop.stop();
                         }
 
-                        gc.clearRect(0, 0, Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
+                        gc.clearRect(0, 0, CarConstants.CANVAS_WIDTH, CarConstants.CANVAS_HEIGHT);
                         gc.drawImage(background, 0, y);
-                        gc.drawImage(background, 0, y - Constants.CANVAS_HEIGHT);
-                        player.render(gc);
+                        gc.drawImage(background, 0, y - CarConstants.CANVAS_HEIGHT);
+                        this.player.getCar().render(gc);
 
                         for (Collectible collectible : collectibles) {
                             collectible.render(gc);

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="mainBorderPane" alignment="CENTER" hgap="10.0" vgap="10.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HighScoreController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+    <Label style="-fx-font: NORMAL 20 Tahoma;" text="Best Slav Ranking" GridPane.columnIndex="0" GridPane.rowIndex="0">
+    </Label>
+    <TableView fx:id="highScoresListView" prefHeight="400.0" prefWidth="400.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+        <columns>
+            <TableColumn prefWidth="200.0" text="Name">
+                <cellValueFactory>
+                    <PropertyValueFactory property="name" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="200.0" text="High Scores">
+                <cellValueFactory>
+                    <PropertyValueFactory property="highScore" />
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>
