@@ -52,8 +52,6 @@ public class RunTrack {
     public RunTrack(Player player, float velocityValue) {
         frame = 0;
         time = 0;
-        isPaused = false;
-        shoot = false;
         velocity = velocityValue;
         currentStats = new CurrentStats(0, 0, 0, 0);
         cheat = new Cheat();
@@ -89,6 +87,7 @@ public class RunTrack {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         MusicPlayer.getInstance().play();
         MusicPlayer.getInstance().pause();
+        
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(currentFramesPerSecond),
                 event -> {

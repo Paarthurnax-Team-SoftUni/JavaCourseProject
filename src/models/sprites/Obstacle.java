@@ -5,11 +5,10 @@ import constants.CarConstants;
 import models.Player;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-public class Obstacle extends Sprite {
+public class Obstacle extends SpriteRotatable {
 
     private boolean isDrunk;
     private List<Obstacle> obstacles;

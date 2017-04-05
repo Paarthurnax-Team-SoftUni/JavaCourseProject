@@ -2,8 +2,9 @@ package models.sprites;
 
 import constants.CarConstants;
 import gameEngine.RunTrack;
+import interfaces.Shootable;
 
-public class PlayerCar extends Sprite {
+public class PlayerCar extends SpriteRotatable implements Shootable {
     private int ammunition;
     private boolean accelerating;
     private boolean centerWheel;
@@ -32,7 +33,8 @@ public class PlayerCar extends Sprite {
         this.accelerating = false;
     }
 
-    public void shot() {
+    @Override
+    public void shoot() {
         if (getAmmunition() > 0) {
             setAmmunition(getAmmunition() - 1);
             RunTrack.setShoot(true);

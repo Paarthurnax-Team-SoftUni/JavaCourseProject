@@ -65,7 +65,7 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                     Platform.exit();
                     break;
                 case "S":
-                    playerCar.shot();
+                    playerCar.shoot();
                     break;
                 default:
                     break;

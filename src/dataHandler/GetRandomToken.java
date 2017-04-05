@@ -1,9 +1,8 @@
 package dataHandler;
 
-import models.sprites.Sprite;
-import constants.CarConstants;
+import models.sprites.SpriteRotatable;
 
-public class GetRandomToken extends Sprite{
+public class GetRandomToken extends SpriteRotatable {
 
     private String imagesDirectory;
 

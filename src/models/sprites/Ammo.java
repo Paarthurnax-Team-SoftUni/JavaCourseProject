@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Ammo extends Sprite{
+public class Ammo extends Sprite {
 
     private List<Ammo> ammunition;
 
@@ -37,7 +37,7 @@ public class Ammo extends Sprite{
             ammo.update();
             ammo.render(gc);
             for (Obstacle obstacle : obstacles) {
-                if (ammo.getBoundary().intersects(obstacle.getBoundary())) {
+                if (ammo.intersects(obstacle)) {
                     if(!obstacle.isDestroyed()) {
                         ammo.setPosition(CarConstants.DESTROY_OBJECT_COORDINATES, CarConstants.DESTROY_OBJECT_COORDINATES);
                         obstacle.handleImpactByAmmo(player);
