@@ -1,4 +1,4 @@
-package models;
+package models.sprites;
 
 import gameEngine.RotatedImageInCanvas;
 import gameEngine.RunTrack;

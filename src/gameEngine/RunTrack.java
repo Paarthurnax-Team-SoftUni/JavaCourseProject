@@ -14,6 +14,11 @@ import javafx.util.Duration;
 import keyHandler.KeyHandlerOnPress;
 import keyHandler.KeyHandlerOnRelease;
 import models.*;
+import models.sprites.Ammo;
+import models.sprites.Collectible;
+import models.sprites.Obstacle;
+import models.Player;
+import models.sprites.PlayerCar;
 import music.MusicPlayer;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
@@ -40,6 +45,7 @@ public class RunTrack {
     private Collectible collectible;
     private Obstacle obstacle;
     private Ammo ammo;
+    private PlayerCar playerCar;
 
     public static Cheat getCheat() {
         return cheat;
@@ -59,6 +65,7 @@ public class RunTrack {
         this.chooseCarController = new ChooseCarController();
         this.setCarId(chooseCarController.getCarId());
         this.setPlayer(player);
+        this.playerCar = this.getPlayer().getCar();
         this.setCurrentFramesPerSecond(CarConstants.FRAMES_PER_SECOND);
     }
 
@@ -73,8 +80,8 @@ public class RunTrack {
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
         String carImg = CarConstants.CAR_IMAGES_PATH + this.carId + CarConstants.HALF_SIZE;
-        this.player.setImage(carImg);
-        this.player.setPosition(200, 430);
+        this.playerCar.setImage(carImg);
+        this.playerCar.setPosition(200, 430);
         this.player.setPoints(0L);
 
         this.currentHealth = new CurrentHealth(this.player);
@@ -104,7 +111,7 @@ public class RunTrack {
                     currentStats.setDistance(currentStats.getDistance() + (long) velocity / 2);
                     player.addPoints(1);
                     currentStats.setPoints(player.getPoints());
-                    currentStats.setBullets(player.getAmmunition());
+                    currentStats.setBullets(this.playerCar.getAmmunition());
 
                     observer.update(currentStats, observer);
 
@@ -112,7 +119,7 @@ public class RunTrack {
                         y = y - CarConstants.CANVAS_HEIGHT;
                         frame = 0;
                     }
-                    this.player.setVelocity(0, 0);
+                    this.playerCar.setVelocity(0, 0);
 
                     cheat.useCheat(player);
 
@@ -124,8 +131,8 @@ public class RunTrack {
                     gc.clearRect(0, 0, CarConstants.CANVAS_WIDTH, CarConstants.CANVAS_HEIGHT);
                     gc.drawImage(background, 0, y - CarConstants.CANVAS_HEIGHT);
                     gc.drawImage(background, 0, y);
-                    this.player.update();
-                    this.player.render(gc);
+                    this.playerCar.update();
+                    this.playerCar.render(gc);
                     currentHealth.update();
 
                     obstacle.manageObstacles(gc, collectible, player, obstacle.getObstacles(), velocity);
@@ -157,7 +164,7 @@ public class RunTrack {
                         velocity = CarConstants.START_GAME_VELOCITY;
                         currentStats.setDistance(0);
                         root.getChildren().remove(canvas);
-                        player.setAmmunition(CarConstants.START_GAME_BULLETS);
+                        this.playerCar.setAmmunition(CarConstants.START_GAME_BULLETS);
 
                         FXMLLoader loader = manager.loadSceneToStage(currentStage, win ? CarConstants.GAME_WIN_VIEW_PATH : CarConstants.GAME_OVER_VIEW_PATH);
 

@@ -1,8 +1,8 @@
-package models;
+package models.sprites;
 
 import constants.CarConstants;
 
-public class EnemyDriver extends Obstacle {
+public class EnemyCar extends Obstacle {
 
     @Override
     public void addVelocity(double x, double y) {

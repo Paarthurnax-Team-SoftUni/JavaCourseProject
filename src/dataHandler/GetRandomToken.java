@@ -1,6 +1,6 @@
 package dataHandler;
 
-import models.Sprite;
+import models.sprites.Sprite;
 import constants.CarConstants;
 
 import java.util.Random;

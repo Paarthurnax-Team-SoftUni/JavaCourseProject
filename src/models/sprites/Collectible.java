@@ -1,8 +1,10 @@
-package models;
+package models.sprites;
 
 import constants.CarConstants;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
+import models.Notification;
+import models.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,7 +116,7 @@ public class Collectible extends Sprite {
             collectible.update();
             collectible.render(gc);
 
-            if (collectible.getBoundary().intersects(player.getBoundary())) {
+            if (collectible.getBoundary().intersects(player.getCar().getBoundary())) {
                 switch (collectible.getCollectibleType()) {
 
                     case CarConstants.FUEL_BOTTLE_STRING:
@@ -166,7 +168,7 @@ public class Collectible extends Sprite {
                     case CarConstants.AMMO_STRING:
                         player.addPoints( CarConstants.AMMO_BONUS*bonusCoefficient);
                         Notification.showPopupMessage(CarConstants.AMMO_STRING, CarConstants.AMMO_NOTIFICATION_MESSAGE, currentStage);
-                        player.setAmmunition(player.getAmmunition()+1);
+                        player.getCar().setAmmunition(player.getCar().getAmmunition()+1);
 
                         collectible.setPosition(CarConstants.DESTROY_OBJECT_COORDINATES, CarConstants.DESTROY_OBJECT_COORDINATES);
                         return CarConstants.AMMO_STRING;

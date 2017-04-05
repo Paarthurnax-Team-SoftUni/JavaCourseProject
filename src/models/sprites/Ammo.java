@@ -1,7 +1,8 @@
-package models;
+package models.sprites;
 
 import constants.CarConstants;
 import javafx.scene.canvas.GraphicsContext;
+import models.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +26,7 @@ public class Ammo extends Sprite{
 
     public Ammo generateAmmo(Player player){
         Ammo ammo = new Ammo();
-        ammo.setPosition(player.getPositionX(),player.getPositionY() + 5);
+        ammo.setPosition(player.getCar().getPositionX(),player.getCar().getPositionY() + 5);
         ammo.setImage(CarConstants.AMMO_PATH);
         return ammo;
     }

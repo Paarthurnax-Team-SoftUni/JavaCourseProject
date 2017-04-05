@@ -1,7 +1,8 @@
-package models;
+package models.sprites;
 
 import javafx.scene.canvas.GraphicsContext;
 import constants.CarConstants;
+import models.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,7 @@ public class Obstacle extends Sprite {
         Obstacle obstacle = new Obstacle();
 
         if (random.contains("car")){
-            obstacle = new EnemyDriver();
+            obstacle = new EnemyCar();
             if (new Random().nextInt(100)> valueDrunkDrivers){
                 obstacle.setIsDrunk(true);
                 obstacle.setPosition(obstacleX.nextInt((maxRightSide - 50) - (minLeftSide + 50)) + minLeftSide + 50, -166);
@@ -114,7 +115,7 @@ public class Obstacle extends Sprite {
             obstacle.update();
             obstacle.render(gc);
 
-            if (obstacle.getBoundary().intersects(player.getBoundary())) {
+            if (obstacle.getBoundary().intersects(player.getCar().getBoundary())) {
                 if (collectible.isImmortal()) {
                     player.addPoints(CarConstants.BONUS_POINTS_HIT_WITH_SHIELD*collectible.getBonusCoefficient());
                 } else if (!obstacle.isDestroyed()) {

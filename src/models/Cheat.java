@@ -32,7 +32,7 @@ public class Cheat {
     public void useCheat(Player player) {
         switch (getCheatNumber()) {
             case 1:
-                player.setAmmunition(1000);
+                player.getCar().setAmmunition(1000);
                 break;
             case -1:
                 break;
