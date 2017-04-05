@@ -53,7 +53,7 @@ public class ChooseLevelController {
     public void chooseLevel(MouseEvent ev) throws IOException {
         Node source = (Node) ev.getSource();
         int id = Integer.valueOf(source.getId().substring(5));
-        this.backgroundFill(id);
+        backgroundFill(id);
         this.startBtn.setVisible(true);
     }
 
@@ -75,6 +75,8 @@ public class ChooseLevelController {
     }
 
     private void backgroundFill(int id) throws IOException {
+        showUnlockedLevelsOnly();
+
         switch (id) {
             case 1:
                 this.backgroundBox1.setStyle(CarConstants.RED_COLOUR);

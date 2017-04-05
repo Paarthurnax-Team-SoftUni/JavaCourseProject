@@ -71,17 +71,9 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                     break;
             }
         } else {
-            switch (keyCode.getName()) {
-                case "P":
-                    RunTrack.setIsPaused(false);
-                    break;
-                case "M":
-                    MusicPlayer.getInstance().play();
-                    break;
+            if(keyCode.getName().equals("P")){
+                RunTrack.setIsPaused(false);
             }
-//            if(keyCode.getName().equals("P")){
-//                RunTrack.setIsPaused(false);
-//            }
         }
     }
 }

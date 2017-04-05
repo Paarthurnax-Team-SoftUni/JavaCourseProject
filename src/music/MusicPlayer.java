@@ -33,7 +33,7 @@ public class MusicPlayer {
         mediaPlayer.play();
     }
 
-    public void pause() {
+    public void startStopPause() {
         if (mediaPlayer.getStatus().equals(MediaPlayer.Status.PAUSED)) {
             mediaPlayer.setStartTime(resumeTime);
             mediaPlayer.play();

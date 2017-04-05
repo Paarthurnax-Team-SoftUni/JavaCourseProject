@@ -88,7 +88,7 @@ public class ChooseCarController {
             Field lockedField = chooseCarControllerClass.getDeclaredField("locked" + id);
             ImageView locked = ((ImageView) lockedField.get(this));
             locked.setVisible(false);
-            if (points < (id - 1) * 10000) {
+            if (points < (id - 1) * CarConstants.CAR_UNLOCK_STEP_PTS) {
                 ellipse.setStyle(CarConstants.GREY_COLOUR);
                 ellipse.toFront();
                 locked.setVisible(true);

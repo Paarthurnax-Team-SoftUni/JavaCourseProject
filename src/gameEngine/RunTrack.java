@@ -119,7 +119,7 @@ public class RunTrack {
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         MusicPlayer.getInstance().play();
-        MusicPlayer.getInstance().pause();
+        MusicPlayer.getInstance().startStopPause();
 
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(currentFramesPerSecond),
@@ -163,7 +163,13 @@ public class RunTrack {
                     gc.drawImage(background, 0, y);
                     this.playerCar.update();
                     this.playerCar.render(gc);
-                    currentHealth.update();
+                    try {
+                        currentHealth.update();
+                    } catch (NoSuchFieldException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
 
                     obstacle.manageObstacles(gc, collectible, player, obstacle.getObstacles(), velocity);
 

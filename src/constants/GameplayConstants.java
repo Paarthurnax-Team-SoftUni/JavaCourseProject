@@ -25,6 +25,7 @@ public class GameplayConstants extends CollctiblesAndObstaclesConstants {
     public static final int HEALTH_BAR_AVERAGE_LOW = 50;
     public static final int OBSTACLE_DAMAGE = 25;
     public static final int CHEAT_BULLETS_COUNT = 1000;
+    public static final int CAR_UNLOCK_STEP_PTS = 15000;
     public static final float TURNING_ANGLE = 43;
     public static final int CANVAS_BEGINNING = 0;
     public static final int CANVAS_Y_END = 300;
