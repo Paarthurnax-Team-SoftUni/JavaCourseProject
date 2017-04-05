@@ -18,6 +18,16 @@ public class Cheat {
         }
     }
 
+    public void useCheat(Player player) {
+        switch (getCheatNumber()) {
+            case 1:
+                player.getCar().setAmmunition(1000);
+                break;
+            case -1:
+                break;
+        }
+    }
+
     private int getCheatNumber() {
         Optional<String> reduce = this.cheat.stream().reduce(String::concat);
         if (reduce.isPresent()) {
@@ -27,15 +37,5 @@ public class Cheat {
             }
         }
         return -1;
-    }
-
-    public void useCheat(Player player) {
-        switch (getCheatNumber()) {
-            case 1:
-                player.getCar().setAmmunition(1000);
-                break;
-            case -1:
-                break;
-        }
     }
 }

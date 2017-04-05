@@ -142,8 +142,8 @@ public abstract class Sprite {
         return new Rectangle2D(this.positionX, this.positionY, this.imageWidth, this.imageHeight);
     }
 
-    public boolean intersects(Sprite s) {
-        return s.getBoundary().intersects(this.getBoundary());
+    public boolean intersects(Sprite other) {
+        return this.getBoundary().intersects(other.getBoundary());
     }
 
     private void addVelocity(double x, double y, int min, int max) {
