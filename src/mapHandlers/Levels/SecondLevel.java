@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import mapHandlers.Track;
 
-public class SecondLevel extends Track{
+public class SecondLevel extends Track {
 
     @Override
     public void createBackground(AnchorPane root) {

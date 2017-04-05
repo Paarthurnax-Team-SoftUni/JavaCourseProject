@@ -1,150 +1,191 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.shape.Ellipse?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="chooseCarPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0"
+            stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.111"
+            fx:controller="controllers.ChooseCarController">
+    <children>
+        <Button fx:id="goNextBtn" layoutX="267.0" layoutY="516.0" mnemonicParsing="false" onAction="#goToChooseLevel"
+                prefHeight="94.0" prefWidth="303.0" text="Go Next" textAlignment="CENTER" textFill="#1b1a1a"
+                underline="true" visible="false">
+            <font>
+                <Font name="Chiller" size="50.0"/>
+            </font>
+        </Button>
+        <GridPane fx:id="cars" alignment="TOP_CENTER" hgap="10.0" layoutX="97.0" layoutY="80.0" prefHeight="398.0"
+                  prefWidth="650.0" vgap="10.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <padding>
+                <Insets bottom="5.0"/>
+            </padding>
+            <children>
+                <Ellipse fx:id="backgroundBox1" fill="TRANSPARENT" radiusX="94.0" radiusY="103.0" stroke="TRANSPARENT"
+                         strokeType="INSIDE"/>
+                <Ellipse fx:id="backgroundBox2" fill="TRANSPARENT" radiusX="94.0" radiusY="101.0" stroke="TRANSPARENT"
+                         strokeType="INSIDE" GridPane.columnIndex="1"/>
+                <Ellipse fx:id="backgroundBox3" fill="TRANSPARENT" radiusX="94.0" radiusY="103.0" stroke="TRANSPARENT"
+                         strokeType="INSIDE" GridPane.columnIndex="2"/>
+                <Ellipse fx:id="backgroundBox4" fill="TRANSPARENT" radiusX="94.0" radiusY="103.0" stroke="TRANSPARENT"
+                         strokeType="INSIDE" GridPane.rowIndex="1"/>
+                <Ellipse fx:id="backgroundBox5" fill="TRANSPARENT" radiusX="94.0" radiusY="103.0" stroke="TRANSPARENT"
+                         strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Ellipse fx:id="backgroundBox6" fill="TRANSPARENT" radiusX="94.0" radiusY="103.0" stroke="TRANSPARENT"
+                         strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
 
-<AnchorPane fx:id="chooseCarPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChooseCarController">
-   <children>
-       <Button fx:id="goNextBtn" layoutX="267.0" layoutY="516.0" mnemonicParsing="false" onAction="#goToChooseLevel" prefHeight="94.0" prefWidth="303.0" text="Go Next" textAlignment="CENTER" textFill="#1b1a1a" underline="true" visible="false">
-           <font>
-               <Font name="Chiller" size="50.0" />
-           </font>
-       </Button>
-      <GridPane fx:id="cars" alignment="TOP_CENTER" hgap="10.0" layoutX="97.0" layoutY="80.0" prefHeight="398.0" prefWidth="650.0" vgap="10.0">
-        <columnConstraints>
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <padding>
-            <Insets bottom="5.0" />
-         </padding>
-         <children>
-             <Ellipse fx:id="backgroundBox1" fill="TRANSPARENT" radiusX="94.0" radiusY="103.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-             <Ellipse fx:id="backgroundBox2" fill="TRANSPARENT" radiusX="94.0" radiusY="101.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="1" />
-             <Ellipse fx:id="backgroundBox3" fill="TRANSPARENT" radiusX="94.0" radiusY="103.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="2" />
-             <Ellipse fx:id="backgroundBox4" fill="TRANSPARENT" radiusX="94.0" radiusY="103.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.rowIndex="1" />
-             <Ellipse fx:id="backgroundBox5" fill="TRANSPARENT" radiusX="94.0" radiusY="103.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-             <Ellipse fx:id="backgroundBox6" fill="TRANSPARENT" radiusX="94.0" radiusY="103.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                <ImageView fx:id="car1" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar"
+                           pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER"
+                           GridPane.valignment="BOTTOM">
+                    <image>
+                        <Image url="@../resources/images/cars/player_car1.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fx:id="car2" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar"
+                           pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1"
+                           GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                    <image>
+                        <Image url="@../resources/images/cars/player_car2.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fx:id="car3" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar"
+                           pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2"
+                           GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
+                    <image>
+                        <Image url="@../resources/images/cars/player_car3.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fx:id="car4" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar"
+                           pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                           GridPane.valignment="BOTTOM">
+                    <image>
+                        <Image url="@../resources/images/cars/player_car4.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fx:id="car5" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar"
+                           pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1"
+                           GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                    <image>
+                        <Image url="@../resources/images/cars/player_car5.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fx:id="car6" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar"
+                           pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2"
+                           GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+                    <image>
+                        <Image url="@../resources/images/cars/player_car6.png"/>
+                    </image>
+                </ImageView>
+                <Label fx:id="label1" onMouseClicked="#chooseCar" text="Orange" GridPane.halignment="CENTER"
+                       GridPane.valignment="TOP">
+                    <GridPane.margin>
+                        <Insets top="10.0"/>
+                    </GridPane.margin>
+                    <font>
+                        <Font name="Chiller" size="24.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="label2" onMouseClicked="#chooseCar" text="Red" GridPane.columnIndex="1"
+                       GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                    <GridPane.margin>
+                        <Insets top="10.0"/>
+                    </GridPane.margin>
+                    <font>
+                        <Font name="Chiller" size="24.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="label3" onMouseClicked="#chooseCar" text="Blue" GridPane.columnIndex="2"
+                       GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                    <GridPane.margin>
+                        <Insets top="10.0"/>
+                    </GridPane.margin>
+                    <font>
+                        <Font name="Chiller" size="24.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="label4" onMouseClicked="#chooseCar" text="Green" GridPane.halignment="CENTER"
+                       GridPane.rowIndex="1" GridPane.valignment="TOP">
+                    <GridPane.margin>
+                        <Insets top="10.0"/>
+                    </GridPane.margin>
+                    <font>
+                        <Font name="Chiller" size="24.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="label5" onMouseClicked="#chooseCar" text="Silver" GridPane.columnIndex="1"
+                       GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                    <GridPane.margin>
+                        <Insets top="10.0"/>
+                    </GridPane.margin>
+                    <font>
+                        <Font name="Chiller" size="24.0"/>
+                    </font>
+                </Label>
+                <Label fx:id="label6" onMouseClicked="#chooseCar" text="Red" GridPane.columnIndex="2"
+                       GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
+                    <GridPane.margin>
+                        <Insets top="10.0"/>
+                    </GridPane.margin>
+                    <font>
+                        <Font name="Chiller" size="24.0"/>
+                    </font>
+                </Label>
 
-             <ImageView fx:id="car1" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-               <image>
-                  <Image url="@../resources/images/cars/player_car1.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="car2" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-               <image>
-                  <Image url="@../resources/images/cars/player_car2.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="car3" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="BOTTOM">
-               <image>
-                  <Image url="@../resources/images/cars/player_car3.png" />
-               </image>
-            </ImageView>
-             <ImageView fx:id="car4" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                 <image>
-                     <Image url="@../resources/images/cars/player_car4.png" />
-                 </image>
-             </ImageView>
-             <ImageView fx:id="car5" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                 <image>
-                     <Image url="@../resources/images/cars/player_car5.png" />
-                 </image>
-             </ImageView>
-             <ImageView fx:id="car6" fitHeight="150.0" fitWidth="200.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
-                 <image>
-                     <Image url="@../resources/images/cars/player_car6.png" />
-                 </image>
-             </ImageView>
-            <Label fx:id="label1" onMouseClicked="#chooseCar" text="Orange" GridPane.halignment="CENTER" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets top="10.0" />
-               </GridPane.margin>
-               <font>
-                  <Font name="Chiller" size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="label2" onMouseClicked="#chooseCar" text="Red" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets top="10.0" />
-               </GridPane.margin>
-               <font>
-                  <Font name="Chiller" size="24.0" />
-               </font>
-            </Label>
-            <Label fx:id="label3" onMouseClicked="#chooseCar" text="Blue" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
-               <GridPane.margin>
-                  <Insets top="10.0" />
-               </GridPane.margin>
-               <font>
-                  <Font name="Chiller" size="24.0" />
-               </font>
-            </Label>
-             <Label fx:id="label4" onMouseClicked="#chooseCar" text="Green" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
-                 <GridPane.margin>
-                     <Insets top="10.0" />
-                 </GridPane.margin>
-                 <font>
-                     <Font name="Chiller" size="24.0" />
-                 </font>
-             </Label>
-             <Label fx:id="label5" onMouseClicked="#chooseCar" text="Silver" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
-                 <GridPane.margin>
-                     <Insets top="10.0" />
-                 </GridPane.margin>
-                 <font>
-                     <Font name="Chiller" size="24.0" />
-                 </font>
-             </Label>
-             <Label fx:id="label6" onMouseClicked="#chooseCar" text="Red" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP">
-                 <GridPane.margin>
-                     <Insets top="10.0" />
-                 </GridPane.margin>
-                 <font>
-                     <Font name="Chiller" size="24.0" />
-                 </font>
-             </Label>
-             
-             <ImageView fx:id="locked2" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                 <image>
-                     <Image url="@../resources/images/locked.png" />
-                 </image>
-             </ImageView>
-             <ImageView fx:id="locked3" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                 <image>
-                     <Image url="@../resources/images/locked.png" />
-                 </image>
-             </ImageView>
-             <ImageView fx:id="locked4" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                 <image>
-                     <Image url="@../resources/images/locked.png" />
-                 </image>
-             </ImageView>
-             <ImageView fx:id="locked5" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                 <image>
-                     <Image url="@../resources/images/locked.png" />
-                 </image>
-             </ImageView>
-             <ImageView fx:id="locked6" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseCar" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
-                 <image>
-                     <Image url="@../resources/images/locked.png" />
-                 </image>
-             </ImageView>
-         </children>
-      </GridPane>
-   </children>
+                <ImageView fx:id="locked1" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseCar"
+                           pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER"
+                           GridPane.valignment="CENTER">
+                    <image>
+                        <Image url="@../resources/images/locked.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fx:id="locked2" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseCar"
+                           pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1"
+                           GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                    <image>
+                        <Image url="@../resources/images/locked.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fx:id="locked3" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseCar"
+                           pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2"
+                           GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                    <image>
+                        <Image url="@../resources/images/locked.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fx:id="locked4" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseCar"
+                           pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1"
+                           GridPane.valignment="CENTER">
+                    <image>
+                        <Image url="@../resources/images/locked.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fx:id="locked5" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseCar"
+                           pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1"
+                           GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                    <image>
+                        <Image url="@../resources/images/locked.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fx:id="locked6" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseCar"
+                           pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2"
+                           GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                    <image>
+                        <Image url="@../resources/images/locked.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </GridPane>
+    </children>
 </AnchorPane>

@@ -14,7 +14,9 @@ import javafx.stage.Stage;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
 
-public class ChooseCarController{
+import java.lang.reflect.Field;
+
+public class ChooseCarController {
 
     private static String carId;
 
@@ -33,6 +35,8 @@ public class ChooseCarController{
     @FXML
     private Ellipse backgroundBox6;
     @FXML
+    private ImageView locked1;
+    @FXML
     private ImageView locked2;
     @FXML
     private ImageView locked3;
@@ -43,14 +47,14 @@ public class ChooseCarController{
     @FXML
     private ImageView locked6;
 
-    public void initialize() {
+    public void initialize() throws NoSuchFieldException, IllegalAccessException {
         long highScores = PlayerData.getInstance().getCurrentPlayer().getHighScore();
         showUnlockedCarsOnly(highScores);
     }
 
     @FXML
     public void goToChooseLevel(ActionEvent actionEvent) {
-        Stage currentStage = (Stage)this.goNextBtn.getScene().getWindow();
+        Stage currentStage = (Stage) this.goNextBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
         FXMLLoader loader = manager.loadSceneToStage(currentStage, CarConstants.CHOOSE_LEVEL_VIEW_PATH);
     }
@@ -63,7 +67,7 @@ public class ChooseCarController{
         carId = id;
     }
 
-    public void chooseCar(MouseEvent ev) {
+    public void chooseCar(MouseEvent ev) throws NoSuchFieldException, IllegalAccessException {
         Node source = (Node) ev.getSource();
         String id = source.getId();
         backgroundFill(id.substring(id.length() - 1));
@@ -75,77 +79,30 @@ public class ChooseCarController{
         this.goNextBtn.setVisible(true);
     }
 
-    private void showUnlockedCarsOnly(Long points) {
-        this.backgroundBox1.setStyle(null);
-        this.backgroundBox2.setStyle(null);
-        this.backgroundBox3.setStyle(null);
-        this.backgroundBox4.setStyle(null);
-        this.backgroundBox5.setStyle(null);
-        this.backgroundBox6.setStyle(null);
-
-        this.backgroundBox2.setStyle(CarConstants.GREY_COLOUR);
-        this.backgroundBox2.toFront();
-        this.locked2.setVisible(true);
-        this.backgroundBox3.setStyle(CarConstants.GREY_COLOUR);
-        this.backgroundBox3.toFront();
-        this.locked3.setVisible(true);
-        this.backgroundBox4.setStyle(CarConstants.GREY_COLOUR);
-        this.backgroundBox4.toFront();
-        this.locked4.setVisible(true);
-        this.backgroundBox5.setStyle(CarConstants.GREY_COLOUR);
-        this.backgroundBox5.toFront();
-        this.locked5.setVisible(true);
-        this.backgroundBox6.setStyle(CarConstants.GREY_COLOUR);
-        this.backgroundBox6.toFront();
-        this.locked6.setVisible(true);
-
-        if (points > 10000) {
-            this.backgroundBox2.setStyle(null);
-            this.backgroundBox2.toBack();
-            this.locked2.setVisible(false);
-        }
-        if (points > 15000) {
-            this.backgroundBox3.setStyle(null);
-            this.backgroundBox3.toBack();
-            this.locked3.setVisible(false);
-        }
-        if (points > 22000) {
-            this.backgroundBox4.setStyle(null);
-            this.backgroundBox4.toBack();
-            this.locked4.setVisible(false);
-        }
-        if (points > 35000) {
-            this.backgroundBox5.setStyle(null);
-            this.backgroundBox5.toBack();
-            this.locked5.setVisible(false);
-        }
-        if (points > 50000) {
-            this.backgroundBox6.setStyle(null);
-            this.backgroundBox6.toBack();
-            this.locked6.setVisible(false);
+    private void showUnlockedCarsOnly(Long points) throws NoSuchFieldException, IllegalAccessException {
+        Class<ChooseCarController> chooseCarControllerClass = ChooseCarController.class;
+        for (int id = 1; id <= 6; id++) {
+            Field ellipseField = chooseCarControllerClass.getDeclaredField("backgroundBox" + id);
+            Ellipse ellipse = ((Ellipse) ellipseField.get(this));
+            ellipse.setStyle(null);
+            Field lockedField = chooseCarControllerClass.getDeclaredField("locked" + id);
+            ImageView locked = ((ImageView) lockedField.get(this));
+            locked.setVisible(false);
+            if (points < (id - 1) * 10000) {
+                ellipse.setStyle(CarConstants.GREY_COLOUR);
+                ellipse.toFront();
+                locked.setVisible(true);
+            }
         }
     }
 
-    private void backgroundFill(String id) {
-        switch (id) {
-            case "1":
-                this.backgroundBox1.setStyle(CarConstants.RED_COLOUR);
-                break;
-            case "2":
-                this.backgroundBox2.setStyle(CarConstants.RED_COLOUR);
-                break;
-            case "3":
-                this.backgroundBox3.setStyle(CarConstants.RED_COLOUR);
-                break;
-            case "4":
-                this.backgroundBox4.setStyle(CarConstants.RED_COLOUR);
-                break;
-            case "5":
-                this.backgroundBox5.setStyle(CarConstants.RED_COLOUR);
-                break;
-            case "6":
-                this.backgroundBox6.setStyle(CarConstants.RED_COLOUR);
-                break;
-        }
+    private void backgroundFill(String id) throws NoSuchFieldException, IllegalAccessException {
+        long highScores = PlayerData.getInstance().getCurrentPlayer().getHighScore();
+        showUnlockedCarsOnly(highScores);
+
+        Class<ChooseCarController> chooseCarControllerClass = ChooseCarController.class;
+        Field field = chooseCarControllerClass.getDeclaredField("backgroundBox" + id);
+        ((Ellipse) field.get(this)).setStyle(CarConstants.RED_COLOUR);
+
     }
 }
