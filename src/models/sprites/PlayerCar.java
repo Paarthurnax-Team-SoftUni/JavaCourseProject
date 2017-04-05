@@ -7,20 +7,9 @@ public class PlayerCar extends Sprite {
     private int ammunition;
     private boolean accelerating;
     private boolean centerWheel;
-    private boolean turnRight;
-    private boolean turnLeft;
-    private double angle;
 
     public PlayerCar() {
         this.ammunition = CarConstants.START_GAME_BULLETS;
-        this.angle = 0;
-    }
-
-    public void shot() {
-        if (getAmmunition() > 0) {
-            setAmmunition(getAmmunition() - 1);
-            RunTrack.setShoot(true);
-        }
     }
 
     public int getAmmunition() {
@@ -41,6 +30,13 @@ public class PlayerCar extends Sprite {
 
     public void stopAccelerate() {
         this.accelerating = false;
+    }
+
+    public void shot() {
+        if (getAmmunition() > 0) {
+            setAmmunition(getAmmunition() - 1);
+            RunTrack.setShoot(true);
+        }
     }
 
     @Override

@@ -25,7 +25,7 @@ public class RotatedImageInCanvas {
     * Draws an image on a graphics context.
     * <p>
     * The image is drawn at (tlpx, tlpy) rotated by angle pivoted around the point:
-    * (tlpx + image.getWidth() / 2, tlpy + image.getHeight() / 2)
+    * (tlpx + image.getWidth() / 2, tlpy + image.getImageHeight() / 2)
     *
     * @param gc    the graphics context the image is to be drawn on.
     * @param angle the angle of rotation.

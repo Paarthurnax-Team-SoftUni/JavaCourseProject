@@ -27,7 +27,7 @@ public class EnemyCar extends Obstacle {
                 super.setVelocityY(y);
             }
         } else if (y > 0) {
-            if (super.getPositionY() < CarConstants.CANVAS_HEIGHT -super.getHeight() * 2) {
+            if (super.getPositionY() < CarConstants.CANVAS_HEIGHT - super.getImageHeight() * 2) {
                 super.setVelocityY(y);
             }
         }

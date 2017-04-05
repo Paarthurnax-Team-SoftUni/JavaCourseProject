@@ -1,6 +1,5 @@
 package models;
 
-import gameEngine.RunTrack;
 import constants.CarConstants;
 import models.sprites.PlayerCar;
 
@@ -12,8 +11,6 @@ public class Player {
     private Long points;
     private int healthPoints;
     private int maxLevelPassed;
-    private boolean accelerating = false;
-    private boolean centerWheel;
     private int id;
     private PlayerCar car;
 
@@ -28,13 +25,6 @@ public class Player {
         this.highScore = highScore;
         this.money = money;
         this.healthPoints = healthPoints;
-    }
-
-    public void shot() {
-        if (this.car.getAmmunition() > 0) {
-            this.car.setAmmunition(this.car.getAmmunition() - 1);
-            RunTrack.setShoot(true);
-        }
     }
 
     public int getId() {
@@ -85,8 +75,8 @@ public class Player {
         this.healthPoints = healthPoints;
     }
 
-    public void addPoints(int PointsToAdd) {
-        this.setPoints(this.getPoints() + PointsToAdd);
+    public void addPoints(int points) {
+        this.setPoints(this.getPoints() + points);
     }
 
     public int getMaxLevelPassed() {
