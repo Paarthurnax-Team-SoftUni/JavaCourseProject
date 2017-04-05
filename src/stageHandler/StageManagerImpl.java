@@ -19,11 +19,7 @@ public class StageManagerImpl implements StageManager {
     }
 
     public AnchorPane getRoot() {
-        return root;
-    }
-
-    public void setRoot(AnchorPane root) {
-        this.root = root;
+        return this.root;
     }
 
     public FXMLLoader loadSceneToStage(Stage currentStage, String fxmlPath) {
@@ -46,5 +42,9 @@ public class StageManagerImpl implements StageManager {
         currentStage.getIcons().add(new Image(CarConstants.LOGO_PATH));
 
         return fxmlLoader;
+    }
+
+    private void setRoot(AnchorPane root) {
+        this.root = root;
     }
 }

@@ -26,78 +26,37 @@ public class Collectible extends Sprite {
         this.bonusCoefficient = 1;
         this.player = player;
         this.collectibles = new ArrayList<>();
-        this.isImmortal = false;
-        this.isDoublePtsOn = false;
     }
 
-    private String getCollectibleType(){
-        switch (this.getName()){
-            case CarConstants.COLLECTIBLE + 1 + CarConstants.HALF_SIZE_NAME:
-                return CarConstants.FUEL_BOTTLE_STRING;
-            case CarConstants.COLLECTIBLE + 2 + CarConstants.HALF_SIZE_NAME:
-                return CarConstants.HEALTH_STRING;
-            case CarConstants.COLLECTIBLE + 3 + CarConstants.HALF_SIZE_NAME:
-                return CarConstants.DOUBLE_POINTS_STRING;
-            case CarConstants.COLLECTIBLE + 4 + CarConstants.HALF_SIZE_NAME:
-                return CarConstants.IMMORTALITY_STRING;
-            case CarConstants.COLLECTIBLE + 5 + CarConstants.HALF_SIZE_NAME:
-                return CarConstants.ARMAGEDDON_STRING;
-            case CarConstants.COLLECTIBLE + 6 + CarConstants.HALF_SIZE_NAME:
-                return CarConstants.AMMO_STRING;
+    public final int getBonusCoefficient() {
+        return this.bonusCoefficient;
+    }
+
+    public void updateStatus() {
+        if (isImmortal) {
+            this.updateImmortalityStatus();
         }
-        return CarConstants.BONUS_POINTS_STRING;
-    }
-
-    private double getImmortalityTimer() {
-        return immortalityTimer;
-    }
-
-    private void setImmortalityTimer(double immortalityTimer) {
-        this.immortalityTimer = immortalityTimer;
-    }
-
-    private double getDoublePtsTimer() {
-        return doublePtsTimer;
-    }
-
-    private void setDoublePtsTimer(double doublePtsTimer) {
-        this.doublePtsTimer = doublePtsTimer;
-    }
-
-    private void startDoublePtsTimer() {
-        isDoublePtsOn = true;
-        bonusCoefficient = 2;
-        this.setDoublePtsTimer(CarConstants.DOUBLE_PTS_DURATION / CarConstants.FRAMES_PER_SECOND);
-    }
-
-    private void updateDoublePtsStatus() {
-        this.setDoublePtsTimer(this.getDoublePtsTimer() - 1);
-        if (this.getDoublePtsTimer() < 0) {
-            isDoublePtsOn = false;
-            bonusCoefficient = 1;
+        if (isDoublePtsOn) {
+            this.updateDoublePointsStatus();
         }
     }
 
-    private void startImmortalityTimer() {
-        isImmortal = true;
-        this.setImmortalityTimer(CarConstants.IMMORTALITY_DURATION / CarConstants.FRAMES_PER_SECOND);
+    public final boolean isImmortal() {
+        return this.isImmortal;
     }
 
-    private void updateImmortalityStatus() {
-        this.setImmortalityTimer(this.getImmortalityTimer() - 1);
-        if (this.getImmortalityTimer() < 0) {
-            isImmortal = false;
-        }
+    public List<Collectible> getCollectibles() {
+        return this.collectibles;
     }
 
     public void addCollectible(Collectible collectible) {
-        collectibles.add(collectible);
+        this.collectibles.add(collectible);
     }
 
     public static Collectible generateCollectible(int minLeftSide, int maxRightSide) {
 
-        String[] collectibles= CarConstants.COLLECTIBLE_LIST_SMALL;
-        String random=collectibles[new Random().nextInt(collectibles.length)];
+        String[] collectibles = CarConstants.COLLECTIBLE_LIST_SMALL;
+        String random = collectibles[new Random().nextInt(collectibles.length)];
 
         Random collectibleX = new Random();
         String stringDirectory = CarConstants.COLLECTIBLE_PATH + random + ".png";
@@ -111,92 +70,143 @@ public class Collectible extends Sprite {
     }
 
     public String visualizeCollectible(GraphicsContext gc, double velocity, Stage currentStage) {
-        for (Collectible collectible : collectibles) {
+        for (Collectible collectible : this.collectibles) {
             collectible.setVelocity(0, velocity);
             collectible.update();
             collectible.render(gc);
 
-            if (collectible.getBoundary().intersects(player.getCar().getBoundary())) {
+            if (collectible.intersects(this.player.getCar())) {
                 switch (collectible.getCollectibleType()) {
-
+                    //fuel bonus
                     case CarConstants.FUEL_BOTTLE_STRING:
-                        player.addPoints(CarConstants.FUEL_TANK_BONUS*bonusCoefficient);
-                        Notification.showPopupMessage(CarConstants.FUEL_BOTTLE_STRING, CarConstants.FUEL_NOTIFICATION_MESSAGE, currentStage);
-                        //not very okay with static but cant think of sthing else write now.
-                        collectible.setPosition(CarConstants.DESTROY_OBJECT_COORDINATES, CarConstants.DESTROY_OBJECT_COORDINATES);
+                        processCollectible(collectible, currentStage,
+                                CarConstants.FUEL_TANK_BONUS,
+                                CarConstants.FUEL_BOTTLE_STRING,
+                                CarConstants.FUEL_NOTIFICATION_MESSAGE);
                         return CarConstants.FUEL_BOTTLE_STRING;
 
+                    //health bonus
                     case CarConstants.HEALTH_STRING:
-                        player.addPoints(CarConstants.HEALTH_PACK_BONUS_POINTS*bonusCoefficient);
-                        if (player.getHealthPoints() < CarConstants.HEALTH_BAR_MAX) {
-                            player.setHealthPoints(Math.min(player.getHealthPoints() + CarConstants.HEALTH_BONUS, CarConstants.HEALTH_BAR_MAX));
+                        processCollectible(collectible, currentStage,
+                                CarConstants.HEALTH_PACK_BONUS_POINTS,
+                                CarConstants.HEALTH_STRING,
+                                CarConstants.HEALTH_NOTIFICATION_MESSAGE);
+                        if (this.player.getHealthPoints() < CarConstants.HEALTH_BAR_MAX) {
+                            this.player.setHealthPoints(Math.min(this.player.getHealthPoints() + CarConstants.HEALTH_BONUS, CarConstants.HEALTH_BAR_MAX));
                         }
-                        Notification.showPopupMessage(CarConstants.HEALTH_STRING, CarConstants.HEALTH_NOTIFICATION_MESSAGE, currentStage);
-
-                        collectible.setPosition(CarConstants.DESTROY_OBJECT_COORDINATES, CarConstants.DESTROY_OBJECT_COORDINATES);
                         return CarConstants.HEALTH_STRING;
 
+                    //double points bonus
                     case CarConstants.DOUBLE_POINTS_STRING:
-                        player.setPoints(player.getPoints() + CarConstants.DOUBLE_BONUS_POINTS*bonusCoefficient);
+                        processCollectible(collectible, currentStage,
+                                CarConstants.DOUBLE_BONUS_POINTS,
+                                CarConstants.DOUBLE_POINTS_STRING,
+                                CarConstants.DOUBLE_PTS_NOTIFICATION_MESSAGE);
                         if (!isDoublePtsOn) {
-                            startDoublePtsTimer();
+                            startDoublePointsTimer();
                         }
-                        Notification.showPopupMessage(CarConstants.DOUBLE_POINTS_STRING, CarConstants.DOUBLE_PTS_NOTIFICATION_MESSAGE, currentStage);
-
-                        collectible.setPosition(CarConstants.DESTROY_OBJECT_COORDINATES, CarConstants.DESTROY_OBJECT_COORDINATES);
                         return CarConstants.DOUBLE_POINTS_STRING;
 
+                    //immortality bonus
                     case CarConstants.IMMORTALITY_STRING:
-                        player.addPoints(CarConstants.IMMORTALITY_BONUS*bonusCoefficient);
+                        processCollectible(collectible, currentStage,
+                                CarConstants.IMMORTALITY_BONUS,
+                                CarConstants.IMMORTALITY_STRING,
+                                CarConstants.IMMORTALITY_NOTIFICATION_MESSAGE);
                         if (!isImmortal) {
                             player.addPoints( CarConstants.ARMAGEDDONS_BONUS*bonusCoefficient);
                             startImmortalityTimer();
                         }
-                        Notification.showPopupMessage(CarConstants.IMMORTALITY_STRING, CarConstants.IMMORTALITY_NOTIFICATION_MESSAGE, currentStage);
-
-                        collectible.setPosition(CarConstants.DESTROY_OBJECT_COORDINATES, CarConstants.DESTROY_OBJECT_COORDINATES);
                         return CarConstants.DOUBLE_POINTS_STRING;
 
-
+                    //armagedon bonus
                     case CarConstants.ARMAGEDDON_STRING:
-                        player.addPoints( CarConstants.ARMAGEDDONS_BONUS*bonusCoefficient);
-                        Notification.showPopupMessage(CarConstants.ARMAGEDDON_STRING, CarConstants.ARMAGEDDONS_NOTIFICATION_MESSAGE, currentStage);
-
-                        collectible.setPosition(CarConstants.DESTROY_OBJECT_COORDINATES, CarConstants.DESTROY_OBJECT_COORDINATES);
+                        processCollectible(collectible, currentStage,
+                                CarConstants.ARMAGEDDONS_BONUS,
+                                CarConstants.ARMAGEDDON_STRING,
+                                CarConstants.ARMAGEDDONS_NOTIFICATION_MESSAGE);
                         return CarConstants.ARMAGEDDON_STRING;
 
+                    //bullet bonus
                     case CarConstants.AMMO_STRING:
-                        player.addPoints( CarConstants.AMMO_BONUS*bonusCoefficient);
-                        Notification.showPopupMessage(CarConstants.AMMO_STRING, CarConstants.AMMO_NOTIFICATION_MESSAGE, currentStage);
+                        processCollectible(collectible, currentStage,
+                                CarConstants.AMMO_BONUS,
+                                CarConstants.AMMO_STRING,
+                                CarConstants.AMMO_NOTIFICATION_MESSAGE);
                         player.getCar().setAmmunition(player.getCar().getAmmunition()+1);
-
-                        collectible.setPosition(CarConstants.DESTROY_OBJECT_COORDINATES, CarConstants.DESTROY_OBJECT_COORDINATES);
                         return CarConstants.AMMO_STRING;
                 }
-
             }
         }
         return null;
     }
 
-    public final int getBonusCoefficient() {
-        return bonusCoefficient;
+    private void processCollectible(Collectible collectible, Stage currentStage, int
+            bonusPoints, String bonusName, String message) {
+        this.player.addPoints( bonusPoints * this.bonusCoefficient);
+        Notification.showPopupMessage(bonusName, message, currentStage);
+        collectible.setPosition(CarConstants.DESTROY_OBJECT_COORDINATES, CarConstants.DESTROY_OBJECT_COORDINATES);
     }
 
-    public void updateStatus() {
-        if (isImmortal) {
-            this.updateImmortalityStatus();
+    private String getCollectibleType(){
+        int index = this.getName().charAt(11) - '0';
+
+        switch (index){
+            case 1:
+                return CarConstants.FUEL_BOTTLE_STRING;
+            case 2:
+                return CarConstants.HEALTH_STRING;
+            case 3:
+                return CarConstants.DOUBLE_POINTS_STRING;
+            case 4:
+                return CarConstants.IMMORTALITY_STRING;
+            case 5:
+                return CarConstants.ARMAGEDDON_STRING;
+            case 6:
+                return CarConstants.AMMO_STRING;
         }
-        if (isDoublePtsOn) {
-            this.updateDoublePtsStatus();
+        return CarConstants.BONUS_POINTS_STRING;
+    }
+
+    private double getImmortalityTimer() {
+        return this.immortalityTimer;
+    }
+
+    private void setImmortalityTimer(double immortalityTimer) {
+        this.immortalityTimer = immortalityTimer;
+    }
+
+    private double getDoublePtsTimer() {
+        return this.doublePtsTimer;
+    }
+
+    private void setDoublePtsTimer(double doublePtsTimer) {
+        this.doublePtsTimer = doublePtsTimer;
+    }
+
+    private void startDoublePointsTimer() {
+        this.isDoublePtsOn = true;
+        this.bonusCoefficient = 2;
+        this.setDoublePtsTimer(CarConstants.DOUBLE_PTS_DURATION / CarConstants.FRAMES_PER_SECOND);
+    }
+
+    private void updateDoublePointsStatus() {
+        this.setDoublePtsTimer(this.getDoublePtsTimer() - 1);
+        if (this.getDoublePtsTimer() < 0) {
+            this.isDoublePtsOn = false;
+            this.bonusCoefficient = 1;
         }
     }
 
-    public final boolean isImmortal() {
-        return isImmortal;
+    private void startImmortalityTimer() {
+        this.isImmortal = true;
+        this.setImmortalityTimer(CarConstants.IMMORTALITY_DURATION / CarConstants.FRAMES_PER_SECOND);
     }
 
-    public List<Collectible> getCollectibles() {
-        return this.collectibles;
+    private void updateImmortalityStatus() {
+        this.setImmortalityTimer(this.getImmortalityTimer() - 1);
+        if (this.getImmortalityTimer() < 0) {
+            this.isImmortal = false;
+        }
     }
 }
