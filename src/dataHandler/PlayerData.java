@@ -1,9 +1,9 @@
 package dataHandler;
 
 import constants.DBErrorConstants;
+import constants.SQLConstants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import constants.SQLConstants;
 import models.Player;
 
 import java.sql.*;
@@ -19,12 +19,13 @@ public class PlayerData {
     private PreparedStatement queryPlayers;
     private PreparedStatement updatePlayer;
 
-    private PlayerData() {}
+    private PlayerData() {
+    }
 
     public static PlayerData getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             synchronized (PlayerData.class) {
-                if(instance == null) {
+                if (instance == null) {
                     instance = new PlayerData();
                 }
             }
@@ -48,15 +49,15 @@ public class PlayerData {
     public void close() {
         try {
 
-            if(this.insertPlayer != null) {
+            if (this.insertPlayer != null) {
                 this.insertPlayer.close();
             }
 
-            if(this.queryPlayers != null) {
+            if (this.queryPlayers != null) {
                 this.queryPlayers.close();
             }
 
-            if(this.updatePlayer != null) {
+            if (this.updatePlayer != null) {
                 this.updatePlayer.close();
             }
 
@@ -69,7 +70,7 @@ public class PlayerData {
     }
 
     public void createDb() {
-        try( Connection conn = DriverManager.getConnection(SQLConstants.returnPath(System.getProperty(SQLConstants.PROPERTY_VALUE).toLowerCase()));
+        try (Connection conn = DriverManager.getConnection(SQLConstants.returnPath(System.getProperty(SQLConstants.PROPERTY_VALUE).toLowerCase()));
              Statement statement = conn.createStatement()) {
             statement.execute(SQLConstants.CREATE_TABLE_COMMAND);
         } catch (SQLException e) {
@@ -79,6 +80,13 @@ public class PlayerData {
 
     public Player getCurrentPlayer() {
         return this.currentPlayer;
+    }
+
+    private void setCurrentPlayer(Player currentPlayer) {
+        if (currentPlayer == null) {
+            throw new IllegalArgumentException("Current PlayerImpl can not be null");
+        }
+        this.currentPlayer = currentPlayer;
     }
 
     public void registerPlayer(Player player) {
@@ -95,7 +103,7 @@ public class PlayerData {
 
     public ObservableList loadPlayersData() {
         this.playersList = FXCollections.observableArrayList();
-        try  {
+        try {
             ResultSet results = queryPlayers.executeQuery();
             while (results.next()) {
                 Player player = new Player();
@@ -156,12 +164,5 @@ public class PlayerData {
         String highscore = this.playersList.sorted((p1, p2) -> p2.getHighScore().compareTo(p1.getHighScore())).get(0).getHighScore().toString();
 
         return highscore;
-    }
-
-    private void setCurrentPlayer(Player currentPlayer) {
-        if (currentPlayer == null) {
-            throw new IllegalArgumentException("Current PlayerImpl can not be null");
-        }
-        this.currentPlayer = currentPlayer;
     }
 }

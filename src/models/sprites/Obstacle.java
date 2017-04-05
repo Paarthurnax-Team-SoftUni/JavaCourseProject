@@ -1,7 +1,7 @@
 package models.sprites;
 
-import javafx.scene.canvas.GraphicsContext;
 import constants.CarConstants;
+import javafx.scene.canvas.GraphicsContext;
 import models.Player;
 
 import java.util.ArrayList;
@@ -34,10 +34,10 @@ public class Obstacle extends SpriteRotatable {
         Random obstacleX = new Random();
         Obstacle obstacle = new Obstacle();
 
-        if (random.contains("car")){
+        if (random.contains("car")) {
             obstacle = new EnemyCar();
 
-            if (new Random().nextInt(100) > drunkDrivers){
+            if (new Random().nextInt(100) > drunkDrivers) {
                 obstacle.setIsDrunk(true);
                 obstacle.setPosition(obstacleX.nextInt((maxRightSide - 50) - (minLeftSide + 50)) + minLeftSide + 50, -166);
             } else {
@@ -54,24 +54,24 @@ public class Obstacle extends SpriteRotatable {
         return obstacle;
     }
 
-    public void handleImpactByAmmo(Player player){
+    public void handleImpactByAmmo(Player player) {
         player.addPoints(CarConstants.DESTROYED_OBJECT_BONUS);
         this.setDestroyed(true);
         this.setIsDrunk(false);
         this.removeWind();
     }
 
-    public void handleImpactByCarPlayer(double velocity){
+    public void handleImpactByCarPlayer(double velocity) {
         this.setDestroyed(true);
         this.setIsDrunk(false);
         this.removeWind();
-        
-        if (this.getObstacleType().contains("player_car")){
+
+        if (this.getObstacleType().contains("player_car")) {
             this.setVelocity(0, velocity);
         }
     }
 
-    public void manageObstacles(GraphicsContext gc, Collectible collectible, Player player, List<Obstacle> obstacles, double velocity ) {
+    public void manageObstacles(GraphicsContext gc, Collectible collectible, Player player, List<Obstacle> obstacles, double velocity) {
         for (Obstacle obstacle : obstacles) {
             String obstacleType = obstacle.getObstacleType();
 

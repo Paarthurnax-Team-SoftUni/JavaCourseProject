@@ -1,7 +1,7 @@
 package models.sprites;
 
-import gameEngine.RunTrack;
 import constants.CarConstants;
+import gameEngine.RunTrack;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.transform.Rotate;
@@ -14,7 +14,8 @@ public abstract class SpriteRotatable extends Sprite {
     private int minLeftSide;
     private int maxRightSide;
 
-    protected SpriteRotatable() {}
+    protected SpriteRotatable() {
+    }
 
     public void addVelocity(double x, double y) {
         this.addVelocity(x, y, this.minLeftSide, this.maxRightSide);
@@ -47,7 +48,7 @@ public abstract class SpriteRotatable extends Sprite {
     }
 
     @Override
-    public void removeWind(){
+    public void removeWind() {
         this.setVelocity(0, 0);
         this.setAngle(0);
         this.setTurnRight(false);
@@ -74,7 +75,7 @@ public abstract class SpriteRotatable extends Sprite {
 
     private void drawRotatedImage(GraphicsContext gc, Image image, double angle, double tlpx, double tlpy) {
         gc.save(); // saves the current state on stack, including the current transform
-        Rotate r = new Rotate( angle, tlpx, tlpy);
+        Rotate r = new Rotate(angle, tlpx, tlpy);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
 
         gc.drawImage(image, tlpx, tlpy);

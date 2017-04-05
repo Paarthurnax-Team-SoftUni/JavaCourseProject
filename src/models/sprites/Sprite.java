@@ -16,14 +16,15 @@ public abstract class Sprite {
     private double velocityY;
     private boolean isDestroyed;
 
-    protected Sprite() {}
-
-    public void setName(String name) {
-        this.name = name;
+    protected Sprite() {
     }
 
     public String getName() {
         return this.name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Image getImage() {
@@ -62,12 +63,12 @@ public abstract class Sprite {
         return this.velocityX;
     }
 
-    public double getVelocityY() {
-        return this.velocityY;
-    }
-
     public void setVelocityX(double velocityX) {
         this.velocityX = velocityX;
+    }
+
+    public double getVelocityY() {
+        return this.velocityY;
     }
 
     public void setVelocityY(double velocityY) {
@@ -103,7 +104,7 @@ public abstract class Sprite {
         this.isDestroyed = isDestroyed;
     }
 
-    public void removeWind(){
+    public void removeWind() {
         this.setVelocity(0, 0);
     }
 }

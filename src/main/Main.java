@@ -28,7 +28,7 @@ public class Main extends Application {
     public void init() throws Exception {
         super.init();
         PlayerData.getInstance().createDb();
-        if(!PlayerData.getInstance().open()) {
+        if (!PlayerData.getInstance().open()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle(CarConstants.DB_INIT_ERROR_TITLE);
             alert.setContentText(CarConstants.DB_INIT_ERROR_CONTENT);

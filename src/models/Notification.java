@@ -23,12 +23,12 @@ public class Notification {
         popup = createPopup(type, message);
         popup.setOnShown(e -> {
             popup.setX(stage.getX() + StylesConstants.WINDOW_OFFSET);
-            popup.setY(stage.getY() + stage.getHeight() - popup.getHeight()- StylesConstants.WINDOW_OFFSET);
+            popup.setY(stage.getY() + stage.getHeight() - popup.getHeight() - StylesConstants.WINDOW_OFFSET);
         });
         popup.show(stage);
     }
 
-    public static void hidePopupMessage(){
+    public static void hidePopupMessage() {
         popup.hide();
     }
 }

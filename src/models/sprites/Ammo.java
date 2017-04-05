@@ -12,11 +12,11 @@ public class Ammo extends Sprite {
 
     private List<Ammo> ammunition;
 
-    public Ammo(){
+    public Ammo() {
         this.ammunition = new ArrayList<>();
     }
 
-    public void addAmmo(Ammo ammo){
+    public void addAmmo(Ammo ammo) {
         this.ammunition.add(ammo);
     }
 
@@ -24,21 +24,21 @@ public class Ammo extends Sprite {
         return Collections.unmodifiableList(this.ammunition);
     }
 
-    public Ammo generateAmmo(Player player){
+    public Ammo generateAmmo(Player player) {
         Ammo ammo = new Ammo();
-        ammo.setPosition(player.getCar().getPositionX(),player.getCar().getPositionY() + 5);
+        ammo.setPosition(player.getCar().getPositionX(), player.getCar().getPositionY() + 5);
         ammo.setImage(CarConstants.AMMO_PATH);
         return ammo;
     }
 
     public void visualizeAmmo(GraphicsContext gc, List<Obstacle> obstacles, List<Ammo> ammunition, Player player) {
         for (Ammo ammo : ammunition) {
-            ammo.setVelocity(0,-5);
+            ammo.setVelocity(0, -5);
             ammo.update();
             ammo.render(gc);
             for (Obstacle obstacle : obstacles) {
                 if (ammo.intersects(obstacle)) {
-                    if(!obstacle.isDestroyed()) {
+                    if (!obstacle.isDestroyed()) {
                         ammo.setPosition(CarConstants.DESTROY_OBJECT_COORDINATES, CarConstants.DESTROY_OBJECT_COORDINATES);
                         obstacle.handleImpactByAmmo(player);
                     }

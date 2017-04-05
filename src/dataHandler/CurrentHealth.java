@@ -8,12 +8,11 @@ import java.util.Observable;
 
 public class CurrentHealth extends Observable {
 
-    private Player player;
-
     private static ImageView health100;
     private static ImageView health75;
     private static ImageView health50;
     private static ImageView health25;
+    private Player player;
 
     public CurrentHealth(Player p) {
         this.player = p;
@@ -24,11 +23,6 @@ public class CurrentHealth extends Observable {
         health75 = health_75;
         health50 = health_50;
         health25 = health_25;
-    }
-
-    public void update() {
-        int healthPoints = this.player.getHealthPoints();
-        printHealthBar(healthPoints);
     }
 
     private static void printHealthBar(Integer healthPoints) {
@@ -54,6 +48,11 @@ public class CurrentHealth extends Observable {
             health50.setVisible(false);
             health25.setVisible(true);
         }
+    }
+
+    public void update() {
+        int healthPoints = this.player.getHealthPoints();
+        printHealthBar(healthPoints);
     }
 }
 

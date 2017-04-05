@@ -1,7 +1,9 @@
 package controllers;
 
+import dataHandler.CurrentHealth;
+import dataHandler.CurrentStats;
+import dataHandler.PlayerData;
 import gameEngine.RunTrack;
-import dataHandler.*;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -12,6 +14,12 @@ import javafx.scene.image.ImageView;
 
 public class GameController implements Initializable {
 
+    @FXML
+    public Label scorePoints;
+    @FXML
+    public Label distance;
+    @FXML
+    public Label bullets;
     @FXML
     private ImageView healthFirst;
     @FXML
@@ -24,12 +32,6 @@ public class GameController implements Initializable {
     private Label highScore;
     @FXML
     private Label timeInfo;
-    @FXML
-    public Label scorePoints;
-    @FXML
-    public Label distance;
-    @FXML
-    public Label bullets;
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         CurrentStats currentStats = RunTrack.getCurrentStats();

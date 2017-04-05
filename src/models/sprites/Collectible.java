@@ -20,12 +20,29 @@ public class Collectible extends Sprite {
     private double immortalityTimer;
     private double doublePtsTimer;
 
-    public Collectible() {}
+    public Collectible() {
+    }
 
     public Collectible(Player player) {
         this.bonusCoefficient = 1;
         this.player = player;
         this.collectibles = new ArrayList<>();
+    }
+
+    public static Collectible generateCollectible(int minLeftSide, int maxRightSide) {
+
+        String[] collectibles = CarConstants.COLLECTIBLE_LIST_SMALL;
+        String random = collectibles[new Random().nextInt(collectibles.length)];
+
+        Random collectibleX = new Random();
+        String stringDirectory = CarConstants.COLLECTIBLE_PATH + random + ".png";
+
+        Collectible collectible = new Collectible();
+        collectible.setName(random);
+        collectible.setImage(stringDirectory);
+        collectible.setPosition(collectibleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, -166);
+
+        return collectible;
     }
 
     public final int getBonusCoefficient() {
@@ -51,22 +68,6 @@ public class Collectible extends Sprite {
 
     public void addCollectible(Collectible collectible) {
         this.collectibles.add(collectible);
-    }
-
-    public static Collectible generateCollectible(int minLeftSide, int maxRightSide) {
-
-        String[] collectibles = CarConstants.COLLECTIBLE_LIST_SMALL;
-        String random = collectibles[new Random().nextInt(collectibles.length)];
-
-        Random collectibleX = new Random();
-        String stringDirectory = CarConstants.COLLECTIBLE_PATH + random + ".png";
-
-        Collectible collectible = new Collectible();
-        collectible.setName(random);
-        collectible.setImage(stringDirectory);
-        collectible.setPosition(collectibleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, -166);
-
-        return collectible;
     }
 
     public String visualizeCollectible(GraphicsContext gc, double velocity, Stage currentStage) {
@@ -114,7 +115,7 @@ public class Collectible extends Sprite {
                                 CarConstants.IMMORTALITY_STRING,
                                 CarConstants.IMMORTALITY_NOTIFICATION_MESSAGE);
                         if (!isImmortal) {
-                            player.addPoints( CarConstants.ARMAGEDDONS_BONUS*bonusCoefficient);
+                            player.addPoints(CarConstants.ARMAGEDDONS_BONUS * bonusCoefficient);
                             startImmortalityTimer();
                         }
                         return CarConstants.DOUBLE_POINTS_STRING;
@@ -133,7 +134,7 @@ public class Collectible extends Sprite {
                                 CarConstants.AMMO_BONUS,
                                 CarConstants.AMMO_STRING,
                                 CarConstants.AMMO_NOTIFICATION_MESSAGE);
-                        player.getCar().setAmmunition(player.getCar().getAmmunition()+1);
+                        player.getCar().setAmmunition(player.getCar().getAmmunition() + 1);
                         return CarConstants.AMMO_STRING;
                 }
             }
@@ -143,15 +144,15 @@ public class Collectible extends Sprite {
 
     private void processCollectible(Collectible collectible, Stage currentStage, int
             bonusPoints, String bonusName, String message) {
-        this.player.addPoints( bonusPoints * this.bonusCoefficient);
+        this.player.addPoints(bonusPoints * this.bonusCoefficient);
         Notification.showPopupMessage(bonusName, message, currentStage);
         collectible.setPosition(CarConstants.DESTROY_OBJECT_COORDINATES, CarConstants.DESTROY_OBJECT_COORDINATES);
     }
 
-    private String getCollectibleType(){
+    private String getCollectibleType() {
         int index = this.getName().charAt(11) - '0';
 
-        switch (index){
+        switch (index) {
             case 1:
                 return CarConstants.FUEL_BOTTLE_STRING;
             case 2:

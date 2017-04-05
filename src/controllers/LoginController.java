@@ -1,7 +1,5 @@
 package controllers;
 
-import models.Player;
-import stageHandler.DialogBox;
 import constants.CarConstants;
 import dataHandler.PlayerData;
 import javafx.fxml.FXML;
@@ -9,13 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import models.Player;
+import stageHandler.DialogBox;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class LoginController{
+public class LoginController {
 
     @FXML
     private TextField playerName;

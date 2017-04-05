@@ -1,9 +1,9 @@
 package stageHandler;
 
+import constants.CarConstants;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import constants.CarConstants;
 import javafx.scene.control.Dialog;
 
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class DialogBox {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if(result.isPresent() && (result.get() == ButtonType.OK)){
+        if (result.isPresent() && (result.get() == ButtonType.OK)) {
             return true;
         }
 

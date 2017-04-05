@@ -1,102 +1,102 @@
-#homePage, #loginPage{
+#homePage, #loginPage {
     -fx-background-image: url('/resources/images/backgrounds/backgroundScreen2.png');
 }
 
-#chooseCarPage, #chooseLevelPage{
+#chooseCarPage, #chooseLevelPage {
     -fx-background-image: url('/resources/images/backgrounds/backgroundScreen1.png');
 }
 
-#backgroundBox{
-    -fx-fill: rgba(255,255,255, 0.6);
+#backgroundBox {
+    -fx-fill: rgba(255, 255, 255, 0.6);
 }
 
 /* loginPage */
-#loginPage #loginBtn{
+#loginPage #loginBtn {
     -fx-background-color: transparent;
 }
 
 #loginPage #loginBtn:hover, #chooseCarPage #returnBtn:hover {
-    -fx-background-color: rgba(255,0,0, 0.6);
+    -fx-background-color: rgba(255, 0, 0, 0.6);
     -fx-background-radius: 15px;
 }
 
 /* homePage */
-#homePage #showScoresBtn, #closeBtn, #chooseCarBtn{
+#homePage #showScoresBtn, #closeBtn, #chooseCarBtn {
     -fx-background-color: transparent;
 }
 
-#homePage #startBtn{
-    -fx-background-color: rgba(255,0,0, 0.85);
+#homePage #startBtn {
+    -fx-background-color: rgba(255, 0, 0, 0.85);
     -fx-background-radius: 15px;
 }
 
-#homePage #startBtn:hover{
+#homePage #startBtn:hover {
     -fx-background-color: rgba(255, 217, 59, 0.8);
     -fx-text-fill: black;
 }
 
 #homePage #closeBtn:hover, #homePage #showScoresBtn:hover, #homePage #chooseCarBtn:hover {
-    -fx-background-color: rgba(255,0,0, 0.6);
+    -fx-background-color: rgba(255, 0, 0, 0.6);
     -fx-background-radius: 15px;
 }
 
 /* chooseCarPage */
-#chooseCarPage #goNextBtn{
-    -fx-background-color: rgba(255,255,255, 0.6);
+#chooseCarPage #goNextBtn {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
     -fx-background-radius: 15px;
 }
 
 #chooseCarPage #goNextBtn:hover {
-    -fx-background-color: rgba(255,0,0, 0.6);
+    -fx-background-color: rgba(255, 0, 0, 0.6);
 }
 
-#chooseCarPage #cars{
-    -fx-background-color: rgba(255,255,255, 0.6);
+#chooseCarPage #cars {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
     -fx-border-color: black;
 }
 
 /* chooseLevelPage */
-#chooseLevelPage #startBtn{
-    -fx-background-color: rgba(255,255,255, 0.6);
+#chooseLevelPage #startBtn {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
     -fx-background-radius: 15px;
 }
 
 #chooseLevelPage #startBtn:hover {
-    -fx-background-color: rgba(255,0,0, 0.6);
+    -fx-background-color: rgba(255, 0, 0, 0.6);
 }
 
-#chooseLevelPage #levels{
-    -fx-background-color: rgba(255,255,255, 0.6);
+#chooseLevelPage #levels {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
     -fx-border-color: black;
 }
 
 /* gameOverPage */
-#gameOverPage{
+#gameOverPage {
     -fx-background-image: url('/resources/images/gifs/game-over.gif');
 }
 
-#gameOverPage #quitBtn, #newGameBtn{
-    -fx-background-color: rgba(255,255,255, 0.6);
+#gameOverPage #quitBtn, #newGameBtn {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
     -fx-background-radius: 15px;
 }
 
 #gameOverPage #quitBtn:hover, #newGameBtn:hover {
-    -fx-background-color: rgba(255,0,0, 0.6);
+    -fx-background-color: rgba(255, 0, 0, 0.6);
     -fx-background-radius: 15px;
 }
 
 /* gameWinPage */
-#gameWinPage{
+#gameWinPage {
     -fx-background-image: url('/resources/images/gifs/game-win.gif');
 }
 
-#gameWinPage #quitBtn, #startMenuBtn{
-    -fx-background-color: rgba(255,255,255, 0.6);
+#gameWinPage #quitBtn, #startMenuBtn {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
     -fx-background-radius: 15px;
 }
 
 #gameWinPage #quitBtn:hover, #startMenuBtn:hover {
-    -fx-background-color: rgba(255,0,0, 0.6);
+    -fx-background-color: rgba(255, 0, 0, 0.6);
     -fx-background-radius: 15px;
 }
 
@@ -105,13 +105,13 @@
     -fx-background-color: black;
 }
 
-#menu #quitBtn, #pauseBtn{
-    -fx-background-color: rgba(195,195,195,0.9);
+#menu #quitBtn, #pauseBtn {
+    -fx-background-color: rgba(195, 195, 195, 0.9);
     -fx-background-radius: 15px;
 }
 
 #menu #quitBtn:hover, #pauseBtn:hover {
-    -fx-background-color: rgba(255,0,0, 0.6);
+    -fx-background-color: rgba(255, 0, 0, 0.6);
     -fx-background-radius: 15px;
 }
 
@@ -124,26 +124,27 @@
     -fx-font-size: 16;
     -fx-text-alignment: center;
 }
-.fuelBottle{
+
+.fuelBottle {
     -fx-background-color: #fd656c;
 }
 
-.health{
+.health {
     -fx-background-color: greenyellow;
 }
 
-.doublePts{
+.doublePts {
     -fx-background-color: #ffd93b;
 }
 
-.immortality{
+.immortality {
     -fx-background-color: #79b2ff;
 }
 
-.armageddonsPower{
+.armageddonsPower {
     -fx-background-color: #c546ff;
 }
 
-.ammunitions{
+.ammunitions {
     -fx-background-color: #cfbfca;
 }

@@ -1,7 +1,10 @@
 package gameEngine;
 
+import constants.CarConstants;
 import controllers.ChooseCarController;
-import dataHandler.*;
+import dataHandler.CurrentHealth;
+import dataHandler.CurrentStats;
+import dataHandler.PlayerData;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.Canvas;
@@ -12,7 +15,9 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import keyHandler.KeyHandlerOnPress;
 import keyHandler.KeyHandlerOnRelease;
-import models.*;
+import models.Cheat;
+import models.Notification;
+import models.Player;
 import models.sprites.Ammo;
 import models.sprites.Collectible;
 import models.sprites.Obstacle;
@@ -20,7 +25,6 @@ import models.sprites.PlayerCar;
 import music.MusicPlayer;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
-import constants.CarConstants;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -33,6 +37,11 @@ public class RunTrack {
     private static boolean shoot;
     private static CurrentStats currentStats;
     private static Cheat cheat;
+    private static Observer observer = new Observer() {
+        @Override
+        public void update(Observable o, Object arg) {
+        }
+    };
     private int frame;
     private int y;
     private float currentFramesPerSecond;
@@ -44,10 +53,6 @@ public class RunTrack {
     private Obstacle obstacle;
     private Ammo ammo;
     private PlayerCar playerCar;
-
-    public static Cheat getCheat() {
-        return cheat;
-    }
 
     public RunTrack(Player player, float velocityValue) {
         frame = 0;
@@ -63,6 +68,34 @@ public class RunTrack {
         this.setPlayer(player);
         this.playerCar = this.getPlayer().getCar();
         this.setCurrentFramesPerSecond(CarConstants.FRAMES_PER_SECOND);
+    }
+
+    public static Cheat getCheat() {
+        return cheat;
+    }
+
+    public static CurrentStats getCurrentStats() {
+        return currentStats;
+    }
+
+    public static float getVelocity() {
+        return velocity;
+    }
+
+    public static void setVelocity(float v) {
+        velocity = v;
+    }
+
+    public static boolean isPaused() {
+        return isPaused;
+    }
+
+    public static void setIsPaused(boolean newValue) {
+        isPaused = newValue;
+    }
+
+    public static void setShoot(boolean newValue) {
+        shoot = newValue;
     }
 
     public void runGame(AnchorPane root, Image background, int drunkDrivers, int minLeftSide, int maxRightSide) {
@@ -87,7 +120,7 @@ public class RunTrack {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
         MusicPlayer.getInstance().play();
         MusicPlayer.getInstance().pause();
-        
+
         KeyFrame kf = new KeyFrame(
                 Duration.seconds(currentFramesPerSecond),
                 event -> {
@@ -191,36 +224,6 @@ public class RunTrack {
     public void setPlayer(Player player) {
         this.player = player;
     }
-
-    public static CurrentStats getCurrentStats() {
-        return currentStats;
-    }
-
-    public static float getVelocity() {
-        return velocity;
-    }
-
-    public static void setVelocity(float v) {
-        velocity = v;
-    }
-
-    public static boolean isPaused() {
-        return isPaused;
-    }
-
-    public static void setIsPaused(boolean newValue) {
-        isPaused = newValue;
-    }
-
-    public static void setShoot(boolean newValue) {
-        shoot = newValue;
-    }
-
-    private static Observer observer = new Observer() {
-        @Override
-        public void update(Observable o, Object arg) {
-        }
-    };
 
     private void setCurrentFramesPerSecond(float currentFramesPerSecond) {
         this.currentFramesPerSecond = currentFramesPerSecond;

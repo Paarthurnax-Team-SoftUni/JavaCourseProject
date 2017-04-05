@@ -1,7 +1,6 @@
 package music;
 
 import constants.CarConstants;
-import dataHandler.PlayerData;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -14,12 +13,13 @@ public class MusicPlayer {
     private static Duration resumeTime;
     private static MediaPlayer mediaPlayer;
 
-    private MusicPlayer() {}
+    private MusicPlayer() {
+    }
 
     public static MusicPlayer getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             synchronized (MusicPlayer.class) {
-                if(instance == null) {
+                if (instance == null) {
                     instance = new MusicPlayer();
                 }
             }

@@ -1,5 +1,6 @@
 package controllers;
 
+import constants.CarConstants;
 import dataHandler.PlayerData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,7 +16,6 @@ import mapHandlers.TrackHandler;
 import mapHandlers.levels.TrackLevel;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
-import constants.CarConstants;
 
 import java.io.IOException;
 
@@ -39,9 +39,9 @@ public class ChooseLevelController {
     }
 
     @FXML
-    public void startGame(ActionEvent actionEvent){
+    public void startGame(ActionEvent actionEvent) {
         PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
-        Stage currentStage = (Stage)this.startBtn.getScene().getWindow();
+        Stage currentStage = (Stage) this.startBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
 
         manager.loadSceneToStage(currentStage, CarConstants.GAME_PLAY_VIEW_PATH);

@@ -1,5 +1,6 @@
 package dataHandler;
 
+import constants.CarConstants;
 import constants.ErrorsConstants;
 import constants.FormattingConstants;
 import constants.GeneralConstants;
@@ -7,10 +8,7 @@ import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import constants.CarConstants;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.Observable;
 
 public class CurrentStats extends Observable {
@@ -30,23 +28,30 @@ public class CurrentStats extends Observable {
         this.setTime(time);
     }
 
-    public long getDistance(){
+    public long getDistance() {
         return distance.get();
     }
 
-    public LongProperty valueBullets(){
+    private void setDistance(long distance) {
+        if (distance < 0) {
+            throw new IllegalArgumentException(ErrorsConstants.DISTANCE_EXCEPTION);
+        }
+        this.distance.set(distance);
+    }
+
+    public LongProperty valueBullets() {
         return bullets;
     }
 
-    public StringProperty valuePoints(){
+    public StringProperty valuePoints() {
         return points;
     }
 
-    public LongProperty valueDistance(){
+    public LongProperty valueDistance() {
         return distance;
     }
 
-    public StringProperty valueTime(){
+    public StringProperty valueTime() {
         return time;
     }
 
@@ -74,9 +79,9 @@ public class CurrentStats extends Observable {
     }
 
     private void setTime(long time) {
-        time= (long)(CarConstants.TRACK_1_END_TIME* GeneralConstants.FRAMES_PER_SECOND)-time;
-        int seconds=(int)(time % CarConstants.SECONDS_DURATION);
-        this.time.set(String.format(FormattingConstants.SECONDS_FORMATTER,time/CarConstants.SECONDS_DURATION,seconds));
+        time = (long) (CarConstants.TRACK_1_END_TIME * GeneralConstants.FRAMES_PER_SECOND) - time;
+        int seconds = (int) (time % CarConstants.SECONDS_DURATION);
+        this.time.set(String.format(FormattingConstants.SECONDS_FORMATTER, time / CarConstants.SECONDS_DURATION, seconds));
     }
 
     private void setPoints(long points) {
@@ -84,12 +89,5 @@ public class CurrentStats extends Observable {
             throw new IllegalArgumentException(ErrorsConstants.POINTS_EXCEPTION);
         }
         this.points.set(String.format(FormattingConstants.POINTS_FORMATTER, points));
-    }
-
-    private void setDistance(long distance) {
-        if (distance < 0) {
-            throw new IllegalArgumentException(ErrorsConstants.DISTANCE_EXCEPTION);
-        }
-        this.distance.set(distance);
     }
 }
