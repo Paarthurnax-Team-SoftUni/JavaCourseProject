@@ -1,8 +1,8 @@
-package models;
+package models.sprites;
 
 import constants.CarConstants;
 
-public class EnemyDriver extends Obstacle {
+public class EnemyCar extends Obstacle {
 
     @Override
     public void addVelocity(double x, double y) {
@@ -27,7 +27,7 @@ public class EnemyDriver extends Obstacle {
                 super.setVelocityY(y);
             }
         } else if (y > 0) {
-            if (super.getPositionY() < CarConstants.CANVAS_HEIGHT -super.getHeight() * 2) {
+            if (super.getPositionY() < CarConstants.CANVAS_HEIGHT - super.getImageHeight() * 2) {
                 super.setVelocityY(y);
             }
         }

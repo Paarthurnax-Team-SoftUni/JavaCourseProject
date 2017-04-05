@@ -3,7 +3,8 @@ package keyHandler;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import interfaces.Playable;
+import models.Player;
+import models.sprites.PlayerCar;
 
 public class KeyHandlerOnRelease implements EventHandler<KeyEvent> {
     private Playable player;
@@ -20,19 +21,21 @@ public class KeyHandlerOnRelease implements EventHandler<KeyEvent> {
     public void handle(KeyEvent e) {
         KeyCode keyCode = e.getCode();
 
+        PlayerCar playerCar = this.player.getCar();
+
         switch (keyCode.getName()) {
             case "Up":
-                this.player.stopAccelerate();
+                playerCar.stopAccelerate();
                 break;
             case "Left":
-                this.player.setTurnLeft(false);
-                this.player.setCenterWheel(true);
-                this.player.update(minLeftSide, maxRightSide);
+                playerCar.setTurnLeft(false);
+                playerCar.setCenterWheel(true);
+                playerCar.update(minLeftSide, maxRightSide);
                 break;
             case "Right":
-                this.player.setTurnRight(false);
-                this.player.setCenterWheel(true);
-                this.player.update(minLeftSide, maxRightSide);
+                playerCar.setTurnRight(false);
+                playerCar.setCenterWheel(true);
+                playerCar.update(minLeftSide, maxRightSide);
                 break;
         }
     }

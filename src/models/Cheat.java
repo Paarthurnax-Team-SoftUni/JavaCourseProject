@@ -21,10 +21,10 @@ public class Cheat {
         }
     }
 
-    public void useCheat(Playable player) {
-        switch (this.getCheatNumber()) {
+    public void useCheat(Player player) {
+        switch (getCheatNumber()) {
             case 1:
-                player.updateAmmunition(GameplayConstants.CHEAT_BULLETS_COUNT);
+                player.getCar().setAmmunition(1000);
                 break;
             case -1:
                 break;
@@ -41,5 +41,4 @@ public class Cheat {
         }
         return -1;
     }
-
 }

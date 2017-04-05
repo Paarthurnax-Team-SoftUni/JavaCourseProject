@@ -1,6 +1,7 @@
 package dataHandler;
 
-import models.SpriteImpl;
+import models.sprites.Sprite;
+import constants.CarConstants;
 
 public class GetRandomToken extends SpriteImpl {
 

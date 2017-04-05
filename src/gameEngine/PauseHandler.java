@@ -6,9 +6,9 @@ import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
-import models.Collectible;
-import models.Obstacle;
-import interfaces.Playable;
+import models.sprites.Collectible;
+import models.sprites.Obstacle;
+import models.Player;
 import music.MusicPlayer;
 
 import java.util.List;
@@ -53,7 +53,7 @@ public class PauseHandler {
                         gc.clearRect(0, 0, CarConstants.CANVAS_WIDTH, CarConstants.CANVAS_HEIGHT);
                         gc.drawImage(background, 0, y);
                         gc.drawImage(background, 0, y - CarConstants.CANVAS_HEIGHT);
-                        player.render(gc);
+                        this.player.getCar().render(gc);
 
                         for (Collectible collectible : collectibles) {
                             collectible.render(gc);

@@ -1,14 +1,14 @@
-package models;
+package models.sprites;
 
 import constants.CarConstants;
-import interfaces.Playable;
 import javafx.scene.canvas.GraphicsContext;
+import models.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Ammo extends SpriteImpl {
+public class Ammo extends Sprite{
 
     private List<Ammo> ammunition;
 
@@ -24,14 +24,14 @@ public class Ammo extends SpriteImpl {
         return Collections.unmodifiableList(this.ammunition);
     }
 
-    public Ammo generateAmmo(Playable player){
+    public Ammo generateAmmo(Player player){
         Ammo ammo = new Ammo();
-        ammo.setPosition(player.getPositionX(),player.getPositionY() + 5);
-        ammo.updateImage(CarConstants.AMMO_PATH);
+        ammo.setPosition(player.getCar().getPositionX(),player.getCar().getPositionY() + 5);
+        ammo.setImage(CarConstants.AMMO_PATH);
         return ammo;
     }
 
-    public void visualizeAmmo(GraphicsContext gc, List<Obstacle> obstacles, List<Ammo> ammunition, Playable player) {
+    public void visualizeAmmo(GraphicsContext gc, List<Obstacle> obstacles, List<Ammo> ammunition, Player player) {
         for (Ammo ammo : ammunition) {
             ammo.setVelocity(0,-5);
             ammo.update();

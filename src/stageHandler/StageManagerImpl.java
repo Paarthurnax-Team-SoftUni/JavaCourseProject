@@ -20,10 +20,9 @@ public class StageManagerImpl implements StageManager {
 
     @Override
     public AnchorPane getRoot() {
-        return root;
+        return this.root;
     }
 
-    @Override
     public FXMLLoader loadSceneToStage(Stage currentStage, String fxmlPath) {
 
         FXMLLoader fxmlLoader = new FXMLLoader(this.getClass().getResource(fxmlPath));
@@ -47,8 +46,6 @@ public class StageManagerImpl implements StageManager {
     }
 
     private void setRoot(AnchorPane root) {
-        if(root != null){
-            this.root = root;
-        }
+        this.root = root;
     }
 }
