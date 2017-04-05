@@ -3,17 +3,16 @@ package dataHandler;
 import constants.DBErrorConstants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import interfaces.Playable;
-import models.PlayerImpl;
 import constants.SQLConstants;
+import models.Player;
 
 import java.sql.*;
 
 public class PlayerData {
 
     private static volatile PlayerData instance = null;
-    private ObservableList<Playable> playersList;
-    private Playable currentPlayer;
+    private ObservableList<Player> playersList;
+    private Player currentPlayer;
     private Connection conn;
 
     private PreparedStatement insertPlayer;
@@ -78,19 +77,19 @@ public class PlayerData {
         }
     }
 
-    public Playable getCurrentPlayer() {
+    public Player getCurrentPlayer() {
         return this.currentPlayer;
     }
 
-    public void registerPlayer(Playable player) {
+    public void registerPlayer(Player player) {
         setCurrentPlayer(player);
     }
 
-    public ObservableList<Playable> getPlayersList() {
+    public ObservableList<Player> getPlayersList() {
         return this.playersList;
     }
 
-    public void addPlayer(Playable player) {
+    public void addPlayer(Player player) {
         this.playersList.add(player);
     }
 
@@ -99,12 +98,12 @@ public class PlayerData {
         try  {
             ResultSet results = queryPlayers.executeQuery();
             while (results.next()) {
-                Playable player = new PlayerImpl();
-                player.updateId(results.getInt(SQLConstants.INDEX_COLUMN_ID));
-                player.updateName(results.getString(SQLConstants.INDEX_COLUMN_NAME));
-                player.updateHighScore(results.getLong(SQLConstants.INDEX_COLUMN_HIGHSCORE));
-                player.updateMoney(results.getDouble(SQLConstants.INDEX_COLUMN_MONEY));
-                player.updateHealthPoints(results.getInt(SQLConstants.INDEX_COLUMN_HEALTH));
+                Player player = new Player();
+                player.setId(results.getInt(SQLConstants.INDEX_COLUMN_ID));
+                player.setName(results.getString(SQLConstants.INDEX_COLUMN_NAME));
+                player.setHighScore(results.getLong(SQLConstants.INDEX_COLUMN_HIGHSCORE));
+                player.setMoney(results.getDouble(SQLConstants.INDEX_COLUMN_MONEY));
+                player.setHealthPoints(results.getInt(SQLConstants.INDEX_COLUMN_HEALTH));
                 this.playersList.add(player);
             }
 
@@ -114,7 +113,7 @@ public class PlayerData {
         return this.playersList;
     }
 
-    public void storePlayersData(Playable player) throws SQLException {
+    public void storePlayersData(Player player) throws SQLException {
         this.insertPlayer.setString(1, player.getName());
         this.insertPlayer.setLong(2, player.getPoints());
         this.insertPlayer.setDouble(3, player.getMoney());
@@ -123,7 +122,7 @@ public class PlayerData {
     }
 
     public boolean checkForPlayer(String player) {
-        for (Playable savedPlayer : this.playersList) {
+        for (Player savedPlayer : this.playersList) {
             if (savedPlayer.getName().equals(player)) {
                 return false;
             }
@@ -131,8 +130,8 @@ public class PlayerData {
         return true;
     }
 
-    public Playable returnPlayer(String player) {
-        for (Playable savedPlayer : this.playersList) {
+    public Player returnPlayer(String player) {
+        for (Player savedPlayer : this.playersList) {
             if (savedPlayer.getName().equals(player)) {
                 return savedPlayer;
             }
@@ -140,9 +139,9 @@ public class PlayerData {
         return null;
     }
 
-    public void updatePlayer(Playable currentPlayer) {
+    public void updatePlayer(Player currentPlayer) {
         if (currentPlayer.getPoints() > currentPlayer.getHighScore()) {
-            currentPlayer.updateHighScore(currentPlayer.getPoints());
+            currentPlayer.setHighScore(currentPlayer.getPoints());
             try {
                 this.updatePlayer.setLong(1, currentPlayer.getHighScore());
                 this.updatePlayer.setString(2, currentPlayer.getName());
@@ -159,7 +158,7 @@ public class PlayerData {
         return highscore;
     }
 
-    private void setCurrentPlayer(Playable currentPlayer) {
+    private void setCurrentPlayer(Player currentPlayer) {
         if (currentPlayer == null) {
             throw new IllegalArgumentException("Current PlayerImpl can not be null");
         }

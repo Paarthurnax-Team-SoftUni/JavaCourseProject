@@ -30,14 +30,6 @@ public class CurrentStats extends Observable {
         this.setTime(time);
     }
 
-    public void updateBullets(long bullets) {
-        this.setBullets(bullets);
-    }
-
-    public void updatePoints(long points) {
-        this.setPoints(points);
-    }
-
     public long getDistance(){
         return distance.get();
     }
@@ -64,6 +56,14 @@ public class CurrentStats extends Observable {
 
     public void updateTime(long time) {
         this.setTime(time);
+    }
+
+    public void updateBullets(long bullets) {
+        this.setBullets(bullets);
+    }
+
+    public void updatePoints(long points) {
+        this.setPoints(points);
     }
 
     private void setBullets(long bullets) {

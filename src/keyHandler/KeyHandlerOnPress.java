@@ -5,16 +5,17 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import models.Player;
 import models.sprites.PlayerCar;
 import music.MusicPlayer;
 
 public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
     //public static boolean[] pressedKeys = new boolean[256];
-    private Playable player;
+    private Player player;
     private int minLeftSide;
     private int maxRightSide;
 
-    public KeyHandlerOnPress(Playable p, int minLeftSide, int maxRightSide) {
+    public KeyHandlerOnPress(Player p, int minLeftSide, int maxRightSide) {
         this.player = p;
         this.minLeftSide = minLeftSide;
         this.maxRightSide = maxRightSide;

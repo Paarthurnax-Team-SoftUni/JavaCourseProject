@@ -1,6 +1,6 @@
 package controllers;
 
-import models.PlayerImpl;
+import models.Player;
 import stageHandler.DialogBox;
 import constants.CarConstants;
 import dataHandler.PlayerData;
@@ -43,7 +43,7 @@ public class LoginController{
             boolean result = DialogBox.loadConfirmBox(name);
 
             if (result) {
-                PlayerImpl player = new PlayerImpl(name, 0L, 0.0, 100);
+                Player player = new Player(name, 0L, 0.0, 100);
                 PlayerData.getInstance().addPlayer(player);
                 PlayerData.getInstance().storePlayersData(player);
                 PlayerData.getInstance().registerPlayer(PlayerData.getInstance().returnPlayer(name));

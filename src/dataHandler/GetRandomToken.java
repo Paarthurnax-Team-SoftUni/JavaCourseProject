@@ -3,7 +3,7 @@ package dataHandler;
 import models.sprites.Sprite;
 import constants.CarConstants;
 
-public class GetRandomToken extends SpriteImpl {
+public class GetRandomToken extends Sprite{
 
     private String imagesDirectory;
 

@@ -2,20 +2,20 @@ package dataHandler;
 
 import constants.CarConstants;
 import javafx.scene.image.ImageView;
-import interfaces.Playable;
+import models.Player;
 
 import java.util.Observable;
 
 public class CurrentHealth extends Observable {
 
-    private Playable player;
+    private Player player;
 
     private static ImageView health100;
     private static ImageView health75;
     private static ImageView health50;
     private static ImageView health25;
 
-    public CurrentHealth(Playable p) {
+    public CurrentHealth(Player p) {
         this.player = p;
     }
 

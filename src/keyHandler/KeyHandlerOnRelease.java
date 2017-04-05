@@ -7,11 +7,11 @@ import models.Player;
 import models.sprites.PlayerCar;
 
 public class KeyHandlerOnRelease implements EventHandler<KeyEvent> {
-    private Playable player;
+    private Player player;
     private int minLeftSide;
     private int maxRightSide;
 
-    public KeyHandlerOnRelease(Playable p, int minLeftSide, int maxRightSide) {
+    public KeyHandlerOnRelease(Player p, int minLeftSide, int maxRightSide) {
         this.player = p;
         this.minLeftSide = minLeftSide;
         this.maxRightSide = maxRightSide;

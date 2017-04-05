@@ -2,7 +2,6 @@ package gameEngine;
 
 import controllers.ChooseCarController;
 import dataHandler.*;
-import interfaces.Playable;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.Canvas;
@@ -17,7 +16,6 @@ import models.*;
 import models.sprites.Ammo;
 import models.sprites.Collectible;
 import models.sprites.Obstacle;
-import models.Player;
 import models.sprites.PlayerCar;
 import music.MusicPlayer;
 import stageHandler.StageManager;
@@ -39,7 +37,7 @@ public class RunTrack {
     private int y;
     private float currentFramesPerSecond;
     private String carId;
-    private Playable player;
+    private Player player;
     private CurrentHealth currentHealth;
     private ChooseCarController chooseCarController;
     private Collectible collectible;
@@ -51,7 +49,7 @@ public class RunTrack {
         return cheat;
     }
 
-    public RunTrack(Playable player, float velocityValue) {
+    public RunTrack(Player player, float velocityValue) {
         frame = 0;
         time = 0;
         isPaused = false;
@@ -110,8 +108,8 @@ public class RunTrack {
                     currentStats.updateTime((long) (time * currentFramesPerSecond));
                     currentStats.updateDistance(currentStats.getDistance() + (long) velocity / 2);
                     player.addPoints(1);
-                    currentStats.setPoints(player.getPoints());
-                    currentStats.setBullets(this.playerCar.getAmmunition());
+                    currentStats.updatePoints(player.getPoints());
+                    currentStats.updateBullets(this.playerCar.getAmmunition());
 
                     observer.update(currentStats, observer);
 
@@ -150,7 +148,7 @@ public class RunTrack {
                     if (time >= CarConstants.TRACK_1_END_TIME || player.getHealthPoints() <= 0) {
                         boolean win = player.getHealthPoints() > 0 && currentStats.getDistance() >= CarConstants.TRACK_1_END_DISTANCE;
                         if (win) {
-                            this.player.updateMaxLevel(this.player.getMaxLevelPassed() + 1);
+                            this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
                             PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
                         }
 
@@ -187,11 +185,11 @@ public class RunTrack {
         gameLoop.playFromStart();
     }
 
-    public Playable getPlayer() {
+    public Player getPlayer() {
         return this.player;
     }
 
-    public void setPlayer(Playable player) {
+    public void setPlayer(Player player) {
         this.player = player;
     }
 
