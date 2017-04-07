@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Obstacle extends SpriteRotatable {
+public class Obstacle extends Sprite {
 
     private boolean isDrunk;
     private List<Obstacle> obstacles;

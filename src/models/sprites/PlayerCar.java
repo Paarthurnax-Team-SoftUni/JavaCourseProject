@@ -4,7 +4,7 @@ import constants.CarConstants;
 import gameEngine.RunTrack;
 import interfaces.Shootable;
 
-public class PlayerCar extends SpriteRotatable implements Shootable {
+public class PlayerCar extends Sprite implements Shootable {
     private int ammunition;
     private boolean accelerating;
     private boolean centerWheel;
