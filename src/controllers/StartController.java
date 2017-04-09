@@ -1,6 +1,6 @@
 package controllers;
 
-import constants.CarConstants;
+import constants.ViewsConstants;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,13 +21,13 @@ public class StartController {
     private void startNewGame() throws IOException {
         Stage currentStage = (Stage) this.startBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
-        FXMLLoader loader = manager.loadSceneToStage(currentStage, CarConstants.CHOOSE_CAR_VIEW_PATH);
+        FXMLLoader loader = manager.loadSceneToStage(currentStage, ViewsConstants.CHOOSE_CAR_VIEW_PATH);
     }
 
     @FXML
     private void showHighScores() {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource(CarConstants.HIGH_SCORES_DIALOG));
+        fxmlLoader.setLocation(getClass().getResource(ViewsConstants.HIGH_SCORES_DIALOG));
 
         DialogBox.loadTableViewBox(fxmlLoader);
     }

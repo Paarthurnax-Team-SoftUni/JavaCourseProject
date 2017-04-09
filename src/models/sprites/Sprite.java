@@ -1,8 +1,8 @@
 package models.sprites;
 
+import constants.GeneralConstants;
 import gameEngine.RotatedImageInCanvas;
 import gameEngine.RunTrack;
-import constants.CarConstants;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -164,7 +164,7 @@ public abstract class Sprite {
                 this.velocityY += y;
             }
         } else if (y > 0) {
-            if (this.positionY < CarConstants.CANVAS_HEIGHT - this.imageHeight * 2) {
+            if (this.positionY < GeneralConstants.CANVAS_HEIGHT - this.imageHeight * 2) {
                 this.velocityY += y;
             }
         }

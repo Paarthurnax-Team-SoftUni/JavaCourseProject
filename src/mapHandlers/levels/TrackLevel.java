@@ -1,16 +1,17 @@
 package mapHandlers.levels;
 
-import constants.CarConstants;
+import constants.MapConstants;
+import constants.ResourcesConstants;
 
 public enum TrackLevel {
-    FIRST_LEVEL(CarConstants.FIRST_LEVEL_DRUNK_DRIVERS,
-            CarConstants.TRACK_BACKGROUND_PATH,
-            CarConstants.FIRST_LEVEL_MIN_X,
-            CarConstants.FIRST_LEVEL_MAX_X),
-    SECOND_LEVEL(CarConstants.SECOND_LEVEL_DRUNK_DRIVERS,
-            CarConstants.SECOND_TRACK_BACKGROUND_PATH,
-            CarConstants.SECOND_LEVEL_MIN_X,
-            CarConstants.SECOND_LEVEL_MAX_X);
+    FIRST_LEVEL(MapConstants.FIRST_LEVEL_DRUNK_DRIVERS,
+            ResourcesConstants.TRACK_BACKGROUND_PATH,
+            MapConstants.FIRST_LEVEL_MIN_X,
+            MapConstants.FIRST_LEVEL_MAX_X),
+    SECOND_LEVEL(MapConstants.SECOND_LEVEL_DRUNK_DRIVERS,
+            ResourcesConstants.SECOND_TRACK_BACKGROUND_PATH,
+            MapConstants.SECOND_LEVEL_MIN_X,
+            MapConstants.SECOND_LEVEL_MAX_X);
 
     private int value;
     private String path;

@@ -10,7 +10,6 @@ import models.sprites.PlayerCar;
 import music.MusicPlayer;
 
 public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
-    //public static boolean[] pressedKeys = new boolean[256];
     private Player player;
     private int minLeftSide;
     private int maxRightSide;

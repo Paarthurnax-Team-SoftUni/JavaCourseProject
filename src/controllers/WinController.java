@@ -1,6 +1,6 @@
 package controllers;
 
-import constants.CarConstants;
+import constants.ViewsConstants;
 import dataHandler.PlayerData;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,12 +16,12 @@ import java.io.IOException;
 public class WinController {
 
     @FXML
-    public Button quitBtn;
+    private Button quitBtn;
 
     public void restartGame(ActionEvent actionEvent) throws IOException {
         Stage currentStage = (Stage) this.quitBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
-        FXMLLoader loader = manager.loadSceneToStage(currentStage, CarConstants.START_FXML_PATH);
+        FXMLLoader loader = manager.loadSceneToStage(currentStage, ViewsConstants.START_FXML_PATH);
         PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
     }
 

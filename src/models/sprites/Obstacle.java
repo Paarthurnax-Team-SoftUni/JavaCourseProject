@@ -1,6 +1,6 @@
 package models.sprites;
 
-import constants.CarConstants;
+import constants.*;
 import javafx.scene.canvas.GraphicsContext;
 import models.Player;
 
@@ -27,9 +27,9 @@ public class Obstacle extends Sprite {
 
     public Obstacle generateObstacle(int drunkDrivers, int minLeftSide, int maxRightSide) {
 
-        String[] obstacles = CarConstants.OBSTACLES_LIST_SMALL;
+        String[] obstacles = CollctiblesAndObstaclesConstants.OBSTACLES_LIST_SMALL;
         String random = (obstacles[new Random().nextInt(obstacles.length)]);
-        String image = CarConstants.IMAGES_PATH + random + ".png";
+        String image = ResourcesConstants.IMAGES_PATH + random + ".png";
 
         Random obstacleX = new Random();
         Obstacle obstacle = new Obstacle();
@@ -55,7 +55,7 @@ public class Obstacle extends Sprite {
     }
 
     public void handleImpactByAmmo(Player player) {
-        player.addPoints(CarConstants.DESTROYED_OBJECT_BONUS);
+        player.addPoints(GameplayConstants.DESTROYED_OBJECT_BONUS);
         this.setDestroyed(true);
         this.setIsDrunk(false);
         this.removeWind();
@@ -97,9 +97,9 @@ public class Obstacle extends Sprite {
 
             if (obstacle.intersects(player.getCar())) {
                 if (collectible.isImmortal()) {
-                    player.addPoints(CarConstants.BONUS_POINTS_HIT_WITH_SHIELD * collectible.getBonusCoefficient());
+                    player.addPoints(GameplayConstants.BONUS_POINTS_HIT_WITH_SHIELD * collectible.getBonusCoefficient());
                 } else if (!obstacle.isDestroyed()) {
-                    player.setHealthPoints(player.getHealthPoints() - CarConstants.OBSTACLE_DAMAGE);
+                    player.setHealthPoints(player.getHealthPoints() - GameplayConstants.OBSTACLE_DAMAGE);
                 }
                 obstacle.handleImpactByCarPlayer(velocity);// Comment if you want flames to go around :) .
             }
@@ -108,7 +108,7 @@ public class Obstacle extends Sprite {
 
     @Override
     public void setDestroyed(boolean isDestroyed) {
-        this.setImage(CarConstants.FLAME_PATH_SMALL);
+        this.setImage(ResourcesConstants.FLAME_PATH_SMALL);
         this.setVelocity(0, 0);
         super.setDestroyed(isDestroyed);
     }

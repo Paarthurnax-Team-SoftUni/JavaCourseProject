@@ -1,6 +1,6 @@
 package music;
 
-import constants.CarConstants;
+import constants.ResourcesConstants;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
@@ -28,7 +28,7 @@ public class MusicPlayer {
     }
 
     public void play() {
-        Media media = new Media(new File(CarConstants.SONG_PATH).toURI().toString());
+        Media media = new Media(new File(ResourcesConstants.SONG_PATH).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
     }

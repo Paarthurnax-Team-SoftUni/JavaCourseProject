@@ -1,6 +1,7 @@
 package stageHandler;
 
-import constants.CarConstants;
+import constants.GeneralConstants;
+import constants.ResourcesConstants;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -33,9 +34,9 @@ public class StageManagerImpl implements StageManager {
 
         try {
             Pane root = fxmlLoader.load();
-            Scene scene = new Scene(root, CarConstants.CANVAS_WIDTH, CarConstants.CANVAS_HEIGHT);
+            Scene scene = new Scene(root, GeneralConstants.CANVAS_WIDTH, GeneralConstants.CANVAS_HEIGHT);
 
-            currentStage.setTitle(CarConstants.GAME_TITLE);
+            currentStage.setTitle(GeneralConstants.GAME_TITLE);
             currentStage.setResizable(false);
             currentStage.centerOnScreen();
             currentStage.setScene(scene);
@@ -44,7 +45,7 @@ public class StageManagerImpl implements StageManager {
         }
         this.setRoot(fxmlLoader.getRoot());
         currentStage.show();
-        currentStage.getIcons().add(new Image(CarConstants.LOGO_PATH));
+        currentStage.getIcons().add(new Image(ResourcesConstants.LOGO_PATH));
 
         return fxmlLoader;
     }

@@ -1,9 +1,6 @@
 package dataHandler;
 
-import constants.CarConstants;
-import constants.ErrorsConstants;
-import constants.FormattingConstants;
-import constants.GeneralConstants;
+import constants.*;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -79,7 +76,7 @@ public class CurrentStats extends Observable {
     }
 
     private void setTime(long time) {
-        time = (long) (CarConstants.TRACK_1_END_TIME * GeneralConstants.FRAMES_PER_SECOND) - time;
+        time = (long) (GameplayConstants.TRACK_1_END_TIME * GeneralConstants.FRAMES_PER_SECOND) - time;
         int seconds = (int) (time % CarConstants.SECONDS_DURATION);
         this.time.set(String.format(FormattingConstants.SECONDS_FORMATTER, time / CarConstants.SECONDS_DURATION, seconds));
     }

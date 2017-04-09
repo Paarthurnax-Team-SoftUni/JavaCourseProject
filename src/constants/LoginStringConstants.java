@@ -1,6 +1,7 @@
 package constants;
 
-public class LoginStringConstants extends ResourcesConstants {
+public class LoginStringConstants {
+
     public static final String ERROR_USERNAME_TITLE = "You have to fill in the username field!";
     public static final String ERROR_USERNAME_CONTENT = "Please click on OK to retry!";
     public static final String ERROR_USERNAME_HEADER = "You have to fill in the username field!";

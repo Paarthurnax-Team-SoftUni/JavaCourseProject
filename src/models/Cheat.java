@@ -1,6 +1,5 @@
 package models;
 
-import constants.CarConstants;
 import constants.GameplayConstants;
 
 import java.util.ArrayDeque;
@@ -24,7 +23,7 @@ public class Cheat {
     public void useCheat(Player player) {
         switch (getCheatNumber()) {
             case 1:
-                player.getCar().setAmmunition(CarConstants.CHEAT_BULLETS_COUNT);
+                player.getCar().setAmmunition(GameplayConstants.CHEAT_BULLETS_COUNT);
                 break;
             case -1:
                 break;

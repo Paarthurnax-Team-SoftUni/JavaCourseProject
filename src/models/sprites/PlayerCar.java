@@ -1,6 +1,6 @@
 package models.sprites;
 
-import constants.CarConstants;
+import constants.GameplayConstants;
 import gameEngine.RunTrack;
 import interfaces.Shootable;
 
@@ -10,7 +10,7 @@ public class PlayerCar extends Sprite implements Shootable {
     private boolean centerWheel;
 
     public PlayerCar() {
-        this.ammunition = CarConstants.START_GAME_BULLETS;
+        this.ammunition = GameplayConstants.START_GAME_BULLETS;
     }
 
     public int getAmmunition() {

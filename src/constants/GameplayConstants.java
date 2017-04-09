@@ -1,6 +1,7 @@
 package constants;
 
-public class GameplayConstants extends CollctiblesAndObstaclesConstants {
+public class GameplayConstants {
+
     public static final int BONUS_POINTS_HIT_WITH_SHIELD = 10;
     public static final long TRACK_1_END_TIME = 1500;    //Key Time in Frames
     public static final long TRACK_1_END_DISTANCE = 5000;

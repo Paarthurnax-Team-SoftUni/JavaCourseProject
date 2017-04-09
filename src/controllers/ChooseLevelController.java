@@ -1,6 +1,7 @@
 package controllers;
 
-import constants.CarConstants;
+import constants.StylesConstants;
+import constants.ViewsConstants;
 import dataHandler.PlayerData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +45,7 @@ public class ChooseLevelController {
         Stage currentStage = (Stage) this.startBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
 
-        manager.loadSceneToStage(currentStage, CarConstants.GAME_PLAY_VIEW_PATH);
+        manager.loadSceneToStage(currentStage, ViewsConstants.GAME_PLAY_VIEW_PATH);
         AnchorPane root = manager.getRoot();
         track.createBackground(root);
     }
@@ -58,10 +59,11 @@ public class ChooseLevelController {
     }
 
     private void showUnlockedLevelsOnly() {
+
         this.backgroundBox1.setStyle(null);
         this.backgroundBox2.setStyle(null);
 
-        this.backgroundBox2.setStyle(CarConstants.GREY_COLOUR);
+        this.backgroundBox2.setStyle(StylesConstants.GREY_COLOUR);
         this.backgroundBox2.toFront();
         this.locked2.setVisible(true);
 
@@ -79,12 +81,12 @@ public class ChooseLevelController {
 
         switch (id) {
             case 1:
-                this.backgroundBox1.setStyle(CarConstants.RED_COLOUR);
+                this.backgroundBox1.setStyle(StylesConstants.RED_COLOUR);
                 this.backgroundBox1.toFront();
                 track = trackHandler.getLevel(TrackLevel.FIRST_LEVEL);
                 break;
             case 2:
-                this.backgroundBox2.setStyle(CarConstants.RED_COLOUR);
+                this.backgroundBox2.setStyle(StylesConstants.RED_COLOUR);
                 this.backgroundBox2.toFront();
                 track = trackHandler.getLevel(TrackLevel.SECOND_LEVEL);
                 break;

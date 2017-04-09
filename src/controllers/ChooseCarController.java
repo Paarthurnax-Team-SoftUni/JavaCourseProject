@@ -1,6 +1,6 @@
 package controllers;
 
-import constants.CarConstants;
+import constants.*;
 import dataHandler.PlayerData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -56,7 +56,7 @@ public class ChooseCarController {
     public void goToChooseLevel(ActionEvent actionEvent) {
         Stage currentStage = (Stage) this.goNextBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
-        FXMLLoader loader = manager.loadSceneToStage(currentStage, CarConstants.CHOOSE_LEVEL_VIEW_PATH);
+        FXMLLoader loader = manager.loadSceneToStage(currentStage, ViewsConstants.CHOOSE_LEVEL_VIEW_PATH);
     }
 
     public String getCarId() {
@@ -88,8 +88,8 @@ public class ChooseCarController {
             Field lockedField = chooseCarControllerClass.getDeclaredField("locked" + id);
             ImageView locked = ((ImageView) lockedField.get(this));
             locked.setVisible(false);
-            if (points < (id - 1) * CarConstants.CAR_UNLOCK_STEP_PTS) {
-                ellipse.setStyle(CarConstants.GREY_COLOUR);
+            if (points < (id - 1) * GameplayConstants.CAR_UNLOCK_STEP_PTS) {
+                ellipse.setStyle(StylesConstants.GREY_COLOUR);
                 ellipse.toFront();
                 locked.setVisible(true);
             }
@@ -102,7 +102,6 @@ public class ChooseCarController {
 
         Class<ChooseCarController> chooseCarControllerClass = ChooseCarController.class;
         Field field = chooseCarControllerClass.getDeclaredField("backgroundBox" + id);
-        ((Ellipse) field.get(this)).setStyle(CarConstants.RED_COLOUR);
-
+        ((Ellipse) field.get(this)).setStyle(StylesConstants.RED_COLOUR);
     }
 }

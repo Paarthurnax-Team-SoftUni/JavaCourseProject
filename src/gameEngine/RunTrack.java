@@ -1,6 +1,6 @@
 package gameEngine;
 
-import constants.CarConstants;
+import constants.*;
 import controllers.ChooseCarController;
 import dataHandler.CurrentHealth;
 import dataHandler.CurrentStats;
@@ -67,7 +67,7 @@ public class RunTrack {
         this.setCarId(chooseCarController.getCarId());
         this.setPlayer(player);
         this.playerCar = this.getPlayer().getCar();
-        this.setCurrentFramesPerSecond(CarConstants.FRAMES_PER_SECOND);
+        this.setCurrentFramesPerSecond(GeneralConstants.FRAMES_PER_SECOND);
     }
 
     public static Cheat getCheat() {
@@ -101,14 +101,14 @@ public class RunTrack {
     public void runGame(AnchorPane root, Image background, int drunkDrivers, int minLeftSide, int maxRightSide) {
 
         StageManager manager = new StageManagerImpl();
-        Canvas canvas = new Canvas(CarConstants.CANVAS_WIDTH, CarConstants.CANVAS_HEIGHT);
+        Canvas canvas = new Canvas(GeneralConstants.CANVAS_WIDTH, GeneralConstants.CANVAS_HEIGHT);
 
         root.getChildren().add(canvas);
         root.getScene().setOnKeyPressed(new KeyHandlerOnPress(this.getPlayer(), minLeftSide, maxRightSide));
         root.getScene().setOnKeyReleased(new KeyHandlerOnRelease(this.getPlayer(), minLeftSide, maxRightSide));
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        String carImg = CarConstants.CAR_IMAGES_PATH + this.carId + CarConstants.HALF_SIZE;
+        String carImg = ResourcesConstants.CAR_IMAGES_PATH + this.carId + ImagesShortcutConstants.HALF_SIZE;
         this.playerCar.setImage(carImg);
         this.playerCar.setPosition(200, 430);
         this.player.setPoints(0L);
@@ -145,8 +145,8 @@ public class RunTrack {
 
                     observer.update(currentStats, observer);
 
-                    if (Math.abs(y) >= CarConstants.CANVAS_HEIGHT) {
-                        y = y - CarConstants.CANVAS_HEIGHT;
+                    if (Math.abs(y) >= GeneralConstants.CANVAS_HEIGHT) {
+                        y = y - GeneralConstants.CANVAS_HEIGHT;
                         frame = 0;
                     }
                     this.playerCar.setVelocity(0, 0);
@@ -158,8 +158,8 @@ public class RunTrack {
                         obstacle.addObstacle(obstacle.generateObstacle(drunkDrivers, minLeftSide, maxRightSide));
                     }
 
-                    gc.clearRect(0, 0, CarConstants.CANVAS_WIDTH, CarConstants.CANVAS_HEIGHT);
-                    gc.drawImage(background, 0, y - CarConstants.CANVAS_HEIGHT);
+                    gc.clearRect(0, 0, GeneralConstants.CANVAS_WIDTH, GeneralConstants.CANVAS_HEIGHT);
+                    gc.drawImage(background, 0, y - GeneralConstants.CANVAS_HEIGHT);
                     gc.drawImage(background, 0, y);
                     this.playerCar.update();
                     this.playerCar.render(gc);
@@ -183,8 +183,8 @@ public class RunTrack {
                     Stage currentStage = (Stage) canvas.getScene().getWindow();
 
                     //CHECK FOR END && CHECK FOR LOSE
-                    if (time >= CarConstants.TRACK_1_END_TIME || player.getHealthPoints() <= 0) {
-                        boolean win = player.getHealthPoints() > 0 && currentStats.getDistance() >= CarConstants.TRACK_1_END_DISTANCE;
+                    if (time >= GameplayConstants.TRACK_1_END_TIME || player.getHealthPoints() <= 0) {
+                        boolean win = player.getHealthPoints() > 0 && currentStats.getDistance() >= GameplayConstants.TRACK_1_END_DISTANCE;
                         if (win) {
                             this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
                             PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
@@ -197,25 +197,25 @@ public class RunTrack {
                         MusicPlayer.getInstance().stop();
                         time = 0;
                         Notification.hidePopupMessage();
-                        velocity = CarConstants.START_GAME_VELOCITY;
+                        velocity = GameplayConstants.START_GAME_VELOCITY;
                         currentStats.updateDistance(0);
                         root.getChildren().remove(canvas);
-                        this.playerCar.setAmmunition(CarConstants.START_GAME_BULLETS);
+                        this.playerCar.setAmmunition(GameplayConstants.START_GAME_BULLETS);
 
-                        manager.loadSceneToStage(currentStage, win ? CarConstants.GAME_WIN_VIEW_PATH : CarConstants.GAME_OVER_VIEW_PATH);
+                        manager.loadSceneToStage(currentStage, win ? ViewsConstants.GAME_WIN_VIEW_PATH : ViewsConstants.GAME_OVER_VIEW_PATH);
 
                         this.player.updateStatsAtEnd();
                     }
 
-                    if (frame % CarConstants.COLLECTIBLES_OFFSET == 0) {
+                    if (frame % GameplayConstants.COLLECTIBLES_OFFSET == 0) {
                         collectible.addCollectible(Collectible.generateCollectible(minLeftSide, maxRightSide));
                     }
                     String action = collectible.visualizeCollectible(gc, velocity, currentStage);
 
-                    if (action != null && action.equals(CarConstants.ARMAGEDDON_STRING)) {
+                    if (action != null && action.equals(CollctiblesAndObstaclesConstants.ARMAGEDDON_STRING)) {
                         startArmageddonsPower();
-                    } else if (action != null && action.equals(CarConstants.FUEL_BOTTLE_STRING)) {
-                        time -= CarConstants.FUEL_TANK_BONUS_TIME / CarConstants.FRAMES_PER_SECOND;
+                    } else if (action != null && action.equals(CollctiblesAndObstaclesConstants.FUEL_BOTTLE_STRING)) {
+                        time -= GameplayConstants.FUEL_TANK_BONUS_TIME / GeneralConstants.FRAMES_PER_SECOND;
                     }
                 });
 

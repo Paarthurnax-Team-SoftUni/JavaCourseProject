@@ -1,6 +1,6 @@
 package models;
 
-import constants.CarConstants;
+import constants.GameplayConstants;
 import models.sprites.PlayerCar;
 
 public class Player {
@@ -92,7 +92,7 @@ public class Player {
     }
 
     public void updateStatsAtEnd() {
-        this.setHealthPoints(CarConstants.HEALTH_BAR_MAX);
+        this.setHealthPoints(GameplayConstants.HEALTH_BAR_MAX);
         this.car.stopAccelerate();
         this.car.setCenterWheel(true);
         this.car.removeWind();

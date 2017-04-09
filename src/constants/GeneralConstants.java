@@ -2,6 +2,7 @@ package constants;
 
 
 public class GeneralConstants {
+
     public static final String GAME_TITLE = "SoftUni Rush";
     public static final int CANVAS_WIDTH = 850;
     public static final int CANVAS_HEIGHT = 650;

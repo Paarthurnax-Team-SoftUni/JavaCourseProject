@@ -1,7 +1,7 @@
 package constants;
 
-public class NotificationsConstants extends GameplayConstants {
-    //notifications
+public class NotificationsConstants {
+
     public static final String FUEL_NOTIFICATION_MESSAGE = "Extra fuel! +5 seconds";
     public static final String HEALTH_NOTIFICATION_MESSAGE = "Health! Restore your health";
     public static final String DOUBLE_PTS_NOTIFICATION_MESSAGE = "Bonus! Double points in the next 5 seconds";

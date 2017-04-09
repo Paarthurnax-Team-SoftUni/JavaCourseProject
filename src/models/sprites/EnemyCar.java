@@ -1,6 +1,6 @@
 package models.sprites;
 
-import constants.CarConstants;
+import constants.GeneralConstants;
 
 public class EnemyCar extends Obstacle {
 
@@ -27,7 +27,7 @@ public class EnemyCar extends Obstacle {
                 super.setVelocityY(y);
             }
         } else if (y > 0) {
-            if (super.getPositionY() < CarConstants.CANVAS_HEIGHT - super.getImageHeight() * 2) {
+            if (super.getPositionY() < GeneralConstants.CANVAS_HEIGHT - super.getImageHeight() * 2) {
                 super.setVelocityY(y);
             }
         }

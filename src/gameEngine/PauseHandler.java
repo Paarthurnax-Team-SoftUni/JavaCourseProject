@@ -1,6 +1,6 @@
 package gameEngine;
 
-import constants.CarConstants;
+import constants.GeneralConstants;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
@@ -42,7 +42,7 @@ public class PauseHandler {
             pauseloop.setCycleCount(Timeline.INDEFINITE);
 
             KeyFrame keyFramePause = new KeyFrame(
-                    Duration.seconds(CarConstants.FRAMES_PER_SECOND),
+                    Duration.seconds(GeneralConstants.FRAMES_PER_SECOND),
                     event -> {
                         if (!RunTrack.isPaused()) {
                             gameLoop.play();
@@ -50,9 +50,9 @@ public class PauseHandler {
                             pauseloop.stop();
                         }
 
-                        gc.clearRect(0, 0, CarConstants.CANVAS_WIDTH, CarConstants.CANVAS_HEIGHT);
+                        gc.clearRect(0, 0, GeneralConstants.CANVAS_WIDTH, GeneralConstants.CANVAS_HEIGHT);
                         gc.drawImage(background, 0, y);
-                        gc.drawImage(background, 0, y - CarConstants.CANVAS_HEIGHT);
+                        gc.drawImage(background, 0, y - GeneralConstants.CANVAS_HEIGHT);
                         this.player.getCar().render(gc);
 
                         for (Collectible collectible : collectibles) {

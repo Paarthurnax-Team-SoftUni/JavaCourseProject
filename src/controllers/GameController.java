@@ -15,11 +15,11 @@ import javafx.scene.image.ImageView;
 public class GameController implements Initializable {
 
     @FXML
-    public Label scorePoints;
+    private Label scorePoints;
     @FXML
-    public Label distance;
+    private Label distance;
     @FXML
-    public Label bullets;
+    private Label bullets;
     @FXML
     private ImageView healthFirst;
     @FXML
@@ -35,10 +35,10 @@ public class GameController implements Initializable {
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
         CurrentStats currentStats = RunTrack.getCurrentStats();
-        this.scorePoints.textProperty().bind(Bindings.convert(currentStats.valuePoints()));
+        this.getScorePoints().textProperty().bind(Bindings.convert(currentStats.valuePoints()));
         this.timeInfo.textProperty().bind(Bindings.convert(currentStats.valueTime()));
-        this.distance.textProperty().bind(Bindings.convert(currentStats.valueDistance()));
-        this.bullets.textProperty().bind(Bindings.convert(currentStats.valueBullets()));
+        this.getDistance().textProperty().bind(Bindings.convert(currentStats.valueDistance()));
+        this.getBullets().textProperty().bind(Bindings.convert(currentStats.valueBullets()));
 
         this.highScore.textProperty().setValue(PlayerData.getInstance().getHighscores());
         new CurrentHealth(this.healthFirst, this.healthSecond, this.healthThird, this.healthFourth);
@@ -47,5 +47,19 @@ public class GameController implements Initializable {
     public void quitGame(ActionEvent actionEvent) {
         PlayerData.getInstance().getCurrentPlayer().updateStatsAtEnd();
         Platform.exit();
+    }
+
+    private Label getScorePoints() {
+        return this.scorePoints;
+    }
+
+
+    private Label getDistance() {
+        return this.distance;
+    }
+
+
+    private Label getBullets() {
+        return this.bullets;
     }
 }

@@ -1,6 +1,6 @@
 package stageHandler;
 
-import constants.CarConstants;
+import constants.LoginStringConstants;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -13,17 +13,17 @@ public class DialogBox {
 
     public static void loadErrorBox() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(CarConstants.ERROR_USERNAME_TITLE);
-        alert.setContentText(CarConstants.ERROR_USERNAME_CONTENT);
-        alert.setHeaderText(CarConstants.ERROR_USERNAME_HEADER);
+        alert.setTitle(LoginStringConstants.ERROR_USERNAME_TITLE);
+        alert.setContentText(LoginStringConstants.ERROR_USERNAME_CONTENT);
+        alert.setHeaderText(LoginStringConstants.ERROR_USERNAME_HEADER);
         alert.showAndWait();
     }
 
     public static boolean loadConfirmBox(String name) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(CarConstants.LOGIN_USER_TITLE);
-        alert.setHeaderText(CarConstants.LOGIN_USER_HEADER + name);
-        alert.setContentText(CarConstants.LOGIN_USER_CONTENT);
+        alert.setTitle(LoginStringConstants.LOGIN_USER_TITLE);
+        alert.setHeaderText(LoginStringConstants.LOGIN_USER_HEADER + name);
+        alert.setContentText(LoginStringConstants.LOGIN_USER_CONTENT);
 
         Optional<ButtonType> result = alert.showAndWait();
 
