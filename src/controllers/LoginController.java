@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Player;
+import models.sprites.PlayerCar;
 import stageHandler.DialogBox;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
@@ -43,7 +44,8 @@ public class LoginController {
             boolean result = DialogBox.loadConfirmBox(name);
 
             if (result) {
-                Player player = new Player(name, 0L, 0.0, 100);
+                PlayerCar playerCar = new PlayerCar();
+                Player player = new Player(playerCar, name, 0L, 0.0, 100);
                 PlayerData.getInstance().addPlayer(player);
                 PlayerData.getInstance().storePlayersData(player);
                 PlayerData.getInstance().registerPlayer(PlayerData.getInstance().returnPlayer(name));

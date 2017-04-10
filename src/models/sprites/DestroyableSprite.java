@@ -1,10 +1,12 @@
 package models.sprites;
 
+import constants.GameplayConstants;
+
 public abstract class DestroyableSprite extends CollectibleSprite {
 
     private boolean isDestroyed;
 
-    public DestroyableSprite() {
+    protected DestroyableSprite() {
     }
 
     protected DestroyableSprite(boolean isDestroyed) {
@@ -12,7 +14,7 @@ public abstract class DestroyableSprite extends CollectibleSprite {
     }
 
     public void removeWind(){
-        super.setVelocity(0, 0);
+        super.setVelocity(GameplayConstants.CANVAS_BEGINNING, GameplayConstants.CANVAS_BEGINNING);
         super.setAngle(0);
         super.setTurnRight(false);
         super.setTurnLeft(false);

@@ -1,5 +1,7 @@
 package models.sprites;
 
+import constants.GameplayConstants;
+
 public abstract class Sprite extends DestroyableSprite {
     private double angle;
 
@@ -11,7 +13,7 @@ public abstract class Sprite extends DestroyableSprite {
     }
 
     public void setAngle(double angle) {
-        if (angle < 43 && angle > -43) {
+        if (angle < GameplayConstants.TURNING_ANGLE && angle > -GameplayConstants.TURNING_ANGLE) {
             this.angle = angle;
         }
     }

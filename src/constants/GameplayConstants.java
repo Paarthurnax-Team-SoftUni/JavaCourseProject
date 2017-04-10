@@ -27,9 +27,18 @@ public class GameplayConstants {
     public static final int OBSTACLE_DAMAGE = 25;
     public static final int CHEAT_BULLETS_COUNT = 1000;
     public static final int CAR_UNLOCK_STEP_PTS = 15000;
-    public static final float TURNING_ANGLE = 43;
+    public static final int TURNING_ANGLE = 43;
     public static final int CANVAS_BEGINNING = 0;
     public static final int CANVAS_Y_END = 300;
     public static final CharSequence CHEAT_STRING = "IDKFA";
-    public static final double INITIAL_VELOCITY = 0;
+    public static final int INITIAL_VELOCITY = 0;
+    public static final float OBSTACLE_ANIMATION_Y_OFFSET = -166f;
+    public static final int X_TOP_RENDER_SPEED_DRUNK_DRIVERS = -20;
+    public static final int UPDATE_DELIMITER = 3;
+    public static final int IMAGE_HEIGHT_OFFSET = 2;
+    public static final int BULLET_SPEED = 5;
+    public static final int OBSTACLES_BOUNDS = 50;
+    public static final int INITIAL_BULLETS_COUNTS = 1;
+    public static final int TURN_UPDATE_DEGREES = 4;
+    public static final int MAX_ACCELERATION_VELOCITY = 20;
 }

@@ -5,6 +5,7 @@ import constants.SQLConstants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.Player;
+import models.sprites.PlayerCar;
 
 import java.sql.*;
 
@@ -106,7 +107,8 @@ public class PlayerData {
         try {
             ResultSet results = queryPlayers.executeQuery();
             while (results.next()) {
-                Player player = new Player();
+                PlayerCar playerCar = new PlayerCar();
+                Player player = new Player(playerCar);
                 player.setId(results.getInt(SQLConstants.INDEX_COLUMN_ID));
                 player.setName(results.getString(SQLConstants.INDEX_COLUMN_NAME));
                 player.setHighScore(results.getLong(SQLConstants.INDEX_COLUMN_HIGHSCORE));

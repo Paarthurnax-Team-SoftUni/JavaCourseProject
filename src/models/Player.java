@@ -6,21 +6,21 @@ import models.sprites.PlayerCar;
 public class Player {
 
     private String name;
-    private Long highScore;
-    private Double money;
-    private Long points;
+    private long highScore;
+    private double money;
+    private long points;
     private int healthPoints;
     private int maxLevelPassed;
     private int id;
     private PlayerCar car;
 
-    public Player() {
+    public Player(PlayerCar playerCar) {
         this.points = 0L;
-        this.car = new PlayerCar();
+        this.car = playerCar;
     }
 
-    public Player(String name, Long highScore, Double money, int healthPoints) {
-        this();
+    public Player(PlayerCar playerCar, String name, Long highScore, Double money, int healthPoints) {
+        this(playerCar);
         this.name = name;
         this.highScore = highScore;
         this.money = money;

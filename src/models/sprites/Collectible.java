@@ -24,7 +24,7 @@ public class Collectible extends CollectibleSprite {
     }
 
     public Collectible(Player player) {
-        this.bonusCoefficient = 1;
+        this.bonusCoefficient = GameplayConstants.INITIAL_BULLETS_COUNTS;
         this.player = player;
         this.collectibles = new ArrayList<>();
     }
@@ -35,12 +35,12 @@ public class Collectible extends CollectibleSprite {
         String random = collectibles[new Random().nextInt(collectibles.length)];
 
         Random collectibleX = new Random();
-        String stringDirectory = CollectiblesAndObstaclesConstants.COLLECTIBLE_PATH + random + ".png";
+        String stringDirectory = CollectiblesAndObstaclesConstants.COLLECTIBLE_PATH + random + ImagesShortcutConstants.PNG_FILE_EXTENSION;
 
         Collectible collectible = new Collectible();
-        collectible.setName(random);
+        collectible.updateName(random);
         collectible.setImage(stringDirectory);
-        collectible.setPosition(collectibleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, -166);
+        collectible.updatePosition(collectibleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants.OBSTACLE_ANIMATION_Y_OFFSET);
 
         return collectible;
     }
@@ -146,7 +146,7 @@ public class Collectible extends CollectibleSprite {
             bonusPoints, String bonusName, String message) {
         this.player.addPoints(bonusPoints * this.bonusCoefficient);
         Notification.showPopupMessage(bonusName, message, currentStage);
-        collectible.setPosition(GameplayConstants.DESTROY_OBJECT_COORDINATES, GameplayConstants.DESTROY_OBJECT_COORDINATES);
+        collectible.updatePosition(GameplayConstants.DESTROY_OBJECT_COORDINATES, GameplayConstants.DESTROY_OBJECT_COORDINATES);
     }
 
     private String getCollectibleType() {

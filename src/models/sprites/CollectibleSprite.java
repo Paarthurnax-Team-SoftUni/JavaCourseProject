@@ -1,5 +1,7 @@
 package models.sprites;
 
+import constants.ErrorsConstants;
+import constants.GameplayConstants;
 import constants.GeneralConstants;
 import gameEngine.RotatedImageInCanvas;
 import gameEngine.RunTrack;
@@ -25,53 +27,22 @@ public abstract class CollectibleSprite {
 
     protected CollectibleSprite() {
     }
-    public void setName(String name) {
-        this.name = name;
+
+    public void setTurnLeft(boolean isTurning) {
+        this.turnLeft = isTurning;
     }
 
-    public String getName() {
-        return this.name;
+    public boolean intersects(CollectibleSprite other) {
+        return this.getBoundary().intersects(other.getBoundary());
     }
 
-    public Image getImage() {
-        return this.image;
-    }
-
-    public void setImage(String filename) {
-        Image image = new Image(filename);
-        this.image = image;
-        this.imageWidth = image.getWidth();
-        this.imageHeight = image.getHeight();
-    }
-
-    public double getPositionX() {
-        return this.positionX;
-    }
-
-    public double getPositionY() {
-        return this.positionY;
-    }
-
-    public void setPosition(double x, double y) {
-        positionX = x;
-        positionY = y;
-    }
-
-    public double getImageHeight() {
-        return this.imageHeight;
-    }
-
-    public void setVelocityX(double velocityX) {
-        this.velocityX = velocityX;
-    }
-
-    public void setVelocityY(double velocityY) {
-        this.velocityY = velocityY;
+    public void render(GraphicsContext gc) {
+        RotatedImageInCanvas.drawRotatedImage(gc, this.getImage(), this.getAngle(), this.getPositionX(), this.getPositionY());
     }
 
     public void setVelocity(double x, double y) {
-        velocityX = x;
-        velocityY = y;
+        this.setVelocityX(x);
+        this.setVelocityY(y);
     }
 
     public Rectangle2D getBoundary() {
@@ -83,28 +54,104 @@ public abstract class CollectibleSprite {
     }
 
     public void setAngle(double angle) {
-        if (angle < 43 && angle > -43) {
+        if (angle < GameplayConstants.TURNING_ANGLE && angle > -GameplayConstants.TURNING_ANGLE) {
             this.angle = angle;
         }
     }
 
     public void update() {
         updateAngle();
-        this.addVelocity(Math.tan(Math.toRadians(this.getAngle())) * RunTrack.getVelocity() / 3, 0);
+        this.addVelocity(Math.tan(Math.toRadians(this.getAngle())) * RunTrack.getVelocity() / GameplayConstants.UPDATE_DELIMITER, 0);
         this.positionX += this.velocityX;
         this.positionY += this.velocityY;
     }
 
     public void update(int min, int max) {
         updateAngle();
-        this.addVelocity(Math.tan(Math.toRadians(this.getAngle())) * RunTrack.getVelocity() / 3, 0, min, max);
-        positionX += velocityX;
-        positionY += velocityY;
+        this.addVelocity(Math.tan(Math.toRadians(this.getAngle())) * RunTrack.getVelocity() / GameplayConstants.UPDATE_DELIMITER, 0, min, max);
+        this.positionX += this.velocityX;
+        this.positionY += this.velocityY;
     }
 
     public void addVelocity(double x, double y) {
         this.addVelocity(x, y, this.minLeftSide, this.maxRightSide);
     }
+
+    public void updateName(String name) {
+        this.setName(name);
+    }
+
+
+
+    public final String getName() {
+        return this.name;
+    }
+
+    public final Image getImage() {
+        return this.image;
+    }
+
+    public void setImage(String filename) {
+        if (filename == null) {
+            throw new IllegalArgumentException(ErrorsConstants.FILE_PATH_EXCEPTION);
+        }
+        Image image = new Image(filename);
+        this.image = image;
+        this.imageWidth = image.getWidth();
+        this.imageHeight = image.getHeight();
+    }
+
+    public void updatePosition(double x, double y) {
+        this.setPosition(x, y);
+    }
+
+    public final double getImageHeight() {
+        return this.imageHeight;
+    }
+
+    public void updateVelocityX(double velocityX) {
+        this.setVelocityX(velocityX);
+    }
+
+
+    public void updateVelocityY(double velocityY) {
+        this.setVelocityY(velocityY);
+    }
+
+    public void setTurnRight(boolean isTurning) {
+        this.turnRight = isTurning;
+    }
+
+    protected final double getPositionX() {
+        return this.positionX;
+    }
+
+    protected final double getPositionY() {
+        return this.positionY;
+    }
+
+    private void setPosition(double x, double y) {
+        if (x < 0 || y < GameplayConstants.OBSTACLE_ANIMATION_Y_OFFSET) {
+            throw new IllegalArgumentException(ErrorsConstants.POSITION_EXCEPTION);
+        }
+        this.positionX = x;
+        this.positionY = y;
+    }
+
+    private void setVelocityY(double velocityY) {
+        if (velocityY < -5) {
+            throw new IllegalArgumentException(ErrorsConstants.VELOCITY_EXCEPTION);
+        }
+        this.velocityY = velocityY;
+    }
+
+    private void setVelocityX(double velocityX) {
+        if (velocityX < GameplayConstants.X_TOP_RENDER_SPEED_DRUNK_DRIVERS) {
+            throw new IllegalArgumentException(ErrorsConstants.VELOCITY_EXCEPTION);
+        }
+        this.velocityX = velocityX;
+    }
+
 
     private void addVelocity(double x, double y, int min, int max) {
         this.minLeftSide = min;
@@ -119,12 +166,12 @@ public abstract class CollectibleSprite {
                 this.velocityX += x;
             }
         }
-        if (y < 0) {
-            if (this.positionY > 300) {
+        if (y < GameplayConstants.CANVAS_BEGINNING) {
+            if (this.positionY > GameplayConstants.CANVAS_Y_END) {
                 this.velocityY += y;
             }
-        } else if (y > 0) {
-            if (this.positionY < GeneralConstants.CANVAS_HEIGHT - this.imageHeight * 2) {
+        } else if (y > GameplayConstants.CANVAS_BEGINNING) {
+            if (this.positionY < GeneralConstants.CANVAS_HEIGHT - this.imageHeight * GameplayConstants.IMAGE_HEIGHT_OFFSET) {
                 this.velocityY += y;
             }
         }
@@ -132,10 +179,10 @@ public abstract class CollectibleSprite {
 
     private void updateAngle() {
         if (this.getTurnLeft()) {
-            this.setAngle(this.getAngle() - 4);
+            this.setAngle(this.getAngle() - GameplayConstants.TURN_UPDATE_DEGREES);
         }
         if (this.getTurnRight()) {
-            this.setAngle(this.getAngle() + 4);
+            this.setAngle(this.getAngle() + GameplayConstants.TURN_UPDATE_DEGREES);
         }
     }
 
@@ -143,24 +190,15 @@ public abstract class CollectibleSprite {
         return this.turnRight;
     }
 
-    public void setTurnRight(boolean b) {
-        this.turnRight = b;
-    }
-
     private boolean getTurnLeft() {
         return this.turnLeft;
     }
 
-    public void setTurnLeft(boolean b) {
-        this.turnLeft = b;
-    }
-
-    public boolean intersects(CollectibleSprite other) {
-        return this.getBoundary().intersects(other.getBoundary());
-    }
-
-    public void render(GraphicsContext gc) {
-        RotatedImageInCanvas.drawRotatedImage(gc, this.getImage(), this.getAngle(), this.getPositionX(), this.getPositionY());
+    private void setName(String name) {
+        if(name == null) {
+            throw new IllegalArgumentException(ErrorsConstants.NAME_EXCEPTION);
+        }
+        this.name = name;
     }
 }
 

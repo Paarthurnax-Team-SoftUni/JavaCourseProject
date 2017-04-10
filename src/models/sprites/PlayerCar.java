@@ -1,5 +1,6 @@
 package models.sprites;
 
+import constants.CarConstants;
 import constants.GameplayConstants;
 import gameEngine.RunTrack;
 import interfaces.Shootable;
@@ -14,15 +15,15 @@ public class PlayerCar extends Sprite implements Shootable {
     }
 
     public int getAmmunition() {
-        return ammunition;
+        return this.ammunition;
     }
 
-    public void setAmmunition(Integer ammunition) {
+    public void setAmmunition(int ammunition) {
         this.ammunition = ammunition;
     }
 
-    public void setCenterWheel(boolean b) {
-        this.centerWheel = b;
+    public void setCenterWheel(boolean isCentered) {
+        this.centerWheel = isCentered;
     }
 
     public void accelerate() {
@@ -45,19 +46,19 @@ public class PlayerCar extends Sprite implements Shootable {
     public void update() {
         if (this.centerWheel) {
             if (this.getAngle() < 0) {
-                this.setAngle(this.getAngle() + 5);
+                this.setAngle(this.getAngle() + GameplayConstants.START_GAME_VELOCITY);
             } else if (this.getAngle() > 0)
-                this.setAngle(this.getAngle() - 5);
+                this.setAngle(this.getAngle() - GameplayConstants.START_GAME_VELOCITY);
             else this.centerWheel = false;
         }
-        if (accelerating) {
-            this.addVelocity(0, -2);
-            if (RunTrack.getVelocity() < 20) {
-                RunTrack.setVelocity((float) (RunTrack.getVelocity() + 0.1));
+        if (this.accelerating) {
+            this.addVelocity(0, -GameplayConstants.IMAGE_HEIGHT_OFFSET);
+            if (RunTrack.getVelocity() < GameplayConstants.MAX_ACCELERATION_VELOCITY) {
+                RunTrack.setVelocity((float) (RunTrack.getVelocity() + CarConstants.PLAYER_CAR_ACCELERATION_OFFSET));
             }
         } else {
             this.addVelocity(0, 1);
-            if (RunTrack.getVelocity() > 5) {
+            if (RunTrack.getVelocity() > GameplayConstants.START_GAME_VELOCITY) {
                 RunTrack.setVelocity((float) (RunTrack.getVelocity() - 0.1));
             }
         }
