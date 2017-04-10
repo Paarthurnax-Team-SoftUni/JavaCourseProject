@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Collectible extends Sprite {
+public class Collectible extends CollectibleSprite {
 
     private int bonusCoefficient;
     private Player player;
@@ -31,11 +31,11 @@ public class Collectible extends Sprite {
 
     public static Collectible generateCollectible(int minLeftSide, int maxRightSide) {
 
-        String[] collectibles = CollctiblesAndObstaclesConstants.COLLECTIBLE_LIST_SMALL;
+        String[] collectibles = CollectiblesAndObstaclesConstants.COLLECTIBLE_LIST_SMALL;
         String random = collectibles[new Random().nextInt(collectibles.length)];
 
         Random collectibleX = new Random();
-        String stringDirectory = CollctiblesAndObstaclesConstants.COLLECTIBLE_PATH + random + ".png";
+        String stringDirectory = CollectiblesAndObstaclesConstants.COLLECTIBLE_PATH + random + ".png";
 
         Collectible collectible = new Collectible();
         collectible.setName(random);
@@ -79,63 +79,63 @@ public class Collectible extends Sprite {
             if (collectible.intersects(this.player.getCar())) {
                 switch (collectible.getCollectibleType()) {
                     //fuel bonus
-                    case CollctiblesAndObstaclesConstants.FUEL_BOTTLE_STRING:
+                    case CollectiblesAndObstaclesConstants.FUEL_BOTTLE_STRING:
                         processCollectible(collectible, currentStage,
                                 GameplayConstants.FUEL_TANK_BONUS,
-                                CollctiblesAndObstaclesConstants.FUEL_BOTTLE_STRING,
+                                CollectiblesAndObstaclesConstants.FUEL_BOTTLE_STRING,
                                 NotificationsConstants.FUEL_NOTIFICATION_MESSAGE);
-                        return CollctiblesAndObstaclesConstants.FUEL_BOTTLE_STRING;
+                        return CollectiblesAndObstaclesConstants.FUEL_BOTTLE_STRING;
 
                     //health bonus
-                    case CollctiblesAndObstaclesConstants.HEALTH_STRING:
+                    case CollectiblesAndObstaclesConstants.HEALTH_STRING:
                         processCollectible(collectible, currentStage,
                                 GameplayConstants.HEALTH_PACK_BONUS_POINTS,
-                                CollctiblesAndObstaclesConstants.HEALTH_STRING,
+                                CollectiblesAndObstaclesConstants.HEALTH_STRING,
                                 NotificationsConstants.HEALTH_NOTIFICATION_MESSAGE);
                         if (this.player.getHealthPoints() < GameplayConstants.HEALTH_BAR_MAX) {
                             this.player.setHealthPoints(Math.min(this.player.getHealthPoints() + GameplayConstants.HEALTH_BONUS, GameplayConstants.HEALTH_BAR_MAX));
                         }
-                        return CollctiblesAndObstaclesConstants.HEALTH_STRING;
+                        return CollectiblesAndObstaclesConstants.HEALTH_STRING;
 
                     //double points bonus
-                    case CollctiblesAndObstaclesConstants.DOUBLE_POINTS_STRING:
+                    case CollectiblesAndObstaclesConstants.DOUBLE_POINTS_STRING:
                         processCollectible(collectible, currentStage,
                                 GameplayConstants.DOUBLE_BONUS_POINTS,
-                                CollctiblesAndObstaclesConstants.DOUBLE_POINTS_STRING,
+                                CollectiblesAndObstaclesConstants.DOUBLE_POINTS_STRING,
                                 NotificationsConstants.DOUBLE_PTS_NOTIFICATION_MESSAGE);
                         if (!isDoublePtsOn) {
                             startDoublePointsTimer();
                         }
-                        return CollctiblesAndObstaclesConstants.DOUBLE_POINTS_STRING;
+                        return CollectiblesAndObstaclesConstants.DOUBLE_POINTS_STRING;
 
                     //immortality bonus
-                    case CollctiblesAndObstaclesConstants.IMMORTALITY_STRING:
+                    case CollectiblesAndObstaclesConstants.IMMORTALITY_STRING:
                         processCollectible(collectible, currentStage,
                                 GameplayConstants.IMMORTALITY_BONUS,
-                                CollctiblesAndObstaclesConstants.IMMORTALITY_STRING,
+                                CollectiblesAndObstaclesConstants.IMMORTALITY_STRING,
                                 NotificationsConstants.IMMORTALITY_NOTIFICATION_MESSAGE);
                         if (!isImmortal) {
                             player.addPoints(GameplayConstants.ARMAGEDDONS_BONUS * bonusCoefficient);
                             startImmortalityTimer();
                         }
-                        return CollctiblesAndObstaclesConstants.DOUBLE_POINTS_STRING;
+                        return CollectiblesAndObstaclesConstants.DOUBLE_POINTS_STRING;
 
                     //armagedon bonus
-                    case CollctiblesAndObstaclesConstants.ARMAGEDDON_STRING:
+                    case CollectiblesAndObstaclesConstants.ARMAGEDDON_STRING:
                         processCollectible(collectible, currentStage,
                                 GameplayConstants.ARMAGEDDONS_BONUS,
-                                CollctiblesAndObstaclesConstants.ARMAGEDDON_STRING,
+                                CollectiblesAndObstaclesConstants.ARMAGEDDON_STRING,
                                 NotificationsConstants.ARMAGEDDONS_NOTIFICATION_MESSAGE);
-                        return CollctiblesAndObstaclesConstants.ARMAGEDDON_STRING;
+                        return CollectiblesAndObstaclesConstants.ARMAGEDDON_STRING;
 
                     //bullet bonus
-                    case CollctiblesAndObstaclesConstants.AMMO_STRING:
+                    case CollectiblesAndObstaclesConstants.AMMO_STRING:
                         processCollectible(collectible, currentStage,
                                 GameplayConstants.AMMO_BONUS,
-                                CollctiblesAndObstaclesConstants.AMMO_STRING,
+                                CollectiblesAndObstaclesConstants.AMMO_STRING,
                                 NotificationsConstants.AMMO_NOTIFICATION_MESSAGE);
                         player.getCar().setAmmunition(player.getCar().getAmmunition() + 1);
-                        return CollctiblesAndObstaclesConstants.AMMO_STRING;
+                        return CollectiblesAndObstaclesConstants.AMMO_STRING;
                 }
             }
         }
@@ -154,19 +154,19 @@ public class Collectible extends Sprite {
 
         switch (index) {
             case 1:
-                return CollctiblesAndObstaclesConstants.FUEL_BOTTLE_STRING;
+                return CollectiblesAndObstaclesConstants.FUEL_BOTTLE_STRING;
             case 2:
-                return CollctiblesAndObstaclesConstants.HEALTH_STRING;
+                return CollectiblesAndObstaclesConstants.HEALTH_STRING;
             case 3:
-                return CollctiblesAndObstaclesConstants.DOUBLE_POINTS_STRING;
+                return CollectiblesAndObstaclesConstants.DOUBLE_POINTS_STRING;
             case 4:
-                return CollctiblesAndObstaclesConstants.IMMORTALITY_STRING;
+                return CollectiblesAndObstaclesConstants.IMMORTALITY_STRING;
             case 5:
-                return CollctiblesAndObstaclesConstants.ARMAGEDDON_STRING;
+                return CollectiblesAndObstaclesConstants.ARMAGEDDON_STRING;
             case 6:
-                return CollctiblesAndObstaclesConstants.AMMO_STRING;
+                return CollectiblesAndObstaclesConstants.AMMO_STRING;
         }
-        return CollctiblesAndObstaclesConstants.BONUS_POINTS_STRING;
+        return CollectiblesAndObstaclesConstants.BONUS_POINTS_STRING;
     }
 
     private double getImmortalityTimer() {

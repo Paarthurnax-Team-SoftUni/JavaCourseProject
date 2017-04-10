@@ -1,6 +1,8 @@
 package models.sprites;
 
-import constants.*;
+import constants.CollectiblesAndObstaclesConstants;
+import constants.GameplayConstants;
+import constants.ResourcesConstants;
 import javafx.scene.canvas.GraphicsContext;
 import models.Player;
 
@@ -8,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Obstacle extends Sprite {
+public class Obstacle extends DestroyableSprite {
 
     private boolean isDrunk;
     private List<Obstacle> obstacles;
@@ -27,7 +29,7 @@ public class Obstacle extends Sprite {
 
     public Obstacle generateObstacle(int drunkDrivers, int minLeftSide, int maxRightSide) {
 
-        String[] obstacles = CollctiblesAndObstaclesConstants.OBSTACLES_LIST_SMALL;
+        String[] obstacles = CollectiblesAndObstaclesConstants.OBSTACLES_LIST_SMALL;
         String random = (obstacles[new Random().nextInt(obstacles.length)]);
         String image = ResourcesConstants.IMAGES_PATH + random + ".png";
 

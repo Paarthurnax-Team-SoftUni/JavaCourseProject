@@ -212,9 +212,9 @@ public class RunTrack {
                     }
                     String action = collectible.visualizeCollectible(gc, velocity, currentStage);
 
-                    if (action != null && action.equals(CollctiblesAndObstaclesConstants.ARMAGEDDON_STRING)) {
+                    if (action != null && action.equals(CollectiblesAndObstaclesConstants.ARMAGEDDON_STRING)) {
                         startArmageddonsPower();
-                    } else if (action != null && action.equals(CollctiblesAndObstaclesConstants.FUEL_BOTTLE_STRING)) {
+                    } else if (action != null && action.equals(CollectiblesAndObstaclesConstants.FUEL_BOTTLE_STRING)) {
                         time -= GameplayConstants.FUEL_TANK_BONUS_TIME / GeneralConstants.FRAMES_PER_SECOND;
                     }
                 });

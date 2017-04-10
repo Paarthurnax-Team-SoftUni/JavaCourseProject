@@ -31,5 +31,6 @@ public class EnemyCar extends Obstacle {
                 super.setVelocityY(y);
             }
         }
+
     }
 }

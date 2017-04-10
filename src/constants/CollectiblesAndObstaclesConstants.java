@@ -1,6 +1,6 @@
 package constants;
 
-public class CollctiblesAndObstaclesConstants {
+public class CollectiblesAndObstaclesConstants {
 
     public static final String FUEL_BOTTLE_STRING = "fuelBottle";
     public static final String HEALTH_STRING = "health";

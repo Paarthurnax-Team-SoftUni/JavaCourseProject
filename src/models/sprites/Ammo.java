@@ -1,6 +1,7 @@
 package models.sprites;
 
-import constants.*;
+import constants.GameplayConstants;
+import constants.ResourcesConstants;
 import javafx.scene.canvas.GraphicsContext;
 import models.Player;
 
