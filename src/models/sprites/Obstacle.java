@@ -101,7 +101,7 @@ public class Obstacle extends DestroyableSprite {
                 if (collectible.isImmortal()) {
                     player.addPoints(GameplayConstants.BONUS_POINTS_HIT_WITH_SHIELD * collectible.getBonusCoefficient());
                 } else if (!obstacle.isDestroyed()) {
-                    player.setHealthPoints(player.getHealthPoints() - GameplayConstants.OBSTACLE_DAMAGE);
+                    player.updateHealthPoints(player.getHealthPoints() - GameplayConstants.OBSTACLE_DAMAGE);
                 }
                 obstacle.handleImpactByCarPlayer(velocity);// Comment if you want flames to go around :) .
             }

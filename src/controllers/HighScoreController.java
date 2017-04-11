@@ -17,7 +17,9 @@ public class HighScoreController {
     public void initialize() {
         Predicate<Player> wantAllItems = player -> true;
         FilteredList<Player> filteredList = new FilteredList<Player>(PlayerData.getInstance().getPlayersList(), wantAllItems);
-        SortedList<Player> sortedList = new SortedList<Player>(filteredList, (o1, o2) -> o2.getHighScore().compareTo(o1.getHighScore()));
+        SortedList<Player> sortedList = new SortedList<Player>(filteredList, (o1, o2) ->
+                Long.compare(o2.getHighScore(),
+                o1.getHighScore()));
 
         highScoresListView.setItems(sortedList);
     }

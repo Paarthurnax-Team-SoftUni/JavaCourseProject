@@ -93,7 +93,7 @@ public class Collectible extends CollectibleSprite {
                                 CollectiblesAndObstaclesConstants.HEALTH_STRING,
                                 NotificationsConstants.HEALTH_NOTIFICATION_MESSAGE);
                         if (this.player.getHealthPoints() < GameplayConstants.HEALTH_BAR_MAX) {
-                            this.player.setHealthPoints(Math.min(this.player.getHealthPoints() + GameplayConstants.HEALTH_BONUS, GameplayConstants.HEALTH_BAR_MAX));
+                            this.player.updateHealthPoints(Math.min(this.player.getHealthPoints() + GameplayConstants.HEALTH_BONUS, GameplayConstants.HEALTH_BAR_MAX));
                         }
                         return CollectiblesAndObstaclesConstants.HEALTH_STRING;
 

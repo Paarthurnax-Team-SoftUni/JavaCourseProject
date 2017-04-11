@@ -111,7 +111,7 @@ public class RunTrack {
         String carImg = ResourcesConstants.CAR_IMAGES_PATH + this.carId + ImagesShortcutConstants.HALF_SIZE;
         this.playerCar.setImage(carImg);
         this.playerCar.updatePosition(200, 430);
-        this.player.setPoints(0L);
+        this.player.updatePoints(0L);
 
         this.currentHealth = new CurrentHealth(this.player);
         currentStats.addObserver(observer);

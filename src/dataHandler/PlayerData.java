@@ -109,11 +109,11 @@ public class PlayerData {
             while (results.next()) {
                 PlayerCar playerCar = new PlayerCar();
                 Player player = new Player(playerCar);
-                player.setId(results.getInt(SQLConstants.INDEX_COLUMN_ID));
-                player.setName(results.getString(SQLConstants.INDEX_COLUMN_NAME));
-                player.setHighScore(results.getLong(SQLConstants.INDEX_COLUMN_HIGHSCORE));
-                player.setMoney(results.getDouble(SQLConstants.INDEX_COLUMN_MONEY));
-                player.setHealthPoints(results.getInt(SQLConstants.INDEX_COLUMN_HEALTH));
+                player.updateId(results.getInt(SQLConstants.INDEX_COLUMN_ID));
+                player.updateName(results.getString(SQLConstants.INDEX_COLUMN_NAME));
+                player.updateHighScore(results.getLong(SQLConstants.INDEX_COLUMN_HIGHSCORE));
+                player.updateMoney(results.getDouble(SQLConstants.INDEX_COLUMN_MONEY));
+                player.updateHealthPoints(results.getInt(SQLConstants.INDEX_COLUMN_HEALTH));
                 this.playersList.add(player);
             }
 
@@ -151,7 +151,7 @@ public class PlayerData {
 
     public void updatePlayer(Player currentPlayer) {
         if (currentPlayer.getPoints() > currentPlayer.getHighScore()) {
-            currentPlayer.setHighScore(currentPlayer.getPoints());
+            currentPlayer.updateHighScore(currentPlayer.getPoints());
             try {
                 this.updatePlayer.setLong(1, currentPlayer.getHighScore());
                 this.updatePlayer.setString(2, currentPlayer.getName());
