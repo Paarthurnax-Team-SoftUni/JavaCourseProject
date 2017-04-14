@@ -1,4 +1,4 @@
-package mapHandlers.levels;
+package mapHandlers;
 
 import constants.MapConstants;
 import constants.ResourcesConstants;

@@ -3,6 +3,7 @@ package controllers;
 import constants.StylesConstants;
 import constants.ViewsConstants;
 import dataHandler.PlayerData;
+import interfaces.Track;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -12,9 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
-import mapHandlers.Track;
 import mapHandlers.TrackHandler;
-import mapHandlers.levels.TrackLevel;
 import stageHandler.StageManager;
 import stageHandler.StageManagerImpl;
 
@@ -34,9 +33,10 @@ public class ChooseLevelController {
     @FXML
     private ImageView locked2;
 
+
     public void initialize() throws IOException {
         showUnlockedLevelsOnly();
-        trackHandler = new TrackHandler();
+        this.trackHandler = new TrackHandler();
     }
 
     @FXML
@@ -47,14 +47,14 @@ public class ChooseLevelController {
 
         manager.loadSceneToStage(currentStage, ViewsConstants.GAME_PLAY_VIEW_PATH);
         AnchorPane root = manager.getRoot();
-        track.createBackground(root);
+        this.track.createBackground(root);
     }
 
     @FXML
     public void chooseLevel(MouseEvent ev) throws IOException {
         Node source = (Node) ev.getSource();
         int id = Integer.valueOf(source.getId().substring(5));
-        backgroundFill(id);
+        this.backgroundFill(id);
         this.startBtn.setVisible(true);
     }
 
@@ -78,18 +78,16 @@ public class ChooseLevelController {
 
     private void backgroundFill(int id) throws IOException {
         showUnlockedLevelsOnly();
-
         switch (id) {
             case 1:
                 this.backgroundBox1.setStyle(StylesConstants.RED_COLOUR);
                 this.backgroundBox1.toFront();
-                track = trackHandler.getLevel(TrackLevel.FIRST_LEVEL);
                 break;
             case 2:
                 this.backgroundBox2.setStyle(StylesConstants.RED_COLOUR);
                 this.backgroundBox2.toFront();
-                track = trackHandler.getLevel(TrackLevel.SECOND_LEVEL);
                 break;
         }
+        this.track = this.trackHandler.getLevel(id);
     }
 }
