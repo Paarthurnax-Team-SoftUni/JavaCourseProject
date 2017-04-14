@@ -18,8 +18,7 @@ public class DrawImageInCanvas {
      */
     private static void rotate(GraphicsContext gc, double angle, double px, double py) {
         // double angleInDeg = 360 / (2 * Math.PI) * angle;
-        double angleInDeg = angle;
-        Rotate r = new Rotate(angleInDeg, px, py);
+        Rotate r = new Rotate(angle, px, py);
         gc.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
     }
 

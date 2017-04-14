@@ -8,6 +8,10 @@ public class SQLConstants {
     public static final int INDEX_COLUMN_HIGHSCORE = 3;
     public static final int INDEX_COLUMN_MONEY = 4;
     public static final int INDEX_COLUMN_HEALTH = 5;
+    public static final int INDEX_COLUMN_NAME_TABLE_QUERY = 1;
+    public static final int INDEX_COLUMN_HIGHSCORE_TABLE_QUERY = 2;
+    public static final int INDEX_COLUMN_MONEY_TABLE_QUERY = 3;
+    public static final int INDEX_COLUMN_HEALTH_TABLE_QUERY = 4;
     private static final String TABLE_NAME = "players";
     public static final String QUERY_PLAYERS = "SELECT * FROM " + TABLE_NAME;
     private static final String COLUMN_ID = "_id";
@@ -41,5 +45,8 @@ public class SQLConstants {
         } else {
             return LINUX_CONNECTION_STRING;
         }
+    }
+
+    private SQLConstants() {
     }
 }

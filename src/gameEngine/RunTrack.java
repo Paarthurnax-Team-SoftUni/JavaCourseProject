@@ -165,9 +165,7 @@ public class RunTrack {
                     this.playerCar.render(gc);
                     try {
                         currentHealth.update();
-                    } catch (NoSuchFieldException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
+                    } catch (NoSuchFieldException | IllegalAccessException e) {
                         e.printStackTrace();
                     }
 

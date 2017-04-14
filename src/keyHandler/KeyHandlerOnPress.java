@@ -1,5 +1,7 @@
 package keyHandler;
 
+import constants.GameplayConstants;
+import constants.KeyHandlersConstants;
 import gameEngine.RunTrack;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
@@ -10,49 +12,50 @@ import music.MusicPlayer;
 
 public class KeyHandlerOnPress extends KeyHandler {
 
-    public KeyHandlerOnPress(Player p, int minLeftSide, int maxRightSide) {
-        super(p,minLeftSide,maxRightSide);
+    public KeyHandlerOnPress(Player player, int minLeftSide, int maxRightSide) {
+        super(player, minLeftSide, maxRightSide);
     }
 
     @Override
     public void handle(KeyEvent e) {
         KeyCode keyCode = e.getCode();
 
-        PlayerCar playerCar = this.player.getCar();
+        PlayerCar playerCar = super.getPlayer().getCar();
 
         if (!RunTrack.isPaused()) {
             RunTrack.getCheat().add(keyCode.getName());
             switch (keyCode.getName()) {
-                case "Up":
+                case KeyHandlersConstants.UP_STRING:
                     playerCar.accelerate();
                     playerCar.update();
                     break;
-                case "Down":
-                    if (RunTrack.getVelocity() > 5) {
-                        RunTrack.setVelocity(RunTrack.getVelocity() - 1);
+                case KeyHandlersConstants.DOWN_STRING:
+                    if (RunTrack.getVelocity() > GameplayConstants.START_GAME_VELOCITY) {
+                        RunTrack.setVelocity(RunTrack.getVelocity() - GameplayConstants.BRAKES_STRENGTH);
                     }
                     playerCar.setCenterWheel(false);
                     //player.addVelocity(0, 2);
                     playerCar.update();
                     break;
-                case "Left":
+                case KeyHandlersConstants.LEFT_STRING:
                     playerCar.turnLeft();
-                    playerCar.updateWithVelocityAdd(minLeftSide, maxRightSide);
+                    playerCar.updateWithVelocityAdd(super.getMinLeftSide(), super.getMaxRightSide());
                     break;
-                case "Right":
+                case KeyHandlersConstants.RIGHT_STRING :
                     playerCar.turnRight();
-                    playerCar.updateWithVelocityAdd(minLeftSide, maxRightSide);
+                    playerCar.updateWithVelocityAdd(super.getMinLeftSide(), super.getMaxRightSide());
                     break;
-                case "P":
+                case KeyHandlersConstants.PAUSE_STRING:
                     RunTrack.setIsPaused(true);
                     break;
-                case "M":
+                case KeyHandlersConstants.MUSIC_PLAYER_STRING:
                     MusicPlayer.getInstance().play();
                     break;
-                case "Q":
+                case KeyHandlersConstants.QUIT_STRING:
                     Platform.exit();
                     break;
-                case "S":
+                case KeyHandlersConstants.SHOOT_STRING
+                        :
                     playerCar.shoot();
                     break;
                 default:

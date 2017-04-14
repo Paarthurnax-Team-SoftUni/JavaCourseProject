@@ -29,13 +29,6 @@ public class CurrentStats extends Observable {
         return distance.get();
     }
 
-    private void setDistance(long distance) {
-        if (distance < 0) {
-            throw new IllegalArgumentException(ErrorsConstants.DISTANCE_EXCEPTION);
-        }
-        this.distance.set(distance);
-    }
-
     public LongProperty valueBullets() {
         return bullets;
     }
@@ -86,5 +79,12 @@ public class CurrentStats extends Observable {
             throw new IllegalArgumentException(ErrorsConstants.POINTS_EXCEPTION);
         }
         this.points.set(String.format(FormattingConstants.POINTS_FORMATTER, points));
+    }
+
+    private void setDistance(long distance) {
+        if (distance < 0) {
+            throw new IllegalArgumentException(ErrorsConstants.DISTANCE_EXCEPTION);
+        }
+        this.distance.set(distance);
     }
 }

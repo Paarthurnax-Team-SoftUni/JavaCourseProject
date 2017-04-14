@@ -31,7 +31,7 @@ public class CurrentHealth extends Observable{
             Field field = currentHealthClass.getDeclaredField("health" + i);
             ((ImageView) field.get(this)).setVisible(false);
         }
-        Field field = currentHealthClass.getDeclaredField("health" + (int)healthPoints/25);
+        Field field = currentHealthClass.getDeclaredField("health" + healthPoints/25);
         ((ImageView) field.get(this)).setVisible(true);
     }
 

@@ -1,6 +1,7 @@
 package dataHandler;
 
 import constants.DBErrorConstants;
+import constants.ErrorsConstants;
 import constants.SQLConstants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -85,7 +86,7 @@ public class PlayerData {
 
     private void setCurrentPlayer(Player currentPlayer) {
         if (currentPlayer == null) {
-            throw new IllegalArgumentException("Current PlayerImpl can not be null");
+            throw new IllegalArgumentException(ErrorsConstants.PLAYER_MESSAGE);
         }
         this.currentPlayer = currentPlayer;
     }
@@ -105,7 +106,7 @@ public class PlayerData {
     public ObservableList loadPlayersData() {
         this.playersList = FXCollections.observableArrayList();
         try {
-            ResultSet results = queryPlayers.executeQuery();
+            ResultSet results = this.queryPlayers.executeQuery();
             while (results.next()) {
                 PlayerCar playerCar = new PlayerCar();
                 Player player = new Player(playerCar);
@@ -118,16 +119,16 @@ public class PlayerData {
             }
 
         } catch (SQLException e) {
-            System.out.println("Query failed: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
         return this.playersList;
     }
 
     public void storePlayersData(Player player) throws SQLException {
-        this.insertPlayer.setString(1, player.getName());
-        this.insertPlayer.setLong(2, player.getPoints());
-        this.insertPlayer.setDouble(3, player.getMoney());
-        this.insertPlayer.setInt(4, player.getHealthPoints());
+        this.insertPlayer.setString(SQLConstants.INDEX_COLUMN_NAME_TABLE_QUERY, player.getName());
+        this.insertPlayer.setLong(SQLConstants.INDEX_COLUMN_HIGHSCORE_TABLE_QUERY, player.getPoints());
+        this.insertPlayer.setDouble(SQLConstants.INDEX_COLUMN_MONEY_TABLE_QUERY, player.getMoney());
+        this.insertPlayer.setInt(SQLConstants.INDEX_COLUMN_HEALTH_TABLE_QUERY, player.getHealthPoints());
         this.insertPlayer.executeUpdate();
     }
 
@@ -153,8 +154,8 @@ public class PlayerData {
         if (currentPlayer.getPoints() > currentPlayer.getHighScore()) {
             currentPlayer.updateHighScore(currentPlayer.getPoints());
             try {
-                this.updatePlayer.setLong(1, currentPlayer.getHighScore());
-                this.updatePlayer.setString(2, currentPlayer.getName());
+                this.updatePlayer.setLong(SQLConstants.INDEX_COLUMN_NAME_TABLE_QUERY, currentPlayer.getHighScore());
+                this.updatePlayer.setString(SQLConstants.INDEX_COLUMN_HIGHSCORE_TABLE_QUERY, currentPlayer.getName());
                 this.updatePlayer.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();

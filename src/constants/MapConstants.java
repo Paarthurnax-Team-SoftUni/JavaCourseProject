@@ -8,4 +8,7 @@ public class MapConstants {
     public static final int SECOND_LEVEL_DRUNK_DRIVERS = 60;
     public static final int SECOND_LEVEL_MIN_X = 50;
     public static final int SECOND_LEVEL_MAX_X = 400;
+
+    private MapConstants() {
+    }
 }

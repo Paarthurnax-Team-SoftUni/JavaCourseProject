@@ -45,4 +45,7 @@ public class CollectiblesAndObstaclesConstants {
             "cars/player_car4_half_size",
             "cars/player_car5_half_size",
             "cars/player_car6_half_size"};
+
+    private CollectiblesAndObstaclesConstants() {
+    }
 }

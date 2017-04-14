@@ -28,7 +28,7 @@ public class LoginController {
         Stage currentStage = (Stage) this.loginBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
 
-        String name = playerName.getText().trim();
+        String name = this.playerName.getText().trim();
 
         if ("".equals(name)) {
             DialogBox.loadErrorBox();

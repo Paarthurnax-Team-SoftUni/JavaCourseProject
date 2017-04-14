@@ -1,5 +1,6 @@
 package gameEngine;
 
+import constants.GameplayConstants;
 import constants.GeneralConstants;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -45,21 +46,21 @@ public class PauseHandler {
                     Duration.seconds(GeneralConstants.FRAMES_PER_SECOND),
                     event -> {
                         if (!RunTrack.isPaused()) {
-                            gameLoop.play();
+                            this.gameLoop.play();
                             MusicPlayer.getInstance().startStopPause();
                             pauseloop.stop();
                         }
 
-                        gc.clearRect(0, 0, GeneralConstants.CANVAS_WIDTH, GeneralConstants.CANVAS_HEIGHT);
-                        gc.drawImage(background, 0, y);
-                        gc.drawImage(background, 0, y - GeneralConstants.CANVAS_HEIGHT);
-                        this.player.getCar().render(gc);
+                        this.gc.clearRect(GameplayConstants.CANVAS_BEGINNING, GameplayConstants.CANVAS_BEGINNING, GeneralConstants.CANVAS_WIDTH, GeneralConstants.CANVAS_HEIGHT);
+                        this.gc.drawImage(this.background, GameplayConstants.CANVAS_BEGINNING, y);
+                        this.gc.drawImage(this.background, GameplayConstants.CANVAS_BEGINNING, y - GeneralConstants.CANVAS_HEIGHT);
+                        this.player.getCar().render(this.gc);
 
                         for (Collectible collectible : collectibles) {
-                            collectible.render(gc);
+                            collectible.render(this.gc);
                         }
-                        for (Obstacle obs : testObstacles) {
-                            obs.render(gc);
+                        for (Obstacle obs : this.testObstacles) {
+                            obs.render(this.gc);
                         }
                     });
             pauseloop.getKeyFrames().add(keyFramePause);

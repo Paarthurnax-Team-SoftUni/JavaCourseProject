@@ -1,5 +1,6 @@
 package keyHandler;
 
+import constants.KeyHandlersConstants;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import models.Player;
@@ -7,24 +8,24 @@ import models.sprites.PlayerCar;
 
 public class KeyHandlerOnRelease extends KeyHandler {
 
-    public KeyHandlerOnRelease(Player p, int minLeftSide, int maxRightSide) {
-        super(p,minLeftSide,maxRightSide);
+    public KeyHandlerOnRelease(Player player, int minLeftSide, int maxRightSide) {
+        super(player, minLeftSide, maxRightSide);
     }
 
     @Override
     public void handle(KeyEvent e) {
         KeyCode keyCode = e.getCode();
 
-        PlayerCar playerCar = this.player.getCar();
+        PlayerCar playerCar = super.getPlayer().getCar();
 
         switch (keyCode.getName()) {
-            case "Up":
+            case KeyHandlersConstants.UP_STRING:
                 playerCar.stopAccelerate();
                 break;
-            case "Left":
-            case "Right":
+            case KeyHandlersConstants.LEFT_STRING:
+            case KeyHandlersConstants.RIGHT_STRING:
                 playerCar.goCenter();
-                playerCar.updateWithVelocityAdd(minLeftSide, maxRightSide);
+                playerCar.updateWithVelocityAdd(super.getMinLeftSide(), super.getMaxRightSide());
                 break;
         }
     }

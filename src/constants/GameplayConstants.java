@@ -41,4 +41,8 @@ public class GameplayConstants {
     public static final int INITIAL_BULLETS_COUNTS = 1;
     public static final int TURN_UPDATE_DEGREES = 4;
     public static final int MAX_ACCELERATION_VELOCITY = 20;
+    public static final float BRAKES_STRENGTH = 1;
+
+    private GameplayConstants() {
+    }
 }

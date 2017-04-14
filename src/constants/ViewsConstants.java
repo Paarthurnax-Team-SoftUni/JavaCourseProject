@@ -1,6 +1,6 @@
 package constants;
 
-public class ViewsConstants extends GeneralConstants {
+public class ViewsConstants {
 
     public static final String LOGIN_VIEW_PATH = "/views/login.fxml";
     public static final String START_FXML_PATH = "/views/start.fxml";
@@ -11,4 +11,6 @@ public class ViewsConstants extends GeneralConstants {
     public static final String GAME_WIN_VIEW_PATH = "/views/gameWin.fxml";
     public static final String HIGH_SCORES_DIALOG = "/views/highScores.fxml";
 
+    private ViewsConstants() {
+    }
 }

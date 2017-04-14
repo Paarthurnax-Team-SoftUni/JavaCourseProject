@@ -8,4 +8,7 @@ public class LoginStringConstants {
     public static final String LOGIN_USER_TITLE = "Login with this username";
     public static final String LOGIN_USER_HEADER = "Login as user: ";
     public static final String LOGIN_USER_CONTENT = "Are you sure? Press OK to continue.";
+
+    private LoginStringConstants() {
+    }
 }
