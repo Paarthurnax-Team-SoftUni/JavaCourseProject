@@ -13,14 +13,14 @@ public class EnemyCar extends Obstacle {
                 super.updateVelocityX(x);
             }
             if (super.getPositionX() < EnemyCarConstants.X_AXIS_LEFT_BOUND_BUFFER) {
-                super.setTurnLeft(false);
+                super.setTurningLeft(false);
             }
         } else if (x > 0) {
             if (super.getPositionX() < EnemyCarConstants.X_AXIS_RIGHT_BOUND ) {
                 super.updateVelocityX(x);
             }
             if (super.getPositionX() > EnemyCarConstants.X_AXIS_RIGHT_BOUND_BUFFER) {
-                super.setTurnRight(false);
+                super.setTurningRight(false);
             }
         }
 

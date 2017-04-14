@@ -83,11 +83,11 @@ public class Obstacle extends DestroyableSprite {
 
                 if (obstacle.getIsDrunk() && new Random().nextInt(100) > 90) {
                     if (new Random().nextInt(2) == 0) {
-                        obstacle.setTurnLeft(true);
-                        obstacle.setTurnRight(false);
+                        obstacle.setTurningLeft(true);
+                        obstacle.setTurningRight(false);
                     } else {
-                        obstacle.setTurnRight(true);
-                        obstacle.setTurnLeft(false);
+                        obstacle.setTurningRight(true);
+                        obstacle.setTurningLeft(false);
                     }
                 }
             } else {

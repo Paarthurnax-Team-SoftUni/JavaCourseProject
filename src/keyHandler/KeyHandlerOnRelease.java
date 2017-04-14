@@ -1,20 +1,14 @@
 package keyHandler;
 
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import models.Player;
 import models.sprites.PlayerCar;
 
-public class KeyHandlerOnRelease implements EventHandler<KeyEvent> {
-    private Player player;
-    private int minLeftSide;
-    private int maxRightSide;
+public class KeyHandlerOnRelease extends KeyHandler {
 
     public KeyHandlerOnRelease(Player p, int minLeftSide, int maxRightSide) {
-        this.player = p;
-        this.minLeftSide = minLeftSide;
-        this.maxRightSide = maxRightSide;
+        super(p,minLeftSide,maxRightSide);
     }
 
     @Override
@@ -28,14 +22,9 @@ public class KeyHandlerOnRelease implements EventHandler<KeyEvent> {
                 playerCar.stopAccelerate();
                 break;
             case "Left":
-                playerCar.setTurnLeft(false);
-                playerCar.setCenterWheel(true);
-                playerCar.update(minLeftSide, maxRightSide);
-                break;
             case "Right":
-                playerCar.setTurnRight(false);
-                playerCar.setCenterWheel(true);
-                playerCar.update(minLeftSide, maxRightSide);
+                playerCar.goCenter();
+                playerCar.updateWithVelocityAdd(minLeftSide, maxRightSide);
                 break;
         }
     }

@@ -2,22 +2,16 @@ package keyHandler;
 
 import gameEngine.RunTrack;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import models.Player;
 import models.sprites.PlayerCar;
 import music.MusicPlayer;
 
-public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
-    private Player player;
-    private int minLeftSide;
-    private int maxRightSide;
+public class KeyHandlerOnPress extends KeyHandler {
 
     public KeyHandlerOnPress(Player p, int minLeftSide, int maxRightSide) {
-        this.player = p;
-        this.minLeftSide = minLeftSide;
-        this.maxRightSide = maxRightSide;
+        super(p,minLeftSide,maxRightSide);
     }
 
     @Override
@@ -42,17 +36,12 @@ public class KeyHandlerOnPress implements EventHandler<KeyEvent> {
                     playerCar.update();
                     break;
                 case "Left":
-                    playerCar.setCenterWheel(false);
-                    playerCar.setTurnLeft(true);
-                    // player.addVelocity(-player.getWidth() * 0.66667, 0);
-                    playerCar.update(minLeftSide, maxRightSide);
+                    playerCar.turnLeft();
+                    playerCar.updateWithVelocityAdd(minLeftSide, maxRightSide);
                     break;
                 case "Right":
-                    playerCar.setCenterWheel(false);
-                    playerCar.setTurnRight(true);
-                    //player.setAngle(player.getAngle() + 15);
-                    // player.addVelocity(player.getWidth() * 0.66667, 0);
-                    playerCar.update(minLeftSide, maxRightSide);
+                    playerCar.turnRight();
+                    playerCar.updateWithVelocityAdd(minLeftSide, maxRightSide);
                     break;
                 case "P":
                     RunTrack.setIsPaused(true);

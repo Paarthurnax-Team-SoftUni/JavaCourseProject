@@ -3,12 +3,12 @@ package models.sprites;
 import constants.CarConstants;
 import constants.GameplayConstants;
 import gameEngine.RunTrack;
+import interfaces.Rotatable;
 import interfaces.Shootable;
 
-public class PlayerCar extends Sprite implements Shootable {
+public class PlayerCar extends DestroyableSprite implements Shootable {
     private int ammunition;
     private boolean accelerating;
-    private boolean centerWheel;
 
     public PlayerCar() {
         this.ammunition = GameplayConstants.START_GAME_BULLETS;
@@ -20,10 +20,6 @@ public class PlayerCar extends Sprite implements Shootable {
 
     public void setAmmunition(int ammunition) {
         this.ammunition = ammunition;
-    }
-
-    public void setCenterWheel(boolean isCentered) {
-        this.centerWheel = isCentered;
     }
 
     public void accelerate() {
@@ -44,12 +40,11 @@ public class PlayerCar extends Sprite implements Shootable {
 
     @Override
     public void update() {
-        if (this.centerWheel) {
+        if (this.isCenterWheel()) {
             if (this.getAngle() < 0) {
                 this.setAngle(this.getAngle() + GameplayConstants.START_GAME_VELOCITY);
             } else if (this.getAngle() > 0)
                 this.setAngle(this.getAngle() - GameplayConstants.START_GAME_VELOCITY);
-            else this.centerWheel = false;
         }
         if (this.accelerating) {
             this.addVelocity(0, -GameplayConstants.IMAGE_HEIGHT_OFFSET);
@@ -62,7 +57,8 @@ public class PlayerCar extends Sprite implements Shootable {
                 RunTrack.setVelocity((float) (RunTrack.getVelocity() - 0.1));
             }
         }
-
         super.update();
     }
+
+
 }

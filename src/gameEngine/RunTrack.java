@@ -134,7 +134,7 @@ public class RunTrack {
                     time++;
                     frame++;
 
-                    //update immortality status if its activated
+                    //updateWithVelocityAdd immortality status if its activated
                     collectible.updateStatus();
 
                     currentStats.updateTime((long) (time * currentFramesPerSecond));

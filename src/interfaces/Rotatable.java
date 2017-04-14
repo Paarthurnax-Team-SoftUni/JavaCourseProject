@@ -2,5 +2,7 @@ package interfaces;
 
 public interface Rotatable {
 
-    void drawRotatedImage();
+    void turnLeft();
+    void turnRight();
+    void goCenter();
 }

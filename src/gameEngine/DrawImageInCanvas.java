@@ -7,7 +7,7 @@ import javafx.scene.transform.Rotate;
 /**
  * Rotates images round pivot points and places them in a canvas
  */
-public class RotatedImageInCanvas {
+public class DrawImageInCanvas {
     /**
      * Sets the transform for the GraphicsContext to rotate around a pivot point.
      *
@@ -34,10 +34,15 @@ public class RotatedImageInCanvas {
      * @param tlpx  the top left x co-ordinate where the image will be plotted (in canvas co-ordinates).
      * @param tlpy  the top left y co-ordinate where the image will be plotted (in canvas co-ordinates).
      */
-    public static void drawRotatedImage(GraphicsContext gc, Image image, double angle, double tlpx, double tlpy) {
+    public static void drawImage(GraphicsContext gc, Image image, double angle, double tlpx, double tlpy) {
         gc.save(); // saves the current state on stack, including the current transform
         rotate(gc, angle, tlpx + image.getWidth() / 2, tlpy + image.getHeight() / 2);
-        gc.drawImage(image, tlpx, tlpy);
+        drawImage(gc, image, tlpx, tlpy);
         gc.restore(); // back to original state (before rotation)
     }
+
+    public static void drawImage(GraphicsContext gc, Image image, double tlpx, double tlpy) {
+        gc.drawImage(image, tlpx, tlpy);
+    }
+
 }
