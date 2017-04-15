@@ -1,7 +1,7 @@
 package mapHandlers;
 
-import constants.MapConstants;
-import constants.ResourcesConstants;
+import utils.constants.MapConstants;
+import utils.constants.ResourcesConstants;
 
 public enum TrackLevel {
     FIRST_LEVEL(MapConstants.FIRST_LEVEL_DRUNK_DRIVERS,

@@ -1,4 +1,4 @@
-package constants;
+package utils.constants;
 
 public class EnemyCarConstants {
     public static final int X_AXIS_LEFT_BOUND = 50;

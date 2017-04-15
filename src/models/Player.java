@@ -1,7 +1,7 @@
 package models;
 
-import constants.ErrorsConstants;
-import constants.GameplayConstants;
+import utils.constants.ErrorsConstants;
+import utils.constants.GameplayConstants;
 import models.sprites.PlayerCar;
 
 public class Player {
@@ -136,6 +136,7 @@ public class Player {
 
     public void updateStatsAtEnd() {
         this.setHealthPoints(GameplayConstants.HEALTH_BAR_MAX);
+        this.car.setAmmunition(GameplayConstants.START_GAME_BULLETS);
         this.car.stopAccelerate();
         this.car.setCenterWheel(true);
         this.car.removeWind();

@@ -1,6 +1,6 @@
 package controllers;
 
-import constants.ViewsConstants;
+import utils.constants.ViewsConstants;
 import dataHandler.PlayerData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,9 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Player;
 import models.sprites.PlayerCar;
-import stageHandler.DialogBox;
-import stageHandler.StageManager;
-import stageHandler.StageManagerImpl;
+import utils.stages.DialogBox;
+import utils.stages.StageManager;
+import utils.stages.StageManagerImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -34,7 +34,6 @@ public class LoginController {
             DialogBox.loadErrorBox();
         } else if (!PlayerData.getInstance().checkForPlayer(name)) {
             boolean result = DialogBox.loadConfirmBox(name);
-
             if (result) {
                 PlayerData.getInstance().registerPlayer(PlayerData.getInstance().returnPlayer(name));
 
@@ -42,7 +41,6 @@ public class LoginController {
             }
         } else {
             boolean result = DialogBox.loadConfirmBox(name);
-
             if (result) {
                 PlayerCar playerCar = new PlayerCar();
                 Player player = new Player(playerCar, name, 0L, 0.0, 100);

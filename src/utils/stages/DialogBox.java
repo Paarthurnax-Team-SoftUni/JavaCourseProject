@@ -1,6 +1,6 @@
-package stageHandler;
+package utils.stages;
 
-import constants.LoginStringConstants;
+import utils.constants.LoginStringConstants;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

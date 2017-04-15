@@ -1,7 +1,7 @@
-package stageHandler;
+package utils.stages;
 
-import constants.GeneralConstants;
-import constants.ResourcesConstants;
+import utils.constants.GeneralConstants;
+import utils.constants.ResourcesConstants;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;

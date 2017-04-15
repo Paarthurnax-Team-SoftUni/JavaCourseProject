@@ -1,4 +1,4 @@
-package constants;
+package utils.constants;
 
 public class GameplayConstants {
 

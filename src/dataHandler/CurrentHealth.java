@@ -14,8 +14,8 @@ public class CurrentHealth extends Observable{
     private static ImageView health1;
     private Player player;
 
-    public CurrentHealth(Player p) {
-        this.player = p;
+    public CurrentHealth(Player player) {
+        this.player = player;
     }
 
     public CurrentHealth(ImageView health_100, ImageView health_75, ImageView health_50, ImageView health_25) {
@@ -25,7 +25,7 @@ public class CurrentHealth extends Observable{
         health1 = health_25;
     }
 
-    private void printHealthBar(Integer healthPoints) throws NoSuchFieldException, IllegalAccessException {
+    private void printHealthBar(int healthPoints) throws NoSuchFieldException, IllegalAccessException {
         Class<CurrentHealth> currentHealthClass = CurrentHealth.class;
         for (int i = 1; i <= 4; i++) {
             Field field = currentHealthClass.getDeclaredField("health" + i);

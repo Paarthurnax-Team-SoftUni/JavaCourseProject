@@ -1,15 +1,14 @@
 package models.sprites;
 
-import constants.ErrorsConstants;
-import constants.GameplayConstants;
-import constants.GeneralConstants;
+import utils.constants.ErrorsConstants;
+import utils.constants.GameplayConstants;
+import utils.constants.GeneralConstants;
 import gameEngine.DrawImageInCanvas;
-import gameEngine.RunTrack;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public abstract class Sprite  {
+public abstract class Sprite {
     private String name;
     private Image image;
     private double positionX;
@@ -36,11 +35,6 @@ public abstract class Sprite  {
         this.setVelocityX(x);
         this.setVelocityY(y);
     }
-
-    public Rectangle2D getBoundary() {
-        return new Rectangle2D(this.positionX, this.positionY, this.imageWidth, this.imageHeight);
-    }
-
 
     public void update() {
         this.positionX += this.velocityX;
@@ -75,16 +69,12 @@ public abstract class Sprite  {
         }
     }
 
-
+    public final String getName() {
+        return this.name;
+    }
 
     public void updateName(String name) {
         this.setName(name);
-    }
-
-
-
-    public final String getName() {
-        return this.name;
     }
 
     public final Image getImage() {
@@ -113,10 +103,10 @@ public abstract class Sprite  {
         this.setVelocityX(velocityX);
     }
 
-
     public void updateVelocityY(double velocityY) {
         this.setVelocityY(velocityY);
     }
+
     protected final double getPositionX() {
         return this.positionX;
     }
@@ -147,7 +137,6 @@ public abstract class Sprite  {
         this.velocityX = velocityX;
     }
 
-
     private void setName(String name) {
         if(name == null) {
             throw new IllegalArgumentException(ErrorsConstants.NAME_EXCEPTION);
@@ -155,5 +144,7 @@ public abstract class Sprite  {
         this.name = name;
     }
 
-
+    private Rectangle2D getBoundary() {
+        return new Rectangle2D(this.positionX, this.positionY, this.imageWidth, this.imageHeight);
+    }
 }

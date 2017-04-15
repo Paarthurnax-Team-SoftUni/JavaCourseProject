@@ -1,14 +1,14 @@
 package main;
 
-import constants.DBErrorConstants;
-import constants.ViewsConstants;
+import utils.constants.DBErrorConstants;
+import utils.constants.ViewsConstants;
 import dataHandler.PlayerData;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import stageHandler.StageManager;
-import stageHandler.StageManagerImpl;
+import utils.stages.StageManager;
+import utils.stages.StageManagerImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;

@@ -1,9 +1,9 @@
 package models.sprites;
 
-import constants.*;
+import utils.constants.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-import models.Notification;
+import utils.notifications.Notification;
 import models.Player;
 
 import java.util.ArrayList;
@@ -12,16 +12,15 @@ import java.util.Random;
 
 public class Collectible extends CollectibleSprite {
 
-    private int bonusCoefficient;
     private Player player;
     private ArrayList<Collectible> collectibles;
+    private int bonusCoefficient;
     private boolean isImmortal;
     private boolean isDoublePtsOn;
     private double immortalityTimer;
     private double doublePtsTimer;
 
-    public Collectible() {
-    }
+    public Collectible() {}
 
     public Collectible(Player player) {
         this.bonusCoefficient = GameplayConstants.INITIAL_BULLETS_COUNTS;
@@ -29,7 +28,32 @@ public class Collectible extends CollectibleSprite {
         this.collectibles = new ArrayList<>();
     }
 
-    public static Collectible generateCollectible(int minLeftSide, int maxRightSide) {
+    public void addCollectible(Collectible collectible) {
+        this.collectibles.add(collectible);
+    }
+
+    public List<Collectible> getCollectibles() {
+        return this.collectibles;
+    }
+
+    public final int getBonusCoefficient() {
+        return this.bonusCoefficient;
+    }
+
+    public void updateStatus() {
+        if (this.isImmortal) {
+            this.updateImmortalityStatus();
+        }
+        if (this.isDoublePtsOn) {
+            this.updateDoublePointsStatus();
+        }
+    }
+
+    public final boolean isImmortal() {
+        return this.isImmortal;
+    }
+
+    public Collectible generateCollectible(int minLeftSide, int maxRightSide) {
 
         String[] collectibles = CollectiblesAndObstaclesConstants.COLLECTIBLE_LIST_SMALL;
         String random = collectibles[new Random().nextInt(collectibles.length)];
@@ -45,32 +69,8 @@ public class Collectible extends CollectibleSprite {
         return collectible;
     }
 
-    public final int getBonusCoefficient() {
-        return this.bonusCoefficient;
-    }
-
-    public void updateStatus() {
-        if (isImmortal) {
-            this.updateImmortalityStatus();
-        }
-        if (isDoublePtsOn) {
-            this.updateDoublePointsStatus();
-        }
-    }
-
-    public final boolean isImmortal() {
-        return this.isImmortal;
-    }
-
-    public List<Collectible> getCollectibles() {
-        return this.collectibles;
-    }
-
-    public void addCollectible(Collectible collectible) {
-        this.collectibles.add(collectible);
-    }
-
-    public String visualizeCollectible(GraphicsContext gc, double velocity, Stage currentStage) {
+    public String visualizeCollectible(GraphicsContext gc, double velocity) {
+        Stage currentStage = (Stage) gc.getCanvas().getScene().getWindow();
         for (Collectible collectible : this.collectibles) {
             collectible.setVelocity(0, velocity);
             collectible.update();

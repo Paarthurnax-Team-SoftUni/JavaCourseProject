@@ -1,11 +1,12 @@
-package models;
+package utils.notifications;
 
-import constants.StylesConstants;
+import utils.constants.StylesConstants;
 import javafx.scene.control.Label;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class Notification {
+
     private static Popup popup = new Popup();
 
     private static Popup createPopup(final String type, final String message) {

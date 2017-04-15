@@ -1,6 +1,6 @@
 package models.sprites;
 
-import constants.*;
+import utils.constants.*;
 import javafx.scene.canvas.GraphicsContext;
 import models.Player;
 
@@ -12,8 +12,6 @@ public class Obstacle extends DestroyableSprite {
 
     private boolean isDrunk;
     private List<Obstacle> obstacles;
-
-
 
     public Obstacle() {
         this.obstacles = new ArrayList<>();
@@ -36,52 +34,27 @@ public class Obstacle extends DestroyableSprite {
         Random obstacleX = new Random();
         Obstacle obstacle = new Obstacle();
 
-        if (random.contains(CarConstants.CAR_STRING)) {
+        if (random.contains(CarConstants.CAR_STRING) && new Random().nextInt(100) > drunkDrivers) {
             obstacle = new EnemyCar();
-
-            if (new Random().nextInt(100) > drunkDrivers) {
-                obstacle.setIsDrunk(true);
-                obstacle.updatePosition(obstacleX.nextInt((maxRightSide - GameplayConstants.OBSTACLES_BOUNDS) - (minLeftSide + GameplayConstants.OBSTACLES_BOUNDS)) + minLeftSide + GameplayConstants.OBSTACLES_BOUNDS, GameplayConstants.OBSTACLE_ANIMATION_Y_OFFSET);
-            } else {
-                obstacle.updatePosition(obstacleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants.OBSTACLE_ANIMATION_Y_OFFSET);
-            }
-
-        } else {
-            obstacle.updatePosition(obstacleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants.OBSTACLE_ANIMATION_Y_OFFSET);
+            obstacle.setIsDrunk(true);
+            obstacle.updatePosition(obstacleX.nextInt((maxRightSide - GameplayConstants.OBSTACLES_BOUNDS) - (minLeftSide + GameplayConstants.OBSTACLES_BOUNDS)) + minLeftSide + GameplayConstants.OBSTACLES_BOUNDS, GameplayConstants.OBSTACLE_ANIMATION_Y_OFFSET);
         }
 
+        obstacle.updatePosition(obstacleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants.OBSTACLE_ANIMATION_Y_OFFSET);
         obstacle.setImage(image);
         obstacle.updateName(random);
 
         return obstacle;
     }
 
-    public void handleImpactByAmmo(Player player) {
-        player.addPoints(GameplayConstants.DESTROYED_OBJECT_BONUS);
-        this.setDestroyed(true);
-        this.setIsDrunk(false);
-        this.removeWind();
-    }
-
-    public void handleImpactByCarPlayer(double velocity) {
-        this.setDestroyed(true);
-        this.setIsDrunk(false);
-        this.removeWind();
-
-        if (this.getObstacleType().contains(ImagesShortcutConstants.PLAYER_CAR)) {
-            this.setVelocity(0, velocity);
-        }
-    }
-
-    public void manageObstacles(GraphicsContext gc, Collectible collectible, Player player, List<Obstacle> obstacles, double velocity) {
-        for (Obstacle obstacle : obstacles) {
+    public void visualizeObstacles(GraphicsContext gc, double velocity, Collectible collectible, Player player) {
+        for (Obstacle obstacle : this.obstacles) {
             String obstacleType = obstacle.getObstacleType();
 
             if (obstacleType.contains(ImagesShortcutConstants.PLAYER_CAR) && !obstacle.isDestroyed()) {
-
                 obstacle.setVelocity(0, velocity / 3);
 
-                if (obstacle.getIsDrunk() && new Random().nextInt(100) > 90) {
+                if (obstacle.isDrunk && new Random().nextInt(100) > 90) {
                     if (new Random().nextInt(2) == 0) {
                         obstacle.setTurningLeft(true);
                         obstacle.setTurningRight(false);
@@ -103,8 +76,25 @@ public class Obstacle extends DestroyableSprite {
                 } else if (!obstacle.isDestroyed()) {
                     player.updateHealthPoints(player.getHealthPoints() - GameplayConstants.OBSTACLE_DAMAGE);
                 }
-                obstacle.handleImpactByCarPlayer(velocity);// Comment if you want flames to go around :) .
+                obstacle.handleImpactByCarPlayer(velocity);
             }
+        }
+    }
+
+    public void handleImpactByAmmo(Player player) {
+        player.addPoints(GameplayConstants.DESTROYED_OBJECT_BONUS);
+        this.setDestroyed(true);
+        this.setIsDrunk(false);
+        this.removeWind();
+    }
+
+    public void handleImpactByCarPlayer(double velocity) {
+        this.setDestroyed(true);
+        this.setIsDrunk(false);
+        this.removeWind();
+
+        if (this.getObstacleType().contains(ImagesShortcutConstants.PLAYER_CAR)) {
+            this.setVelocity(0, velocity);
         }
     }
 
@@ -113,10 +103,6 @@ public class Obstacle extends DestroyableSprite {
         this.setImage(ResourcesConstants.FLAME_PATH_SMALL);
         this.setVelocity(0, 0);
         super.setDestroyed(isDestroyed);
-    }
-
-    private boolean getIsDrunk() {
-        return this.isDrunk;
     }
 
     private void setIsDrunk(boolean isDrunk) {

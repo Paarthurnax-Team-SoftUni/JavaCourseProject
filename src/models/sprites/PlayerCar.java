@@ -1,12 +1,12 @@
 package models.sprites;
 
-import constants.CarConstants;
-import constants.GameplayConstants;
+import utils.constants.CarConstants;
+import utils.constants.GameplayConstants;
 import gameEngine.RunTrack;
-import interfaces.Rotatable;
 import interfaces.Shootable;
 
 public class PlayerCar extends DestroyableSprite implements Shootable {
+
     private int ammunition;
     private boolean accelerating;
 
@@ -32,9 +32,9 @@ public class PlayerCar extends DestroyableSprite implements Shootable {
 
     @Override
     public void shoot() {
-        if (getAmmunition() > 0) {
-            setAmmunition(getAmmunition() - 1);
+        if (this.getAmmunition() > 0) {
             RunTrack.setShoot(true);
+            this.ammunition--;
         }
     }
 
@@ -49,7 +49,7 @@ public class PlayerCar extends DestroyableSprite implements Shootable {
         if (this.accelerating) {
             this.addVelocity(0, -GameplayConstants.IMAGE_HEIGHT_OFFSET);
             if (RunTrack.getVelocity() < GameplayConstants.MAX_ACCELERATION_VELOCITY) {
-                RunTrack.setVelocity((float) (RunTrack.getVelocity() + CarConstants.PLAYER_CAR_ACCELERATION_OFFSET));
+                RunTrack.setVelocity(RunTrack.getVelocity() + CarConstants.PLAYER_CAR_ACCELERATION_OFFSET);
             }
         } else {
             this.addVelocity(0, 1);
@@ -59,6 +59,4 @@ public class PlayerCar extends DestroyableSprite implements Shootable {
         }
         super.update();
     }
-
-
 }
