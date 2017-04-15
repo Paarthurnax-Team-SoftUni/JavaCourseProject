@@ -6,23 +6,18 @@ import javafx.scene.canvas.GraphicsContext;
 import models.Player;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Ammo extends CollectibleSprite {
 
-    private List<Ammo> ammunition;
+    private List<Ammo> ammunitions;
 
     public Ammo() {
-        this.ammunition = new ArrayList<>();
+        this.ammunitions = new ArrayList<>();
     }
 
     public void addAmmo(Ammo ammo) {
-        this.ammunition.add(ammo);
-    }
-
-    public List<Ammo> getAmmunition() {
-        return Collections.unmodifiableList(this.ammunition);
+        this.ammunitions.add(ammo);
     }
 
     public Ammo generateAmmo(Player player) {
@@ -32,8 +27,8 @@ public class Ammo extends CollectibleSprite {
         return ammo;
     }
 
-    public void visualizeAmmo(GraphicsContext gc, List<Obstacle> obstacles, List<Ammo> ammunition, Player player) {
-        for (Ammo ammo : ammunition) {
+    public void visualizeAmmo(GraphicsContext gc, List<Obstacle> obstacles, Player player) {
+        for (Ammo ammo : this.ammunitions) {
             ammo.setVelocity(0, -GameplayConstants.BULLET_SPEED);
             ammo.update();
             ammo.render(gc);

@@ -12,9 +12,9 @@ import java.util.Random;
 
 public class Collectible extends CollectibleSprite {
 
-    private int bonusCoefficient;
     private Player player;
     private ArrayList<Collectible> collectibles;
+    private int bonusCoefficient;
     private boolean isImmortal;
     private boolean isDoublePtsOn;
     private double immortalityTimer;
@@ -54,7 +54,7 @@ public class Collectible extends CollectibleSprite {
         return this.isImmortal;
     }
 
-    public static Collectible generateCollectible(int minLeftSide, int maxRightSide) {
+    public Collectible generateCollectible(int minLeftSide, int maxRightSide) {
 
         String[] collectibles = CollectiblesAndObstaclesConstants.COLLECTIBLE_LIST_SMALL;
         String random = collectibles[new Random().nextInt(collectibles.length)];
@@ -70,7 +70,8 @@ public class Collectible extends CollectibleSprite {
         return collectible;
     }
 
-    public String visualizeCollectible(GraphicsContext gc, double velocity, Stage currentStage) {
+    public String visualizeCollectible(GraphicsContext gc, double velocity) {
+        Stage currentStage = (Stage) gc.getCanvas().getScene().getWindow();
         for (Collectible collectible : this.collectibles) {
             collectible.setVelocity(0, velocity);
             collectible.update();

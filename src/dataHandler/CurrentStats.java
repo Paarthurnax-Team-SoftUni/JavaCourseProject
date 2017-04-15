@@ -30,19 +30,19 @@ public class CurrentStats extends Observable {
     }
 
     public LongProperty valueBullets() {
-        return bullets;
+        return this.bullets;
     }
 
     public StringProperty valuePoints() {
-        return points;
+        return this.points;
     }
 
     public LongProperty valueDistance() {
-        return distance;
+        return this.distance;
     }
 
     public StringProperty valueTime() {
-        return time;
+        return this.time;
     }
 
     public void updateDistance(long distance) {

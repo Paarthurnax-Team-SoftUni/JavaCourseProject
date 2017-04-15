@@ -34,7 +34,6 @@ public class LoginController {
             DialogBox.loadErrorBox();
         } else if (!PlayerData.getInstance().checkForPlayer(name)) {
             boolean result = DialogBox.loadConfirmBox(name);
-
             if (result) {
                 PlayerData.getInstance().registerPlayer(PlayerData.getInstance().returnPlayer(name));
 
@@ -42,7 +41,6 @@ public class LoginController {
             }
         } else {
             boolean result = DialogBox.loadConfirmBox(name);
-
             if (result) {
                 PlayerCar playerCar = new PlayerCar();
                 Player player = new Player(playerCar, name, 0L, 0.0, 100);

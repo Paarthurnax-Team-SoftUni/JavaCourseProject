@@ -71,8 +71,8 @@ public class Obstacle extends DestroyableSprite {
         }
     }
 
-    public void visualizeObstacles(GraphicsContext gc, Collectible collectible, Player player, List<Obstacle> obstacles, double velocity) {
-        for (Obstacle obstacle : obstacles) {
+    public void visualizeObstacles(GraphicsContext gc, double velocity, Collectible collectible, Player player) {
+        for (Obstacle obstacle : this.obstacles) {
             String obstacleType = obstacle.getObstacleType();
 
             if (obstacleType.contains(ImagesShortcutConstants.PLAYER_CAR) && !obstacle.isDestroyed()) {
@@ -101,7 +101,7 @@ public class Obstacle extends DestroyableSprite {
                 } else if (!obstacle.isDestroyed()) {
                     player.updateHealthPoints(player.getHealthPoints() - GameplayConstants.OBSTACLE_DAMAGE);
                 }
-                obstacle.handleImpactByCarPlayer(velocity);// Comment if you want flames to go around :) .
+                obstacle.handleImpactByCarPlayer(velocity);
             }
         }
     }

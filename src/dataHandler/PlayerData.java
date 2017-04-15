@@ -21,8 +21,7 @@ public class PlayerData {
     private PreparedStatement queryPlayers;
     private PreparedStatement updatePlayer;
 
-    private PlayerData() {
-    }
+    private PlayerData() {}
 
     public static PlayerData getInstance() {
         if (instance == null) {

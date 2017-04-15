@@ -75,13 +75,9 @@ public abstract class Sprite  {
         }
     }
 
-
-
     public void updateName(String name) {
         this.setName(name);
     }
-
-
 
     public final String getName() {
         return this.name;
@@ -113,10 +109,10 @@ public abstract class Sprite  {
         this.setVelocityX(velocityX);
     }
 
-
     public void updateVelocityY(double velocityY) {
         this.setVelocityY(velocityY);
     }
+
     protected final double getPositionX() {
         return this.positionX;
     }
@@ -147,13 +143,10 @@ public abstract class Sprite  {
         this.velocityX = velocityX;
     }
 
-
     private void setName(String name) {
         if(name == null) {
             throw new IllegalArgumentException(ErrorsConstants.NAME_EXCEPTION);
         }
         this.name = name;
     }
-
-
 }

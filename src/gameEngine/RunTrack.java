@@ -67,6 +67,7 @@ public class RunTrack {
         this.setCarId(chooseCarController.getCarId());
         this.setPlayer(player);
         this.playerCar = this.getPlayer().getCar();
+        this.currentHealth = new CurrentHealth(this.getPlayer());
         this.setCurrentFramesPerSecond(GeneralConstants.FRAMES_PER_SECOND);
     }
 
@@ -110,54 +111,52 @@ public class RunTrack {
 
         Canvas canvas = new Canvas(GeneralConstants.CANVAS_WIDTH, GeneralConstants.CANVAS_HEIGHT);
         root.getChildren().add(canvas);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
         root.getScene().setOnKeyPressed(new KeyHandlerOnPress(this.getPlayer(), minLeftSide, maxRightSide));
         root.getScene().setOnKeyReleased(new KeyHandlerOnRelease(this.getPlayer(), minLeftSide, maxRightSide));
 
-        Stage currentStage = (Stage) canvas.getScene().getWindow();
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-
-        String carImg = ResourcesConstants.CAR_IMAGES_PATH + this.carId + ImagesShortcutConstants.HALF_SIZE;
-        this.playerCar.setImage(carImg);
+        this.playerCar.setImage(ResourcesConstants.CAR_IMAGES_PATH + this.carId + ImagesShortcutConstants.HALF_SIZE);
         this.playerCar.updatePosition(200, 430);
         this.player.updatePoints(0L);
 
-        this.currentHealth = new CurrentHealth(this.player);
         currentStats.addObserver(observer);
 
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
+
         MusicPlayer.getInstance().play();
         MusicPlayer.getInstance().startStopPause();
 
         KeyFrame kf = new KeyFrame(
-                Duration.seconds(currentFramesPerSecond),
+                Duration.seconds(this.currentFramesPerSecond),
                 event -> {
 
                     if (isPaused) {
-                        PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, y, player, obstacle.getObstacles(), collectible.getCollectibles());
+                        PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, this.y, this.player, this.obstacle.getObstacles(), this.collectible.getCollectibles());
                         pauseHandler.activatePause();
                     }
 
                     y = Math.round(y + velocity);
                     time++;
                     frame++;
-
-                    //updateWithVelocityAdd immortality status if its activated
-                    collectible.updateStatus();
-
-                    updatePlayerStats();
-
                     if (Math.abs(y) >= GeneralConstants.CANVAS_HEIGHT) {
                         y = y - GeneralConstants.CANVAS_HEIGHT;
                         frame = 0;
                     }
+
+                    this.collectible.updateStatus();
+                    this.updatePlayerStats();
                     this.playerCar.setVelocity(0, 0);
+                    cheat.useCheat(this.player);
 
-                    cheat.useCheat(player);
-
-                    //Generate obstacles
+                    //Generate items on track
                     if (frame == 0) {
                         obstacle.addObstacle(obstacle.generateObstacle(drunkDrivers, minLeftSide, maxRightSide));
+                        collectible.addCollectible(collectible.generateCollectible(minLeftSide, maxRightSide));
+                    }
+                    if (shoot) {
+                        ammo.addAmmo(ammo.generateAmmo(player));
+                        setShoot(false);
                     }
 
                     gc.clearRect(0, 0, GeneralConstants.CANVAS_WIDTH, GeneralConstants.CANVAS_HEIGHT);
@@ -166,42 +165,30 @@ public class RunTrack {
                     this.playerCar.update();
                     this.playerCar.render(gc);
 
-
-                    obstacle.visualizeObstacles(gc, collectible, player, obstacle.getObstacles(), velocity);
-
-                    // Ammo logic
-                    ammo.visualizeAmmo(gc, obstacle.getObstacles(), ammo.getAmmunition(), player);
-                    if (shoot) {
-                        ammo.addAmmo(ammo.generateAmmo(player));
-                        setShoot(false);
-                    }
-
-
-
-                    checkForEndGame(root, canvas, currentStage, gameLoop);
-
-                    if (frame % GameplayConstants.COLLECTIBLES_OFFSET == 0) {
-                        collectible.addCollectible(Collectible.generateCollectible(minLeftSide, maxRightSide));
-                    }
-                    String action = collectible.visualizeCollectible(gc, velocity, currentStage);
+                    ammo.visualizeAmmo(gc, obstacle.getObstacles(), player);
+                    obstacle.visualizeObstacles(gc, velocity, collectible, player);
+                    String action = collectible.visualizeCollectible(gc, velocity);
 
                     if (action != null && action.equals(CollectiblesAndObstaclesConstants.ARMAGEDDON_STRING)) {
                         startArmageddonsPower();
                     } else if (action != null && action.equals(CollectiblesAndObstaclesConstants.FUEL_BOTTLE_STRING)) {
-                        time -= GameplayConstants.FUEL_TANK_BONUS_TIME / GeneralConstants.FRAMES_PER_SECOND;
+                        time -= GameplayConstants.FUEL_TANK_BONUS_TIME / currentFramesPerSecond;
                     }
+
+                    this.checkForEndGame(root, canvas, gameLoop);
                 });
 
         gameLoop.getKeyFrames().add(kf);
         gameLoop.playFromStart();
     }
 
-    private void checkForEndGame(AnchorPane root, Canvas canvas, Stage currentStage, Timeline gameLoop) {
+    private void checkForEndGame(AnchorPane root, Canvas canvas, Timeline gameLoop) {
         if (time >= GameplayConstants.TRACK_1_END_TIME || player.getHealthPoints() <= 0) {
+
             boolean win = player.getHealthPoints() > 0 && currentStats.getDistance() >= GameplayConstants.TRACK_1_END_DISTANCE;
+
             if (win) {
                 this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
-                PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
             }
 
             PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
@@ -209,13 +196,13 @@ public class RunTrack {
             clearObstaclesAndCollectibles();
             gameLoop.stop();
             MusicPlayer.getInstance().stop();
-            time = 0;
             Notification.hidePopupMessage();
+            time = 0;
             velocity = GameplayConstants.START_GAME_VELOCITY;
             currentStats.updateDistance(0);
-            root.getChildren().remove(canvas);
-            this.playerCar.setAmmunition(GameplayConstants.START_GAME_BULLETS);
 
+            Stage currentStage = (Stage) canvas.getScene().getWindow();
+            root.getChildren().remove(canvas);
             StageManager manager = new StageManagerImpl();
             manager.loadSceneToStage(currentStage, win ? ViewsConstants.GAME_WIN_VIEW_PATH : ViewsConstants.GAME_OVER_VIEW_PATH);
 

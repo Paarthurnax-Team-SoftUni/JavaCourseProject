@@ -53,11 +53,9 @@ public class GameController implements Initializable {
         return this.scorePoints;
     }
 
-
     private Label getDistance() {
         return this.distance;
     }
-
 
     private Label getBullets() {
         return this.bullets;

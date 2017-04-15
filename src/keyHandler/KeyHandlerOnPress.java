@@ -54,8 +54,7 @@ public class KeyHandlerOnPress extends KeyHandler {
                 case KeyHandlersConstants.QUIT_STRING:
                     Platform.exit();
                     break;
-                case KeyHandlersConstants.SHOOT_STRING
-                        :
+                case KeyHandlersConstants.SHOOT_STRING:
                     playerCar.shoot();
                     break;
                 default:
