@@ -29,6 +29,31 @@ public class Collectible extends CollectibleSprite {
         this.collectibles = new ArrayList<>();
     }
 
+    public void addCollectible(Collectible collectible) {
+        this.collectibles.add(collectible);
+    }
+
+    public List<Collectible> getCollectibles() {
+        return this.collectibles;
+    }
+
+    public final int getBonusCoefficient() {
+        return this.bonusCoefficient;
+    }
+
+    public void updateStatus() {
+        if (this.isImmortal) {
+            this.updateImmortalityStatus();
+        }
+        if (this.isDoublePtsOn) {
+            this.updateDoublePointsStatus();
+        }
+    }
+
+    public final boolean isImmortal() {
+        return this.isImmortal;
+    }
+
     public static Collectible generateCollectible(int minLeftSide, int maxRightSide) {
 
         String[] collectibles = CollectiblesAndObstaclesConstants.COLLECTIBLE_LIST_SMALL;
@@ -43,31 +68,6 @@ public class Collectible extends CollectibleSprite {
         collectible.updatePosition(collectibleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants.OBSTACLE_ANIMATION_Y_OFFSET);
 
         return collectible;
-    }
-
-    public final int getBonusCoefficient() {
-        return this.bonusCoefficient;
-    }
-
-    public void updateStatus() {
-        if (isImmortal) {
-            this.updateImmortalityStatus();
-        }
-        if (isDoublePtsOn) {
-            this.updateDoublePointsStatus();
-        }
-    }
-
-    public final boolean isImmortal() {
-        return this.isImmortal;
-    }
-
-    public List<Collectible> getCollectibles() {
-        return this.collectibles;
-    }
-
-    public void addCollectible(Collectible collectible) {
-        this.collectibles.add(collectible);
     }
 
     public String visualizeCollectible(GraphicsContext gc, double velocity, Stage currentStage) {

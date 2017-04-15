@@ -7,6 +7,7 @@ import interfaces.Rotatable;
 import interfaces.Shootable;
 
 public class PlayerCar extends DestroyableSprite implements Shootable {
+
     private int ammunition;
     private boolean accelerating;
 
@@ -59,6 +60,4 @@ public class PlayerCar extends DestroyableSprite implements Shootable {
         }
         super.update();
     }
-
-
 }

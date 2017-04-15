@@ -13,8 +13,6 @@ public class Obstacle extends DestroyableSprite {
     private boolean isDrunk;
     private List<Obstacle> obstacles;
 
-
-
     public Obstacle() {
         this.obstacles = new ArrayList<>();
     }
@@ -73,7 +71,7 @@ public class Obstacle extends DestroyableSprite {
         }
     }
 
-    public void manageObstacles(GraphicsContext gc, Collectible collectible, Player player, List<Obstacle> obstacles, double velocity) {
+    public void visualizeObstacles(GraphicsContext gc, Collectible collectible, Player player, List<Obstacle> obstacles, double velocity) {
         for (Obstacle obstacle : obstacles) {
             String obstacleType = obstacle.getObstacleType();
 
