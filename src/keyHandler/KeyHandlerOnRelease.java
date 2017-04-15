@@ -1,6 +1,6 @@
 package keyHandler;
 
-import constants.KeyHandlersConstants;
+import utils.constants.KeyHandlersConstants;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import models.Player;

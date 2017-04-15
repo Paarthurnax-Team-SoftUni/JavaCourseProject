@@ -1,7 +1,7 @@
 package controllers;
 
-import constants.StylesConstants;
-import constants.ViewsConstants;
+import utils.constants.StylesConstants;
+import utils.constants.ViewsConstants;
 import dataHandler.PlayerData;
 import interfaces.Track;
 import javafx.event.ActionEvent;
@@ -14,8 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
 import mapHandlers.TrackHandler;
-import stageHandler.StageManager;
-import stageHandler.StageManagerImpl;
+import utils.stages.StageManager;
+import utils.stages.StageManagerImpl;
 
 import java.io.IOException;
 

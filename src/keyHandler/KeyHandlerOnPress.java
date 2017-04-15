@@ -1,14 +1,14 @@
 package keyHandler;
 
-import constants.GameplayConstants;
-import constants.KeyHandlersConstants;
+import utils.constants.GameplayConstants;
+import utils.constants.KeyHandlersConstants;
 import gameEngine.RunTrack;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import models.Player;
 import models.sprites.PlayerCar;
-import music.MusicPlayer;
+import utils.music.MusicPlayer;
 
 public class KeyHandlerOnPress extends KeyHandler {
 

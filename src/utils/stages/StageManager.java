@@ -1,4 +1,4 @@
-package stageHandler;
+package utils.stages;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;

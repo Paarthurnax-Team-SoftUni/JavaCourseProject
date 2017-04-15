@@ -1,9 +1,9 @@
 package models.sprites;
 
-import constants.*;
+import utils.constants.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-import models.Notification;
+import utils.notifications.Notification;
 import models.Player;
 
 import java.util.ArrayList;
@@ -20,8 +20,7 @@ public class Collectible extends CollectibleSprite {
     private double immortalityTimer;
     private double doublePtsTimer;
 
-    public Collectible() {
-    }
+    public Collectible() {}
 
     public Collectible(Player player) {
         this.bonusCoefficient = GameplayConstants.INITIAL_BULLETS_COUNTS;

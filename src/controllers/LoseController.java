@@ -1,13 +1,13 @@
 package controllers;
 
-import constants.ViewsConstants;
+import utils.constants.ViewsConstants;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import stageHandler.StageManager;
-import stageHandler.StageManagerImpl;
+import utils.stages.StageManager;
+import utils.stages.StageManagerImpl;
 
 import java.io.IOException;
 

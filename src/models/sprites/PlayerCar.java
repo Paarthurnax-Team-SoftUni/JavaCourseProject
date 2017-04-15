@@ -1,9 +1,8 @@
 package models.sprites;
 
-import constants.CarConstants;
-import constants.GameplayConstants;
+import utils.constants.CarConstants;
+import utils.constants.GameplayConstants;
 import gameEngine.RunTrack;
-import interfaces.Rotatable;
 import interfaces.Shootable;
 
 public class PlayerCar extends DestroyableSprite implements Shootable {

@@ -1,6 +1,6 @@
 package models;
 
-import constants.GameplayConstants;
+import utils.constants.GameplayConstants;
 
 import java.util.ArrayDeque;
 import java.util.Optional;

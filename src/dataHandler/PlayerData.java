@@ -1,8 +1,8 @@
 package dataHandler;
 
-import constants.DBErrorConstants;
-import constants.ErrorsConstants;
-import constants.SQLConstants;
+import utils.constants.DBErrorConstants;
+import utils.constants.ErrorsConstants;
+import utils.constants.SQLConstants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.Player;

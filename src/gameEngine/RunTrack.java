@@ -1,6 +1,6 @@
 package gameEngine;
 
-import constants.*;
+import utils.constants.*;
 import controllers.ChooseCarController;
 import dataHandler.CurrentHealth;
 import dataHandler.CurrentStats;
@@ -16,17 +16,16 @@ import javafx.util.Duration;
 import keyHandler.KeyHandlerOnPress;
 import keyHandler.KeyHandlerOnRelease;
 import models.Cheat;
-import models.Notification;
+import utils.notifications.Notification;
 import models.Player;
 import models.sprites.Ammo;
 import models.sprites.Collectible;
 import models.sprites.Obstacle;
 import models.sprites.PlayerCar;
-import music.MusicPlayer;
-import stageHandler.StageManager;
-import stageHandler.StageManagerImpl;
+import utils.music.MusicPlayer;
+import utils.stages.StageManager;
+import utils.stages.StageManagerImpl;
 
-import java.util.Observable;
 import java.util.Observer;
 
 public class RunTrack {
@@ -37,18 +36,12 @@ public class RunTrack {
     private static boolean shoot;
     private static CurrentStats currentStats;
     private static Cheat cheat;
-    private static Observer observer = new Observer() {
-        @Override
-        public void update(Observable o, Object arg) {
-        }
-    };
+    private static Observer observer;
     private int frame;
     private int y;
     private float currentFramesPerSecond;
-    private String carId;
     private Player player;
     private CurrentHealth currentHealth;
-    private ChooseCarController chooseCarController;
     private Collectible collectible;
     private Obstacle obstacle;
     private Ammo ammo;
@@ -60,11 +53,10 @@ public class RunTrack {
         velocity = velocityValue;
         currentStats = new CurrentStats(0, 0, 0, 0);
         cheat = new Cheat();
+        observer = (o, arg) -> {};
         this.collectible = new Collectible(player);
         this.obstacle = new Obstacle();
         this.ammo = new Ammo();
-        this.chooseCarController = new ChooseCarController();
-        this.setCarId(chooseCarController.getCarId());
         this.setPlayer(player);
         this.playerCar = this.getPlayer().getCar();
         this.currentHealth = new CurrentHealth(this.getPlayer());
@@ -115,10 +107,9 @@ public class RunTrack {
         root.getScene().setOnKeyPressed(new KeyHandlerOnPress(this.getPlayer(), minLeftSide, maxRightSide));
         root.getScene().setOnKeyReleased(new KeyHandlerOnRelease(this.getPlayer(), minLeftSide, maxRightSide));
 
-        this.playerCar.setImage(ResourcesConstants.CAR_IMAGES_PATH + this.carId + ImagesShortcutConstants.HALF_SIZE);
+        this.playerCar.setImage(ResourcesConstants.CAR_IMAGES_PATH + this.getCarId() + ImagesShortcutConstants.HALF_SIZE);
         this.playerCar.updatePosition(200, 430);
         this.player.updatePoints(0L);
-
         currentStats.addObserver(observer);
 
         Timeline gameLoop = new Timeline();
@@ -131,11 +122,13 @@ public class RunTrack {
                 Duration.seconds(this.currentFramesPerSecond),
                 event -> {
 
+                    //Check for pause
                     if (isPaused) {
                         PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, this.y, this.player, this.obstacle.getObstacles(), this.collectible.getCollectibles());
                         pauseHandler.activatePause();
                     }
 
+                    //Set movement params
                     y = Math.round(y + velocity);
                     time++;
                     frame++;
@@ -144,12 +137,13 @@ public class RunTrack {
                         frame = 0;
                     }
 
+                    //Update stats
                     this.collectible.updateStatus();
                     this.updatePlayerStats();
                     this.playerCar.setVelocity(0, 0);
                     cheat.useCheat(this.player);
 
-                    //Generate items on track
+                    //Generate items
                     if (frame == 0) {
                         obstacle.addObstacle(obstacle.generateObstacle(drunkDrivers, minLeftSide, maxRightSide));
                         collectible.addCollectible(collectible.generateCollectible(minLeftSide, maxRightSide));
@@ -159,12 +153,14 @@ public class RunTrack {
                         setShoot(false);
                     }
 
+                    //Draw background and playerCar
                     gc.clearRect(0, 0, GeneralConstants.CANVAS_WIDTH, GeneralConstants.CANVAS_HEIGHT);
                     gc.drawImage(background, 0, y - GeneralConstants.CANVAS_HEIGHT);
                     gc.drawImage(background, 0, y);
                     this.playerCar.update();
                     this.playerCar.render(gc);
 
+                    //Render items
                     ammo.visualizeAmmo(gc, obstacle.getObstacles(), player);
                     obstacle.visualizeObstacles(gc, velocity, collectible, player);
                     String action = collectible.visualizeCollectible(gc, velocity);
@@ -175,6 +171,7 @@ public class RunTrack {
                         time -= GameplayConstants.FUEL_TANK_BONUS_TIME / currentFramesPerSecond;
                     }
 
+                    //Check for end game
                     this.checkForEndGame(root, canvas, gameLoop);
                 });
 
@@ -230,8 +227,10 @@ public class RunTrack {
         this.currentFramesPerSecond = currentFramesPerSecond;
     }
 
-    private void setCarId(String carId) {
-        this.carId = carId == null ? "car1" : carId;
+    private String getCarId() {
+        ChooseCarController chooseCarController = new ChooseCarController();
+        String carId = chooseCarController.getCarId();
+        return carId == null ? "car1" : carId;
     }
 
     private void clearObstaclesAndCollectibles() {

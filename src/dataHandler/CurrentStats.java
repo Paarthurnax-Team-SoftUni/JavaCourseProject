@@ -1,6 +1,6 @@
 package dataHandler;
 
-import constants.*;
+import utils.constants.*;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;

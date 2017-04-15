@@ -1,7 +1,7 @@
 package models;
 
-import constants.ErrorsConstants;
-import constants.GameplayConstants;
+import utils.constants.ErrorsConstants;
+import utils.constants.GameplayConstants;
 import models.sprites.PlayerCar;
 
 public class Player {

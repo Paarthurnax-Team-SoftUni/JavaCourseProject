@@ -1,6 +1,6 @@
-package music;
+package utils.music;
 
-import constants.ResourcesConstants;
+import utils.constants.ResourcesConstants;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;

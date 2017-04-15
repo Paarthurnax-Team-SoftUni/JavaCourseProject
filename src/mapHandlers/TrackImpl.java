@@ -1,6 +1,6 @@
 package mapHandlers;
 
-import constants.GameplayConstants;
+import utils.constants.GameplayConstants;
 import dataHandler.PlayerData;
 import gameEngine.RunTrack;
 import interfaces.Track;
