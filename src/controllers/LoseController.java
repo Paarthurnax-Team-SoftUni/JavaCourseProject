@@ -22,7 +22,8 @@ public class LoseController {
         manager.loadSceneToStage(currentStage, ViewsConstants.START_FXML_PATH);
     }
 
-    public void quitGame(ActionEvent actionEvent) {
+    @FXML
+    private void quitGame(ActionEvent actionEvent) {
         Platform.exit();
     }
 }

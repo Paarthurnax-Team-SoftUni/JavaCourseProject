@@ -44,10 +44,12 @@ public class GameController implements Initializable {
         new CurrentHealth(this.healthFirst, this.healthSecond, this.healthThird, this.healthFourth);
     }
 
-    public void quitGame(ActionEvent actionEvent) {
+    @FXML
+    private void quitGame(ActionEvent actionEvent) {
         PlayerData.getInstance().getCurrentPlayer().updateStatsAtEnd();
         Platform.exit();
     }
+
 
     private Label getScorePoints() {
         return this.scorePoints;

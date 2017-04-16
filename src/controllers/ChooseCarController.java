@@ -18,8 +18,6 @@ import java.lang.reflect.Field;
 
 public class ChooseCarController {
 
-    private static String carId;
-
     @FXML
     private Button goNextBtn;
     @FXML
@@ -53,39 +51,33 @@ public class ChooseCarController {
     }
 
     @FXML
-    public void goToChooseLevel(ActionEvent actionEvent) {
+    private void goToChooseLevel(ActionEvent actionEvent) {
         Stage currentStage = (Stage) this.goNextBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
         FXMLLoader loader = manager.loadSceneToStage(currentStage, ViewsConstants.CHOOSE_LEVEL_VIEW_PATH);
     }
 
-    public String getCarId() {
-        return carId;
-    }
-
-    private void setCarId(String id) {
-        carId = id;
-    }
-
-    public void chooseCar(MouseEvent ev) throws NoSuchFieldException, IllegalAccessException {
+    @FXML
+    private void chooseCar(MouseEvent ev) throws NoSuchFieldException, IllegalAccessException {
         Node source = (Node) ev.getSource();
         String id = source.getId();
-        backgroundFill(id.substring(id.length() - 1));
+        backgroundFill(id.substring(id.length() - CarConstants.CARS_LIST_LENGTH_OFFSET));
         if (id.substring(0, 3).equals(CarConstants.CAR_STRING)) {
-            this.setCarId(id);
-        } else if (source.getId().substring(0, 5).equals("label")) {
-            this.setCarId(CarConstants.CAR_STRING + id.substring(id.length() - 1));
+            PlayerData.getInstance().updateCarId(id);
+        } else if (source.getId().substring(0, 5).equals(ImagesShortcutConstants.LABEL_STRING)) {
+            PlayerData.getInstance().updateCarId(CarConstants.CAR_STRING + id.substring(id.length() - 1));
         }
         this.goNextBtn.setVisible(true);
     }
 
+    @FXML
     private void showUnlockedCarsOnly(Long points) throws NoSuchFieldException, IllegalAccessException {
         Class<ChooseCarController> chooseCarControllerClass = ChooseCarController.class;
-        for (int id = 1; id <= 6; id++) {
-            Field ellipseField = chooseCarControllerClass.getDeclaredField("backgroundBox" + id);
+        for (int id = 1; id <= CarConstants.CARS_LIST.length; id++) {
+            Field ellipseField = chooseCarControllerClass.getDeclaredField(ImagesShortcutConstants.BACKGROUND_STRING + id);
             Ellipse ellipse = ((Ellipse) ellipseField.get(this));
             ellipse.setStyle(null);
-            Field lockedField = chooseCarControllerClass.getDeclaredField("locked" + id);
+            Field lockedField = chooseCarControllerClass.getDeclaredField(ImagesShortcutConstants.LOCKED_CAR_STRING + id);
             ImageView locked = ((ImageView) lockedField.get(this));
             locked.setVisible(false);
             if (points < (id - 1) * GameplayConstants.CAR_UNLOCK_STEP_PTS) {
@@ -96,6 +88,7 @@ public class ChooseCarController {
         }
     }
 
+    @FXML
     private void backgroundFill(String id) throws NoSuchFieldException, IllegalAccessException {
         long highScores = PlayerData.getInstance().getCurrentPlayer().getHighScore();
         showUnlockedCarsOnly(highScores);

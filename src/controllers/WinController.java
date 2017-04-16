@@ -25,7 +25,8 @@ public class WinController {
         PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
     }
 
-    public void quitGame(ActionEvent actionEvent) {
+    @FXML
+    private void quitGame(ActionEvent actionEvent) {
         Platform.exit();
     }
 }

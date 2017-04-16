@@ -229,7 +229,7 @@ public class RunTrack {
 
     private String getCarId() {
         ChooseCarController chooseCarController = new ChooseCarController();
-        String carId = chooseCarController.getCarId();
+        String carId = PlayerData.getInstance().getCarId();
         return carId == null ? "car1" : carId;
     }
 

@@ -28,6 +28,14 @@ public class Player {
         this.setHealthPoints(healthPoints);
     }
 
+    public void updateCarId (String carId) {
+        this.car.updateCarID(carId);
+    }
+
+    public String getCarId() {
+        return this.car.getCarId();
+    }
+
     public int getId() {
         return id;
     }

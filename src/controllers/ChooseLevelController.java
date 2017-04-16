@@ -21,6 +21,9 @@ import java.io.IOException;
 
 public class ChooseLevelController {
 
+    private static final int FIRST_LEVEL = 1;
+    private static final int SECOND_LEVEL = 2;
+
     private Track track;
     private TrackHandler trackHandler;
 
@@ -35,12 +38,12 @@ public class ChooseLevelController {
 
 
     public void initialize() throws IOException {
-        showUnlockedLevelsOnly();
+        this.showUnlockedLevelsOnly();
         this.trackHandler = new TrackHandler();
     }
 
     @FXML
-    public void startGame(ActionEvent actionEvent) {
+    private void startGame(ActionEvent actionEvent) {
         PlayerData.getInstance().returnPlayer(track.getRunTrack().getPlayer().getName());
         Stage currentStage = (Stage) this.startBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
@@ -51,13 +54,14 @@ public class ChooseLevelController {
     }
 
     @FXML
-    public void chooseLevel(MouseEvent ev) throws IOException {
+    private void chooseLevel(MouseEvent ev) throws IOException {
         Node source = (Node) ev.getSource();
         int id = Integer.valueOf(source.getId().substring(5));
         this.backgroundFill(id);
         this.startBtn.setVisible(true);
     }
 
+    @FXML
     private void showUnlockedLevelsOnly() {
 
         this.backgroundBox1.setStyle(null);
@@ -79,11 +83,11 @@ public class ChooseLevelController {
     private void backgroundFill(int id) throws IOException {
         showUnlockedLevelsOnly();
         switch (id) {
-            case 1:
+            case FIRST_LEVEL:
                 this.backgroundBox1.setStyle(StylesConstants.RED_COLOUR);
                 this.backgroundBox1.toFront();
                 break;
-            case 2:
+            case SECOND_LEVEL:
                 this.backgroundBox2.setStyle(StylesConstants.RED_COLOUR);
                 this.backgroundBox2.toFront();
                 break;

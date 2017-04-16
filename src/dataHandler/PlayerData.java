@@ -47,6 +47,14 @@ public class PlayerData {
         }
     }
 
+    public void updateCarId(String carId) {
+        this.currentPlayer.updateCarId(carId);
+    }
+
+    public String getCarId() {
+        return this.currentPlayer.getCarId();
+    }
+
     public void close() {
         try {
 

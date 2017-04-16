@@ -9,9 +9,22 @@ public class PlayerCar extends DestroyableSprite implements Shootable {
 
     private int ammunition;
     private boolean accelerating;
+    private String carId;
 
     public PlayerCar() {
-        this.ammunition = GameplayConstants.START_GAME_BULLETS;
+        this.setAmmunition(GameplayConstants.START_GAME_BULLETS);
+    }
+
+    public String getCarId() {
+        return this.carId;
+    }
+
+    public void updateCarID(String carId) {
+        this.setCarId(carId);
+    }
+
+    private void setCarId(String carId) {
+        this.carId = carId;
     }
 
     public int getAmmunition() {
