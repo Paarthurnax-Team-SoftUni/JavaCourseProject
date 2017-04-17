@@ -24,15 +24,10 @@ public class EnemyCar extends Obstacle {
             }
         }
 
-        if (y < 0) {
-            if (super.getPositionY() > GameplayConstants.CANVAS_Y_END) {
-                super.updateVelocityY(y);
-            }
-        } else if (y > 0) {
-            if (super.getPositionY() < GeneralConstants.CANVAS_HEIGHT - super.getImageHeight() * GameplayConstants.IMAGE_HEIGHT_OFFSET) {
-                super.updateVelocityY(y);
-            }
+        if (y < 0 && super.getPositionY() > GameplayConstants.CANVAS_Y_END) {
+            super.updateVelocityY(y);
+        } else if (y > 0 && super.getPositionY() < GeneralConstants.CANVAS_HEIGHT - super.getImageHeight() * GameplayConstants.IMAGE_HEIGHT_OFFSET) {
+            super.updateVelocityY(y);
         }
-
     }
 }

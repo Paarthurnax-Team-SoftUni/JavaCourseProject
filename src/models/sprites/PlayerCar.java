@@ -5,11 +5,12 @@ import utils.constants.GameplayConstants;
 import gameEngine.RunTrack;
 import interfaces.Shootable;
 
-public class PlayerCar extends DestroyableSprite implements Shootable {
+public class PlayerCar extends RotatableSprite implements Shootable {
 
     private int ammunition;
     private boolean accelerating;
     private String carId;
+    private boolean isImmortal;
 
     public PlayerCar() {
         this.setAmmunition(GameplayConstants.START_GAME_BULLETS);
@@ -33,6 +34,14 @@ public class PlayerCar extends DestroyableSprite implements Shootable {
 
     public void setAmmunition(int ammunition) {
         this.ammunition = ammunition;
+    }
+
+    public boolean isImmortal() {
+        return this.isImmortal;
+    }
+
+    public void setImmortal(boolean immortal) {
+        this.isImmortal = immortal;
     }
 
     public void accelerate() {

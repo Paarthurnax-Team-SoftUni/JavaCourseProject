@@ -38,7 +38,7 @@ public class GameplayConstants {
     public static final int IMAGE_HEIGHT_OFFSET = 2;
     public static final int BULLET_SPEED = 5;
     public static final int OBSTACLES_BOUNDS = 50;
-    public static final int INITIAL_BULLETS_COUNTS = 1;
+    public static final int INITIAL_BONUS_COEFFICIENT = 1;
     public static final int TURN_UPDATE_DEGREES = 4;
     public static final int MAX_ACCELERATION_VELOCITY = 20;
     public static final float BRAKES_STRENGTH = 1;

@@ -11,12 +11,12 @@ public class CollectiblesAndObstaclesConstants {
     public static final String AMMO_STRING = "ammunitions";
     public static final String COLLECTIBLE_PATH = "resources/images/collectibles/";
     public static final String[] COLLECTIBLE_LIST_SMALL = {
-            "collectible1_half_size",
-            "collectible2_half_size",
-            "collectible3_half_size",
-            "collectible4_half_size",
-            "collectible5_half_size",
-            "collectible6_half_size"};
+            "armagedonPower",
+            "ammunition",
+            "doublePoints",
+            "fuel",
+            "health",
+            "immortality"};
     public static final String[] OBSTACLES_LIST_SMALL = {
             "obstacles/obstacle1_half_size",
             "obstacles/obstacle2_half_size",
