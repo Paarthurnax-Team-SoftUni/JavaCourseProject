@@ -13,6 +13,8 @@ import interfaces.Track;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
+import static utils.constants.GameplayConstants.TRACK_1_END_TIME;
+
 public class TrackImpl implements Track {
 
     private RunTrack runTrack;
@@ -20,7 +22,8 @@ public class TrackImpl implements Track {
 
     public TrackImpl(TrackLevel trackLevel, CurrentHealth currentHealth, CurrentStats currentStats, Ammo ammo,
                      Collectible collectible, Obstacle obstacle, Cheat cheat) {
-        this.runTrack = new RunTrack(PlayerData.getInstance().getCurrentPlayer(), GameplayConstants.START_GAME_VELOCITY, currentHealth,
+        this.runTrack = new RunTrack(PlayerData.getInstance().getCurrentPlayer(),
+                GameplayConstants.START_GAME_VELOCITY, 3000, currentHealth,
                 currentStats, ammo, collectible, obstacle, cheat);
         this.trackLevel = trackLevel;
     }

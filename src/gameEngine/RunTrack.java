@@ -39,6 +39,7 @@ public class RunTrack {
     private int frame;
     private int y;
     private float currentFramesPerSecond;
+    private long endTruckTime;
     private Player player;
     private CurrentHealth currentHealth;
     private Collectible collectible;
@@ -46,11 +47,12 @@ public class RunTrack {
     private Ammo ammo;
     private PlayerCar playerCar;
 
-    public RunTrack(Player player, float velocityValue,
+    public RunTrack(Player player, float velocityValue, long endTruckTime,
                     CurrentHealth currentHealth, CurrentStats currentStats, Ammo ammo,
                     Collectible collectible, Obstacle obstacle, Cheat cheat) {
         frame = 0;
         time = 0;
+        this.endTruckTime=endTruckTime;
         velocity = velocityValue;
         RunTrack.currentStats = currentStats;
         RunTrack.cheat = cheat;
@@ -62,7 +64,6 @@ public class RunTrack {
         this.collectible = collectible;
         this.obstacle = obstacle;
         this.currentFramesPerSecond = GeneralConstants.FRAMES_PER_SECOND;
-
     }
 
     public static Cheat getCheat() {
@@ -112,6 +113,9 @@ public class RunTrack {
 
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
+
+        //Update EndTruckTime
+        RunTrack.currentStats.updateEndTruckTime(endTruckTime);
 
         MusicPlayer.getInstance().play();
         MusicPlayer.getInstance().startStopPause();
@@ -185,7 +189,7 @@ public class RunTrack {
     }
 
     private void checkForEndGame(AnchorPane root, Canvas canvas, Timeline gameLoop) {
-        if (time >= GameplayConstants.TRACK_1_END_TIME || player.getHealthPoints() <= 0) {
+        if (time >= this.endTruckTime || player.getHealthPoints() <= 0) {
 
             boolean win = player.getHealthPoints() > 0 && currentStats.getDistance() >= GameplayConstants.TRACK_1_END_DISTANCE;
 

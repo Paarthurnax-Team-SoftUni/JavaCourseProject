@@ -13,12 +13,14 @@ public class CurrentStats extends Observable {
     private SimpleStringProperty points;
     private SimpleLongProperty distance;
     private SimpleStringProperty time;
+    private long endTruckTime;
 
-    public CurrentStats(long bullets, long points, long distance, long time) {
+    public CurrentStats(long bullets, long points, long distance, long time, long endTruckTime) {
         this.bullets = new SimpleLongProperty();
         this.points = new SimpleStringProperty();
         this.distance = new SimpleLongProperty();
         this.time = new SimpleStringProperty();
+        this.setEndTruckTime(endTruckTime);
         this.setBullets(bullets);
         this.setPoints(points);
         this.setDistance(distance);
@@ -61,6 +63,10 @@ public class CurrentStats extends Observable {
         this.setPoints(points);
     }
 
+    public void updateEndTruckTime(long endTruckTime) {
+        this.setEndTruckTime(endTruckTime);
+    }
+
     private void setBullets(long bullets) {
         if (bullets < 0) {
             throw new IllegalArgumentException(ErrorConstants.BULLETS_EXCEPTION);
@@ -69,7 +75,7 @@ public class CurrentStats extends Observable {
     }
 
     private void setTime(long time) {
-        time = (long) (GameplayConstants.TRACK_1_END_TIME * GeneralConstants.FRAMES_PER_SECOND) - time;
+        time = (long) (this.endTruckTime * GeneralConstants.FRAMES_PER_SECOND) - time;
         int seconds = (int) (time % CarConstants.SECONDS_DURATION);
         this.time.set(String.format(StylesConstants.SECONDS_FORMATTER, time / CarConstants.SECONDS_DURATION, seconds));
     }
@@ -86,5 +92,9 @@ public class CurrentStats extends Observable {
             throw new IllegalArgumentException(ErrorConstants.DISTANCE_EXCEPTION);
         }
         this.distance.set(distance);
+    }
+
+    private void setEndTruckTime(long endTruckTime) {
+        this.endTruckTime = endTruckTime;
     }
 }

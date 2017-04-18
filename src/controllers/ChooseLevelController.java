@@ -54,7 +54,7 @@ public class ChooseLevelController {
         this.showUnlockedLevelsOnly();
         this.trackHandler = new TrackHandler();
         this.currentHealth = new CurrentHealth(PlayerData.getInstance().getCurrentPlayer());
-        this.currentStats = new CurrentStats(GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE);
+        this.currentStats = new CurrentStats(GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE,GameplayConstants.INITIAL_STATS_VALUE);
         this.ammo = new Ammo();
         this.collectible = new Collectible();
         this.obstacle = new Obstacle();
