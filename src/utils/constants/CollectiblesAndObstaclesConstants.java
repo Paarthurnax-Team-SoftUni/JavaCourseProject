@@ -3,20 +3,15 @@ package utils.constants;
 public class CollectiblesAndObstaclesConstants {
 
     public static final String FUEL_BOTTLE_STRING = "fuelBottle";
-    public static final String HEALTH_STRING = "health";
-    public static final String DOUBLE_POINTS_STRING = "doublePts";
-    public static final String IMMORTALITY_STRING = "immortality";
-    public static final String ARMAGEDDON_STRING = "armageddonsPower";
-    public static final String BONUS_POINTS_STRING = "bonusPts";
-    public static final String AMMO_STRING = "ammunitions";
+    public static final String ARMAGEDDON_STRING = "armagedonPower";
     public static final String COLLECTIBLE_PATH = "resources/images/collectibles/";
     public static final String[] COLLECTIBLE_LIST_SMALL = {
-            "collectible1_half_size",
-            "collectible2_half_size",
-            "collectible3_half_size",
-            "collectible4_half_size",
-            "collectible5_half_size",
-            "collectible6_half_size"};
+            "armagedonPower",
+            "ammunition",
+            "doublePoints",
+            "fuel",
+            "health",
+            "immortality"};
     public static final String[] OBSTACLES_LIST_SMALL = {
             "obstacles/obstacle1_half_size",
             "obstacles/obstacle2_half_size",

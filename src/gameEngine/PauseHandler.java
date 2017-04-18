@@ -8,7 +8,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 import models.Player;
-import models.sprites.Collectible;
+import models.sprites.collectibles.Collectible;
 import models.sprites.Obstacle;
 import utils.music.MusicPlayer;
 

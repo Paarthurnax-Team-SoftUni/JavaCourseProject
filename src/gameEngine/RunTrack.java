@@ -1,5 +1,6 @@
 package gameEngine;
 
+import models.sprites.EnemyCar;
 import utils.constants.*;
 import controllers.ChooseCarController;
 import dataHandler.CurrentHealth;
@@ -19,14 +20,19 @@ import models.Cheat;
 import utils.notifications.Notification;
 import models.Player;
 import models.sprites.Ammo;
-import models.sprites.Collectible;
+import models.sprites.collectibles.Collectible;
 import models.sprites.Obstacle;
 import models.sprites.PlayerCar;
 import utils.music.MusicPlayer;
 import utils.stages.StageManager;
 import utils.stages.StageManagerImpl;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observer;
+import java.util.Random;
 
 public class RunTrack {
 
@@ -42,8 +48,8 @@ public class RunTrack {
     private float currentFramesPerSecond;
     private Player player;
     private CurrentHealth currentHealth;
-    private Collectible collectible;
-    private Obstacle obstacle;
+    private List<Collectible> collectibles;
+    private List<Obstacle> obstacles;
     private Ammo ammo;
     private PlayerCar playerCar;
 
@@ -54,13 +60,13 @@ public class RunTrack {
         currentStats = new CurrentStats(0, 0, 0, 0);
         cheat = new Cheat();
         observer = (o, arg) -> {};
-        this.collectible = new Collectible(player);
-        this.obstacle = new Obstacle();
-        this.ammo = new Ammo();
         this.setPlayer(player);
         this.playerCar = this.getPlayer().getCar();
         this.currentHealth = new CurrentHealth(this.getPlayer());
-        this.setCurrentFramesPerSecond(GeneralConstants.FRAMES_PER_SECOND);
+        this.ammo = new Ammo();
+        this.collectibles = new ArrayList<>();
+        this.obstacles = new ArrayList<>();
+        this.currentFramesPerSecond = GeneralConstants.FRAMES_PER_SECOND;
     }
 
     public static Cheat getCheat() {
@@ -124,7 +130,7 @@ public class RunTrack {
 
                     //Check for pause
                     if (isPaused) {
-                        PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, this.y, this.player, this.obstacle.getObstacles(), this.collectible.getCollectibles());
+                        PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, this.y, this.player, this.obstacles, this.collectibles);
                         pauseHandler.activatePause();
                     }
 
@@ -138,15 +144,19 @@ public class RunTrack {
                     }
 
                     //Update stats
-                    this.collectible.updateStatus();
+                    this.collectibles.forEach(Collectible::updateStatus);
                     this.updatePlayerStats();
                     this.playerCar.setVelocity(0, 0);
                     cheat.useCheat(this.player);
 
                     //Generate items
                     if (frame == 0) {
-                        obstacle.addObstacle(obstacle.generateObstacle(drunkDrivers, minLeftSide, maxRightSide));
-                        collectible.addCollectible(collectible.generateCollectible(minLeftSide, maxRightSide));
+                        this.obstacles.add(Obstacle.generateObstacle(drunkDrivers, minLeftSide, maxRightSide));
+                        try {
+                            this.collectibles.add(Collectible.generateCollectible(minLeftSide, maxRightSide));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                     if (shoot) {
                         ammo.addAmmo(ammo.generateAmmo(player));
@@ -161,15 +171,17 @@ public class RunTrack {
                     this.playerCar.render(gc);
 
                     //Render items
-                    ammo.visualizeAmmo(gc, obstacle.getObstacles(), player);
-                    obstacle.visualizeObstacles(gc, velocity, collectible, player);
-                    String action = collectible.visualizeCollectible(gc, velocity);
-
-                    if (action != null && action.equals(CollectiblesAndObstaclesConstants.ARMAGEDDON_STRING)) {
-                        startArmageddonsPower();
-                    } else if (action != null && action.equals(CollectiblesAndObstaclesConstants.FUEL_BOTTLE_STRING)) {
-                        time -= GameplayConstants.FUEL_TANK_BONUS_TIME / currentFramesPerSecond;
+                    ammo.visualizeAmmo(gc, this.obstacles, player);
+                    this.obstacles.forEach(o -> o.visualizeObstacle(gc, velocity, player));
+                    for (Collectible collectible : collectibles) {
+                        String action = collectible.visualizeCollectible(gc, velocity);
+                        if (action != null && action.equals(CollectiblesAndObstaclesConstants.ARMAGEDDON_STRING)) {
+                            startArmageddonsPower();
+                        } else if (action != null && action.equals(CollectiblesAndObstaclesConstants.FUEL_BOTTLE_STRING)) {
+                            time -= GameplayConstants.FUEL_TANK_BONUS_TIME / currentFramesPerSecond;
+                        }
                     }
+
 
                     //Check for end game
                     this.checkForEndGame(root, canvas, gameLoop);
@@ -223,10 +235,6 @@ public class RunTrack {
         }
     }
 
-    private void setCurrentFramesPerSecond(float currentFramesPerSecond) {
-        this.currentFramesPerSecond = currentFramesPerSecond;
-    }
-
     private String getCarId() {
         ChooseCarController chooseCarController = new ChooseCarController();
         String carId = PlayerData.getInstance().getCarId();
@@ -234,12 +242,12 @@ public class RunTrack {
     }
 
     private void clearObstaclesAndCollectibles() {
-        this.collectible.getCollectibles().clear();
-        this.obstacle.getObstacles().clear();
+        this.collectibles.clear();
+        this.obstacles.clear();
     }
 
     private void startArmageddonsPower() {
-        for (Obstacle o : obstacle.getObstacles()) {
+        for (Obstacle o : this.obstacles) {
             o.handleImpactByCarPlayer(velocity);
         }
     }

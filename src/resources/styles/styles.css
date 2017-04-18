@@ -125,7 +125,7 @@
     -fx-text-alignment: center;
 }
 
-.fuelBottle {
+.fuel {
     -fx-background-color: #fd656c;
 }
 
@@ -133,7 +133,7 @@
     -fx-background-color: greenyellow;
 }
 
-.doublePts {
+.doublePoints {
     -fx-background-color: #ffd93b;
 }
 
@@ -141,10 +141,10 @@
     -fx-background-color: #79b2ff;
 }
 
-.armageddonsPower {
+.armagedonPower {
     -fx-background-color: #c546ff;
 }
 
-.ammunitions {
+.ammunition {
     -fx-background-color: #cfbfca;
 }

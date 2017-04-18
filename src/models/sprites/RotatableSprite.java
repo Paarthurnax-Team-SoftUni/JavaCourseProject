@@ -6,15 +6,14 @@ import gameEngine.RunTrack;
 import interfaces.Rotatable;
 import javafx.scene.canvas.GraphicsContext;
 
-public abstract class DestroyableSprite extends Sprite implements Rotatable {
+public abstract class RotatableSprite extends Sprite implements Rotatable {
 
     private double angle;
-    private boolean isDestroyed;
     private boolean centerWheel;
     private boolean turningRight;
     private boolean turningLeft;
 
-    protected DestroyableSprite() {}
+    protected RotatableSprite() {}
 
     public double getAngle() {
         return this.angle;
@@ -24,14 +23,6 @@ public abstract class DestroyableSprite extends Sprite implements Rotatable {
         if (angle < GameplayConstants.TURNING_ANGLE && angle > -GameplayConstants.TURNING_ANGLE) {
             this.angle = angle;
         }
-    }
-
-    public boolean isDestroyed() {
-        return this.isDestroyed;
-    }
-
-    public void setDestroyed(boolean isDestroyed) {
-        this.isDestroyed = isDestroyed;
     }
 
     public boolean isCenterWheel() {
