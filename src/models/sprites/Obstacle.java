@@ -17,6 +17,31 @@ public class Obstacle extends RotatableSprite {
         return this.isDestroyed;
     }
 
+    public static Obstacle generateObstacle(int drunkDrivers, int minLeftSide, int maxRightSide) {
+
+        String[] obstacles = CollectiblesAndObstaclesConstants.OBSTACLES_LIST_SMALL;
+        String random = (obstacles[new Random().nextInt(obstacles.length)]);
+        String image = ResourcesConstants.IMAGES_PATH + random + ".png";
+
+        Random obstacleX = new Random();
+        Obstacle obstacle = new Obstacle();
+
+        if (random.contains(CarConstants.CAR_STRING) && new Random().nextInt(100) > drunkDrivers) {
+            obstacle = new EnemyCar();
+            obstacle.setIsDrunk(true);
+            obstacle.updatePosition(obstacleX.nextInt((maxRightSide - GameplayConstants.OBSTACLES_BOUNDS) -
+                    (minLeftSide + GameplayConstants.OBSTACLES_BOUNDS)) + minLeftSide + GameplayConstants
+                    .OBSTACLES_BOUNDS, GameplayConstants.OBSTACLE_ANIMATION_Y_OFFSET);
+        }
+
+        obstacle.updatePosition(obstacleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants
+                .OBSTACLE_ANIMATION_Y_OFFSET);
+        obstacle.setImage(image);
+        obstacle.updateName(random);
+
+        return obstacle;
+    }
+
     public void visualizeObstacle(GraphicsContext gc, double velocity, Player player) {
         String obstacleType = this.getObstacleType();
 

@@ -151,9 +151,9 @@ public class RunTrack {
 
                     //Generate items
                     if (frame == 0) {
-                        this.obstacles.add(this.generateObstacle(drunkDrivers, minLeftSide, maxRightSide));
+                        this.obstacles.add(Obstacle.generateObstacle(drunkDrivers, minLeftSide, maxRightSide));
                         try {
-                            this.collectibles.add(this.generateCollectible(minLeftSide, maxRightSide));
+                            this.collectibles.add(Collectible.generateCollectible(minLeftSide, maxRightSide));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -189,50 +189,6 @@ public class RunTrack {
 
         gameLoop.getKeyFrames().add(kf);
         gameLoop.playFromStart();
-    }
-
-    private Obstacle generateObstacle(int drunkDrivers, int minLeftSide, int maxRightSide) {
-
-        String[] obstacles = CollectiblesAndObstaclesConstants.OBSTACLES_LIST_SMALL;
-        String random = (obstacles[new Random().nextInt(obstacles.length)]);
-        String image = ResourcesConstants.IMAGES_PATH + random + ".png";
-
-        Random obstacleX = new Random();
-        Obstacle obstacle = new Obstacle();
-
-        if (random.contains(CarConstants.CAR_STRING) && new Random().nextInt(100) > drunkDrivers) {
-            obstacle = new EnemyCar();
-            obstacle.setIsDrunk(true);
-            obstacle.updatePosition(obstacleX.nextInt((maxRightSide - GameplayConstants.OBSTACLES_BOUNDS) -
-                    (minLeftSide + GameplayConstants.OBSTACLES_BOUNDS)) + minLeftSide + GameplayConstants
-                    .OBSTACLES_BOUNDS, GameplayConstants.OBSTACLE_ANIMATION_Y_OFFSET);
-        }
-
-        obstacle.updatePosition(obstacleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants
-                .OBSTACLE_ANIMATION_Y_OFFSET);
-        obstacle.setImage(image);
-        obstacle.updateName(random);
-
-        return obstacle;
-    }
-
-    private Collectible generateCollectible(int minLeftSide, int maxRightSide) throws IllegalAccessException,
-            InvocationTargetException, InstantiationException, NoSuchMethodException, ClassNotFoundException {
-        String[] collectibles = CollectiblesAndObstaclesConstants.COLLECTIBLE_LIST_SMALL;
-        String random = collectibles[new Random().nextInt(collectibles.length)];
-
-        String className = random.toUpperCase().charAt(0) + random.substring(1, random.length());
-        Class collectibleClass = Class.forName("models.sprites.collectibles." + className);
-        Constructor<Collectible> constructor = collectibleClass.getDeclaredConstructor();
-        Collectible collectible = constructor.newInstance();
-
-        collectible.updateName(random);
-        collectible.setImage(CollectiblesAndObstaclesConstants.COLLECTIBLE_PATH + random + ImagesShortcutConstants
-                .PNG_FILE_EXTENSION);
-        collectible.updatePosition(new Random().nextInt(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants
-                .OBSTACLE_ANIMATION_Y_OFFSET);
-
-        return collectible;
     }
 
     private void checkForEndGame(AnchorPane root, Canvas canvas, Timeline gameLoop) {
