@@ -27,12 +27,9 @@ import utils.music.MusicPlayer;
 import utils.stages.StageManager;
 import utils.stages.StageManagerImpl;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
-import java.util.Random;
 
 public class RunTrack {
 
@@ -48,8 +45,8 @@ public class RunTrack {
     private float currentFramesPerSecond;
     private Player player;
     private CurrentHealth currentHealth;
-    private List<Collectible> collectibles;
-    private List<Obstacle> obstacles;
+    private Collectible collectible;
+    private Obstacle obstacle;
     private Ammo ammo;
     private PlayerCar playerCar;
 
@@ -64,8 +61,8 @@ public class RunTrack {
         this.playerCar = this.getPlayer().getCar();
         this.currentHealth = new CurrentHealth(this.getPlayer());
         this.ammo = new Ammo();
-        this.collectibles = new ArrayList<>();
-        this.obstacles = new ArrayList<>();
+        this.collectible = new Collectible();
+        this.obstacle = new Obstacle();
         this.currentFramesPerSecond = GeneralConstants.FRAMES_PER_SECOND;
     }
 
@@ -130,7 +127,7 @@ public class RunTrack {
 
                     //Check for pause
                     if (isPaused) {
-                        PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, this.y, this.player, this.obstacles, this.collectibles);
+                        PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, this.y, this.player, this.obstacle.getObstacles(), this.collectible.getCollectibles());
                         pauseHandler.activatePause();
                     }
 
@@ -144,16 +141,16 @@ public class RunTrack {
                     }
 
                     //Update stats
-                    this.collectibles.forEach(Collectible::updateStatus);
+                    this.collectible.updateStatus();
                     this.updatePlayerStats();
                     this.playerCar.setVelocity(0, 0);
                     cheat.useCheat(this.player);
 
                     //Generate items
                     if (frame == 0) {
-                        this.obstacles.add(Obstacle.generateObstacle(drunkDrivers, minLeftSide, maxRightSide));
+                        this.obstacle.add(Obstacle.generateObstacle(drunkDrivers, minLeftSide, maxRightSide));
                         try {
-                            this.collectibles.add(Collectible.generateCollectible(minLeftSide, maxRightSide));
+                            this.collectible.add(Collectible.generateCollectible(minLeftSide, maxRightSide));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -171,17 +168,15 @@ public class RunTrack {
                     this.playerCar.render(gc);
 
                     //Render items
-                    ammo.visualizeAmmo(gc, this.obstacles, player);
-                    this.obstacles.forEach(o -> o.visualizeObstacle(gc, velocity, player));
-                    for (Collectible collectible : collectibles) {
-                        String action = collectible.visualizeCollectible(gc, velocity);
-                        if (action != null && action.equals(CollectiblesAndObstaclesConstants.ARMAGEDDON_STRING)) {
-                            startArmageddonsPower();
-                        } else if (action != null && action.equals(CollectiblesAndObstaclesConstants.FUEL_BOTTLE_STRING)) {
-                            time -= GameplayConstants.FUEL_TANK_BONUS_TIME / currentFramesPerSecond;
-                        }
-                    }
+                    this.ammo.visualizeAmmo(gc, this.obstacle.getObstacles(), player);
+                    this.obstacle.visualizeObstacle(gc, velocity, player);
 
+                    String action = this.collectible.visualizeCollectible(gc, velocity);
+                    if (action != null && action.equals(CollectiblesAndObstaclesConstants.ARMAGEDDON_STRING)) {
+                        startArmageddonsPower();
+                    } else if (action != null && action.equals(CollectiblesAndObstaclesConstants.FUEL_BOTTLE_STRING)) {
+                        time -= GameplayConstants.FUEL_TANK_BONUS_TIME / currentFramesPerSecond;
+                    }
 
                     //Check for end game
                     this.checkForEndGame(root, canvas, gameLoop);
@@ -242,12 +237,12 @@ public class RunTrack {
     }
 
     private void clearObstaclesAndCollectibles() {
-        this.collectibles.clear();
-        this.obstacles.clear();
+        this.collectible.getCollectibles().clear();
+        this.obstacle.getObstacles().clear();
     }
 
     private void startArmageddonsPower() {
-        for (Obstacle o : this.obstacles) {
+        for (Obstacle o : this.obstacle.getObstacles()) {
             o.handleImpactByCarPlayer(velocity);
         }
     }

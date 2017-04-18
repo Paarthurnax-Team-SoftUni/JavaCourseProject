@@ -12,9 +12,11 @@ import models.Player;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-public abstract class Collectible extends CollectibleSprite {
+public class Collectible extends CollectibleSprite {
 
     private String notificationMessage;
     private int bonusPoints;
@@ -23,10 +25,20 @@ public abstract class Collectible extends CollectibleSprite {
     private double immortalityTimer;
     private double doublePtsTimer;
     private Player player;
+    private List<Collectible> collectibles;
 
     public Collectible() {
         this.bonusCoefficient = GameplayConstants.INITIAL_BONUS_COEFFICIENT;
         this.player = PlayerData.getInstance().getCurrentPlayer();
+        this.collectibles = new ArrayList<>();
+    }
+
+    public void add(Collectible collectible){
+        this.collectibles.add(collectible);
+    }
+
+    public List<Collectible> getCollectibles(){
+        return this.collectibles;
     }
 
     public void setNotificationMessage(String notificationMessage) {
@@ -67,20 +79,21 @@ public abstract class Collectible extends CollectibleSprite {
 
     public String visualizeCollectible(GraphicsContext gc, double velocity) {
         Stage currentStage = (Stage) gc.getCanvas().getScene().getWindow();
-        this.setVelocity(0, velocity);
-        this.update();
-        this.render(gc);
+        for (Collectible collectible : this.collectibles) {
+            collectible.setVelocity(0, velocity);
+            collectible.update();
+            collectible.render(gc);
 
-        if (this.intersects(this.player.getCar())) {
-            this.player.addPoints(this.bonusPoints * this.bonusCoefficient);
-            Notification.showPopupMessage(this.getName(), this.notificationMessage, currentStage);
-            this.updatePosition(GameplayConstants.DESTROY_OBJECT_COORDINATES, GameplayConstants
-                    .DESTROY_OBJECT_COORDINATES);
+            if (collectible.intersects(this.player.getCar())) {
+                this.player.addPoints(collectible.bonusPoints * collectible.bonusCoefficient);
+                Notification.showPopupMessage(collectible.getName(), collectible.notificationMessage, currentStage);
+                collectible.updatePosition(GameplayConstants.DESTROY_OBJECT_COORDINATES, GameplayConstants
+                        .DESTROY_OBJECT_COORDINATES);
 
-            takeBonus(this.getName());
-            return this.getName();
+                takeBonus(collectible.getName());
+                return collectible.getName();
+            }
         }
-
         return null;
     }
 
