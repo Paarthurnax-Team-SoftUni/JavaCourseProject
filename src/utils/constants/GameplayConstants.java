@@ -8,7 +8,6 @@ public class GameplayConstants {
     public static final int COLLECTIBLES_OFFSET = 50000;
     public static final int FUEL_TANK_BONUS_TIME = 5;
     public static final int HEALTH_BONUS = 25;
-    public static final int HEALTH_PACK_BONUS_POINTS = 500;
     public static final long IMMORTALITY_DURATION = 5;    //data in Seconds
     public static final int ARMAGEDDONS_BONUS = 500;
     public static final long DOUBLE_PTS_DURATION = 5;

@@ -1,6 +1,6 @@
 package models.sprites;
 
-import utils.constants.ErrorsConstants;
+import utils.constants.ErrorConstants;
 import utils.constants.GameplayConstants;
 import utils.constants.GeneralConstants;
 import gameEngine.DrawImageInCanvas;
@@ -83,7 +83,7 @@ public abstract class Sprite {
 
     public void setImage(String filename) {
         if (filename == null) {
-            throw new IllegalArgumentException(ErrorsConstants.FILE_PATH_EXCEPTION);
+            throw new IllegalArgumentException(ErrorConstants.FILE_PATH_EXCEPTION);
         }
         Image image = new Image(filename);
         this.image = image;
@@ -117,7 +117,7 @@ public abstract class Sprite {
 
     private void setPosition(double x, double y) {
         if (x < 0 || y < GameplayConstants.OBSTACLE_ANIMATION_Y_OFFSET) {
-            throw new IllegalArgumentException(ErrorsConstants.POSITION_EXCEPTION);
+            throw new IllegalArgumentException(ErrorConstants.POSITION_EXCEPTION);
         }
         this.positionX = x;
         this.positionY = y;
@@ -125,21 +125,21 @@ public abstract class Sprite {
 
     private void setVelocityY(double velocityY) {
         if (velocityY < -5) {
-            throw new IllegalArgumentException(ErrorsConstants.VELOCITY_EXCEPTION);
+            throw new IllegalArgumentException(ErrorConstants.VELOCITY_EXCEPTION);
         }
         this.velocityY = velocityY;
     }
 
     private void setVelocityX(double velocityX) {
         if (velocityX < GameplayConstants.X_TOP_RENDER_SPEED_DRUNK_DRIVERS) {
-            throw new IllegalArgumentException(ErrorsConstants.VELOCITY_EXCEPTION);
+            throw new IllegalArgumentException(ErrorConstants.VELOCITY_EXCEPTION);
         }
         this.velocityX = velocityX;
     }
 
     public void setName(String name) {
         if(name == null) {
-            throw new IllegalArgumentException(ErrorsConstants.NAME_EXCEPTION);
+            throw new IllegalArgumentException(ErrorConstants.NAME_EXCEPTION);
         }
         this.name = name;
     }

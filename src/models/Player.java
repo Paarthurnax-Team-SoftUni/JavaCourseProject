@@ -1,6 +1,6 @@
 package models;
 
-import utils.constants.ErrorsConstants;
+import utils.constants.ErrorConstants;
 import utils.constants.GameplayConstants;
 import models.sprites.PlayerCar;
 
@@ -46,7 +46,7 @@ public class Player {
 
     private void setId(int id) {
         if (id < 0) {
-            throw new IllegalArgumentException(ErrorsConstants.ID_EXCEPTION);
+            throw new IllegalArgumentException(ErrorConstants.ID_EXCEPTION);
         }
         this.id = id;
     }
@@ -61,7 +61,7 @@ public class Player {
 
     private void setName(String name) {
         if (name == null) {
-            throw new IllegalArgumentException(ErrorsConstants.NAME_EXCEPTION);
+            throw new IllegalArgumentException(ErrorConstants.NAME_EXCEPTION);
         }
         this.name = name;
     }
@@ -76,7 +76,7 @@ public class Player {
 
     private void setHighScore(long highScore) {
         if(highScore < 0) {
-            throw new IllegalArgumentException(ErrorsConstants.HIGHSCORE_ERROR);
+            throw new IllegalArgumentException(ErrorConstants.HIGHSCORE_ERROR);
         }
         this.highScore = highScore;
     }
@@ -91,7 +91,7 @@ public class Player {
 
     private void setMoney(double money) {
         if (money < 0) {
-            throw new IllegalArgumentException(ErrorsConstants.MONEY_EXCEPTION);
+            throw new IllegalArgumentException(ErrorConstants.MONEY_EXCEPTION);
         }
         this.money = money;
     }
@@ -106,7 +106,7 @@ public class Player {
 
     private void setPoints(long points) {
         if (points < 0) {
-            throw new IllegalArgumentException(ErrorsConstants.POINTS_EXCEPTION);
+            throw new IllegalArgumentException(ErrorConstants.POINTS_EXCEPTION);
         }
         this.points = points;
     }
@@ -121,7 +121,7 @@ public class Player {
 
     private void setHealthPoints(int healthPoints) {
         if (healthPoints < 0) {
-            throw new IllegalArgumentException(ErrorsConstants.HEALTH_POINTS_EXCEPTION);
+            throw new IllegalArgumentException(ErrorConstants.HEALTH_POINTS_EXCEPTION);
         }
         this.healthPoints = healthPoints;
     }

@@ -1,6 +1,6 @@
 package main;
 
-import utils.constants.DBErrorConstants;
+import utils.constants.ErrorConstants;
 import utils.constants.ViewsConstants;
 import dataHandler.PlayerData;
 import javafx.application.Application;
@@ -31,8 +31,8 @@ public class Main extends Application {
         PlayerData.getInstance().createDb();
         if (!PlayerData.getInstance().open()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle(DBErrorConstants.DB_INIT_ERROR_TITLE);
-            alert.setContentText(DBErrorConstants.DB_INIT_ERROR_CONTENT);
+            alert.setTitle(ErrorConstants.DB_INIT_ERROR_TITLE);
+            alert.setContentText(ErrorConstants.DB_INIT_ERROR_CONTENT);
             Platform.exit();
         }
         PlayerData.getInstance().loadPlayersData();
@@ -40,7 +40,9 @@ public class Main extends Application {
 
     @Override
     public void stop() throws SQLException {
-        PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
-        PlayerData.getInstance().close();
+        if(PlayerData.getInstance().getCurrentPlayer() != null){
+            PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
+            PlayerData.getInstance().close();
+        }
     }
 }

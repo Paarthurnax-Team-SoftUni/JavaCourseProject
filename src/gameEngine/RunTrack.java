@@ -238,7 +238,7 @@ public class RunTrack {
     private String getCarId() {
         ChooseCarController chooseCarController = new ChooseCarController();
         String carId = PlayerData.getInstance().getCarId();
-        return carId == null ? "car1" : carId;
+        return carId == null ? CarConstants.DEFAULT_CAR : carId;
     }
 
     private void clearObstaclesAndCollectibles() {

@@ -1,6 +1,6 @@
 package models.sprites;
 
-import utils.constants.EnemyCarConstants;
+import utils.constants.CarConstants;
 import utils.constants.GameplayConstants;
 import utils.constants.GeneralConstants;
 
@@ -9,17 +9,17 @@ public class EnemyCar extends Obstacle {
     @Override
     public void addVelocity(double x, double y) {
         if (x < 0) {
-            if (super.getPositionX() > EnemyCarConstants.X_AXIS_LEFT_BOUND) {
+            if (super.getPositionX() > CarConstants.X_AXIS_LEFT_BOUND) {
                 super.updateVelocityX(x);
             }
-            if (super.getPositionX() < EnemyCarConstants.X_AXIS_LEFT_BOUND_BUFFER) {
+            if (super.getPositionX() < CarConstants.X_AXIS_LEFT_BOUND_BUFFER) {
                 super.setTurningLeft(false);
             }
         } else if (x > 0) {
-            if (super.getPositionX() < EnemyCarConstants.X_AXIS_RIGHT_BOUND ) {
+            if (super.getPositionX() < CarConstants.X_AXIS_RIGHT_BOUND ) {
                 super.updateVelocityX(x);
             }
-            if (super.getPositionX() > EnemyCarConstants.X_AXIS_RIGHT_BOUND_BUFFER) {
+            if (super.getPositionX() > CarConstants.X_AXIS_RIGHT_BOUND_BUFFER) {
                 super.setTurningRight(false);
             }
         }

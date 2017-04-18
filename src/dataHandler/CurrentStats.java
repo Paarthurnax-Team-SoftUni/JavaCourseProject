@@ -63,7 +63,7 @@ public class CurrentStats extends Observable {
 
     private void setBullets(long bullets) {
         if (bullets < 0) {
-            throw new IllegalArgumentException(ErrorsConstants.BULLETS_EXCEPTION);
+            throw new IllegalArgumentException(ErrorConstants.BULLETS_EXCEPTION);
         }
         this.bullets.set(bullets);
     }
@@ -71,19 +71,19 @@ public class CurrentStats extends Observable {
     private void setTime(long time) {
         time = (long) (GameplayConstants.TRACK_1_END_TIME * GeneralConstants.FRAMES_PER_SECOND) - time;
         int seconds = (int) (time % CarConstants.SECONDS_DURATION);
-        this.time.set(String.format(FormattingConstants.SECONDS_FORMATTER, time / CarConstants.SECONDS_DURATION, seconds));
+        this.time.set(String.format(StylesConstants.SECONDS_FORMATTER, time / CarConstants.SECONDS_DURATION, seconds));
     }
 
     private void setPoints(long points) {
         if (points < 0) {
-            throw new IllegalArgumentException(ErrorsConstants.POINTS_EXCEPTION);
+            throw new IllegalArgumentException(ErrorConstants.POINTS_EXCEPTION);
         }
-        this.points.set(String.format(FormattingConstants.POINTS_FORMATTER, points));
+        this.points.set(String.format(StylesConstants.POINTS_FORMATTER, points));
     }
 
     private void setDistance(long distance) {
         if (distance < 0) {
-            throw new IllegalArgumentException(ErrorsConstants.DISTANCE_EXCEPTION);
+            throw new IllegalArgumentException(ErrorConstants.DISTANCE_EXCEPTION);
         }
         this.distance.set(distance);
     }

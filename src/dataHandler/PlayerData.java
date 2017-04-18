@@ -1,7 +1,6 @@
 package dataHandler;
 
-import utils.constants.DBErrorConstants;
-import utils.constants.ErrorsConstants;
+import utils.constants.ErrorConstants;
 import utils.constants.SQLConstants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,7 +41,7 @@ public class PlayerData {
             this.updatePlayer = this.conn.prepareStatement(SQLConstants.UPDATE_PLAYER_SCORE);
             return true;
         } catch (SQLException e) {
-            System.out.println(DBErrorConstants.SQL_CONNECTION_ERROR_MESSAGE + e.getMessage());
+            System.out.println(ErrorConstants.SQL_CONNECTION_ERROR_MESSAGE + e.getMessage());
             return false;
         }
     }
@@ -74,7 +73,7 @@ public class PlayerData {
                 this.conn.close();
             }
         } catch (SQLException e) {
-            throw new IllegalStateException(DBErrorConstants.SQL_EXCEPTION_ERROR_MESSAGE + e.getMessage());
+            throw new IllegalStateException(ErrorConstants.SQL_EXCEPTION_ERROR_MESSAGE + e.getMessage());
         }
     }
 
@@ -93,7 +92,7 @@ public class PlayerData {
 
     private void setCurrentPlayer(Player currentPlayer) {
         if (currentPlayer == null) {
-            throw new IllegalArgumentException(ErrorsConstants.PLAYER_MESSAGE);
+            throw new IllegalArgumentException(ErrorConstants.PLAYER_MESSAGE);
         }
         this.currentPlayer = currentPlayer;
     }
