@@ -148,9 +148,9 @@ public class RunTrack {
 
                     //Generate items
                     if (frame == 0) {
-                        this.obstacle.add(Obstacle.generateObstacle(drunkDrivers, minLeftSide, maxRightSide));
+                        this.obstacle.add(this.obstacle.generateObstacle(drunkDrivers, minLeftSide, maxRightSide));
                         try {
-                            this.collectible.add(Collectible.generateCollectible(minLeftSide, maxRightSide));
+                            this.collectible.add(this.collectible.generateCollectible(minLeftSide, maxRightSide));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

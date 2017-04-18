@@ -30,7 +30,7 @@ public class Obstacle extends RotatableSprite {
         return this.isDestroyed;
     }
 
-    public static Obstacle generateObstacle(int drunkDrivers, int minLeftSide, int maxRightSide) {
+    public Obstacle generateObstacle(int drunkDrivers, int minLeftSide, int maxRightSide) {
 
         String[] obstacles = CollectiblesAndObstaclesConstants.OBSTACLES_LIST_SMALL;
         String random = (obstacles[new Random().nextInt(obstacles.length)]);

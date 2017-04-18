@@ -58,7 +58,7 @@ public class Collectible extends CollectibleSprite {
         }
     }
 
-    public static Collectible generateCollectible(int minLeftSide, int maxRightSide) throws IllegalAccessException,
+    public Collectible generateCollectible(int minLeftSide, int maxRightSide) throws IllegalAccessException,
             InvocationTargetException, InstantiationException, NoSuchMethodException, ClassNotFoundException {
         String[] collectibles = CollectiblesAndObstaclesConstants.COLLECTIBLE_LIST_SMALL;
         String random = collectibles[new Random().nextInt(collectibles.length)];
