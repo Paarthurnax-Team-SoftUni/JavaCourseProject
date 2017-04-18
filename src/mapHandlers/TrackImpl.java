@@ -1,5 +1,11 @@
 package mapHandlers;
 
+import dataHandler.CurrentHealth;
+import dataHandler.CurrentStats;
+import models.Cheat;
+import models.sprites.Ammo;
+import models.sprites.Obstacle;
+import models.sprites.collectibles.Collectible;
 import utils.constants.GameplayConstants;
 import dataHandler.PlayerData;
 import gameEngine.RunTrack;
@@ -12,8 +18,10 @@ public class TrackImpl implements Track {
     private RunTrack runTrack;
     private TrackLevel trackLevel;
 
-    public TrackImpl(TrackLevel trackLevel) {
-        this.runTrack = new RunTrack(PlayerData.getInstance().getCurrentPlayer(), GameplayConstants.START_GAME_VELOCITY);
+    public TrackImpl(TrackLevel trackLevel, CurrentHealth currentHealth, CurrentStats currentStats, Ammo ammo,
+                     Collectible collectible, Obstacle obstacle, Cheat cheat) {
+        this.runTrack = new RunTrack(PlayerData.getInstance().getCurrentPlayer(), GameplayConstants.START_GAME_VELOCITY, currentHealth,
+                currentStats, ammo, collectible, obstacle, cheat);
         this.trackLevel = trackLevel;
     }
 

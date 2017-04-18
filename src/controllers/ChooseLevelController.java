@@ -1,7 +1,7 @@
 package controllers;
 
-import utils.constants.StylesConstants;
-import utils.constants.ViewsConstants;
+import dataHandler.CurrentHealth;
+import dataHandler.CurrentStats;
 import dataHandler.PlayerData;
 import interfaces.Track;
 import javafx.event.ActionEvent;
@@ -14,6 +14,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
 import mapHandlers.TrackHandler;
+import models.Cheat;
+import models.sprites.Ammo;
+import models.sprites.Obstacle;
+import models.sprites.collectibles.Collectible;
+import utils.constants.GameplayConstants;
+import utils.constants.StylesConstants;
+import utils.constants.ViewsConstants;
 import utils.stages.StageManager;
 import utils.stages.StageManagerImpl;
 
@@ -26,6 +33,12 @@ public class ChooseLevelController {
 
     private Track track;
     private TrackHandler trackHandler;
+    CurrentHealth currentHealth;
+    CurrentStats currentStats;
+    Ammo ammo;
+    Collectible collectible;
+    Obstacle obstacle;
+    Cheat cheat;
 
     @FXML
     private Button startBtn;
@@ -40,6 +53,12 @@ public class ChooseLevelController {
     public void initialize() throws IOException {
         this.showUnlockedLevelsOnly();
         this.trackHandler = new TrackHandler();
+        this.currentHealth = new CurrentHealth(PlayerData.getInstance().getCurrentPlayer());
+        this.currentStats = new CurrentStats(GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE);
+        this.ammo = new Ammo();
+        this.collectible = new Collectible();
+        this.obstacle = new Obstacle();
+        this.cheat = new Cheat();
     }
 
     @FXML
@@ -92,6 +111,7 @@ public class ChooseLevelController {
                 this.backgroundBox2.toFront();
                 break;
         }
-        this.track = this.trackHandler.getLevel(id);
+        this.track = this.trackHandler.getLevel(id, this.currentHealth,
+                this.currentStats, this.ammo, this.collectible, this.obstacle, this.cheat);
     }
 }

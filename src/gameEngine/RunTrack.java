@@ -1,8 +1,5 @@
 package gameEngine;
 
-import models.sprites.EnemyCar;
-import utils.constants.*;
-import controllers.ChooseCarController;
 import dataHandler.CurrentHealth;
 import dataHandler.CurrentStats;
 import dataHandler.PlayerData;
@@ -17,18 +14,17 @@ import javafx.util.Duration;
 import keyHandler.KeyHandlerOnPress;
 import keyHandler.KeyHandlerOnRelease;
 import models.Cheat;
-import utils.notifications.Notification;
 import models.Player;
 import models.sprites.Ammo;
-import models.sprites.collectibles.Collectible;
 import models.sprites.Obstacle;
 import models.sprites.PlayerCar;
+import models.sprites.collectibles.Collectible;
+import utils.constants.*;
 import utils.music.MusicPlayer;
+import utils.notifications.Notification;
 import utils.stages.StageManager;
 import utils.stages.StageManagerImpl;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observer;
 
 public class RunTrack {
@@ -50,20 +46,23 @@ public class RunTrack {
     private Ammo ammo;
     private PlayerCar playerCar;
 
-    public RunTrack(Player player, float velocityValue) {
+    public RunTrack(Player player, float velocityValue,
+                    CurrentHealth currentHealth, CurrentStats currentStats, Ammo ammo,
+                    Collectible collectible, Obstacle obstacle, Cheat cheat) {
         frame = 0;
         time = 0;
         velocity = velocityValue;
-        currentStats = new CurrentStats(0, 0, 0, 0);
-        cheat = new Cheat();
+        RunTrack.currentStats = currentStats;
+        RunTrack.cheat = cheat;
         observer = (o, arg) -> {};
-        this.setPlayer(player);
+        this.player = player;
         this.playerCar = this.getPlayer().getCar();
-        this.currentHealth = new CurrentHealth(this.getPlayer());
-        this.ammo = new Ammo();
-        this.collectible = new Collectible();
-        this.obstacle = new Obstacle();
+        this.currentHealth = currentHealth;
+        this.ammo = ammo;
+        this.collectible = collectible;
+        this.obstacle = obstacle;
         this.currentFramesPerSecond = GeneralConstants.FRAMES_PER_SECOND;
+
     }
 
     public static Cheat getCheat() {
@@ -83,23 +82,19 @@ public class RunTrack {
     }
 
     public static boolean isPaused() {
-        return isPaused;
+        return RunTrack.isPaused;
     }
 
-    public static void setIsPaused(boolean newValue) {
-        isPaused = newValue;
+    public static void setIsPaused(boolean isPaused) {
+        RunTrack.isPaused = isPaused;
     }
 
-    public static void setShoot(boolean newValue) {
-        shoot = newValue;
+    public static void setShoot(boolean isShooting) {
+        shoot = isShooting;
     }
 
     public Player getPlayer() {
         return this.player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
     }
 
     public void runGame(AnchorPane root, Image background, int drunkDrivers, int minLeftSide, int maxRightSide) {
@@ -111,8 +106,8 @@ public class RunTrack {
         root.getScene().setOnKeyReleased(new KeyHandlerOnRelease(this.getPlayer(), minLeftSide, maxRightSide));
 
         this.playerCar.setImage(ResourcesConstants.CAR_IMAGES_PATH + this.getCarId() + ImagesShortcutConstants.HALF_SIZE);
-        this.playerCar.updatePosition(200, 430);
-        this.player.updatePoints(0L);
+        this.playerCar.updatePosition(GameplayConstants.INITIAL_CAR_POSITION_X, GameplayConstants.INITIAL_CAR_POSITION_Y);
+        this.player.updatePoints(GameplayConstants.INITIAL_STATS_VALUE);
         currentStats.addObserver(observer);
 
         Timeline gameLoop = new Timeline();
@@ -154,6 +149,9 @@ public class RunTrack {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
+                    }
+                    if (player.getCar().getAmmunition() < 0) {
+                        shoot = false;
                     }
                     if (shoot) {
                         ammo.addAmmo(ammo.generateAmmo(player));
@@ -231,7 +229,6 @@ public class RunTrack {
     }
 
     private String getCarId() {
-        ChooseCarController chooseCarController = new ChooseCarController();
         String carId = PlayerData.getInstance().getCarId();
         return carId == null ? CarConstants.DEFAULT_CAR : carId;
     }

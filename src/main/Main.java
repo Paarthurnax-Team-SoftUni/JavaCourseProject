@@ -1,12 +1,16 @@
 package main;
 
-import utils.constants.ErrorConstants;
-import utils.constants.ViewsConstants;
 import dataHandler.PlayerData;
+import framework.Dependency;
+import framework.injection.Injector;
+import gameEngine.RunTrack;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import utils.configurations.ModuleImpl;
+import utils.constants.ErrorConstants;
+import utils.constants.ViewsConstants;
 import utils.stages.StageManager;
 import utils.stages.StageManagerImpl;
 
@@ -17,6 +21,7 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+
     }
 
     @Override
