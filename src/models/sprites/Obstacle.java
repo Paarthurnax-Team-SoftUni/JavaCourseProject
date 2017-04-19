@@ -2,7 +2,7 @@ package models.sprites;
 
 import javafx.scene.canvas.GraphicsContext;
 import models.Player;
-import utils.RandomProvider;
+import models.RandomProvider;
 import utils.constants.*;
 
 import java.util.ArrayList;

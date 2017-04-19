@@ -1,11 +1,11 @@
 package dataHandler;
 
-import utils.constants.ErrorConstants;
-import utils.constants.SQLConstants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.Player;
 import models.sprites.PlayerCar;
+import utils.constants.ErrorConstants;
+import utils.constants.SQLConstants;
 
 import java.sql.*;
 
@@ -102,7 +102,7 @@ public class PlayerData {
     }
 
     public ObservableList<Player> getPlayersList() {
-        return this.playersList;
+        return FXCollections.unmodifiableObservableList(this.playersList);
     }
 
     public void addPlayer(Player player) {

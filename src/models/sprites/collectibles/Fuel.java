@@ -1,6 +1,6 @@
 package models.sprites.collectibles;
 
-import utils.RandomProvider;
+import models.RandomProvider;
 
 public class Fuel extends Collectible {
 

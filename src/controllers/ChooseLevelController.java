@@ -18,7 +18,7 @@ import models.Cheat;
 import models.sprites.Ammo;
 import models.sprites.Obstacle;
 import models.sprites.collectibles.Collectible;
-import utils.RandomProvider;
+import models.RandomProvider;
 import utils.constants.GameplayConstants;
 import utils.constants.ImagesShortcutConstants;
 import utils.constants.StylesConstants;

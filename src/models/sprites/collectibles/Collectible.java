@@ -2,12 +2,10 @@ package models.sprites.collectibles;
 
 import dataHandler.PlayerData;
 import models.sprites.CollectibleSprite;
-import utils.constants.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import models.Player;
-import utils.RandomProvider;
-import models.sprites.CollectibleSprite;
+import models.RandomProvider;
 import utils.constants.CollectiblesAndObstaclesConstants;
 import utils.constants.GameplayConstants;
 import utils.constants.GeneralConstants;
