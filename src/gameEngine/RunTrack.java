@@ -30,13 +30,13 @@ import java.util.Observer;
 
 public class RunTrack {
 
-    private static long time;
     private static boolean isPaused;
     private static float velocity;
     private static boolean shoot;
     private static CurrentStats currentStats;
     private static Cheat cheat;
-    private static Observer observer;
+    private long time;
+    private Observer observer;
     private int frame;
     private int y;
     private float currentFramesPerSecond;
