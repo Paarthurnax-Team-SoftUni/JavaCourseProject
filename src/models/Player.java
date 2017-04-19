@@ -1,5 +1,6 @@
 package models;
 
+import mapHandlers.TrackMode;
 import utils.constants.ErrorConstants;
 import utils.constants.GameplayConstants;
 import models.sprites.PlayerCar;
@@ -14,6 +15,7 @@ public class Player {
     private int maxLevelPassed;
     private int id;
     private PlayerCar car;
+    private TrackMode currentTrackmode;
 
     public Player(PlayerCar playerCar) {
         this.setPoints(0L);
@@ -42,6 +44,18 @@ public class Player {
 
     public void updateId(int id) {
         this.setId(id);
+    }
+
+    public TrackMode getCurrentTrackmode() {
+        return this.currentTrackmode;
+    }
+
+    public void updateCurrentTrackmode(TrackMode currentTrackmode) {
+        this.setCurrentTrackmode(currentTrackmode);
+    }
+
+    private void setCurrentTrackmode(TrackMode currentTrackmode) {
+        this.currentTrackmode = currentTrackmode;
     }
 
     private void setId(int id) {
@@ -144,7 +158,7 @@ public class Player {
 
     public void updateStatsAtEnd() {
         this.setHealthPoints(GameplayConstants.HEALTH_BAR_MAX);
-        this.car.setAmmunition(GameplayConstants.START_GAME_BULLETS_NORMAL_MODE);
+        this.car.updateAmmunition(GameplayConstants.START_GAME_BULLETS_NORMAL_MODE);
         this.car.stopAccelerate();
         this.car.setCenterWheel(true);
         this.car.removeWind();

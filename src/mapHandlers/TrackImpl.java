@@ -19,11 +19,13 @@ public class TrackImpl implements Track {
 
     private RunTrack runTrack;
     private TrackLevel trackLevel;
+    private TrackMode trackMode;
 
     public TrackImpl(TrackLevel trackLevel, CurrentHealth currentHealth, CurrentStats currentStats, Ammo ammo,
-                     Collectible collectible, Obstacle obstacle, Cheat cheat) {
+                     Collectible collectible, Obstacle obstacle, Cheat cheat,TrackMode trackMode) {
+        this.trackMode=trackMode;
         this.runTrack = new RunTrack(PlayerData.getInstance().getCurrentPlayer(),
-                GameplayConstants.START_GAME_VELOCITY, TrackMode.DRAG,currentHealth,
+                GameplayConstants.START_GAME_VELOCITY, this.trackMode,currentHealth,
                 currentStats, ammo, collectible, obstacle, cheat);
         this.trackLevel = trackLevel;
     }
@@ -41,5 +43,10 @@ public class TrackImpl implements Track {
     @Override
     public RunTrack getRunTrack() {
         return this.runTrack;
+    }
+
+    @Override
+    public void updateMode(TrackMode trackMode) {
+        this.trackMode=trackMode;
     }
 }

@@ -26,18 +26,18 @@ public enum TrackLevel {
     }
 
     public int getValue() {
-        return value;
+        return this.value;
     }
 
     public String getPath() {
-        return path;
+        return this.path;
     }
 
     public int getMinLeftSide() {
-        return minLeftSide;
+        return this.minLeftSide;
     }
 
     public int getMaxRightSide() {
-        return maxRightSide;
+        return this.maxRightSide;
     }
 }

@@ -26,18 +26,18 @@ public enum TrackMode {
     }
 
     public long getEndTruckTime() {
-        return endTruckTime;
+        return this.endTruckTime;
     }
 
     public int getPointsPerDistance() {
-        return pointsPerDistance;
+        return this.pointsPerDistance;
     }
 
     public long getFinalExpectedDistance() {
-        return finalExpectedDistance;
+        return this.finalExpectedDistance;
     }
 
     public int getInitialAmmonition() {
-        return initialAmmonition;
+        return this.initialAmmonition;
     }
 }

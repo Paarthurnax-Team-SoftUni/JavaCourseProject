@@ -24,7 +24,7 @@ public class Obstacle extends RotatableSprite {
         this.obstacles.add(obstacle);
     }
 
-    public List<Obstacle> getObstacles(){
+    public Iterable<Obstacle> getObstacles(){
         return this.obstacles;
     }
 
@@ -104,6 +104,10 @@ public class Obstacle extends RotatableSprite {
         if (this.getObstacleType().contains(ImagesShortcutConstants.PLAYER_CAR)) {
             this.setVelocity(0, velocity);
         }
+    }
+
+    public void clearObstacles(){
+        this.obstacles.clear();
     }
 
     private void setDestroyed(boolean isDestroyed) {

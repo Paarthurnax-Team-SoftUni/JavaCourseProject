@@ -1,5 +1,6 @@
 package controllers;
 
+import dataHandler.PlayerData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
+import mapHandlers.TrackMode;
 import utils.constants.GameplayConstants;
 import utils.constants.ImagesShortcutConstants;
 import utils.constants.StylesConstants;
@@ -44,6 +46,7 @@ public class ChooseModeController {
         Node source = (Node) ev.getSource();
         int id = Integer.valueOf(source.getId().substring(source.getId().length()-1));
         this.backgroundFill(id);
+        PlayerData.getInstance().getCurrentPlayer().updateCurrentTrackmode(TrackMode.values()[id-1]);
         this.goNextBtn.setVisible(true);
     }
 
