@@ -10,8 +10,8 @@ import utils.constants.GameplayConstants;
 import utils.constants.GeneralConstants;
 
 public abstract class Sprite implements Updateable{
-    protected int minLeftSide;
-    protected int maxRightSide;
+    private int minLeftSide;
+    private int maxRightSide;
     private String name;
     private Image image;
     private double positionX;
@@ -26,6 +26,14 @@ public abstract class Sprite implements Updateable{
 
     public boolean intersects(Sprite other) {
         return this.getBoundary().intersects(other.getBoundary());
+    }
+
+    protected int getMinLeftSide() {
+        return minLeftSide;
+    }
+
+    protected int getMaxRightSide() {
+        return maxRightSide;
     }
 
     public void render(GraphicsContext gc) {
@@ -75,7 +83,7 @@ public abstract class Sprite implements Updateable{
         return this.name;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         if (name == null) {
             throw new IllegalArgumentException(ErrorConstants.NAME_EXCEPTION);
         }
@@ -90,12 +98,16 @@ public abstract class Sprite implements Updateable{
         return this.image;
     }
 
-    public void setImage(String filename) {
+    private void setImage(Image image) {
+        this.image = image;
+    }
+
+    public void updateImage(String filename) {
         if (filename == null) {
             throw new IllegalArgumentException(ErrorConstants.FILE_PATH_EXCEPTION);
         }
         Image image = new Image(filename);
-        this.image = image;
+        this.setImage(image);
         this.imageWidth = image.getWidth();
         this.imageHeight = image.getHeight();
     }

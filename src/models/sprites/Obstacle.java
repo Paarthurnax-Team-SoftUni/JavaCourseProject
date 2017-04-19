@@ -33,7 +33,7 @@ public class Obstacle extends RotatableSprite {
     }
 
     private void setDestroyed(boolean isDestroyed) {
-        this.setImage(ResourcesConstants.FLAME_PATH_SMALL);
+        this.updateImage(ResourcesConstants.FLAME_PATH_SMALL);
         this.setVelocity(0, 0);
         this.isDestroyed = isDestroyed;
     }
@@ -56,7 +56,7 @@ public class Obstacle extends RotatableSprite {
 
         obstacle.updatePosition(this.randomizer.next(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants
                 .OBSTACLE_ANIMATION_Y_OFFSET);
-        obstacle.setImage(image);
+        obstacle.updateImage(image);
         obstacle.updateName(random);
 
         return obstacle;

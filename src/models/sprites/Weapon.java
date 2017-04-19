@@ -23,7 +23,7 @@ public class Weapon extends CollectibleSprite {
     public Weapon generateAmmo(Player player) {
         Weapon weapon = new Weapon();
         weapon.updatePosition(player.getCar().getPositionX(), player.getCar().getPositionY() + GameplayConstants.BULLET_SPEED);
-        weapon.setImage(ResourcesConstants.AMMO_PATH);
+        weapon.updateImage(ResourcesConstants.AMMO_PATH);
         return weapon;
     }
 

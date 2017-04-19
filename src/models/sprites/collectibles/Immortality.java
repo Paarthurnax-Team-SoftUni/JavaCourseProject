@@ -14,7 +14,7 @@ public class Immortality extends Collectible {
     }
 
     private void setProps() {
-        this.setName(IMMORTALITY_NAME);
+        this.updateName(IMMORTALITY_NAME);
         this.setNotificationMessage(IMMORTALITY_NOTIFICATION_MESSAGE);
         this.setBonusPoints(IMMORTALITY_BONUS);
     }

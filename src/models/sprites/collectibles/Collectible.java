@@ -72,7 +72,7 @@ public class Collectible extends CollectibleSprite {
         Collectible collectible = constructor.newInstance(this.randomizer);
 
         collectible.updateName(random);
-        collectible.setImage(CollectiblesAndObstaclesConstants.COLLECTIBLE_PATH + random + ImagesShortcutConstants
+        collectible.updateImage(CollectiblesAndObstaclesConstants.COLLECTIBLE_PATH + random + ImagesShortcutConstants
                 .PNG_FILE_EXTENSION);
         collectible.updatePosition(this.randomizer.next(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants
                 .OBSTACLE_ANIMATION_Y_OFFSET);

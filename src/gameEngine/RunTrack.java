@@ -109,7 +109,7 @@ public class RunTrack {
         root.getScene().setOnKeyPressed(new KeyHandlerOnPress(this.getPlayer(), minLeftSide, maxRightSide));
         root.getScene().setOnKeyReleased(new KeyHandlerOnRelease(this.getPlayer(), minLeftSide, maxRightSide));
 
-        this.playerCar.setImage(ResourcesConstants.CAR_IMAGES_PATH + this.getCarId() + ImagesShortcutConstants.HALF_SIZE);
+        this.playerCar.updateImage(ResourcesConstants.CAR_IMAGES_PATH + this.getCarId() + ImagesShortcutConstants.HALF_SIZE);
         this.playerCar.updatePosition(GameplayConstants.INITIAL_CAR_POSITION_X, GameplayConstants.INITIAL_CAR_POSITION_Y);
         this.playerCar.updateAmmunition(trackMode.getInitialAmmonition());
         this.player.updatePoints(GameplayConstants.INITIAL_STATS_VALUE);

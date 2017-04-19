@@ -14,7 +14,7 @@ public class Health extends Collectible {
     }
 
     private void setProps() {
-        this.setName(HEALTH_NAME);
+        this.updateName(HEALTH_NAME);
         this.setNotificationMessage(HEALTH_NOTIFICATION_MESSAGE);
         this.setBonusPoints(HEALTH_BONUS);
     }

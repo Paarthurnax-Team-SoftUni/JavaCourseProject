@@ -14,7 +14,7 @@ public class DoublePoints extends Collectible {
     }
 
     private void setProps() {
-        this.setName(DOUBLE_POINTS_NAME);
+        this.updateName(DOUBLE_POINTS_NAME);
         this.setNotificationMessage(DOUBLE_POINTS_NOTIFICATION_MESSAGE);
         this.setBonusPoints(DOUBLE_POINTS_BONUS);
     }

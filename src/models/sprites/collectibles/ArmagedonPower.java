@@ -14,7 +14,7 @@ public class ArmagedonPower extends Collectible {
     }
 
     private void setProps() {
-        this.setName(ARMAGEDON_NAME);
+        this.updateName(ARMAGEDON_NAME);
         this.setNotificationMessage(ARMAGEDON_NOTIFICATION_MESSAGE);
         this.setBonusPoints(ARMAGEDON_BONUS);
     }

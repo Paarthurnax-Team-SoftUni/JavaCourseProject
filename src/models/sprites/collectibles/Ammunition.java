@@ -14,7 +14,7 @@ public class Ammunition extends Collectible {
     }
 
     private void setProps() {
-        this.setName(AMMO_NAME);
+        this.updateName(AMMO_NAME);
         this.setNotificationMessage(AMMO_NOTIFICATION_MESSAGE);
         this.setBonusPoints(AMMO_BONUS);
     }

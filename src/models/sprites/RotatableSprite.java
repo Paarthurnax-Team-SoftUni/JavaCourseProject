@@ -72,7 +72,7 @@ public abstract class RotatableSprite extends Sprite implements Rotatable {
 
     @Override
     public void addVelocity(double x, double y) {
-        this.addVelocity(x, y, this.minLeftSide, this.maxRightSide);
+        this.addVelocity(x, y, this.getMinLeftSide(), this.getMaxRightSide());
     }
 
     @Override
