@@ -2,8 +2,6 @@ package models.sprites.collectibles;
 
 import dataHandler.PlayerData;
 import models.sprites.CollectibleSprite;
-import models.sprites.EnemyCar;
-import models.sprites.Obstacle;
 import utils.constants.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
@@ -116,20 +114,20 @@ public class Collectible extends CollectibleSprite {
                     startImmortalityTimer();
                 }
             case "ammunition":
-                player.getCar().setAmmunition(player.getCar().getAmmunition() + 1);
+                player.getCar().updateAmmunition(player.getCar().getAmmunition() + 1);
                 break;
         }
     }
 
     private void startImmortalityTimer() {
-        this.player.getCar().setImmortal(true);
+        this.player.getCar().updateImmortal(true);
         this.immortalityTimer = GameplayConstants.IMMORTALITY_DURATION / GeneralConstants.FRAMES_PER_SECOND;
     }
 
     private void updateImmortalityStatus() {
         this.immortalityTimer--;
         if (this.immortalityTimer < 0) {
-            this.player.getCar().setImmortal(false);
+            this.player.getCar().updateImmortal(false);
         }
     }
 

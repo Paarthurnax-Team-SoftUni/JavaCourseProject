@@ -110,7 +110,7 @@ public class RunTrack {
 
         this.playerCar.setImage(ResourcesConstants.CAR_IMAGES_PATH + this.getCarId() + ImagesShortcutConstants.HALF_SIZE);
         this.playerCar.updatePosition(GameplayConstants.INITIAL_CAR_POSITION_X, GameplayConstants.INITIAL_CAR_POSITION_Y);
-        this.playerCar.setAmmunition(trackMode.getInitialAmmonition());
+        this.playerCar.updateAmmunition(trackMode.getInitialAmmonition());
         this.player.updatePoints(GameplayConstants.INITIAL_STATS_VALUE);
         currentStats.addObserver(observer);
 

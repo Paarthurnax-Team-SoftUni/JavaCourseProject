@@ -32,16 +32,16 @@ public class PlayerCar extends RotatableSprite implements Shootable {
         return this.ammunition;
     }
 
-    public void setAmmunition(int ammunition) {
-        this.ammunition = ammunition;
+    public void updateAmmunition(int ammunition) {
+        this.setAmmunition(ammunition);
     }
 
     public boolean isImmortal() {
         return this.isImmortal;
     }
 
-    public void setImmortal(boolean immortal) {
-        this.isImmortal = immortal;
+    public void updateImmortal(boolean immortal) {
+        this.setImmortal(immortal);
     }
 
     public void accelerate() {
@@ -50,6 +50,14 @@ public class PlayerCar extends RotatableSprite implements Shootable {
 
     public void stopAccelerate() {
         this.accelerating = false;
+    }
+
+    private void setAmmunition(int ammunition) {
+        this.ammunition = ammunition;
+    }
+
+    private void setImmortal(boolean immortal) {
+        this.isImmortal = immortal;
     }
 
     @Override

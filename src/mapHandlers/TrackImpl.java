@@ -23,7 +23,7 @@ public class TrackImpl implements Track {
     public TrackImpl(TrackLevel trackLevel, CurrentHealth currentHealth, CurrentStats currentStats, Ammo ammo,
                      Collectible collectible, Obstacle obstacle, Cheat cheat) {
         this.runTrack = new RunTrack(PlayerData.getInstance().getCurrentPlayer(),
-                GameplayConstants.START_GAME_VELOCITY, TrackMode.DRAG,currentHealth,
+                GameplayConstants.START_GAME_VELOCITY, TrackMode.SAND_BOX,currentHealth,
                 currentStats, ammo, collectible, obstacle, cheat);
         this.trackLevel = trackLevel;
     }
