@@ -134,12 +134,12 @@ public class RunTrack {
                     }
 
                     //Set movement params
-                    y = Math.round(y + velocity);
-                    time++;
-                    frame++;
-                    if (Math.abs(y) >= GeneralConstants.CANVAS_HEIGHT) {
-                        y = y - GeneralConstants.CANVAS_HEIGHT;
-                        frame = 0;
+                    y = Math.round(this.y + velocity);
+                    this.time++;
+                    this.frame++;
+                    if (Math.abs(this.y) >= GeneralConstants.CANVAS_HEIGHT) {
+                        this.y = this.y - GeneralConstants.CANVAS_HEIGHT;
+                        this.frame = 0;
                     }
 
                     //Update stats
@@ -149,7 +149,7 @@ public class RunTrack {
                     cheat.useCheat(this.player);
 
                     //Generate items
-                    if (frame == 0) {
+                    if (this.frame == 0) {
                         this.obstacle.add(this.obstacle.generateObstacle(drunkDrivers, minLeftSide, maxRightSide));
                         try {
                             this.collectible.add(this.collectible.generateCollectible(minLeftSide, maxRightSide));
@@ -157,11 +157,11 @@ public class RunTrack {
                             e.printStackTrace();
                         }
                     }
-                    if (player.getCar().getAmmunition() < 0) {
+                    if (this.player.getCar().getAmmunition() < 0) {
                         shoot = false;
                     }
                     if (shoot) {
-                        ammo.addAmmo(ammo.generateAmmo(player));
+                        this.ammo.addAmmo(this.ammo.generateAmmo(this.player));
                         setShoot(false);
                     }
 
@@ -180,7 +180,7 @@ public class RunTrack {
                     if (action != null && action.equals(CollectiblesAndObstaclesConstants.ARMAGEDDON_STRING)) {
                         startArmageddonsPower();
                     } else if (action != null && action.equals(CollectiblesAndObstaclesConstants.FUEL_BOTTLE_STRING)) {
-                        time -= (GameplayConstants.FUEL_TANK_BONUS_TIME / this.currentFramesPerSecond);
+                        this.time -= (GameplayConstants.FUEL_TANK_BONUS_TIME / this.currentFramesPerSecond);
                     }
 
                     //Check for end game
@@ -192,9 +192,9 @@ public class RunTrack {
     }
 
     private void checkForEndGame(AnchorPane root, Canvas canvas, Timeline gameLoop) {
-        if (time >= this.trackMode.getEndTruckTime() || player.getHealthPoints() <= 0) {
+        if (this.time >= this.trackMode.getEndTruckTime() || this.player.getHealthPoints() <= 0) {
 
-            boolean win = player.getHealthPoints() > 0 && currentStats.getDistance() >= this.trackMode.getFinalExpectedDistance();
+            boolean win = this.player.getHealthPoints() > 0 && currentStats.getDistance() >= this.trackMode.getFinalExpectedDistance();
 
             if (win) {
                 this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
@@ -206,7 +206,7 @@ public class RunTrack {
             gameLoop.stop();
             MusicPlayer.getInstance().stop();
             Notification.hidePopupMessage();
-            time = 0;
+            this.time = 0;
             velocity = GameplayConstants.START_GAME_VELOCITY;
             currentStats.updateDistance(0);
 
@@ -220,10 +220,10 @@ public class RunTrack {
     }
 
     private void updatePlayerStats() {
-        currentStats.updateTime((long) (time * currentFramesPerSecond));
-        currentStats.updateDistance(currentStats.getDistance() + (long) velocity / 2);
-        player.addPoints(this.trackMode.getPointsPerDistance());
-        currentStats.updatePoints(player.getPoints());
+        currentStats.updateTime((long) (this.time * this.currentFramesPerSecond));
+        currentStats.updateDistance(currentStats.getDistance() + (long) this.velocity / 2);
+        this.player.addPoints(this.trackMode.getPointsPerDistance());
+        currentStats.updatePoints(this.player.getPoints());
         currentStats.updateBullets(this.playerCar.getAmmunition());
         observer.update(currentStats, observer);
 
