@@ -3,87 +3,75 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="chooseModePage" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0"
-            stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.111"
-            fx:controller="controllers.ChooseModeController">
+
+<AnchorPane fx:id="chooseModePage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="850.0" stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ChooseModeController">
     <children>
-        <Button fx:id="goNextBtn" layoutX="260.0" layoutY="506.0" mnemonicParsing="false" onAction="#goToChooseLevel"
-                prefHeight="55.0" prefWidth="323.0" text="Ready" textAlignment="CENTER" textFill="#1b1a1a"
-                underline="true" visible="false">
+        <Button fx:id="goNextBtn" layoutX="260.0" layoutY="506.0" mnemonicParsing="false" onAction="#goToChooseLevel" prefHeight="55.0" prefWidth="323.0" text="Ready" textAlignment="CENTER" textFill="#1b1a1a" underline="true" visible="false">
             <font>
-                <Font name="Chiller" size="50.0"/>
+                <Font name="Chiller" size="50.0" />
             </font>
         </Button>
-        <GridPane fx:id="modes" alignment="TOP_CENTER" hgap="10.0" layoutX="131.0" layoutY="41.0" prefHeight="411.0"
-                  prefWidth="574.0" vgap="10.0">
+        <GridPane fx:id="modes" alignment="TOP_CENTER" hgap="10.0" layoutX="116.0" layoutY="55.0" prefHeight="411.0" prefWidth="619.0" vgap="10.0">
             <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
             </rowConstraints>
             <padding>
-                <Insets bottom="5.0"/>
+                <Insets bottom="5.0" />
             </padding>
             <children>
-                <Ellipse fx:id="backgroundBox1" onMouseClicked="#chooseMode" fill="TRANSPARENT" radiusX="107.0" radiusY="134.0" stroke="TRANSPARENT"
-                         strokeType="INSIDE"/>
-                <Ellipse fx:id="backgroundBox2" onMouseClicked="#chooseMode" fill="TRANSPARENT" radiusX="107.0" radiusY="134.0" stroke="TRANSPARENT"
-                         strokeType="INSIDE" GridPane.columnIndex="1"/>
-                <Ellipse fx:id="backgroundBox3" onMouseClicked="#chooseMode" fill="TRANSPARENT" radiusX="107.0" radiusY="134.0" stroke="TRANSPARENT"
-                         strokeType="INSIDE" GridPane.columnIndex="2"/>
-                <Label fx:id="label1" contentDisplay="TOP" text="SAND BOX"
-                       GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                <Ellipse fx:id="backgroundBox1" fill="TRANSPARENT" onMouseClicked="#chooseMode" radiusX="84.0" radiusY="106.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                <Ellipse fx:id="backgroundBox2" fill="TRANSPARENT" onMouseClicked="#chooseMode" radiusX="84.0" radiusY="106.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="1" />
+                <Ellipse fx:id="backgroundBox3" fill="TRANSPARENT" onMouseClicked="#chooseMode" radiusX="84.0" radiusY="106.0" stroke="TRANSPARENT" strokeType="INSIDE" GridPane.columnIndex="2" />
+                <Label fx:id="label1" contentDisplay="TOP" text="SAND BOX" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                     <GridPane.margin>
-                        <Insets top="10.0"/>
+                        <Insets top="10.0" />
                     </GridPane.margin>
                     <font>
-                        <Font name="Chiller" size="24.0"/>
+                        <Font name="Chiller" size="24.0" />
                     </font>
                 </Label>
-                <Label fx:id="label2" text="DRAG" GridPane.columnIndex="1"
-                       GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                <Label fx:id="label2" text="DRAG" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                     <GridPane.margin>
-                        <Insets top="10.0"/>
+                        <Insets top="10.0" />
                     </GridPane.margin>
                     <font>
-                        <Font name="Chiller" size="24.0"/>
+                        <Font name="Chiller" size="24.0" />
                     </font>
                 </Label>
-                <Label fx:id="label3" text="POINT HUNGER" GridPane.columnIndex="2"
-                       GridPane.halignment="CENTER" GridPane.valignment="TOP">
+                <Label fx:id="label3" text="POINT HUNGER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                     <GridPane.margin>
-                        <Insets top="10.0"/>
+                        <Insets top="10.0" />
                     </GridPane.margin>
                     <font>
-                        <Font name="Chiller" size="24.0"/>
+                        <Font name="Chiller" size="24.0" />
                     </font>
                 </Label>
-                <ImageView fx:id="mode1" fitHeight="210.0" fitWidth="174.0" nodeOrientation="INHERIT"
-                           onMouseClicked="#chooseMode" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="mode1" fitHeight="210.0" fitWidth="174.0" nodeOrientation="INHERIT" onMouseClicked="#chooseMode" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../resources/images/screenshots/mode1.png"/>
+                        <Image url="@../resources/images/screenshots/mode1.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="mode2" fitHeight="210.0" fitWidth="174.0" nodeOrientation="INHERIT"
-                           onMouseClicked="#chooseMode" pickOnBounds="true" preserveRatio="true"
-                           GridPane.columnIndex="1">
+                <ImageView fx:id="mode2" fitHeight="210.0" fitWidth="174.0" nodeOrientation="INHERIT" onMouseClicked="#chooseMode" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                     <image>
-                        <Image url="@../resources/images/screenshots/mode2.png"/>
+                        <Image url="@../resources/images/screenshots/mode2.png" />
                     </image>
                 </ImageView>
-                <ImageView fx:id="mode3" fitHeight="210.0" fitWidth="174.0" nodeOrientation="INHERIT"
-                           onMouseClicked="#chooseMode" pickOnBounds="true" preserveRatio="true"
-                           GridPane.columnIndex="2">
+                <ImageView fx:id="mode3" fitHeight="210.0" fitWidth="174.0" nodeOrientation="INHERIT" onMouseClicked="#chooseMode" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2">
                     <image>
-                        <Image url="@../resources/images/screenshots/mode3.png"/>
+                        <Image url="@../resources/images/screenshots/mode3.png" />
                     </image>
                 </ImageView>
             </children>
