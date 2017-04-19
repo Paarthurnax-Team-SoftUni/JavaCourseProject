@@ -40,6 +40,8 @@ public class RunTrack {
     private int y;
     private float currentFramesPerSecond;
     private long endTruckTime;
+    private int pointsPerDistance;
+    private long finalExpectedDistance;
     private Player player;
     private CurrentHealth currentHealth;
     private Collectible collectible;
@@ -47,16 +49,17 @@ public class RunTrack {
     private Ammo ammo;
     private PlayerCar playerCar;
 
-    public RunTrack(Player player, float velocityValue, long endTruckTime,
+    public RunTrack(Player player, float velocityValue, long endTruckTime, int pointsPerDistance,long finalExpectedDistance,
                     CurrentHealth currentHealth, CurrentStats currentStats, Ammo ammo,
                     Collectible collectible, Obstacle obstacle, Cheat cheat) {
         frame = 0;
         time = 0;
-        this.endTruckTime=endTruckTime;
         velocity = velocityValue;
+        observer = (o, arg) -> {};
         RunTrack.currentStats = currentStats;
         RunTrack.cheat = cheat;
-        observer = (o, arg) -> {};
+        this.endTruckTime=endTruckTime;
+        this.pointsPerDistance=pointsPerDistance;
         this.player = player;
         this.playerCar = this.getPlayer().getCar();
         this.currentHealth = currentHealth;
@@ -191,7 +194,7 @@ public class RunTrack {
     private void checkForEndGame(AnchorPane root, Canvas canvas, Timeline gameLoop) {
         if (time >= this.endTruckTime || player.getHealthPoints() <= 0) {
 
-            boolean win = player.getHealthPoints() > 0 && currentStats.getDistance() >= GameplayConstants.TRACK_1_END_DISTANCE;
+            boolean win = player.getHealthPoints() > 0 && currentStats.getDistance() >= this.finalExpectedDistance;
 
             if (win) {
                 this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
@@ -219,10 +222,9 @@ public class RunTrack {
     private void updatePlayerStats() {
         currentStats.updateTime((long) (time * currentFramesPerSecond));
         currentStats.updateDistance(currentStats.getDistance() + (long) velocity / 2);
-        player.addPoints(1);
+        player.addPoints(this.pointsPerDistance);
         currentStats.updatePoints(player.getPoints());
         currentStats.updateBullets(this.playerCar.getAmmunition());
-
         observer.update(currentStats, observer);
 
         try {
