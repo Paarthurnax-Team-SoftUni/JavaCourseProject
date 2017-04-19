@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import keyHandler.KeyHandlerOnPress;
 import keyHandler.KeyHandlerOnRelease;
+import mapHandlers.TrackMode;
 import models.Cheat;
 import models.Player;
 import models.sprites.Ammo;
@@ -39,9 +40,7 @@ public class RunTrack {
     private int frame;
     private int y;
     private float currentFramesPerSecond;
-    private long endTruckTime;
-    private int pointsPerDistance;
-    private long finalExpectedDistance;
+    private TrackMode trackMode;
     private Player player;
     private CurrentHealth currentHealth;
     private Collectible collectible;
@@ -49,7 +48,7 @@ public class RunTrack {
     private Ammo ammo;
     private PlayerCar playerCar;
 
-    public RunTrack(Player player, float velocityValue, long endTruckTime, int pointsPerDistance,long finalExpectedDistance,
+    public RunTrack(Player player, float velocityValue, TrackMode trackMode,
                     CurrentHealth currentHealth, CurrentStats currentStats, Ammo ammo,
                     Collectible collectible, Obstacle obstacle, Cheat cheat) {
         frame = 0;
@@ -58,8 +57,7 @@ public class RunTrack {
         observer = (o, arg) -> {};
         RunTrack.currentStats = currentStats;
         RunTrack.cheat = cheat;
-        this.endTruckTime=endTruckTime;
-        this.pointsPerDistance=pointsPerDistance;
+        this.trackMode=trackMode;
         this.player = player;
         this.playerCar = this.getPlayer().getCar();
         this.currentHealth = currentHealth;
@@ -67,6 +65,7 @@ public class RunTrack {
         this.collectible = collectible;
         this.obstacle = obstacle;
         this.currentFramesPerSecond = GeneralConstants.FRAMES_PER_SECOND;
+
     }
 
     public static Cheat getCheat() {
@@ -111,6 +110,7 @@ public class RunTrack {
 
         this.playerCar.setImage(ResourcesConstants.CAR_IMAGES_PATH + this.getCarId() + ImagesShortcutConstants.HALF_SIZE);
         this.playerCar.updatePosition(GameplayConstants.INITIAL_CAR_POSITION_X, GameplayConstants.INITIAL_CAR_POSITION_Y);
+        this.playerCar.setAmmunition(trackMode.getInitialAmmonition());
         this.player.updatePoints(GameplayConstants.INITIAL_STATS_VALUE);
         currentStats.addObserver(observer);
 
@@ -118,7 +118,7 @@ public class RunTrack {
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         //Update EndTruckTime
-        RunTrack.currentStats.updateEndTruckTime(endTruckTime);
+        RunTrack.currentStats.updateEndTruckTime(this.trackMode.getEndTruckTime());
 
         MusicPlayer.getInstance().play();
         MusicPlayer.getInstance().startStopPause();
@@ -192,9 +192,9 @@ public class RunTrack {
     }
 
     private void checkForEndGame(AnchorPane root, Canvas canvas, Timeline gameLoop) {
-        if (time >= this.endTruckTime || player.getHealthPoints() <= 0) {
+        if (time >= this.trackMode.getEndTruckTime() || player.getHealthPoints() <= 0) {
 
-            boolean win = player.getHealthPoints() > 0 && currentStats.getDistance() >= this.finalExpectedDistance;
+            boolean win = player.getHealthPoints() > 0 && currentStats.getDistance() >= this.trackMode.getFinalExpectedDistance();
 
             if (win) {
                 this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
@@ -222,7 +222,7 @@ public class RunTrack {
     private void updatePlayerStats() {
         currentStats.updateTime((long) (time * currentFramesPerSecond));
         currentStats.updateDistance(currentStats.getDistance() + (long) velocity / 2);
-        player.addPoints(this.pointsPerDistance);
+        player.addPoints(this.trackMode.getPointsPerDistance());
         currentStats.updatePoints(player.getPoints());
         currentStats.updateBullets(this.playerCar.getAmmunition());
         observer.update(currentStats, observer);

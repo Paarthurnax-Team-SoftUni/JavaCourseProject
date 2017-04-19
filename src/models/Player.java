@@ -144,7 +144,7 @@ public class Player {
 
     public void updateStatsAtEnd() {
         this.setHealthPoints(GameplayConstants.HEALTH_BAR_MAX);
-        this.car.setAmmunition(GameplayConstants.START_GAME_BULLETS);
+        this.car.setAmmunition(GameplayConstants.START_GAME_BULLETS_NORMAL_MODE);
         this.car.stopAccelerate();
         this.car.setCenterWheel(true);
         this.car.removeWind();

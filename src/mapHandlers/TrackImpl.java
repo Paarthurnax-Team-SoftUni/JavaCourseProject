@@ -13,7 +13,6 @@ import interfaces.Track;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
-import static utils.constants.GameplayConstants.TRACK_1_END_DISTANCE;
 
 
 public class TrackImpl implements Track {
@@ -24,7 +23,7 @@ public class TrackImpl implements Track {
     public TrackImpl(TrackLevel trackLevel, CurrentHealth currentHealth, CurrentStats currentStats, Ammo ammo,
                      Collectible collectible, Obstacle obstacle, Cheat cheat) {
         this.runTrack = new RunTrack(PlayerData.getInstance().getCurrentPlayer(),
-                GameplayConstants.START_GAME_VELOCITY, 3000, 1,TRACK_1_END_DISTANCE,currentHealth,
+                GameplayConstants.START_GAME_VELOCITY, TrackMode.DRAG,currentHealth,
                 currentStats, ammo, collectible, obstacle, cheat);
         this.trackLevel = trackLevel;
     }

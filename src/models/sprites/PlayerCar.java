@@ -13,7 +13,7 @@ public class PlayerCar extends RotatableSprite implements Shootable {
     private boolean isImmortal;
 
     public PlayerCar() {
-        this.setAmmunition(GameplayConstants.START_GAME_BULLETS);
+        this.setAmmunition(GameplayConstants.START_GAME_BULLETS_NORMAL_MODE);
     }
 
     public String getCarId() {
