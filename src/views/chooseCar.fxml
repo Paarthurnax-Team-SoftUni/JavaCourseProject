@@ -11,7 +11,7 @@
             stylesheets="@../resources/styles/styles.css" xmlns="http://javafx.com/javafx/8.0.111"
             fx:controller="controllers.ChooseCarController">
     <children>
-        <Button fx:id="goNextBtn" layoutX="267.0" layoutY="516.0" mnemonicParsing="false" onAction="#goToChooseLevel"
+        <Button fx:id="goNextBtn" layoutX="267.0" layoutY="516.0" mnemonicParsing="false" onAction="#goToChooseMode"
                 prefHeight="94.0" prefWidth="303.0" text="Go Next" textAlignment="CENTER" textFill="#1b1a1a"
                 underline="true" visible="false">
             <font>

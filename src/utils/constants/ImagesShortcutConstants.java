@@ -8,6 +8,7 @@ public class ImagesShortcutConstants {
     public static final String LABEL_STRING = "label";
     public static final String BACKGROUND_STRING = "backgroundBox";
     public static final String LOCKED_CAR_STRING = "locked";
+    public static final String LEVEL_CAR_STRING = "level";
 
     private ImagesShortcutConstants() {
     }

@@ -2,7 +2,7 @@
     -fx-background-image: url('/resources/images/backgrounds/backgroundScreen2.png');
 }
 
-#chooseCarPage, #chooseLevelPage {
+#chooseCarPage, #chooseLevelPage, #chooseModePage {
     -fx-background-image: url('/resources/images/backgrounds/backgroundScreen1.png');
 }
 
@@ -11,7 +11,7 @@
 }
 
 /* loginPage */
-#loginPage #loginBtn {
+#loginPage, #loginBtn {
     -fx-background-color: transparent;
 }
 
@@ -51,6 +51,21 @@
 }
 
 #chooseCarPage #cars {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
+    -fx-border-color: black;
+}
+
+/* chooseModePage */
+#chooseModePage #goNextBtn {
+    -fx-background-color: rgba(255, 255, 255, 0.6);
+    -fx-background-radius: 15px;
+}
+
+#chooseModePage #goNextBtn:hover {
+    -fx-background-color: rgba(255, 0, 0, 0.6);
+}
+
+#chooseModePage #modes {
     -fx-background-color: rgba(255, 255, 255, 0.6);
     -fx-border-color: black;
 }

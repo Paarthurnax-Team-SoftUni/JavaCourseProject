@@ -19,17 +19,16 @@ import models.sprites.Ammo;
 import models.sprites.Obstacle;
 import models.sprites.collectibles.Collectible;
 import utils.constants.GameplayConstants;
+import utils.constants.ImagesShortcutConstants;
 import utils.constants.StylesConstants;
 import utils.constants.ViewsConstants;
 import utils.stages.StageManager;
 import utils.stages.StageManagerImpl;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 
 public class ChooseLevelController {
-
-    private static final int FIRST_LEVEL = 1;
-    private static final int SECOND_LEVEL = 2;
 
     private Track track;
     private TrackHandler trackHandler;
@@ -48,9 +47,13 @@ public class ChooseLevelController {
     private Ellipse backgroundBox2;
     @FXML
     private ImageView locked2;
+    @FXML
+    public ImageView level1;
+    @FXML
+    public ImageView level2;
 
 
-    public void initialize() throws IOException {
+    public void initialize() throws IOException, NoSuchFieldException, IllegalAccessException {
         this.showUnlockedLevelsOnly();
         this.trackHandler = new TrackHandler();
         this.currentHealth = new CurrentHealth(PlayerData.getInstance().getCurrentPlayer());
@@ -73,44 +76,53 @@ public class ChooseLevelController {
     }
 
     @FXML
-    private void chooseLevel(MouseEvent ev) throws IOException {
+    private void chooseLevel(MouseEvent ev) throws IOException, NoSuchFieldException, IllegalAccessException {
         Node source = (Node) ev.getSource();
-        int id = Integer.valueOf(source.getId().substring(5));
+        int id = Integer.valueOf(source.getId().substring(source.getId().length()-1));
         this.backgroundFill(id);
         this.startBtn.setVisible(true);
     }
 
     @FXML
-    private void showUnlockedLevelsOnly() {
-
-        this.backgroundBox1.setStyle(null);
-        this.backgroundBox2.setStyle(null);
-
-        this.backgroundBox2.setStyle(StylesConstants.GREY_COLOUR);
-        this.backgroundBox2.toFront();
-        this.locked2.setVisible(true);
+    private void showUnlockedLevelsOnly() throws NoSuchFieldException, IllegalAccessException {
 
         int maxLevel = PlayerData.getInstance().getCurrentPlayer().getMaxLevelPassed();
+        System.out.println(maxLevel);
+        Class<ChooseLevelController> chooseLevelControllerClass = ChooseLevelController.class;
 
-        if (maxLevel >= 1) {
-            this.backgroundBox2.setStyle(null);
-            this.backgroundBox2.toBack();
-            this.locked2.setVisible(false);
+        for (int id = 1; id <= GameplayConstants.LEVELS_NUMBER; id++) {
+            Field ellipseField = chooseLevelControllerClass.getDeclaredField(ImagesShortcutConstants.BACKGROUND_STRING + id);
+            Ellipse ellipse = ((Ellipse) ellipseField.get(this));
+            ellipse.setStyle(null);
+            if(maxLevel+1 < id){
+                ellipse.setStyle(StylesConstants.GREY_COLOUR);
+                ellipse.toFront();
+                ellipse.setOnMouseClicked(null);
+
+                Field levelField = chooseLevelControllerClass.getDeclaredField(ImagesShortcutConstants.LEVEL_CAR_STRING + id);
+                ImageView level = ((ImageView) levelField.get(this));
+                level.setOnMouseClicked(null);
+
+                Field lockedField = chooseLevelControllerClass.getDeclaredField(ImagesShortcutConstants.LOCKED_CAR_STRING + id);
+                ImageView locked = ((ImageView) lockedField.get(this));
+                locked.setVisible(true);
+            }
         }
     }
 
-    private void backgroundFill(int id) throws IOException {
+    private void backgroundFill(int id) throws IOException, NoSuchFieldException, IllegalAccessException {
         showUnlockedLevelsOnly();
-        switch (id) {
-            case FIRST_LEVEL:
-                this.backgroundBox1.setStyle(StylesConstants.RED_COLOUR);
-                this.backgroundBox1.toFront();
-                break;
-            case SECOND_LEVEL:
-                this.backgroundBox2.setStyle(StylesConstants.RED_COLOUR);
-                this.backgroundBox2.toFront();
-                break;
+        Class<ChooseLevelController> chooseLevelControllerClass = ChooseLevelController.class;
+
+        for (int i = 1; i <= GameplayConstants.LEVELS_NUMBER; i++) {
+            Field ellipseField = chooseLevelControllerClass.getDeclaredField(ImagesShortcutConstants.BACKGROUND_STRING + i);
+            Ellipse ellipse = ((Ellipse) ellipseField.get(this));
+            if(i == id){
+                ellipse.setStyle(StylesConstants.RED_COLOUR);
+                ellipse.toFront();
+            }
         }
+
         this.track = this.trackHandler.getLevel(id, this.currentHealth,
                 this.currentStats, this.ammo, this.collectible, this.obstacle, this.cheat);
     }

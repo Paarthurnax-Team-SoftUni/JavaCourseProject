@@ -51,10 +51,10 @@ public class ChooseCarController {
     }
 
     @FXML
-    private void goToChooseLevel(ActionEvent actionEvent) {
+    private void goToChooseMode(ActionEvent actionEvent) {
         Stage currentStage = (Stage) this.goNextBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
-        FXMLLoader loader = manager.loadSceneToStage(currentStage, ViewsConstants.CHOOSE_LEVEL_VIEW_PATH);
+        FXMLLoader loader = manager.loadSceneToStage(currentStage, ViewsConstants.CHOOSE_MODE_VIEW_PATH);
     }
 
     @FXML
