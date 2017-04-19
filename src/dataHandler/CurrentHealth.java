@@ -1,12 +1,13 @@
 package dataHandler;
 
+import interfaces.Updateable;
 import javafx.scene.image.ImageView;
 import models.Player;
 
 import java.lang.reflect.Field;
 import java.util.Observable;
 
-public class CurrentHealth extends Observable {
+public class CurrentHealth extends Observable implements Updateable {
 
     private static ImageView health4;
     private static ImageView health3;

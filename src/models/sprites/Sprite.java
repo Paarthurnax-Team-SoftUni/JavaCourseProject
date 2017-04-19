@@ -1,6 +1,7 @@
 package models.sprites;
 
 import gameEngine.DrawImageInCanvas;
+import interfaces.Updateable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -8,7 +9,7 @@ import utils.constants.ErrorConstants;
 import utils.constants.GameplayConstants;
 import utils.constants.GeneralConstants;
 
-public abstract class Sprite {
+public abstract class Sprite implements Updateable{
     protected int minLeftSide;
     protected int maxRightSide;
     private String name;
@@ -36,6 +37,7 @@ public abstract class Sprite {
         this.setVelocityY(y);
     }
 
+    @Override
     public void update() {
         this.positionX += this.velocityX;
         this.positionY += this.velocityY;
