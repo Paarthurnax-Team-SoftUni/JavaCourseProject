@@ -2,7 +2,7 @@ package models.sprites.collectibles;
 
 import models.RandomProvider;
 
-public class Health extends Collectible{
+public class Health extends Collectible {
 
     private static final String HEALTH_NAME = "health";
     private static final String HEALTH_NOTIFICATION_MESSAGE = "Health! Restore your health";
@@ -13,7 +13,7 @@ public class Health extends Collectible{
         this.setProps();
     }
 
-    private void setProps(){
+    private void setProps() {
         this.setName(HEALTH_NAME);
         this.setNotificationMessage(HEALTH_NOTIFICATION_MESSAGE);
         this.setBonusPoints(HEALTH_BONUS);

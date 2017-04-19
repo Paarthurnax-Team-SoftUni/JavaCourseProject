@@ -13,16 +13,16 @@ public class SQLConstants {
     public static final int INDEX_COLUMN_MONEY_TABLE_QUERY = 3;
     public static final int INDEX_COLUMN_HEALTH_TABLE_QUERY = 4;
     private static final String TABLE_NAME = "players";
+    public static final String QUERY_PLAYERS = "SELECT * FROM " + TABLE_NAME;
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_HIGHSCORE = "highScore";
-    private static final String COLUMN_MONEY = "money";
-    private static final String COLUMN_HEALTH = "health";
-    public static final String QUERY_PLAYERS = "SELECT * FROM " + TABLE_NAME;
     public static final String UPDATE_PLAYER_SCORE = "UPDATE " +
             TABLE_NAME + " SET " +
             COLUMN_HIGHSCORE + " = ? WHERE " +
             COLUMN_NAME + " = ?";
+    private static final String COLUMN_MONEY = "money";
+    private static final String COLUMN_HEALTH = "health";
     public static final String CREATE_TABLE_COMMAND = "CREATE TABLE IF NOT EXISTS " +
             TABLE_NAME + " (" +
             COLUMN_ID + "  INTEGER PRIMARY KEY, " +
@@ -39,14 +39,14 @@ public class SQLConstants {
     private static final String CONNECTION_STRING = "jdbc:sqlite:src\\resources\\database\\players.db";
     private static final String LINUX_CONNECTION_STRING = "jdbc:sqlite:src/resources/database/players.db";
 
+    private SQLConstants() {
+    }
+
     public static String returnPath(String OSName) {
         if (OSName.contains("win")) {
             return CONNECTION_STRING;
         } else {
             return LINUX_CONNECTION_STRING;
         }
-    }
-
-    private SQLConstants() {
     }
 }

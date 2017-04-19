@@ -1,9 +1,9 @@
 package models.sprites;
 
-import utils.constants.CarConstants;
-import utils.constants.GameplayConstants;
 import gameEngine.RunTrack;
 import interfaces.Shootable;
+import utils.constants.CarConstants;
+import utils.constants.GameplayConstants;
 
 public class PlayerCar extends RotatableSprite implements Shootable {
 
@@ -20,16 +20,20 @@ public class PlayerCar extends RotatableSprite implements Shootable {
         return this.carId;
     }
 
-    public void updateCarID(String carId) {
-        this.setCarId(carId);
-    }
-
     private void setCarId(String carId) {
         this.carId = carId;
     }
 
+    public void updateCarID(String carId) {
+        this.setCarId(carId);
+    }
+
     public int getAmmunition() {
         return this.ammunition;
+    }
+
+    private void setAmmunition(int ammunition) {
+        this.ammunition = ammunition;
     }
 
     public void updateAmmunition(int ammunition) {
@@ -38,6 +42,10 @@ public class PlayerCar extends RotatableSprite implements Shootable {
 
     public boolean isImmortal() {
         return this.isImmortal;
+    }
+
+    private void setImmortal(boolean immortal) {
+        this.isImmortal = immortal;
     }
 
     public void updateImmortal(boolean immortal) {
@@ -50,14 +58,6 @@ public class PlayerCar extends RotatableSprite implements Shootable {
 
     public void stopAccelerate() {
         this.accelerating = false;
-    }
-
-    private void setAmmunition(int ammunition) {
-        this.ammunition = ammunition;
-    }
-
-    private void setImmortal(boolean immortal) {
-        this.isImmortal = immortal;
     }
 
     @Override

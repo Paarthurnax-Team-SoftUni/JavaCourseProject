@@ -1,10 +1,10 @@
 package utils.stages;
 
-import utils.constants.LoginStringConstants;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
+import utils.constants.LoginStringConstants;
 
 import java.io.IOException;
 import java.util.Optional;

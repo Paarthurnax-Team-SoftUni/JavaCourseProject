@@ -1,6 +1,5 @@
 package controllers;
 
-import utils.constants.*;
 import dataHandler.PlayerData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
+import utils.constants.*;
 import utils.stages.StageManager;
 import utils.stages.StageManagerImpl;
 

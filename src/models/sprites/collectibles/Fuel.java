@@ -13,7 +13,7 @@ public class Fuel extends Collectible {
         this.setProps();
     }
 
-    private void setProps(){
+    private void setProps() {
         this.setName(FUEL_NAME);
         this.setNotificationMessage(FUEL_NOTIFICATION_MESSAGE);
         this.setBonusPoints(FUEL_BONUS);

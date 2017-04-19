@@ -1,6 +1,5 @@
 package controllers;
 
-import utils.constants.ViewsConstants;
 import dataHandler.PlayerData;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -8,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import utils.constants.ViewsConstants;
 import utils.stages.StageManager;
 import utils.stages.StageManagerImpl;
 

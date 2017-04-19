@@ -19,7 +19,7 @@ public class HighScoreController {
         FilteredList<Player> filteredList = new FilteredList<Player>(PlayerData.getInstance().getPlayersList(), wantAllItems);
         SortedList<Player> sortedList = new SortedList<Player>(filteredList, (o1, o2) ->
                 Long.compare(o2.getHighScore(),
-                o1.getHighScore()));
+                        o1.getHighScore()));
 
         highScoresListView.setItems(sortedList);
     }

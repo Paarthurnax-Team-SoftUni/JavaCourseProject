@@ -1,11 +1,11 @@
 package controllers;
 
-import utils.constants.ViewsConstants;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import utils.constants.ViewsConstants;
 import utils.stages.DialogBox;
 import utils.stages.StageManager;
 import utils.stages.StageManagerImpl;

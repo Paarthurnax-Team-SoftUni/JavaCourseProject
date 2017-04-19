@@ -1,9 +1,9 @@
 package utils.notifications;
 
-import utils.constants.StylesConstants;
 import javafx.scene.control.Label;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import utils.constants.StylesConstants;
 
 public class Notification {
 

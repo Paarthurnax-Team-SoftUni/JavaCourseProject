@@ -1,9 +1,9 @@
 package models;
 
 import mapHandlers.TrackMode;
+import models.sprites.PlayerCar;
 import utils.constants.ErrorConstants;
 import utils.constants.GameplayConstants;
-import models.sprites.PlayerCar;
 
 public class Player {
 
@@ -30,7 +30,7 @@ public class Player {
         this.setHealthPoints(healthPoints);
     }
 
-    public void updateCarId (String carId) {
+    public void updateCarId(String carId) {
         this.car.updateCarID(carId);
     }
 
@@ -42,6 +42,13 @@ public class Player {
         return id;
     }
 
+    private void setId(int id) {
+        if (id < 0) {
+            throw new IllegalArgumentException(ErrorConstants.ID_EXCEPTION);
+        }
+        this.id = id;
+    }
+
     public void updateId(int id) {
         this.setId(id);
     }
@@ -50,27 +57,16 @@ public class Player {
         return this.currentTrackmode;
     }
 
-    public void updateCurrentTrackmode(TrackMode currentTrackmode) {
-        this.setCurrentTrackmode(currentTrackmode);
-    }
-
     private void setCurrentTrackmode(TrackMode currentTrackmode) {
         this.currentTrackmode = currentTrackmode;
     }
 
-    private void setId(int id) {
-        if (id < 0) {
-            throw new IllegalArgumentException(ErrorConstants.ID_EXCEPTION);
-        }
-        this.id = id;
+    public void updateCurrentTrackmode(TrackMode currentTrackmode) {
+        this.setCurrentTrackmode(currentTrackmode);
     }
 
     public String getName() {
         return this.name;
-    }
-
-    public void updateName(String name) {
-        this.setName(name);
     }
 
     private void setName(String name) {
@@ -80,27 +76,27 @@ public class Player {
         this.name = name;
     }
 
+    public void updateName(String name) {
+        this.setName(name);
+    }
+
     public Long getHighScore() {
         return this.highScore;
+    }
+
+    private void setHighScore(long highScore) {
+        if (highScore < 0) {
+            throw new IllegalArgumentException(ErrorConstants.HIGHSCORE_ERROR);
+        }
+        this.highScore = highScore;
     }
 
     public void updateHighScore(long highScore) {
         this.setHighScore(highScore);
     }
 
-    private void setHighScore(long highScore) {
-        if(highScore < 0) {
-            throw new IllegalArgumentException(ErrorConstants.HIGHSCORE_ERROR);
-        }
-        this.highScore = highScore;
-    }
-
     public Double getMoney() {
         return this.money;
-    }
-
-    public void updateMoney(double money) {
-        this.setMoney(money);
     }
 
     private void setMoney(double money) {
@@ -110,12 +106,12 @@ public class Player {
         this.money = money;
     }
 
-    public long getPoints() {
-        return this.points;
+    public void updateMoney(double money) {
+        this.setMoney(money);
     }
 
-    public void updatePoints(long points) {
-        this.setPoints(points);
+    public long getPoints() {
+        return this.points;
     }
 
     private void setPoints(long points) {
@@ -125,12 +121,12 @@ public class Player {
         this.points = points;
     }
 
-    public int getHealthPoints() {
-        return this.healthPoints;
+    public void updatePoints(long points) {
+        this.setPoints(points);
     }
 
-    public void updateHealthPoints(int healthPoints) {
-        this.setHealthPoints(healthPoints);
+    public int getHealthPoints() {
+        return this.healthPoints;
     }
 
     private void setHealthPoints(int healthPoints) {
@@ -138,6 +134,10 @@ public class Player {
             throw new IllegalArgumentException(ErrorConstants.HEALTH_POINTS_EXCEPTION);
         }
         this.healthPoints = healthPoints;
+    }
+
+    public void updateHealthPoints(int healthPoints) {
+        this.setHealthPoints(healthPoints);
     }
 
     public void addPoints(int points) {

@@ -2,7 +2,7 @@ package models.sprites.collectibles;
 
 import models.RandomProvider;
 
-public class Ammunition extends Collectible{
+public class Ammunition extends Collectible {
 
     private static final String AMMO_NAME = "ammunitions";
     private static final String AMMO_NOTIFICATION_MESSAGE = "Ammunition! You can generateAmmo once";
@@ -13,7 +13,7 @@ public class Ammunition extends Collectible{
         this.setProps();
     }
 
-    private void setProps(){
+    private void setProps() {
         this.setName(AMMO_NAME);
         this.setNotificationMessage(AMMO_NOTIFICATION_MESSAGE);
         this.setBonusPoints(AMMO_BONUS);

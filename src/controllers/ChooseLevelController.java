@@ -15,10 +15,10 @@ import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
 import mapHandlers.TrackHandler;
 import models.Cheat;
-import models.sprites.Ammo;
-import models.sprites.Obstacle;
-import models.sprites.collectibles.Collectible;
 import models.RandomProvider;
+import models.sprites.Obstacle;
+import models.sprites.Weapon;
+import models.sprites.collectibles.Collectible;
 import utils.constants.GameplayConstants;
 import utils.constants.ImagesShortcutConstants;
 import utils.constants.StylesConstants;
@@ -32,15 +32,18 @@ import java.lang.reflect.Field;
 public class ChooseLevelController {
 
 
-    private Track track;
-    private TrackHandler trackHandler;
+    @FXML
+    public ImageView level1;
+    @FXML
+    public ImageView level2;
     CurrentHealth currentHealth;
     CurrentStats currentStats;
-    Ammo ammo;
+    Weapon weapon;
     Collectible collectible;
     Obstacle obstacle;
     Cheat cheat;
-
+    private Track track;
+    private TrackHandler trackHandler;
     @FXML
     private Button startBtn;
     @FXML
@@ -51,19 +54,14 @@ public class ChooseLevelController {
     private ImageView locked1;
     @FXML
     private ImageView locked2;
-    @FXML
-    public ImageView level1;
-    @FXML
-    public ImageView level2;
-
 
     public void initialize() throws IOException, NoSuchFieldException, IllegalAccessException {
         this.showUnlockedLevelsOnly();
         RandomProvider randomProvider = new RandomProvider();
         this.trackHandler = new TrackHandler();
         this.currentHealth = new CurrentHealth(PlayerData.getInstance().getCurrentPlayer());
-        this.currentStats = new CurrentStats(GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE,GameplayConstants.INITIAL_STATS_VALUE);
-        this.ammo = new Ammo();
+        this.currentStats = new CurrentStats(GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE);
+        this.weapon = new Weapon();
         this.collectible = new Collectible(randomProvider);
         this.obstacle = new Obstacle(randomProvider);
         this.cheat = new Cheat();
@@ -83,7 +81,7 @@ public class ChooseLevelController {
     @FXML
     private void chooseLevel(MouseEvent ev) throws IOException, NoSuchFieldException, IllegalAccessException {
         Node source = (Node) ev.getSource();
-        int id = Integer.valueOf(source.getId().substring(source.getId().length()-1));
+        int id = Integer.valueOf(source.getId().substring(source.getId().length() - 1));
         this.backgroundFill(id);
         this.startBtn.setVisible(true);
     }
@@ -102,7 +100,7 @@ public class ChooseLevelController {
             Field lockedField = chooseLevelControllerClass.getDeclaredField(ImagesShortcutConstants.LOCKED_CAR_STRING + id);
             ImageView locked = ((ImageView) lockedField.get(this));
 
-            if(maxLevel+1 < id){
+            if (maxLevel + 1 < id) {
                 ellipse.setStyle(StylesConstants.GREY_COLOUR);
                 ellipse.toFront();
                 ellipse.setOnMouseClicked(null);
@@ -122,13 +120,13 @@ public class ChooseLevelController {
         for (int i = 1; i <= GameplayConstants.LEVELS_NUMBER; i++) {
             Field ellipseField = chooseLevelControllerClass.getDeclaredField(ImagesShortcutConstants.BACKGROUND_STRING + i);
             Ellipse ellipse = ((Ellipse) ellipseField.get(this));
-            if(i == id){
+            if (i == id) {
                 ellipse.setStyle(StylesConstants.RED_COLOUR);
                 ellipse.toFront();
             }
         }
 
         this.track = this.trackHandler.getLevel(id, this.currentHealth,
-                this.currentStats, this.ammo, this.collectible, this.obstacle, this.cheat);
+                this.currentStats, this.weapon, this.collectible, this.obstacle, this.cheat);
     }
 }

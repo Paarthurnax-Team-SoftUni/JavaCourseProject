@@ -1,6 +1,5 @@
 package controllers;
 
-import utils.constants.ViewsConstants;
 import dataHandler.PlayerData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Player;
 import models.sprites.PlayerCar;
+import utils.constants.ViewsConstants;
 import utils.stages.DialogBox;
 import utils.stages.StageManager;
 import utils.stages.StageManagerImpl;

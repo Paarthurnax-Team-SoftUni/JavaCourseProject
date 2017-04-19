@@ -1,10 +1,10 @@
 package models.sprites;
 
-import utils.constants.GameplayConstants;
 import gameEngine.DrawImageInCanvas;
 import gameEngine.RunTrack;
 import interfaces.Rotatable;
 import javafx.scene.canvas.GraphicsContext;
+import utils.constants.GameplayConstants;
 
 public abstract class RotatableSprite extends Sprite implements Rotatable {
 
@@ -13,7 +13,8 @@ public abstract class RotatableSprite extends Sprite implements Rotatable {
     private boolean turningRight;
     private boolean turningLeft;
 
-    protected RotatableSprite() {}
+    protected RotatableSprite() {
+    }
 
     public double getAngle() {
         return this.angle;

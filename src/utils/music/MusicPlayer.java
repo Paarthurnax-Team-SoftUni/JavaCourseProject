@@ -1,9 +1,9 @@
 package utils.music;
 
-import utils.constants.ResourcesConstants;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
+import utils.constants.ResourcesConstants;
 
 import java.io.File;
 

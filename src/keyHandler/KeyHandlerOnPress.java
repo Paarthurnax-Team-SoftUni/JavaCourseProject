@@ -1,13 +1,13 @@
 package keyHandler;
 
-import utils.constants.GameplayConstants;
-import utils.constants.KeyHandlersConstants;
 import gameEngine.RunTrack;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import models.Player;
 import models.sprites.PlayerCar;
+import utils.constants.GameplayConstants;
+import utils.constants.KeyHandlersConstants;
 import utils.music.MusicPlayer;
 
 public class KeyHandlerOnPress extends KeyHandler {
@@ -41,7 +41,7 @@ public class KeyHandlerOnPress extends KeyHandler {
                     playerCar.turnLeft();
                     playerCar.updateWithVelocityAdd(super.getMinLeftSide(), super.getMaxRightSide());
                     break;
-                case KeyHandlersConstants.RIGHT_STRING :
+                case KeyHandlersConstants.RIGHT_STRING:
                     playerCar.turnRight();
                     playerCar.updateWithVelocityAdd(super.getMinLeftSide(), super.getMaxRightSide());
                     break;
@@ -61,7 +61,7 @@ public class KeyHandlerOnPress extends KeyHandler {
                     break;
             }
         } else {
-            if(keyCode.getName().equals("P")){
+            if (keyCode.getName().equals("P")) {
                 RunTrack.setIsPaused(false);
             }
         }

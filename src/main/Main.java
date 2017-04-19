@@ -41,7 +41,7 @@ public class Main extends Application {
 
     @Override
     public void stop() throws SQLException {
-        if(PlayerData.getInstance().getCurrentPlayer() != null){
+        if (PlayerData.getInstance().getCurrentPlayer() != null) {
             PlayerData.getInstance().updatePlayer(PlayerData.getInstance().getCurrentPlayer());
             PlayerData.getInstance().close();
         }

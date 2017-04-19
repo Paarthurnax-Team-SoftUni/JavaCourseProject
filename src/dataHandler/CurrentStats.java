@@ -1,10 +1,13 @@
 package dataHandler;
 
-import utils.constants.*;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import utils.constants.CarConstants;
+import utils.constants.ErrorConstants;
+import utils.constants.GeneralConstants;
+import utils.constants.StylesConstants;
 
 import java.util.Observable;
 
@@ -29,6 +32,13 @@ public class CurrentStats extends Observable {
 
     public long getDistance() {
         return distance.get();
+    }
+
+    private void setDistance(long distance) {
+        if (distance < 0) {
+            throw new IllegalArgumentException(ErrorConstants.DISTANCE_EXCEPTION);
+        }
+        this.distance.set(distance);
     }
 
     public LongProperty valueBullets() {
@@ -85,13 +95,6 @@ public class CurrentStats extends Observable {
             throw new IllegalArgumentException(ErrorConstants.POINTS_EXCEPTION);
         }
         this.points.set(String.format(StylesConstants.POINTS_FORMATTER, points));
-    }
-
-    private void setDistance(long distance) {
-        if (distance < 0) {
-            throw new IllegalArgumentException(ErrorConstants.DISTANCE_EXCEPTION);
-        }
-        this.distance.set(distance);
     }
 
     private void setEndTruckTime(long endTruckTime) {

@@ -16,9 +16,9 @@ import keyHandler.KeyHandlerOnRelease;
 import mapHandlers.TrackMode;
 import models.Cheat;
 import models.Player;
-import models.sprites.Ammo;
 import models.sprites.Obstacle;
 import models.sprites.PlayerCar;
+import models.sprites.Weapon;
 import models.sprites.collectibles.Collectible;
 import utils.constants.*;
 import utils.music.MusicPlayer;
@@ -45,23 +45,24 @@ public class RunTrack {
     private CurrentHealth currentHealth;
     private Collectible collectible;
     private Obstacle obstacle;
-    private Ammo ammo;
+    private Weapon weapon;
     private PlayerCar playerCar;
 
     public RunTrack(Player player, float velocityValue, TrackMode trackMode,
-                    CurrentHealth currentHealth, CurrentStats currentStats, Ammo ammo,
+                    CurrentHealth currentHealth, CurrentStats currentStats, Weapon weapon,
                     Collectible collectible, Obstacle obstacle, Cheat cheat) {
         frame = 0;
         time = 0;
         velocity = velocityValue;
-        observer = (o, arg) -> {};
+        observer = (o, arg) -> {
+        };
         RunTrack.currentStats = currentStats;
         RunTrack.cheat = cheat;
-        this.trackMode=trackMode;
+        this.trackMode = trackMode;
         this.player = player;
         this.playerCar = this.getPlayer().getCar();
         this.currentHealth = currentHealth;
-        this.ammo = ammo;
+        this.weapon = weapon;
         this.collectible = collectible;
         this.obstacle = obstacle;
         this.currentFramesPerSecond = GeneralConstants.FRAMES_PER_SECOND;
@@ -161,7 +162,7 @@ public class RunTrack {
                         shoot = false;
                     }
                     if (shoot) {
-                        this.ammo.addAmmo(this.ammo.generateAmmo(this.player));
+                        this.weapon.addAmmo(this.weapon.generateAmmo(this.player));
                         setShoot(false);
                     }
 
@@ -173,7 +174,7 @@ public class RunTrack {
                     this.playerCar.render(gc);
 
                     //Render items
-                    this.ammo.visualizeAmmo(gc, this.obstacle.getObstacles(), player);
+                    this.weapon.visualizeAmmo(gc, this.obstacle.getObstacles(), player);
                     this.obstacle.visualizeObstacle(gc, velocity, player);
 
                     String action = this.collectible.visualizeCollectible(gc, velocity);

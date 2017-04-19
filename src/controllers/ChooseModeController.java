@@ -44,9 +44,9 @@ public class ChooseModeController {
     @FXML
     private void chooseMode(MouseEvent ev) throws IOException, NoSuchFieldException, IllegalAccessException {
         Node source = (Node) ev.getSource();
-        int id = Integer.valueOf(source.getId().substring(source.getId().length()-1));
+        int id = Integer.valueOf(source.getId().substring(source.getId().length() - 1));
         this.backgroundFill(id);
-        PlayerData.getInstance().getCurrentPlayer().updateCurrentTrackmode(TrackMode.values()[id-1]);
+        PlayerData.getInstance().getCurrentPlayer().updateCurrentTrackmode(TrackMode.values()[id - 1]);
         this.goNextBtn.setVisible(true);
     }
 
@@ -57,7 +57,7 @@ public class ChooseModeController {
             Field ellipseField = chooseModeControllerClass.getDeclaredField(ImagesShortcutConstants.BACKGROUND_STRING + i);
             Ellipse ellipse = ((Ellipse) ellipseField.get(this));
 
-            if(i == id){
+            if (i == id) {
                 ellipse.setStyle(StylesConstants.RED_COLOUR);
                 ellipse.toFront();
             } else {

@@ -6,7 +6,7 @@ import models.Player;
 import java.lang.reflect.Field;
 import java.util.Observable;
 
-public class CurrentHealth extends Observable{
+public class CurrentHealth extends Observable {
 
     private static ImageView health4;
     private static ImageView health3;
@@ -31,7 +31,7 @@ public class CurrentHealth extends Observable{
             Field field = currentHealthClass.getDeclaredField("health" + i);
             ((ImageView) field.get(this)).setVisible(false);
         }
-        Field field = currentHealthClass.getDeclaredField("health" + healthPoints/25);
+        Field field = currentHealthClass.getDeclaredField("health" + healthPoints / 25);
         ((ImageView) field.get(this)).setVisible(true);
     }
 

@@ -20,16 +20,22 @@ public class Obstacle extends RotatableSprite {
         this.randomProvider = randomProvider;
     }
 
-    public void add(Obstacle obstacle){
+    public void add(Obstacle obstacle) {
         this.obstacles.add(obstacle);
     }
 
-    public Iterable<Obstacle> getObstacles(){
+    public Iterable<Obstacle> getObstacles() {
         return this.obstacles;
     }
 
     public boolean isDestroyed() {
         return this.isDestroyed;
+    }
+
+    private void setDestroyed(boolean isDestroyed) {
+        this.setImage(ResourcesConstants.FLAME_PATH_SMALL);
+        this.setVelocity(0, 0);
+        this.isDestroyed = isDestroyed;
     }
 
     public Obstacle generateObstacle(int drunkDrivers, int minLeftSide, int maxRightSide) {
@@ -106,14 +112,8 @@ public class Obstacle extends RotatableSprite {
         }
     }
 
-    public void clearObstacles(){
+    public void clearObstacles() {
         this.obstacles.clear();
-    }
-
-    private void setDestroyed(boolean isDestroyed) {
-        this.setImage(ResourcesConstants.FLAME_PATH_SMALL);
-        this.setVelocity(0, 0);
-        this.isDestroyed = isDestroyed;
     }
 
     public void setIsDrunk(boolean isDrunk) {

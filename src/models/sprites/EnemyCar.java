@@ -21,7 +21,7 @@ public class EnemyCar extends Obstacle {
                 super.setTurningLeft(false);
             }
         } else if (x > 0) {
-            if (super.getPositionX() < CarConstants.X_AXIS_RIGHT_BOUND ) {
+            if (super.getPositionX() < CarConstants.X_AXIS_RIGHT_BOUND) {
                 super.updateVelocityX(x);
             }
             if (super.getPositionX() > CarConstants.X_AXIS_RIGHT_BOUND_BUFFER) {

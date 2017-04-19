@@ -1,14 +1,16 @@
 package models.sprites;
 
-import utils.constants.ErrorConstants;
-import utils.constants.GameplayConstants;
-import utils.constants.GeneralConstants;
 import gameEngine.DrawImageInCanvas;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import utils.constants.ErrorConstants;
+import utils.constants.GameplayConstants;
+import utils.constants.GeneralConstants;
 
 public abstract class Sprite {
+    protected int minLeftSide;
+    protected int maxRightSide;
     private String name;
     private Image image;
     private double positionX;
@@ -17,8 +19,6 @@ public abstract class Sprite {
     private double velocityY;
     private double imageWidth;
     private double imageHeight;
-    protected int minLeftSide;
-    protected int maxRightSide;
 
     protected Sprite() {
     }
@@ -71,6 +71,13 @@ public abstract class Sprite {
 
     public final String getName() {
         return this.name;
+    }
+
+    public void setName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException(ErrorConstants.NAME_EXCEPTION);
+        }
+        this.name = name;
     }
 
     public void updateName(String name) {
@@ -135,13 +142,6 @@ public abstract class Sprite {
             throw new IllegalArgumentException(ErrorConstants.VELOCITY_EXCEPTION);
         }
         this.velocityX = velocityX;
-    }
-
-    public void setName(String name) {
-        if(name == null) {
-            throw new IllegalArgumentException(ErrorConstants.NAME_EXCEPTION);
-        }
-        this.name = name;
     }
 
     private Rectangle2D getBoundary() {

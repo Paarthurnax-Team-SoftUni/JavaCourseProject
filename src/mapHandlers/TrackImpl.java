@@ -2,17 +2,16 @@ package mapHandlers;
 
 import dataHandler.CurrentHealth;
 import dataHandler.CurrentStats;
-import models.Cheat;
-import models.sprites.Ammo;
-import models.sprites.Obstacle;
-import models.sprites.collectibles.Collectible;
-import utils.constants.GameplayConstants;
 import dataHandler.PlayerData;
 import gameEngine.RunTrack;
 import interfaces.Track;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-
+import models.Cheat;
+import models.sprites.Obstacle;
+import models.sprites.Weapon;
+import models.sprites.collectibles.Collectible;
+import utils.constants.GameplayConstants;
 
 
 public class TrackImpl implements Track {
@@ -21,12 +20,12 @@ public class TrackImpl implements Track {
     private TrackLevel trackLevel;
     private TrackMode trackMode;
 
-    public TrackImpl(TrackLevel trackLevel, CurrentHealth currentHealth, CurrentStats currentStats, Ammo ammo,
-                     Collectible collectible, Obstacle obstacle, Cheat cheat,TrackMode trackMode) {
-        this.trackMode=trackMode;
+    public TrackImpl(TrackLevel trackLevel, CurrentHealth currentHealth, CurrentStats currentStats, Weapon weapon,
+                     Collectible collectible, Obstacle obstacle, Cheat cheat, TrackMode trackMode) {
+        this.trackMode = trackMode;
         this.runTrack = new RunTrack(PlayerData.getInstance().getCurrentPlayer(),
-                GameplayConstants.START_GAME_VELOCITY, this.trackMode,currentHealth,
-                currentStats, ammo, collectible, obstacle, cheat);
+                GameplayConstants.START_GAME_VELOCITY, this.trackMode, currentHealth,
+                currentStats, weapon, collectible, obstacle, cheat);
         this.trackLevel = trackLevel;
     }
 
@@ -47,6 +46,6 @@ public class TrackImpl implements Track {
 
     @Override
     public void updateMode(TrackMode trackMode) {
-        this.trackMode=trackMode;
+        this.trackMode = trackMode;
     }
 }

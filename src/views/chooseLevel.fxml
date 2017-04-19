@@ -32,9 +32,11 @@
                 <Insets bottom="5.0"/>
             </padding>
             <children>
-                <Ellipse fx:id="backgroundBox1" onMouseClicked="#chooseLevel" fill="TRANSPARENT" radiusX="106.0" radiusY="136.0" stroke="TRANSPARENT"
+                <Ellipse fx:id="backgroundBox1" onMouseClicked="#chooseLevel" fill="TRANSPARENT" radiusX="106.0"
+                         radiusY="136.0" stroke="TRANSPARENT"
                          strokeType="INSIDE"/>
-                <Ellipse fx:id="backgroundBox2" onMouseClicked="#chooseLevel" fill="TRANSPARENT" radiusX="107.0" radiusY="134.0" stroke="TRANSPARENT"
+                <Ellipse fx:id="backgroundBox2" onMouseClicked="#chooseLevel" fill="TRANSPARENT" radiusX="107.0"
+                         radiusY="134.0" stroke="TRANSPARENT"
                          strokeType="INSIDE" GridPane.columnIndex="1"/>
                 <Label fx:id="label1" contentDisplay="TOP" text="LEVEL 1"
                        GridPane.halignment="CENTER" GridPane.valignment="TOP">

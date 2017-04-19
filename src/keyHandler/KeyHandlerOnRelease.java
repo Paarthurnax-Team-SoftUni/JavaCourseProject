@@ -1,10 +1,10 @@
 package keyHandler;
 
-import utils.constants.KeyHandlersConstants;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import models.Player;
 import models.sprites.PlayerCar;
+import utils.constants.KeyHandlersConstants;
 
 public class KeyHandlerOnRelease extends KeyHandler {
 

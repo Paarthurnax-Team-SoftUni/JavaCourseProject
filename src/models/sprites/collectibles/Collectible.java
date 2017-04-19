@@ -1,11 +1,11 @@
 package models.sprites.collectibles;
 
 import dataHandler.PlayerData;
-import models.sprites.CollectibleSprite;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import models.Player;
 import models.RandomProvider;
+import models.sprites.CollectibleSprite;
 import utils.constants.CollectiblesAndObstaclesConstants;
 import utils.constants.GameplayConstants;
 import utils.constants.GeneralConstants;
@@ -36,11 +36,11 @@ public class Collectible extends CollectibleSprite {
         this.randomProvider = randomProvider;
     }
 
-    public void add(Collectible collectible){
+    public void add(Collectible collectible) {
         this.collectibles.add(collectible);
     }
 
-    public Iterable<Collectible> getCollectibles(){
+    public Iterable<Collectible> getCollectibles() {
         return this.collectibles;
     }
 
@@ -101,7 +101,7 @@ public class Collectible extends CollectibleSprite {
     }
 
     private void takeBonus(String name) {
-        switch (name){
+        switch (name) {
             case "health":
                 if (this.player.getHealthPoints() < GameplayConstants.HEALTH_BAR_MAX) {
                     this.player.updateHealthPoints(Math.min(this.player.getHealthPoints() + GameplayConstants.HEALTH_BONUS,
@@ -136,7 +136,7 @@ public class Collectible extends CollectibleSprite {
         }
     }
 
-    public void clearObstacles(){
+    public void clearObstacles() {
         this.collectibles.clear();
     }
 

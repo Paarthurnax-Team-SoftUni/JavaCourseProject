@@ -1,18 +1,16 @@
 package gameEngine;
 
-import utils.constants.GameplayConstants;
-import utils.constants.GeneralConstants;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 import models.Player;
-import models.sprites.collectibles.Collectible;
 import models.sprites.Obstacle;
+import models.sprites.collectibles.Collectible;
+import utils.constants.GameplayConstants;
+import utils.constants.GeneralConstants;
 import utils.music.MusicPlayer;
-
-import java.util.List;
 
 public class PauseHandler {
     private Timeline gameLoop;
