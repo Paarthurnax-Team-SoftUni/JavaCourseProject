@@ -4,7 +4,7 @@ import dataHandler.PlayerData;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import models.Player;
-import models.RandomProvider;
+import models.Randomizer;
 import models.sprites.CollectibleSprite;
 import utils.constants.CollectiblesAndObstaclesConstants;
 import utils.constants.GameplayConstants;
@@ -27,13 +27,13 @@ public class Collectible extends CollectibleSprite {
     private double doublePtsTimer;
     private Player player;
     private List<Collectible> collectibles;
-    private RandomProvider randomProvider;
+    private Randomizer randomizer;
 
-    public Collectible(RandomProvider randomProvider) {
+    public Collectible(Randomizer randomizer) {
         this.bonusCoefficient = GameplayConstants.INITIAL_BONUS_COEFFICIENT;
         this.player = PlayerData.getInstance().getCurrentPlayer();
         this.collectibles = new ArrayList<>();
-        this.randomProvider = randomProvider;
+        this.randomizer = randomizer;
     }
 
     public void add(Collectible collectible) {
@@ -64,17 +64,17 @@ public class Collectible extends CollectibleSprite {
     public Collectible generateCollectible(int minLeftSide, int maxRightSide) throws IllegalAccessException,
             InvocationTargetException, InstantiationException, NoSuchMethodException, ClassNotFoundException {
         String[] collectibles = CollectiblesAndObstaclesConstants.COLLECTIBLE_LIST_SMALL;
-        String random = collectibles[this.randomProvider.next(collectibles.length)];
+        String random = collectibles[this.randomizer.next(collectibles.length)];
 
         String className = random.toUpperCase().charAt(0) + random.substring(1, random.length());
         Class collectibleClass = Class.forName("models.sprites.collectibles." + className);
-        Constructor<Collectible> constructor = collectibleClass.getDeclaredConstructor(RandomProvider.class);
-        Collectible collectible = constructor.newInstance(this.randomProvider);
+        Constructor<Collectible> constructor = collectibleClass.getDeclaredConstructor(Randomizer.class);
+        Collectible collectible = constructor.newInstance(this.randomizer);
 
         collectible.updateName(random);
         collectible.setImage(CollectiblesAndObstaclesConstants.COLLECTIBLE_PATH + random + ImagesShortcutConstants
                 .PNG_FILE_EXTENSION);
-        collectible.updatePosition(this.randomProvider.next(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants
+        collectible.updatePosition(this.randomizer.next(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants
                 .OBSTACLE_ANIMATION_Y_OFFSET);
 
         return collectible;

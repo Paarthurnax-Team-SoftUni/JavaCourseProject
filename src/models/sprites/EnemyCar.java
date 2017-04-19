@@ -1,14 +1,14 @@
 package models.sprites;
 
-import models.RandomProvider;
+import models.Randomizer;
 import utils.constants.CarConstants;
 import utils.constants.GameplayConstants;
 import utils.constants.GeneralConstants;
 
 public class EnemyCar extends Obstacle {
 
-    public EnemyCar(RandomProvider randomProvider) {
-        super(randomProvider);
+    public EnemyCar(Randomizer randomizer) {
+        super(randomizer);
     }
 
     @Override

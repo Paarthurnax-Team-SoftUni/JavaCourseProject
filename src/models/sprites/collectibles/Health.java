@@ -1,6 +1,6 @@
 package models.sprites.collectibles;
 
-import models.RandomProvider;
+import models.Randomizer;
 
 public class Health extends Collectible {
 
@@ -8,8 +8,8 @@ public class Health extends Collectible {
     private static final String HEALTH_NOTIFICATION_MESSAGE = "Health! Restore your health";
     private static final int HEALTH_BONUS = 500;
 
-    public Health(RandomProvider randomProvider) {
-        super(randomProvider);
+    public Health(Randomizer randomizer) {
+        super(randomizer);
         this.setProps();
     }
 

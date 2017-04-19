@@ -1,6 +1,6 @@
 package models.sprites.collectibles;
 
-import models.RandomProvider;
+import models.Randomizer;
 
 public class Ammunition extends Collectible {
 
@@ -8,8 +8,8 @@ public class Ammunition extends Collectible {
     private static final String AMMO_NOTIFICATION_MESSAGE = "Ammunition! You can generateAmmo once";
     private static final int AMMO_BONUS = 500;
 
-    public Ammunition(RandomProvider randomProvider) {
-        super(randomProvider);
+    public Ammunition(Randomizer randomizer) {
+        super(randomizer);
         this.setProps();
     }
 

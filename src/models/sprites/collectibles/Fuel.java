@@ -1,6 +1,6 @@
 package models.sprites.collectibles;
 
-import models.RandomProvider;
+import models.Randomizer;
 
 public class Fuel extends Collectible {
 
@@ -8,8 +8,8 @@ public class Fuel extends Collectible {
     private static final String FUEL_NOTIFICATION_MESSAGE = "Extra fuel! +5 seconds";
     private static final int FUEL_BONUS = 250;
 
-    public Fuel(RandomProvider randomProvider) {
-        super(randomProvider);
+    public Fuel(Randomizer randomizer) {
+        super(randomizer);
         this.setProps();
     }
 

@@ -1,6 +1,6 @@
 package models.sprites.collectibles;
 
-import models.RandomProvider;
+import models.Randomizer;
 
 public class ArmagedonPower extends Collectible {
 
@@ -8,8 +8,8 @@ public class ArmagedonPower extends Collectible {
     private static final String ARMAGEDON_NOTIFICATION_MESSAGE = "Armageddons Power! Nothing can get on your way now";
     private static final int ARMAGEDON_BONUS = 500;
 
-    public ArmagedonPower(RandomProvider randomProvider) {
-        super(randomProvider);
+    public ArmagedonPower(Randomizer randomizer) {
+        super(randomizer);
         this.setProps();
     }
 
