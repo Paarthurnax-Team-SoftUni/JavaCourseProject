@@ -30,6 +30,7 @@ import java.lang.reflect.Field;
 
 public class ChooseLevelController {
 
+
     private Track track;
     private TrackHandler trackHandler;
     CurrentHealth currentHealth;
@@ -45,6 +46,8 @@ public class ChooseLevelController {
     private Ellipse backgroundBox1;
     @FXML
     private Ellipse backgroundBox2;
+    @FXML
+    private ImageView locked1;
     @FXML
     private ImageView locked2;
     @FXML
@@ -92,20 +95,19 @@ public class ChooseLevelController {
         for (int id = 1; id <= GameplayConstants.LEVELS_NUMBER; id++) {
             Field ellipseField = chooseLevelControllerClass.getDeclaredField(ImagesShortcutConstants.BACKGROUND_STRING + id);
             Ellipse ellipse = ((Ellipse) ellipseField.get(this));
+            Field levelField = chooseLevelControllerClass.getDeclaredField(ImagesShortcutConstants.LEVEL_CAR_STRING + id);
+            ImageView level = ((ImageView) levelField.get(this));
+            Field lockedField = chooseLevelControllerClass.getDeclaredField(ImagesShortcutConstants.LOCKED_CAR_STRING + id);
+            ImageView locked = ((ImageView) lockedField.get(this));
 
             if(maxLevel+1 < id){
                 ellipse.setStyle(StylesConstants.GREY_COLOUR);
                 ellipse.toFront();
                 ellipse.setOnMouseClicked(null);
-
-                Field levelField = chooseLevelControllerClass.getDeclaredField(ImagesShortcutConstants.LEVEL_CAR_STRING + id);
-                ImageView level = ((ImageView) levelField.get(this));
                 level.setOnMouseClicked(null);
-
-                Field lockedField = chooseLevelControllerClass.getDeclaredField(ImagesShortcutConstants.LOCKED_CAR_STRING + id);
-                ImageView locked = ((ImageView) lockedField.get(this));
                 locked.setVisible(true);
             } else {
+                locked.setVisible(false);
                 ellipse.setStyle(null);
             }
         }

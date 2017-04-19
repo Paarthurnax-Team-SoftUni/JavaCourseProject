@@ -67,7 +67,13 @@
                         <Image url="@../resources/images/level2.png"/>
                     </image>
                 </ImageView>
-                <ImageView fx:id="locked2" fitHeight="55.0" fitWidth="75.0" onMouseClicked="#chooseLevel"
+                <ImageView fx:id="locked1" fitHeight="55.0" fitWidth="75.0"
+                           pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../resources/images/locked.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fx:id="locked2" fitHeight="55.0" fitWidth="75.0"
                            pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                     <image>
                         <Image url="@../resources/images/locked.png"/>
