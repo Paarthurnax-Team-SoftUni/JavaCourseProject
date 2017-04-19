@@ -1,12 +1,15 @@
 package models.sprites.collectibles;
 
+import utils.RandomProvider;
+
 public class Ammunition extends Collectible{
 
     private static final String AMMO_NAME = "ammunitions";
     private static final String AMMO_NOTIFICATION_MESSAGE = "Ammunition! You can generateAmmo once";
     private static final int AMMO_BONUS = 500;
 
-    public Ammunition() {
+    public Ammunition(RandomProvider randomProvider) {
+        super(randomProvider);
         this.setProps();
     }
 

@@ -18,6 +18,7 @@ import models.Cheat;
 import models.sprites.Ammo;
 import models.sprites.Obstacle;
 import models.sprites.collectibles.Collectible;
+import utils.RandomProvider;
 import utils.constants.GameplayConstants;
 import utils.constants.ImagesShortcutConstants;
 import utils.constants.StylesConstants;
@@ -58,12 +59,13 @@ public class ChooseLevelController {
 
     public void initialize() throws IOException, NoSuchFieldException, IllegalAccessException {
         this.showUnlockedLevelsOnly();
+        RandomProvider randomProvider = new RandomProvider();
         this.trackHandler = new TrackHandler();
         this.currentHealth = new CurrentHealth(PlayerData.getInstance().getCurrentPlayer());
         this.currentStats = new CurrentStats(GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE, GameplayConstants.INITIAL_STATS_VALUE,GameplayConstants.INITIAL_STATS_VALUE);
         this.ammo = new Ammo();
-        this.collectible = new Collectible();
-        this.obstacle = new Obstacle();
+        this.collectible = new Collectible(randomProvider);
+        this.obstacle = new Obstacle(randomProvider);
         this.cheat = new Cheat();
     }
 

@@ -1,12 +1,15 @@
 package models.sprites.collectibles;
 
+import utils.RandomProvider;
+
 public class Immortality extends Collectible{
 
     private static final String IMMORTALITY_NAME = "immortality";
     private static final String IMMORTALITY_NOTIFICATION_MESSAGE = "Immortality! You are invincible for the next 5 seconds";
     private static final int IMMORTALITY_BONUS = 500;
 
-    public Immortality() {
+    public Immortality(RandomProvider randomProvider) {
+        super(randomProvider);
         this.setProps();
     }
 

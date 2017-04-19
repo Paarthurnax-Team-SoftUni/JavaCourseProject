@@ -1,12 +1,15 @@
 package models.sprites.collectibles;
 
+import utils.RandomProvider;
+
 public class Health extends Collectible{
 
     private static final String HEALTH_NAME = "health";
     private static final String HEALTH_NOTIFICATION_MESSAGE = "Health! Restore your health";
     private static final int HEALTH_BONUS = 500;
 
-    public Health() {
+    public Health(RandomProvider randomProvider) {
+        super(randomProvider);
         this.setProps();
     }
 

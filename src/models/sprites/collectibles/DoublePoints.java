@@ -1,12 +1,15 @@
 package models.sprites.collectibles;
 
+import utils.RandomProvider;
+
 public class DoublePoints extends Collectible{
 
     private static final String DOUBLE_POINTS_NAME = "doublePoints";
     private static final String DOUBLE_POINTS_NOTIFICATION_MESSAGE = "Bonus! Double points in the next 5 seconds";
     private static final int DOUBLE_POINTS_BONUS = 1000;
 
-    public DoublePoints() {
+    public DoublePoints(RandomProvider randomProvider) {
+        super(randomProvider);
         this.setProps();
     }
 

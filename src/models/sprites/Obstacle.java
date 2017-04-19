@@ -1,21 +1,23 @@
 package models.sprites;
 
-import utils.constants.*;
 import javafx.scene.canvas.GraphicsContext;
 import models.Player;
+import utils.RandomProvider;
+import utils.constants.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Obstacle extends RotatableSprite {
 
     private boolean isDrunk;
     private boolean isDestroyed;
     private List<Obstacle> obstacles;
+    private RandomProvider randomProvider;
 
-    public Obstacle() {
+    public Obstacle(RandomProvider randomProvider) {
         this.obstacles = new ArrayList<>();
+        this.randomProvider = randomProvider;
     }
 
     public void add(Obstacle obstacle){
@@ -33,21 +35,20 @@ public class Obstacle extends RotatableSprite {
     public Obstacle generateObstacle(int drunkDrivers, int minLeftSide, int maxRightSide) {
 
         String[] obstacles = CollectiblesAndObstaclesConstants.OBSTACLES_LIST_SMALL;
-        String random = (obstacles[new Random().nextInt(obstacles.length)]);
+        String random = (obstacles[this.randomProvider.next(obstacles.length)]);
         String image = ResourcesConstants.IMAGES_PATH + random + ".png";
 
-        Random obstacleX = new Random();
-        Obstacle obstacle = new Obstacle();
+        Obstacle obstacle = new Obstacle(this.randomProvider);
 
-        if (random.contains(CarConstants.CAR_STRING) && new Random().nextInt(100) > drunkDrivers) {
-            obstacle = new EnemyCar();
+        if (random.contains(CarConstants.CAR_STRING) && this.randomProvider.next(100) > drunkDrivers) {
+            obstacle = new EnemyCar(this.randomProvider);
             obstacle.setIsDrunk(true);
-            obstacle.updatePosition(obstacleX.nextInt((maxRightSide - GameplayConstants.OBSTACLES_BOUNDS) -
+            obstacle.updatePosition(this.randomProvider.next((maxRightSide - GameplayConstants.OBSTACLES_BOUNDS) -
                     (minLeftSide + GameplayConstants.OBSTACLES_BOUNDS)) + minLeftSide + GameplayConstants
                     .OBSTACLES_BOUNDS, GameplayConstants.OBSTACLE_ANIMATION_Y_OFFSET);
         }
 
-        obstacle.updatePosition(obstacleX.nextInt(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants
+        obstacle.updatePosition(this.randomProvider.next(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants
                 .OBSTACLE_ANIMATION_Y_OFFSET);
         obstacle.setImage(image);
         obstacle.updateName(random);
@@ -61,8 +62,8 @@ public class Obstacle extends RotatableSprite {
             if (obstacleType.contains(ImagesShortcutConstants.PLAYER_CAR) && !obstacle.isDestroyed()) {
                 obstacle.setVelocity(0, velocity / 3);
 
-                if (obstacle.isDrunk && new Random().nextInt(100) > 90) {
-                    if (new Random().nextInt(2) == 0) {
+                if (obstacle.isDrunk && this.randomProvider.next(100) > 90) {
+                    if (this.randomProvider.next(2) == 0) {
                         obstacle.setTurningLeft(true);
                         obstacle.setTurningRight(false);
                     } else {

@@ -1,20 +1,21 @@
 package models.sprites.collectibles;
 
 import dataHandler.PlayerData;
-import models.sprites.CollectibleSprite;
-import models.sprites.EnemyCar;
-import models.sprites.Obstacle;
-import utils.constants.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
-import utils.notifications.Notification;
 import models.Player;
+import utils.RandomProvider;
+import models.sprites.CollectibleSprite;
+import utils.constants.CollectiblesAndObstaclesConstants;
+import utils.constants.GameplayConstants;
+import utils.constants.GeneralConstants;
+import utils.constants.ImagesShortcutConstants;
+import utils.notifications.Notification;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Collectible extends CollectibleSprite {
 
@@ -26,11 +27,13 @@ public class Collectible extends CollectibleSprite {
     private double doublePtsTimer;
     private Player player;
     private List<Collectible> collectibles;
+    private RandomProvider randomProvider;
 
-    public Collectible() {
+    public Collectible(RandomProvider randomProvider) {
         this.bonusCoefficient = GameplayConstants.INITIAL_BONUS_COEFFICIENT;
         this.player = PlayerData.getInstance().getCurrentPlayer();
         this.collectibles = new ArrayList<>();
+        this.randomProvider = randomProvider;
     }
 
     public void add(Collectible collectible){
@@ -61,17 +64,17 @@ public class Collectible extends CollectibleSprite {
     public Collectible generateCollectible(int minLeftSide, int maxRightSide) throws IllegalAccessException,
             InvocationTargetException, InstantiationException, NoSuchMethodException, ClassNotFoundException {
         String[] collectibles = CollectiblesAndObstaclesConstants.COLLECTIBLE_LIST_SMALL;
-        String random = collectibles[new Random().nextInt(collectibles.length)];
+        String random = collectibles[this.randomProvider.next(collectibles.length)];
 
         String className = random.toUpperCase().charAt(0) + random.substring(1, random.length());
         Class collectibleClass = Class.forName("models.sprites.collectibles." + className);
-        Constructor<Collectible> constructor = collectibleClass.getDeclaredConstructor();
-        Collectible collectible = constructor.newInstance();
+        Constructor<Collectible> constructor = collectibleClass.getDeclaredConstructor(RandomProvider.class);
+        Collectible collectible = constructor.newInstance(this.randomProvider);
 
         collectible.updateName(random);
         collectible.setImage(CollectiblesAndObstaclesConstants.COLLECTIBLE_PATH + random + ImagesShortcutConstants
                 .PNG_FILE_EXTENSION);
-        collectible.updatePosition(new Random().nextInt(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants
+        collectible.updatePosition(this.randomProvider.next(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants
                 .OBSTACLE_ANIMATION_Y_OFFSET);
 
         return collectible;

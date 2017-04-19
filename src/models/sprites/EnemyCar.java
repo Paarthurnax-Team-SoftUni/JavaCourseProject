@@ -1,10 +1,15 @@
 package models.sprites;
 
+import utils.RandomProvider;
 import utils.constants.CarConstants;
 import utils.constants.GameplayConstants;
 import utils.constants.GeneralConstants;
 
 public class EnemyCar extends Obstacle {
+
+    public EnemyCar(RandomProvider randomProvider) {
+        super(randomProvider);
+    }
 
     @Override
     public void addVelocity(double x, double y) {
