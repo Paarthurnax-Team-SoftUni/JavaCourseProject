@@ -50,7 +50,6 @@ public class GameController implements Initializable {
         Platform.exit();
     }
 
-
     private Label getScorePoints() {
         return this.scorePoints;
     }

@@ -180,7 +180,7 @@ public class RunTrack {
                     if (action != null && action.equals(CollectiblesAndObstaclesConstants.ARMAGEDDON_STRING)) {
                         startArmageddonsPower();
                     } else if (action != null && action.equals(CollectiblesAndObstaclesConstants.FUEL_BOTTLE_STRING)) {
-                        time -= GameplayConstants.FUEL_TANK_BONUS_TIME / currentFramesPerSecond;
+                        time -= (GameplayConstants.FUEL_TANK_BONUS_TIME / this.currentFramesPerSecond);
                     }
 
                     //Check for end game

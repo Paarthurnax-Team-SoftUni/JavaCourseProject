@@ -87,13 +87,12 @@ public class ChooseLevelController {
     private void showUnlockedLevelsOnly() throws NoSuchFieldException, IllegalAccessException {
 
         int maxLevel = PlayerData.getInstance().getCurrentPlayer().getMaxLevelPassed();
-        System.out.println(maxLevel);
         Class<ChooseLevelController> chooseLevelControllerClass = ChooseLevelController.class;
 
         for (int id = 1; id <= GameplayConstants.LEVELS_NUMBER; id++) {
             Field ellipseField = chooseLevelControllerClass.getDeclaredField(ImagesShortcutConstants.BACKGROUND_STRING + id);
             Ellipse ellipse = ((Ellipse) ellipseField.get(this));
-            ellipse.setStyle(null);
+
             if(maxLevel+1 < id){
                 ellipse.setStyle(StylesConstants.GREY_COLOUR);
                 ellipse.toFront();
@@ -106,6 +105,8 @@ public class ChooseLevelController {
                 Field lockedField = chooseLevelControllerClass.getDeclaredField(ImagesShortcutConstants.LOCKED_CAR_STRING + id);
                 ImageView locked = ((ImageView) lockedField.get(this));
                 locked.setVisible(true);
+            } else {
+                ellipse.setStyle(null);
             }
         }
     }

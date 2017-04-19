@@ -30,7 +30,6 @@ public class ChooseModeController {
     private Ellipse backgroundBox3;
 
     public void initialize() throws IOException {
-
     }
 
     @FXML
@@ -54,6 +53,7 @@ public class ChooseModeController {
         for (int i = 1; i <= GameplayConstants.MODES_NUMBER; i++) {
             Field ellipseField = chooseModeControllerClass.getDeclaredField(ImagesShortcutConstants.BACKGROUND_STRING + i);
             Ellipse ellipse = ((Ellipse) ellipseField.get(this));
+
             if(i == id){
                 ellipse.setStyle(StylesConstants.RED_COLOUR);
                 ellipse.toFront();

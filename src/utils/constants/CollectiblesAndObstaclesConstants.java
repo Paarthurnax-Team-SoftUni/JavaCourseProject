@@ -2,7 +2,7 @@ package utils.constants;
 
 public class CollectiblesAndObstaclesConstants {
 
-    public static final String FUEL_BOTTLE_STRING = "fuelBottle";
+    public static final String FUEL_BOTTLE_STRING = "fuel";
     public static final String ARMAGEDDON_STRING = "armagedonPower";
     public static final String COLLECTIBLE_PATH = "resources/images/collectibles/";
     public static final String[] COLLECTIBLE_LIST_SMALL = {
