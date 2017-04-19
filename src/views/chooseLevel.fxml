@@ -57,14 +57,14 @@
                 <ImageView fx:id="level1" fitHeight="280.0" fitWidth="244.0" nodeOrientation="INHERIT"
                            onMouseClicked="#chooseLevel" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../resources/images/level1.png"/>
+                        <Image url="@../resources/images/screenshots/level1.png"/>
                     </image>
                 </ImageView>
                 <ImageView fx:id="level2" fitHeight="280.0" fitWidth="244.0" nodeOrientation="INHERIT"
                            onMouseClicked="#chooseLevel" pickOnBounds="true" preserveRatio="true"
                            GridPane.columnIndex="1">
                     <image>
-                        <Image url="@../resources/images/level2.png"/>
+                        <Image url="@../resources/images/screenshots/level2.png"/>
                     </image>
                 </ImageView>
                 <ImageView fx:id="locked1" fitHeight="55.0" fitWidth="75.0"

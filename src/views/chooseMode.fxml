@@ -69,21 +69,21 @@
                 <ImageView fx:id="mode1" fitHeight="210.0" fitWidth="174.0" nodeOrientation="INHERIT"
                            onMouseClicked="#chooseMode" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../resources/images/level1.png"/>
+                        <Image url="@../resources/images/screenshots/mode1.png"/>
                     </image>
                 </ImageView>
                 <ImageView fx:id="mode2" fitHeight="210.0" fitWidth="174.0" nodeOrientation="INHERIT"
                            onMouseClicked="#chooseMode" pickOnBounds="true" preserveRatio="true"
                            GridPane.columnIndex="1">
                     <image>
-                        <Image url="@../resources/images/level2.png"/>
+                        <Image url="@../resources/images/screenshots/mode2.png"/>
                     </image>
                 </ImageView>
                 <ImageView fx:id="mode3" fitHeight="210.0" fitWidth="174.0" nodeOrientation="INHERIT"
                            onMouseClicked="#chooseMode" pickOnBounds="true" preserveRatio="true"
                            GridPane.columnIndex="2">
                     <image>
-                        <Image url="@../resources/images/level2.png"/>
+                        <Image url="@../resources/images/screenshots/mode3.png"/>
                     </image>
                 </ImageView>
             </children>
