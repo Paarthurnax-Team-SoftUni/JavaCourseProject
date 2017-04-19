@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 import mapHandlers.TrackHandler;
 import models.Cheat;
 import models.RandomProvider;
-import models.Randomizer;
+import interfaces.Randomizer;
 import models.sprites.Obstacle;
 import models.sprites.Weapon;
 import models.sprites.collectibles.Collectible;

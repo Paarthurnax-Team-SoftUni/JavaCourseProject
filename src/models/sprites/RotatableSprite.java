@@ -20,9 +20,13 @@ public abstract class RotatableSprite extends Sprite implements Rotatable {
         return this.angle;
     }
 
-    public void setAngle(double angle) {
+    private void setAngle(double angle) {
+        this.angle = angle;
+    }
+
+    protected void updateAngle(double angle) {
         if (angle < GameplayConstants.TURNING_ANGLE && angle > -GameplayConstants.TURNING_ANGLE) {
-            this.angle = angle;
+            this.setAngle(angle);
         }
     }
 
@@ -30,8 +34,12 @@ public abstract class RotatableSprite extends Sprite implements Rotatable {
         return this.centerWheel;
     }
 
-    public void setCenterWheel(boolean isCentered) {
-        this.centerWheel = isCentered;
+    private void setCenterWheel(boolean centerWheel) {
+        this.centerWheel = centerWheel;
+    }
+
+    public void updateCenterWheel(boolean isCentered) {
+        this.setCenterWheel(isCentered);
     }
 
     protected void setTurningLeft(boolean isTurning) {
@@ -44,7 +52,7 @@ public abstract class RotatableSprite extends Sprite implements Rotatable {
 
     public void removeWind() {
         super.setVelocity(GameplayConstants.CANVAS_BEGINNING, GameplayConstants.CANVAS_BEGINNING);
-        this.setAngle(0);
+        this.updateAngle(0);
         this.setTurningRight(false);
         this.setTurningLeft(false);
     }
@@ -74,16 +82,16 @@ public abstract class RotatableSprite extends Sprite implements Rotatable {
 
     @Override
     public void turnLeft() {
-        this.setCenterWheel(false);
+        this.updateCenterWheel(false);
         this.setTurningLeft(true);
         // player.addVelocity(-player.getWidth() * 0.66667, 0);
     }
 
     @Override
     public void turnRight() {
-        this.setCenterWheel(false);
+        this.updateCenterWheel(false);
         this.setTurningRight(true);
-        //player.setAngle(player.getAngle() + 15);
+        //player.updateAngle(player.getAngle() + 15);
         // player.addVelocity(player.getWidth() * 0.66667, 0);
 
     }
@@ -92,15 +100,15 @@ public abstract class RotatableSprite extends Sprite implements Rotatable {
     public void goCenter() {
         this.setTurningRight(false);
         this.setTurningLeft(false);
-        this.setCenterWheel(true);
+        this.updateCenterWheel(true);
     }
 
     private void updateAngle() {
         if (this.turningLeft) {
-            this.setAngle(this.getAngle() - GameplayConstants.TURN_UPDATE_DEGREES);
+            this.updateAngle(this.getAngle() - GameplayConstants.TURN_UPDATE_DEGREES);
         }
         if (this.turningRight) {
-            this.setAngle(this.getAngle() + GameplayConstants.TURN_UPDATE_DEGREES);
+            this.updateAngle(this.getAngle() + GameplayConstants.TURN_UPDATE_DEGREES);
         }
     }
 }

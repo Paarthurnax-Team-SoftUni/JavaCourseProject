@@ -72,9 +72,9 @@ public class PlayerCar extends RotatableSprite implements Shootable {
     public void update() {
         if (this.isCenterWheel()) {
             if (this.getAngle() < 0) {
-                this.setAngle(this.getAngle() + GameplayConstants.START_GAME_VELOCITY);
+                this.updateAngle(this.getAngle() + GameplayConstants.START_GAME_VELOCITY);
             } else if (this.getAngle() > 0)
-                this.setAngle(this.getAngle() - GameplayConstants.START_GAME_VELOCITY);
+                this.updateAngle(this.getAngle() - GameplayConstants.START_GAME_VELOCITY);
         }
         if (this.accelerating) {
             this.addVelocity(0, -GameplayConstants.IMAGE_HEIGHT_OFFSET);

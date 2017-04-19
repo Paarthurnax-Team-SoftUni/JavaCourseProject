@@ -4,7 +4,7 @@ import dataHandler.PlayerData;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import models.Player;
-import models.Randomizer;
+import interfaces.Randomizer;
 import models.sprites.CollectibleSprite;
 import utils.constants.CollectiblesAndObstaclesConstants;
 import utils.constants.GameplayConstants;

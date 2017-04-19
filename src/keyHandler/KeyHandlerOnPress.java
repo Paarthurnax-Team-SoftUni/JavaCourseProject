@@ -33,7 +33,7 @@ public class KeyHandlerOnPress extends KeyHandler {
                     if (RunTrack.getVelocity() > GameplayConstants.START_GAME_VELOCITY) {
                         RunTrack.setVelocity(RunTrack.getVelocity() - GameplayConstants.BRAKES_STRENGTH);
                     }
-                    playerCar.setCenterWheel(false);
+                    playerCar.updateCenterWheel(false);
                     //player.addVelocity(0, 2);
                     playerCar.update();
                     break;

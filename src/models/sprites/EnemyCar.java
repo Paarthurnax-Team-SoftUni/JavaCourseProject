@@ -1,6 +1,6 @@
 package models.sprites;
 
-import models.Randomizer;
+import interfaces.Randomizer;
 import utils.constants.CarConstants;
 import utils.constants.GameplayConstants;
 import utils.constants.GeneralConstants;

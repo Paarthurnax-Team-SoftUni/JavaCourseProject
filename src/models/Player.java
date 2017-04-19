@@ -160,7 +160,7 @@ public class Player {
         this.setHealthPoints(GameplayConstants.HEALTH_BAR_MAX);
         this.car.updateAmmunition(GameplayConstants.START_GAME_BULLETS_NORMAL_MODE);
         this.car.stopAccelerate();
-        this.car.setCenterWheel(true);
+        this.car.updateCenterWheel(true);
         this.car.removeWind();
     }
 }

@@ -1,5 +1,7 @@
 package models;
 
+import interfaces.Randomizer;
+
 import java.util.Random;
 
 public class RandomProvider implements Randomizer {

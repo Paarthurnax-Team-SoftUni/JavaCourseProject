@@ -1,6 +1,6 @@
 package models.sprites.collectibles;
 
-import models.Randomizer;
+import interfaces.Randomizer;
 
 public class ArmagedonPower extends Collectible {
 
