@@ -35,7 +35,7 @@ public class Collectible extends CollectibleSprite {
         this.collectibles.add(collectible);
     }
 
-    public List<Collectible> getCollectibles(){
+    public Iterable<Collectible> getCollectibles(){
         return this.collectibles;
     }
 
@@ -129,6 +129,10 @@ public class Collectible extends CollectibleSprite {
         if (this.immortalityTimer < 0) {
             this.player.getCar().updateImmortal(false);
         }
+    }
+
+    public void clearObstacles(){
+        this.collectibles.clear();
     }
 
     private void startDoublePointsTimer() {

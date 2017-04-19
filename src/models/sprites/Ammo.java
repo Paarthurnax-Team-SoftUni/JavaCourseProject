@@ -27,7 +27,7 @@ public class Ammo extends CollectibleSprite {
         return ammo;
     }
 
-    public void visualizeAmmo(GraphicsContext gc, List<Obstacle> obstacles, Player player) {
+    public void visualizeAmmo(GraphicsContext gc, Iterable<Obstacle> obstacles, Player player) {
         for (Ammo ammo : this.ammunitions) {
             ammo.setVelocity(0, -GameplayConstants.BULLET_SPEED);
             ammo.update();

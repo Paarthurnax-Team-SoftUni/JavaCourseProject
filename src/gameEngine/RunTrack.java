@@ -240,8 +240,8 @@ public class RunTrack {
     }
 
     private void clearObstaclesAndCollectibles() {
-        this.collectible.getCollectibles().clear();
-        this.obstacle.getObstacles().clear();
+        this.collectible.clearObstacles();
+        this.obstacle.clearObstacles();
     }
 
     private void startArmageddonsPower() {
