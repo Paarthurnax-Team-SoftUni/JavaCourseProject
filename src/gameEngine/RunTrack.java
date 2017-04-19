@@ -28,7 +28,7 @@ import utils.stages.StageManagerImpl;
 
 import java.util.Observer;
 
-public class RunTrack {
+public class RunTrack{
 
     private static boolean isPaused;
     private static float velocity;
@@ -51,10 +51,10 @@ public class RunTrack {
     public RunTrack(Player player, float velocityValue, TrackMode trackMode,
                     CurrentHealth currentHealth, CurrentStats currentStats, Weapon weapon,
                     Collectible collectible, Obstacle obstacle, Cheat cheat) {
-        frame = 0;
-        time = 0;
-        velocity = velocityValue;
-        observer = (o, arg) -> {
+        this.frame = 0;
+        this.time = 0;
+        RunTrack.velocity = velocityValue;
+        this.observer = (o, arg) -> {
         };
         RunTrack.currentStats = currentStats;
         RunTrack.cheat = cheat;
@@ -250,4 +250,5 @@ public class RunTrack {
             o.handleImpactByCarPlayer(velocity);
         }
     }
+
 }
