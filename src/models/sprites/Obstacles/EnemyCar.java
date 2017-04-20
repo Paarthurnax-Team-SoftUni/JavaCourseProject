@@ -1,4 +1,4 @@
-package models.sprites;
+package models.sprites.Obstacles;
 
 import interfaces.Randomizer;
 import utils.constants.CarConstants;

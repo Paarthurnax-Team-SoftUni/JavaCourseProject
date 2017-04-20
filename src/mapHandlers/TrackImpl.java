@@ -8,7 +8,7 @@ import interfaces.Track;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import models.Cheat;
-import models.sprites.Obstacle;
+import models.sprites.Obstacles.Obstacle;
 import models.sprites.Weapon;
 import models.sprites.collectibles.Collectible;
 import utils.constants.GameplayConstants;

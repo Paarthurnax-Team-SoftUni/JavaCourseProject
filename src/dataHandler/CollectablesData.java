@@ -11,14 +11,13 @@ import java.util.List;
 import static utils.constants.CollectiblesAndObstaclesConstants.COLLECTABLES_CLASSES_FOLDER;
 
 
-public class CollectablesData {
+public class CollectablesData implements ModelsCollectionData {
     private String[] collectables;
 
     public CollectablesData() {
-        this.initializeCollectables();
     }
 
-    private void initializeCollectables(){
+    public void initializeCollectables(){
         File collectablesFolder = new File(COLLECTABLES_CLASSES_FOLDER);
         List<String> collectablesList=new ArrayList<>();
         for (File file : collectablesFolder.listFiles()) {
@@ -41,7 +40,8 @@ public class CollectablesData {
         this.collectables= collectables;
     }
 
-    public String[] getCollectables() {
+    @Override
+    public String[] getModelsCollection() {
         return Arrays.copyOf(this.collectables,this.collectables.length);
     }
 }

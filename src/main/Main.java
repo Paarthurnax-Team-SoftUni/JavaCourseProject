@@ -1,8 +1,6 @@
 package main;
 
-import dataHandler.ModelsParamsManager;
-import dataHandler.PlayerData;
-import dataHandler.TrackParams;
+import dataHandler.*;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -41,7 +39,8 @@ public class Main extends Application {
         }
         PlayerData.getInstance().loadPlayersData();
         TrackParams.getInstance();
-        ModelsParamsManager.getInstance().initializeModelConstants();
+        ModelsCollectionData collectablesData = new CollectablesData();
+        ModelsParamsManager.getInstance().initializeCollectables(collectablesData);
     }
 
     @Override

@@ -17,7 +17,7 @@ import keyHandler.KeyHandlerOnRelease;
 import mapHandlers.TrackMode;
 import models.Cheat;
 import models.Player;
-import models.sprites.Obstacle;
+import models.sprites.Obstacles.Obstacle;
 import models.sprites.PlayerCar;
 import models.sprites.Weapon;
 import models.sprites.collectibles.Collectible;

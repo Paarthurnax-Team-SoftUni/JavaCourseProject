@@ -2,6 +2,8 @@ package models.sprites;
 
 import javafx.scene.canvas.GraphicsContext;
 import models.Player;
+import models.sprites.Obstacles.Obstacle;
+import models.sprites.collectibles.CollectibleSprite;
 import utils.constants.GameplayConstants;
 import utils.constants.ResourcesConstants;
 

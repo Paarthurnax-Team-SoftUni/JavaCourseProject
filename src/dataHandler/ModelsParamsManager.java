@@ -3,7 +3,7 @@ package dataHandler;
 
 public class ModelsParamsManager {
     private static volatile ModelsParamsManager instance = null;
-    private CollectablesData collectablesData;
+    private ModelsCollectionData collectablesData;
 
     private ModelsParamsManager() {
     }
@@ -19,11 +19,12 @@ public class ModelsParamsManager {
         return instance;
     }
 
-    public void initializeModelConstants(){
-        this.collectablesData =new CollectablesData();
+    public void initializeCollectables(ModelsCollectionData collectablesData){
+        this.collectablesData =collectablesData;
+        this.collectablesData.initializeCollectables();
     }
 
     public String[] getCollectablesArray() {
-        return this.collectablesData.getCollectables();
+        return this.collectablesData.getModelsCollection();
     }
 }

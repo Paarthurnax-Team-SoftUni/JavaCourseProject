@@ -1,8 +1,9 @@
-package models.sprites;
+package models.sprites.Obstacles;
 
 import javafx.scene.canvas.GraphicsContext;
 import models.Player;
 import interfaces.Randomizer;
+import models.sprites.RotatableSprite;
 import utils.constants.*;
 
 import java.util.ArrayList;
