@@ -129,7 +129,6 @@ public class Collectible extends Sprite {
     }
 
     private void updateImmortalityStatus() {
-        System.out.println(this.immortalityTimer);
         this.immortalityTimer--;
         if (this.immortalityTimer < 0) {
             this.player.getCar().updateImmortal(false);
