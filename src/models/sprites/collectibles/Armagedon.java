@@ -6,7 +6,7 @@ import interfaces.Randomizer;
 @Collectable
 public class Armagedon extends Collectible {
 
-    private static final String ARMAGEDON_NAME = "armageddonsPower";
+    private static final String ARMAGEDON_NAME = "armageddonPower";
     private static final String ARMAGEDON_NOTIFICATION_MESSAGE = "Armageddons Power! Nothing can get on your way now";
     private static final int ARMAGEDON_BONUS = 500;
 

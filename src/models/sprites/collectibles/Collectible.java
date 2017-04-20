@@ -89,6 +89,7 @@ public class Collectible extends Sprite {
 
             if (collectible.intersects(this.player.getCar())) {
                 this.player.addPoints(collectible.bonusPoints * collectible.bonusCoefficient);
+                Notification.hidePopupMessage();
                 Notification.showPopupMessage(collectible.getName(), collectible.notificationMessage, currentStage);
                 collectible.updatePosition(GameplayConstants.DESTROY_OBJECT_COORDINATES, GameplayConstants
                         .DESTROY_OBJECT_COORDINATES);
