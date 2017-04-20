@@ -5,7 +5,7 @@ import interfaces.Randomizer;
 @Collectable
 public class Ammunition extends Collectible {
 
-    private static final String AMMO_NAME = "ammunitions";
+    private static final String AMMO_NAME = "ammunition";
     private static final String AMMO_NOTIFICATION_MESSAGE = "Ammunition! You can cause mayhem!";
     private static final int AMMO_BONUS = 500;
 
