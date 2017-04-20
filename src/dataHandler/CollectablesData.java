@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static utils.constants.CollectiblesAndObstaclesConstants.COLLECTABLES_CLASSES_FOLDER;
+import static utils.constants.ResourcesConstants.JAVA_EXTENSION;
 
 
 public class CollectablesData implements ModelsCollectionData {
@@ -21,7 +22,7 @@ public class CollectablesData implements ModelsCollectionData {
         File collectablesFolder = new File(COLLECTABLES_CLASSES_FOLDER);
         List<String> collectablesList=new ArrayList<>();
         for (File file : collectablesFolder.listFiles()) {
-            if (!file.isFile() || !file.getName().endsWith(".java")) {
+            if (!file.isFile() || !file.getName().endsWith(JAVA_EXTENSION)) {
                 continue;
             }
             try {
