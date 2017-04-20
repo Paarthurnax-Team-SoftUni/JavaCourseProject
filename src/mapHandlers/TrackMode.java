@@ -16,13 +16,13 @@ public enum TrackMode {
     private long endTruckTime;
     private int pointsPerDistance;
     private long finalExpectedDistance;
-    private int initialAmmonition;
+    private int initialAmmunition;
 
-    TrackMode(long endTruckTime, int pointsPerDistance, long finalExpectedDistance, int initialAmmonition) {
+    TrackMode(long endTruckTime, int pointsPerDistance, long finalExpectedDistance, int initialAmmunition) {
         this.endTruckTime = endTruckTime;
         this.pointsPerDistance = pointsPerDistance;
         this.finalExpectedDistance = finalExpectedDistance;
-        this.initialAmmonition = initialAmmonition;
+        this.initialAmmunition = initialAmmunition;
     }
 
     public long getEndTruckTime() {
@@ -37,7 +37,7 @@ public enum TrackMode {
         return this.finalExpectedDistance;
     }
 
-    public int getInitialAmmonition() {
-        return this.initialAmmonition;
+    public int getInitialAmmunition() {
+        return this.initialAmmunition;
     }
 }

@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Player;
-import models.sprites.PlayerCar;
+import utils.constants.GameplayConstants;
 import utils.constants.ViewsConstants;
 import utils.stages.DialogBox;
 import utils.stages.StageManager;
@@ -36,14 +36,12 @@ public class LoginController {
             boolean result = DialogBox.loadConfirmBox(name);
             if (result) {
                 PlayerData.getInstance().registerPlayer(PlayerData.getInstance().returnPlayer(name));
-
                 FXMLLoader loader = manager.loadSceneToStage(currentStage, ViewsConstants.START_FXML_PATH);
             }
         } else {
             boolean result = DialogBox.loadConfirmBox(name);
             if (result) {
-                PlayerCar playerCar = new PlayerCar();
-                Player player = new Player(playerCar, name, 0L, 0.0, 100);
+                Player player = new Player(name, GameplayConstants.INITIAL_SCORE, GameplayConstants.INITIAL_MONEY, GameplayConstants.HEALTH_BAR_MAX);
                 PlayerData.getInstance().addPlayer(player);
                 PlayerData.getInstance().storePlayersData(player);
                 PlayerData.getInstance().registerPlayer(PlayerData.getInstance().returnPlayer(name));

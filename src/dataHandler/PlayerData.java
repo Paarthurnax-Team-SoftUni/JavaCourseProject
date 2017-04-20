@@ -3,6 +3,7 @@ package dataHandler;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import models.Player;
+import models.cars.BasicCar;
 import models.sprites.PlayerCar;
 import utils.constants.ErrorConstants;
 import utils.constants.SQLConstants;
@@ -115,7 +116,7 @@ public class PlayerData {
         try {
             ResultSet results = this.queryPlayers.executeQuery();
             while (results.next()) {
-                PlayerCar playerCar = new PlayerCar();
+                PlayerCar playerCar = new BasicCar();
                 Player player = new Player(playerCar);
                 player.updateId(results.getInt(SQLConstants.INDEX_COLUMN_ID));
                 player.updateName(results.getString(SQLConstants.INDEX_COLUMN_NAME));

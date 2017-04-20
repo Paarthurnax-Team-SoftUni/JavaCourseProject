@@ -22,6 +22,12 @@ public class CollectiblesAndObstaclesConstants {
             "cars/player_car4_half_size",
             "cars/player_car5_half_size",
             "cars/player_car6_half_size"};
+    public static final String HEALTH_STRING = "health";
+    public static final String POINTS_STRING = "doublePoints";
+    public static final String IMMORTALITY_STRING = "immortality";
+    public static final String AMMO_STRING = "ammunition";
+    public static final int DOUBLE_POINTS_BONUS_COEFFICIENT = 2;
+    public static final int DOUBLE_POINTS_INITIAL_VALUE = 1;
 
     private CollectiblesAndObstaclesConstants() {
     }

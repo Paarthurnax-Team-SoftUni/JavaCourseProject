@@ -1,30 +1,53 @@
 package models.sprites;
 
 import dataHandler.TrackParams;
-import gameEngine.RunTrack;
 import interfaces.Shootable;
 import utils.constants.CarConstants;
 import utils.constants.GameplayConstants;
 
 import java.util.Observer;
 
-public class PlayerCar extends RotatableSprite implements Shootable {
+public abstract class PlayerCar extends RotatableSprite implements Shootable {
 
     private int ammunition;
     private boolean accelerating;
     private String carId;
     private boolean isImmortal;
-    private TrackParams trackParams=TrackParams.getInstance();
+    private TrackParams trackParams = TrackParams.getInstance();
     private Observer observer;
+    private int bulletsBonus;
+    private long immortalityBonus;
+    private long doublePointsBonus;
+    private int healthBonus;
 
-    public PlayerCar() {
+    public PlayerCar(int bulletsBonus, long immortalityBonus, long doublePointsBonus, int healthBonus) {
         this.setAmmunition(GameplayConstants.START_GAME_BULLETS_NORMAL_MODE);
         this.observer=(o, arg) -> {
         };
+        this.bulletsBonus = bulletsBonus;
+        this.immortalityBonus = immortalityBonus;
+        this.doublePointsBonus = doublePointsBonus;
+        this.healthBonus = healthBonus;
     }
 
     public String getCarId() {
         return this.carId;
+    }
+
+    public int getBulletsBonus() {
+        return this.bulletsBonus;
+    }
+
+    public long getImmortalityBonus() {
+        return this.immortalityBonus;
+    }
+
+    public long getDoublePointsBonus() {
+        return this.doublePointsBonus;
+    }
+
+    public int getHealthBonus() {
+        return this.healthBonus;
     }
 
     private void setCarId(String carId) {

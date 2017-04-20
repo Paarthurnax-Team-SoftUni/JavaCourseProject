@@ -43,6 +43,9 @@ public class GameplayConstants {
     public static final double INITIAL_CAR_POSITION_Y = 430;
     public static final int MODES_NUMBER = 3;
     public static final int LEVELS_NUMBER = 2;
+    public static final int INITIAL_AMMO_DROP = 1;
+    public static final double INITIAL_MONEY = 0.0;
+    public static final long INITIAL_SCORE = 0L;
 
     private GameplayConstants() {
     }

@@ -1,5 +1,6 @@
 package controllers;
 
+import annotations.Alias;
 import dataHandler.PlayerData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,10 +11,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Ellipse;
 import javafx.stage.Stage;
+import models.sprites.PlayerCar;
 import utils.constants.*;
 import utils.stages.StageManager;
 import utils.stages.StageManagerImpl;
 
+import java.io.File;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 
 public class ChooseCarController {
@@ -63,11 +67,44 @@ public class ChooseCarController {
         String id = source.getId();
         backgroundFill(id.substring(id.length() - CarConstants.CARS_LIST_LENGTH_OFFSET));
         if (id.substring(0, 3).equals(CarConstants.CAR_STRING)) {
+            PlayerData.getInstance().getCurrentPlayer().updateCar(this.generateCar(id));
             PlayerData.getInstance().updateCarId(id);
-        } else if (source.getId().substring(0, 5).equals(ImagesShortcutConstants.LABEL_STRING)) {
-            PlayerData.getInstance().updateCarId(CarConstants.CAR_STRING + id.substring(id.length() - 1));
         }
         this.goNextBtn.setVisible(true);
+    }
+
+    @SuppressWarnings("unchecked")
+    private PlayerCar generateCar(String id) {
+        File carsFolder = new File(ResourcesConstants.CARS_CLASSES_PATH);
+        PlayerCar playerCar = null;
+        for (File file : carsFolder.listFiles()) {
+            if (!file.isFile() || !file.getName().endsWith(".java")) {
+                continue;
+            }
+            try {
+                String className = file.getName().substring(0, file.getName().lastIndexOf("."));
+                Class<PlayerCar> exeClass = (Class<PlayerCar>) Class.forName(ResourcesConstants.COMMAND_PACKAGE + className);
+                if(!exeClass.isAnnotationPresent(Alias.class)) {
+                    continue;
+                }
+
+                Alias alias = exeClass.getAnnotation(Alias.class);
+                String value = alias.value();
+
+                if(!value.equalsIgnoreCase(id)) {
+                    continue;
+                }
+
+                Constructor carCtor = exeClass.getConstructor();
+                playerCar = (PlayerCar) carCtor.newInstance();
+            } catch (ReflectiveOperationException roe) {
+                roe.printStackTrace();
+            }
+        }
+        if (playerCar == null) {
+            throw new IllegalStateException();
+        }
+        return playerCar;
     }
 
     @FXML

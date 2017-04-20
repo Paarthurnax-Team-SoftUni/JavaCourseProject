@@ -1,15 +1,13 @@
 package models.sprites.collectibles;
 
 import dataHandler.PlayerData;
+import interfaces.Randomizer;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import models.Player;
-import interfaces.Randomizer;
-import models.sprites.CollectibleSprite;
-import utils.constants.CollectiblesAndObstaclesConstants;
-import utils.constants.GameplayConstants;
-import utils.constants.GeneralConstants;
-import utils.constants.ImagesShortcutConstants;
+import models.sprites.PlayerCar;
+import models.sprites.Sprite;
+import utils.constants.*;
 import utils.notifications.Notification;
 
 import java.lang.reflect.Constructor;
@@ -17,7 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Collectible extends CollectibleSprite {
+public class Collectible extends Sprite {
 
     private String notificationMessage;
     private int bonusPoints;
@@ -28,10 +26,12 @@ public class Collectible extends CollectibleSprite {
     private Player player;
     private List<Collectible> collectibles;
     private Randomizer randomizer;
+    private PlayerCar playerCar;
 
     public Collectible(Randomizer randomizer) {
         this.bonusCoefficient = GameplayConstants.INITIAL_BONUS_COEFFICIENT;
         this.player = PlayerData.getInstance().getCurrentPlayer();
+        this.playerCar = player.getCar();
         this.collectibles = new ArrayList<>();
         this.randomizer = randomizer;
     }
@@ -67,7 +67,7 @@ public class Collectible extends CollectibleSprite {
         String random = collectibles[this.randomizer.next(collectibles.length)];
 
         String className = random.toUpperCase().charAt(0) + random.substring(1, random.length());
-        Class collectibleClass = Class.forName("models.sprites.collectibles." + className);
+        Class collectibleClass = Class.forName(ResourcesConstants.COLLECTIBLES_PACKAGE + className);
         Constructor<Collectible> constructor = collectibleClass.getDeclaredConstructor(Randomizer.class);
         Collectible collectible = constructor.newInstance(this.randomizer);
 
@@ -102,31 +102,32 @@ public class Collectible extends CollectibleSprite {
 
     private void takeBonus(String name) {
         switch (name) {
-            case "health":
+            case CollectiblesAndObstaclesConstants.HEALTH_STRING:
                 if (this.player.getHealthPoints() < GameplayConstants.HEALTH_BAR_MAX) {
-                    this.player.updateHealthPoints(Math.min(this.player.getHealthPoints() + GameplayConstants.HEALTH_BONUS,
+                    this.player.updateHealthPoints(Math.min(this.player.getHealthPoints() + this.playerCar.getHealthBonus(),
                             GameplayConstants.HEALTH_BAR_MAX));
                 }
                 break;
-            case "doublePoints":
+            case CollectiblesAndObstaclesConstants.POINTS_STRING:
                 if (!isDoublePtsOn) {
                     startDoublePointsTimer();
                 }
                 break;
-            case "immortality":
+            case CollectiblesAndObstaclesConstants.IMMORTALITY_STRING:
                 if (!this.player.getCar().isImmortal()) {
                     player.addPoints(GameplayConstants.ARMAGEDDONS_BONUS * bonusCoefficient);
                     startImmortalityTimer();
                 }
-            case "ammunition":
-                player.getCar().updateAmmunition(player.getCar().getAmmunition() + 1);
+                break;
+            case CollectiblesAndObstaclesConstants.AMMO_STRING:
+                player.getCar().updateAmmunition(player.getCar().getAmmunition() + this.playerCar.getBulletsBonus());
                 break;
         }
     }
 
     private void startImmortalityTimer() {
         this.player.getCar().updateImmortal(true);
-        this.immortalityTimer = GameplayConstants.IMMORTALITY_DURATION / GeneralConstants.FRAMES_PER_SECOND;
+        this.immortalityTimer = this.playerCar.getImmortalityBonus() / GeneralConstants.FRAMES_PER_SECOND;
     }
 
     private void updateImmortalityStatus() {
@@ -142,15 +143,15 @@ public class Collectible extends CollectibleSprite {
 
     private void startDoublePointsTimer() {
         this.isDoublePtsOn = true;
-        this.bonusCoefficient = 2;
-        this.doublePtsTimer = GameplayConstants.DOUBLE_PTS_DURATION / GeneralConstants.FRAMES_PER_SECOND;
+        this.bonusCoefficient = CollectiblesAndObstaclesConstants.DOUBLE_POINTS_BONUS_COEFFICIENT;
+        this.doublePtsTimer = this.playerCar.getDoublePointsBonus() / GeneralConstants.FRAMES_PER_SECOND;
     }
 
     private void updateDoublePointsStatus() {
         this.doublePtsTimer--;
         if (this.doublePtsTimer < 0) {
             this.isDoublePtsOn = false;
-            this.bonusCoefficient = 1;
+            this.bonusCoefficient = CollectiblesAndObstaclesConstants.DOUBLE_POINTS_INITIAL_VALUE;
         }
     }
 }
