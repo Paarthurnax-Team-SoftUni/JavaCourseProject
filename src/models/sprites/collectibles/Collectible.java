@@ -1,5 +1,6 @@
 package models.sprites.collectibles;
 
+import dataHandler.ModelsParamsManager;
 import dataHandler.PlayerData;
 import interfaces.Randomizer;
 import javafx.scene.canvas.GraphicsContext;
@@ -63,16 +64,15 @@ public class Collectible extends Sprite {
 
     public Collectible generateCollectible(int minLeftSide, int maxRightSide) throws IllegalAccessException,
             InvocationTargetException, InstantiationException, NoSuchMethodException, ClassNotFoundException {
-        String[] collectibles = CollectiblesAndObstaclesConstants.COLLECTIBLE_LIST_SMALL;
-        String random = collectibles[this.randomizer.next(collectibles.length)];
+        String[] collectibles = ModelsParamsManager.getInstance().getCollectablesArray();
 
-        String className = random.toUpperCase().charAt(0) + random.substring(1, random.length());
+        String className = collectibles[this.randomizer.next(collectibles.length)];
         Class collectibleClass = Class.forName(ResourcesConstants.COLLECTIBLES_PACKAGE + className);
         Constructor<Collectible> constructor = collectibleClass.getDeclaredConstructor(Randomizer.class);
         Collectible collectible = constructor.newInstance(this.randomizer);
 
-        collectible.updateName(random);
-        collectible.updateImage(CollectiblesAndObstaclesConstants.COLLECTIBLE_PATH + random + ImagesShortcutConstants
+        collectible.updateName(className.toLowerCase());
+        collectible.updateImage(CollectiblesAndObstaclesConstants.COLLECTIBLE_PATH + className.toLowerCase() + ImagesShortcutConstants
                 .PNG_FILE_EXTENSION);
         collectible.updatePosition(this.randomizer.next(maxRightSide - minLeftSide) + minLeftSide, GameplayConstants
                 .OBSTACLE_ANIMATION_Y_OFFSET);

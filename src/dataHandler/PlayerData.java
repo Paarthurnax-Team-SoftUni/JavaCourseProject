@@ -16,7 +16,6 @@ public class PlayerData {
     private ObservableList<Player> playersList;
     private Player currentPlayer;
     private Connection conn;
-
     private PreparedStatement insertPlayer;
     private PreparedStatement queryPlayers;
     private PreparedStatement updatePlayer;

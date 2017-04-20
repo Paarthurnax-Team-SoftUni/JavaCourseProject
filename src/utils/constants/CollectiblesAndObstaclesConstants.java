@@ -3,10 +3,10 @@ package utils.constants;
 public class CollectiblesAndObstaclesConstants {
 
     public static final String FUEL_BOTTLE_STRING = "fuel";
-    public static final String ARMAGEDDON_STRING = "armagedonPower";
+    public static final String ARMAGEDDON_STRING = "armagedon";
     public static final String COLLECTIBLE_PATH = "resources/images/collectibles/";
     public static final String[] COLLECTIBLE_LIST_SMALL = {
-            "armagedonPower",
+            "armagedon",
             "ammunition",
             "doublePoints",
             "fuel",
@@ -28,6 +28,8 @@ public class CollectiblesAndObstaclesConstants {
     public static final String AMMO_STRING = "ammunition";
     public static final int DOUBLE_POINTS_BONUS_COEFFICIENT = 2;
     public static final int DOUBLE_POINTS_INITIAL_VALUE = 1;
+    public static final String COLLECTABLES_CLASSES_FOLDER = "src/models/sprites/collectibles";
+
 
     private CollectiblesAndObstaclesConstants() {
     }

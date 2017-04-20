@@ -1,7 +1,10 @@
 package models.sprites.collectibles;
 
+import annotations.Collectable;
 import interfaces.Randomizer;
 
+
+@Collectable
 public class Fuel extends Collectible {
 
     private static final String FUEL_NAME = "fuelBottle";

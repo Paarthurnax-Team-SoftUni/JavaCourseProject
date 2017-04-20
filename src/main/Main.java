@@ -1,5 +1,6 @@
 package main;
 
+import dataHandler.ModelsParamsManager;
 import dataHandler.PlayerData;
 import dataHandler.TrackParams;
 import javafx.application.Application;
@@ -40,6 +41,7 @@ public class Main extends Application {
         }
         PlayerData.getInstance().loadPlayersData();
         TrackParams.getInstance();
+        ModelsParamsManager.getInstance().initializeModelConstants();
     }
 
     @Override

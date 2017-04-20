@@ -12,7 +12,6 @@ public class TrackParams extends Observable {
     private CurrentStats currentStats;
     private Cheat cheat;
 
-
     private TrackParams() {
     }
 

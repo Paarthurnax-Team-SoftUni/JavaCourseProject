@@ -1,7 +1,8 @@
 package models.sprites.collectibles;
 
+import annotations.Collectable;
 import interfaces.Randomizer;
-
+@Collectable
 public class Ammunition extends Collectible {
 
     private static final String AMMO_NAME = "ammunitions";

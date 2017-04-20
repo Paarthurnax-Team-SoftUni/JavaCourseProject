@@ -1,7 +1,10 @@
 package models.sprites.collectibles;
 
+import annotations.Collectable;
 import interfaces.Randomizer;
 
+
+@Collectable
 public class Health extends Collectible {
 
     private static final String HEALTH_NAME = "health";

@@ -1,14 +1,16 @@
 package models.sprites.collectibles;
 
+import annotations.Collectable;
 import interfaces.Randomizer;
 
-public class ArmagedonPower extends Collectible {
+@Collectable
+public class Armagedon extends Collectible {
 
     private static final String ARMAGEDON_NAME = "armageddonsPower";
     private static final String ARMAGEDON_NOTIFICATION_MESSAGE = "Armageddons Power! Nothing can get on your way now";
     private static final int ARMAGEDON_BONUS = 500;
 
-    public ArmagedonPower(Randomizer randomizer) {
+    public Armagedon(Randomizer randomizer) {
         super(randomizer);
         this.setProps();
     }

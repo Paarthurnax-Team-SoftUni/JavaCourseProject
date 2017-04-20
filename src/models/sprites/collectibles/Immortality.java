@@ -1,8 +1,12 @@
 package models.sprites.collectibles;
 
+import annotations.Collectable;
 import dataHandler.PlayerData;
 import interfaces.Randomizer;
 
+
+
+@Collectable
 public class Immortality extends Collectible {
 
     private static final String IMMORTALITY_NAME = "immortality";

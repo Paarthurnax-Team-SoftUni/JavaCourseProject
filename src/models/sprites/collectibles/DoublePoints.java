@@ -1,8 +1,11 @@
 package models.sprites.collectibles;
 
+import annotations.Collectable;
 import dataHandler.PlayerData;
 import interfaces.Randomizer;
 
+
+@Collectable
 public class DoublePoints extends Collectible {
 
     private static final String DOUBLE_POINTS_NAME = "doublePoints";
