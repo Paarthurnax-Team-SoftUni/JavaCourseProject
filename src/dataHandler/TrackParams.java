@@ -4,9 +4,6 @@ package dataHandler;
 import models.Cheat;
 import java.util.Observable;
 
-/**
- * Created by Todor Popov using Lenovo on 20.4.2017 г. at 2:06.
- */
 public class TrackParams extends Observable {
     private static volatile TrackParams instance = null;
     private boolean isPaused;

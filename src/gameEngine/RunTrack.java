@@ -31,11 +31,6 @@ import java.util.Observer;
 
 public class RunTrack {
 
-//    private static boolean isPaused;
-//    private static float velocity;
-//    private static boolean shoot;
-//    private static CurrentStats currentStats;
-//    private static Cheat cheat;
     private TrackParams trackParams=TrackParams.getInstance();
     private Observer observerParams;
     private Observer observer;
@@ -64,9 +59,6 @@ public class RunTrack {
         this.trackParams.updateVelocity(velocityValue);
         this.trackParams.updateCurrentStats(currentStats);
         this.trackParams.updateCheat(cheat);
-//        RunTrack.velocity=velocityValue;
-//        RunTrack.currentStats=currentStats;
-//        RunTrack.cheat=cheat;
         this.trackMode = trackMode;
         this.player = player;
         this.playerCar = this.getPlayer().getCar();
@@ -76,34 +68,6 @@ public class RunTrack {
         this.obstacle = obstacle;
         this.currentFramesPerSecond = GeneralConstants.FRAMES_PER_SECOND;
     }
-
-    /*public static Cheat getCheat() {
-        return cheat;
-    }
-
-    public static CurrentStats getCurrentStats() {
-        return currentStats;
-    }
-
-    public static float getVelocity() {
-        return velocity;
-    }
-
-    public static void setVelocity(float v) {
-        velocity = v;
-    }
-
-    public static boolean isPaused() {
-        return RunTrack.isPaused;
-    }
-
-    public static void setIsPaused(boolean isPaused) {
-        RunTrack.isPaused = isPaused;
-    }
-
-    public static void setShoot(boolean isShooting) {
-        shoot = isShooting;
-    }*/
 
     public Player getPlayer() {
         return this.player;
