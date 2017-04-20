@@ -1,6 +1,7 @@
 package main;
 
 import dataHandler.PlayerData;
+import dataHandler.TrackParams;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -22,6 +23,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+
         StageManager manager = new StageManagerImpl();
         manager.loadSceneToStage(primaryStage, ViewsConstants.LOGIN_VIEW_PATH);
     }
@@ -37,6 +39,7 @@ public class Main extends Application {
             Platform.exit();
         }
         PlayerData.getInstance().loadPlayersData();
+        TrackParams.getInstance();
     }
 
     @Override

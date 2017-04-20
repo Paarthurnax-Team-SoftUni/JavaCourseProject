@@ -1,7 +1,7 @@
 package models.sprites;
 
+import dataHandler.TrackParams;
 import gameEngine.DrawImageInCanvas;
-import gameEngine.RunTrack;
 import interfaces.Rotatable;
 import javafx.scene.canvas.GraphicsContext;
 import utils.constants.GameplayConstants;
@@ -59,14 +59,14 @@ public abstract class RotatableSprite extends Sprite implements Rotatable {
 
     public void updateWithVelocityAdd(int min, int max) {
         updateAngle();
-        this.addVelocity(Math.tan(Math.toRadians(this.getAngle())) * RunTrack.getVelocity() / GameplayConstants.UPDATE_DELIMITER, 0, min, max);
+        this.addVelocity(Math.tan(Math.toRadians(this.getAngle())) * TrackParams.getInstance().getVelocity() / GameplayConstants.UPDATE_DELIMITER, 0, min, max);
         super.update();
     }
 
     @Override
     public void update() {
         updateAngle();
-        this.addVelocity(Math.tan(Math.toRadians(this.getAngle())) * RunTrack.getVelocity() / GameplayConstants.UPDATE_DELIMITER, 0);
+        this.addVelocity(Math.tan(Math.toRadians(this.getAngle())) * TrackParams.getInstance().getVelocity() / GameplayConstants.UPDATE_DELIMITER, 0);
         super.update();
     }
 

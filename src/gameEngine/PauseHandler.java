@@ -1,5 +1,6 @@
 package gameEngine;
 
+import dataHandler.TrackParams;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,16 +13,22 @@ import utils.constants.GameplayConstants;
 import utils.constants.GeneralConstants;
 import utils.music.MusicPlayer;
 
+import java.util.Observer;
+
 public class PauseHandler {
     private Timeline gameLoop;
     private GraphicsContext gc;
     private Image background;
     private double y;
     private Player player;
+    private TrackParams trackParams;
     private Iterable<Obstacle> testObstacles;
     private Iterable<Collectible> collectibles;
+    private Observer observer;
 
     public PauseHandler(Timeline gameLoop, GraphicsContext gc, Image background, double y, Player player, Iterable<Obstacle> testObstacles, Iterable<Collectible> collectibles) {
+        this.observer=(o, arg) -> {
+        };
         this.gameLoop = gameLoop;
         this.gc = gc;
         this.background = background;
@@ -29,12 +36,16 @@ public class PauseHandler {
         this.player = player;
         this.testObstacles = testObstacles;
         this.collectibles = collectibles;
-    }
+        this.trackParams=TrackParams.getInstance();
+        this.trackParams.addObserver(this.observer);
+        }
 
     public void activatePause() {
-        RunTrack.setIsPaused(true);
+        this.trackParams.updatePaused(true);
+        this.observer.update(this.trackParams, observer);
+//        RunTrack.setIsPaused(true);
         this.gameLoop.pause();
-        if (RunTrack.isPaused()) {
+        if (this.trackParams.isPaused()) {
             MusicPlayer.getInstance().startStopPause();
 
             Timeline pauseloop = new Timeline();
@@ -43,7 +54,7 @@ public class PauseHandler {
             KeyFrame keyFramePause = new KeyFrame(
                     Duration.seconds(GeneralConstants.FRAMES_PER_SECOND),
                     event -> {
-                        if (!RunTrack.isPaused()) {
+                        if (!this.trackParams.isPaused()) {
                             this.gameLoop.play();
                             MusicPlayer.getInstance().startStopPause();
                             pauseloop.stop();

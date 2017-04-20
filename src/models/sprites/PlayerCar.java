@@ -1,9 +1,12 @@
 package models.sprites;
 
+import dataHandler.TrackParams;
 import gameEngine.RunTrack;
 import interfaces.Shootable;
 import utils.constants.CarConstants;
 import utils.constants.GameplayConstants;
+
+import java.util.Observer;
 
 public class PlayerCar extends RotatableSprite implements Shootable {
 
@@ -11,9 +14,13 @@ public class PlayerCar extends RotatableSprite implements Shootable {
     private boolean accelerating;
     private String carId;
     private boolean isImmortal;
+    private TrackParams trackParams=TrackParams.getInstance();
+    private Observer observer;
 
     public PlayerCar() {
         this.setAmmunition(GameplayConstants.START_GAME_BULLETS_NORMAL_MODE);
+        this.observer=(o, arg) -> {
+        };
     }
 
     public String getCarId() {
@@ -63,7 +70,9 @@ public class PlayerCar extends RotatableSprite implements Shootable {
     @Override
     public void shoot() {
         if (this.getAmmunition() > 0) {
-            RunTrack.setShoot(true);
+//            RunTrack.setShoot(true);
+            this.trackParams.getInstance().updateShoot(true);
+            this.observer.update(TrackParams.getInstance(), this.observer);
             this.ammunition--;
         }
     }
@@ -78,15 +87,16 @@ public class PlayerCar extends RotatableSprite implements Shootable {
         }
         if (this.accelerating) {
             this.addVelocity(0, -GameplayConstants.IMAGE_HEIGHT_OFFSET);
-            if (RunTrack.getVelocity() < GameplayConstants.MAX_ACCELERATION_VELOCITY) {
-                RunTrack.setVelocity(RunTrack.getVelocity() + CarConstants.PLAYER_CAR_ACCELERATION_OFFSET);
+            if (this.trackParams.getVelocity() < GameplayConstants.MAX_ACCELERATION_VELOCITY) {
+                this.trackParams.updateVelocity(this.trackParams.getVelocity() + CarConstants.PLAYER_CAR_ACCELERATION_OFFSET);
             }
         } else {
             this.addVelocity(0, 1);
-            if (RunTrack.getVelocity() > GameplayConstants.START_GAME_VELOCITY) {
-                RunTrack.setVelocity((float) (RunTrack.getVelocity() - 0.1));
+            if (  this.trackParams.getVelocity() > GameplayConstants.START_GAME_VELOCITY) {
+                this.trackParams.updateVelocity((float) (  this.trackParams.getVelocity() - 0.1));
             }
         }
+        this.observer.update(TrackParams.getInstance(), this.observer);
         super.update();
     }
 }

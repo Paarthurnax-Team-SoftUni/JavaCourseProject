@@ -3,6 +3,7 @@ package gameEngine;
 import dataHandler.CurrentHealth;
 import dataHandler.CurrentStats;
 import dataHandler.PlayerData;
+import dataHandler.TrackParams;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.Canvas;
@@ -28,15 +29,17 @@ import utils.stages.StageManagerImpl;
 
 import java.util.Observer;
 
-public class RunTrack{
+public class RunTrack {
 
-    private static boolean isPaused;
-    private static float velocity;
-    private static boolean shoot;
-    private static CurrentStats currentStats;
-    private static Cheat cheat;
-    private long time;
+//    private static boolean isPaused;
+//    private static float velocity;
+//    private static boolean shoot;
+//    private static CurrentStats currentStats;
+//    private static Cheat cheat;
+    private TrackParams trackParams=TrackParams.getInstance();
+    private Observer observerParams;
     private Observer observer;
+    private long time;
     private int frame;
     private int y;
     private float currentFramesPerSecond;
@@ -51,13 +54,19 @@ public class RunTrack{
     public RunTrack(Player player, float velocityValue, TrackMode trackMode,
                     CurrentHealth currentHealth, CurrentStats currentStats, Weapon weapon,
                     Collectible collectible, Obstacle obstacle, Cheat cheat) {
-        this.frame = 0;
-        this.time = 0;
-        RunTrack.velocity = velocityValue;
+        this.observerParams= (o, arg) -> {
+        };
         this.observer = (o, arg) -> {
         };
-        RunTrack.currentStats = currentStats;
-        RunTrack.cheat = cheat;
+        this.trackParams.addObserver(this.observerParams);
+        this.frame = 0;
+        this.time = 0;
+        this.trackParams.updateVelocity(velocityValue);
+        this.trackParams.updateCurrentStats(currentStats);
+        this.trackParams.updateCheat(cheat);
+//        RunTrack.velocity=velocityValue;
+//        RunTrack.currentStats=currentStats;
+//        RunTrack.cheat=cheat;
         this.trackMode = trackMode;
         this.player = player;
         this.playerCar = this.getPlayer().getCar();
@@ -66,10 +75,9 @@ public class RunTrack{
         this.collectible = collectible;
         this.obstacle = obstacle;
         this.currentFramesPerSecond = GeneralConstants.FRAMES_PER_SECOND;
-
     }
 
-    public static Cheat getCheat() {
+    /*public static Cheat getCheat() {
         return cheat;
     }
 
@@ -95,7 +103,7 @@ public class RunTrack{
 
     public static void setShoot(boolean isShooting) {
         shoot = isShooting;
-    }
+    }*/
 
     public Player getPlayer() {
         return this.player;
@@ -113,13 +121,14 @@ public class RunTrack{
         this.playerCar.updatePosition(GameplayConstants.INITIAL_CAR_POSITION_X, GameplayConstants.INITIAL_CAR_POSITION_Y);
         this.playerCar.updateAmmunition(trackMode.getInitialAmmonition());
         this.player.updatePoints(GameplayConstants.INITIAL_STATS_VALUE);
-        currentStats.addObserver(observer);
+        this.trackParams.getCurrentStats().addObserver(observer);
+
 
         Timeline gameLoop = new Timeline();
         gameLoop.setCycleCount(Timeline.INDEFINITE);
 
         //Update EndTruckTime
-        RunTrack.currentStats.updateEndTruckTime(this.trackMode.getEndTruckTime());
+        this.trackParams.getCurrentStats().updateEndTruckTime(this.trackMode.getEndTruckTime());
 
         MusicPlayer.getInstance().play();
         MusicPlayer.getInstance().startStopPause();
@@ -129,13 +138,13 @@ public class RunTrack{
                 event -> {
 
                     //Check for pause
-                    if (isPaused) {
+                    if (this.trackParams.isPaused()) {
                         PauseHandler pauseHandler = new PauseHandler(gameLoop, gc, background, this.y, this.player, this.obstacle.getObstacles(), this.collectible.getCollectibles());
                         pauseHandler.activatePause();
                     }
 
                     //Set movement params
-                    y = Math.round(this.y + velocity);
+                    y = Math.round(this.y + this.trackParams.getVelocity());
                     this.time++;
                     this.frame++;
                     if (Math.abs(this.y) >= GeneralConstants.CANVAS_HEIGHT) {
@@ -147,7 +156,7 @@ public class RunTrack{
                     this.collectible.updateStatus();
                     this.updatePlayerStats();
                     this.playerCar.setVelocity(0, 0);
-                    cheat.useCheat(this.player);
+                    this.trackParams.getCheat().useCheat(this.player);
 
                     //Generate items
                     if (this.frame == 0) {
@@ -159,11 +168,11 @@ public class RunTrack{
                         }
                     }
                     if (this.player.getCar().getAmmunition() < 0) {
-                        shoot = false;
+                        this.trackParams.updateShoot(false);
                     }
-                    if (shoot) {
+                    if (this.trackParams.isShoot()) {
                         this.weapon.addAmmo(this.weapon.generateAmmo(this.player));
-                        setShoot(false);
+                        this.trackParams.updateShoot(false);
                     }
 
                     //Draw background and playerCar
@@ -175,9 +184,9 @@ public class RunTrack{
 
                     //Render items
                     this.weapon.visualizeAmmo(gc, this.obstacle.getObstacles(), player);
-                    this.obstacle.visualizeObstacle(gc, velocity, player);
+                    this.obstacle.visualizeObstacle(gc, this.trackParams.getVelocity(), player);
 
-                    String action = this.collectible.visualizeCollectible(gc, velocity);
+                    String action = this.collectible.visualizeCollectible(gc, this.trackParams.getVelocity());
                     if (action != null && action.equals(CollectiblesAndObstaclesConstants.ARMAGEDDON_STRING)) {
                         startArmageddonsPower();
                     } else if (action != null && action.equals(CollectiblesAndObstaclesConstants.FUEL_BOTTLE_STRING)) {
@@ -195,7 +204,7 @@ public class RunTrack{
     private void checkForEndGame(AnchorPane root, Canvas canvas, Timeline gameLoop) {
         if (this.time >= this.trackMode.getEndTruckTime() || this.player.getHealthPoints() <= 0) {
 
-            boolean win = this.player.getHealthPoints() > 0 && currentStats.getDistance() >= this.trackMode.getFinalExpectedDistance();
+            boolean win = this.player.getHealthPoints() > 0 && this.trackParams.getCurrentStats().getDistance() >= this.trackMode.getFinalExpectedDistance();
 
             if (win) {
                 this.player.setMaxLevelPassed(this.player.getMaxLevelPassed() + 1);
@@ -208,8 +217,8 @@ public class RunTrack{
             MusicPlayer.getInstance().stop();
             Notification.hidePopupMessage();
             this.time = 0;
-            velocity = GameplayConstants.START_GAME_VELOCITY;
-            currentStats.updateDistance(0);
+            this.trackParams.updateVelocity(GameplayConstants.START_GAME_VELOCITY);
+            this.trackParams.getCurrentStats().updateDistance(0);
 
             Stage currentStage = (Stage) canvas.getScene().getWindow();
             root.getChildren().remove(canvas);
@@ -221,13 +230,14 @@ public class RunTrack{
     }
 
     private void updatePlayerStats() {
+        CurrentStats currentStats=this.trackParams.getCurrentStats();
         currentStats.updateTime((long) (this.time * this.currentFramesPerSecond));
-        currentStats.updateDistance(currentStats.getDistance() + (long) this.velocity / 2);
+        currentStats.updateDistance(currentStats.getDistance() + (long) this.trackParams.getVelocity() / 2);
         this.player.addPoints(this.trackMode.getPointsPerDistance());
         currentStats.updatePoints(this.player.getPoints());
         currentStats.updateBullets(this.playerCar.getAmmunition());
-        observer.update(currentStats, observer);
-
+        this.observer.update(currentStats, this.observer);
+        this.observerParams.update(this.trackParams, this.observerParams);
         try {
             currentHealth.update();
         } catch (NoSuchFieldException | IllegalAccessException e) {
@@ -247,7 +257,7 @@ public class RunTrack{
 
     private void startArmageddonsPower() {
         for (Obstacle o : this.obstacle.getObstacles()) {
-            o.handleImpactByCarPlayer(velocity);
+            o.handleImpactByCarPlayer(this.trackParams.getVelocity());
         }
     }
 

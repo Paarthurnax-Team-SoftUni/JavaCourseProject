@@ -1,5 +1,6 @@
 package keyHandler;
 
+import dataHandler.TrackParams;
 import gameEngine.RunTrack;
 import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
@@ -10,10 +11,16 @@ import utils.constants.GameplayConstants;
 import utils.constants.KeyHandlersConstants;
 import utils.music.MusicPlayer;
 
+import java.util.Observer;
+
 public class KeyHandlerOnPress extends KeyHandler {
+    private Observer observer;
+    private TrackParams trackParams=TrackParams.getInstance();
 
     public KeyHandlerOnPress(Player player, int minLeftSide, int maxRightSide) {
         super(player, minLeftSide, maxRightSide);
+        this.observer=this.observer = (o, arg) -> {
+        };
     }
 
     @Override
@@ -22,16 +29,16 @@ public class KeyHandlerOnPress extends KeyHandler {
 
         PlayerCar playerCar = super.getPlayer().getCar();
 
-        if (!RunTrack.isPaused()) {
-            RunTrack.getCheat().add(keyCode.getName());
+        if (!this.trackParams.isPaused()) {
+            this.trackParams.getCheat().add(keyCode.getName());
             switch (keyCode.getName()) {
                 case KeyHandlersConstants.UP_STRING:
                     playerCar.accelerate();
                     playerCar.update();
                     break;
                 case KeyHandlersConstants.DOWN_STRING:
-                    if (RunTrack.getVelocity() > GameplayConstants.START_GAME_VELOCITY) {
-                        RunTrack.setVelocity(RunTrack.getVelocity() - GameplayConstants.BRAKES_STRENGTH);
+                    if (this.trackParams.getVelocity() > GameplayConstants.START_GAME_VELOCITY) {
+                        this.trackParams.updateVelocity(this.trackParams.getVelocity() - GameplayConstants.BRAKES_STRENGTH);
                     }
                     playerCar.updateCenterWheel(false);
                     //player.addVelocity(0, 2);
@@ -46,7 +53,7 @@ public class KeyHandlerOnPress extends KeyHandler {
                     playerCar.updateWithVelocityAdd(super.getMinLeftSide(), super.getMaxRightSide());
                     break;
                 case KeyHandlersConstants.PAUSE_STRING:
-                    RunTrack.setIsPaused(true);
+                    this.trackParams.updatePaused(true);
                     break;
                 case KeyHandlersConstants.MUSIC_PLAYER_STRING:
                     MusicPlayer.getInstance().play();
@@ -60,10 +67,12 @@ public class KeyHandlerOnPress extends KeyHandler {
                 default:
                     break;
             }
+
         } else {
             if (keyCode.getName().equals("P")) {
-                RunTrack.setIsPaused(false);
+                this.trackParams.updatePaused(false);
             }
         }
+        this.observer.update(this.trackParams,this.observer);
     }
 }

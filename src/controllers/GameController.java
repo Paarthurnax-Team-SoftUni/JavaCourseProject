@@ -3,6 +3,7 @@ package controllers;
 import dataHandler.CurrentHealth;
 import dataHandler.CurrentStats;
 import dataHandler.PlayerData;
+import dataHandler.TrackParams;
 import gameEngine.RunTrack;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -34,7 +35,7 @@ public class GameController implements Initializable {
     private Label timeInfo;
 
     public void initialize(java.net.URL location, java.util.ResourceBundle resources) {
-        CurrentStats currentStats = RunTrack.getCurrentStats();
+        CurrentStats currentStats = TrackParams.getInstance().getCurrentStats();
         this.getScorePoints().textProperty().bind(Bindings.convert(currentStats.valuePoints()));
         this.timeInfo.textProperty().bind(Bindings.convert(currentStats.valueTime()));
         this.getDistance().textProperty().bind(Bindings.convert(currentStats.valueDistance()));
