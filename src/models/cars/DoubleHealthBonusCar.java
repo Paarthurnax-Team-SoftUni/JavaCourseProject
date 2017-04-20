@@ -8,6 +8,9 @@ import utils.constants.GameplayConstants;
 @Alias(CarConstants.FIFTH_CAR)
 public class DoubleHealthBonusCar extends PlayerCar {
     public DoubleHealthBonusCar() {
-        super(2, GameplayConstants.IMMORTALITY_DURATION, GameplayConstants.DOUBLE_PTS_DURATION, GameplayConstants.HEALTH_BONUS * CarConstants.BONUS_MULTIPLIER);
+        super(GameplayConstants.INITIAL_AMMO_DROP * CarConstants.BONUS_MULTIPLIER,
+                GameplayConstants.IMMORTALITY_DURATION,
+                GameplayConstants.DOUBLE_PTS_DURATION,
+                GameplayConstants.HEALTH_BONUS * CarConstants.BONUS_MULTIPLIER);
     }
 }

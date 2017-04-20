@@ -9,6 +9,9 @@ import utils.constants.GameplayConstants;
 public class DoubleImmortalityBonusCar extends PlayerCar {
 
     public DoubleImmortalityBonusCar() {
-        super(GameplayConstants.INITIAL_BONUS_COEFFICIENT, GameplayConstants.IMMORTALITY_DURATION, GameplayConstants.DOUBLE_PTS_DURATION, GameplayConstants.HEALTH_BONUS);
+        super(GameplayConstants.INITIAL_BONUS_COEFFICIENT
+                , GameplayConstants.IMMORTALITY_DURATION,
+                GameplayConstants.DOUBLE_PTS_DURATION,
+                GameplayConstants.HEALTH_BONUS);
     }
 }

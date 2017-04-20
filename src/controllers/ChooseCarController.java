@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Ellipse;
@@ -22,6 +23,12 @@ import java.lang.reflect.Field;
 
 public class ChooseCarController {
 
+    public static final String FIRST_CAR_TOOLTIP = "Your first car. Let her sucking motivate you to win something.";
+    public static final String SECOND_CAR_TOOLTIP = "Gives you double rockets... because we all know you are a psycho.";
+    public static final String THIRD_CAR_TOOLTIP = "Double immortality bonus. We call it Chuck Norris's car.";
+    public static final String FOURTH_CAR_TOOLTIP = "Doubles the bonus points timer. If you want to build a wall and declare bankruptcy - you will love it.";
+    public static final String FIFTH_CAR_TOOLTIP = "Get 50 Hp from the health packs. This one is boring, so if you use it we want tell anyone.";
+    public static final String SIXTH_CAR_TOOLTIP = "Doubles all bonuses. Congratulations you defeated SoftUni Rush. You either have lots of free time or fixed your result in the DB.";
     @FXML
     private Button goNextBtn;
     @FXML
@@ -48,10 +55,30 @@ public class ChooseCarController {
     private ImageView locked5;
     @FXML
     private ImageView locked6;
+    @FXML
+    private ImageView car1;
+    @FXML
+    private ImageView car2;
+    @FXML
+    private ImageView car3;
+    @FXML
+    private ImageView car4;
+    @FXML
+    private ImageView car5;
+    @FXML
+    private ImageView car6;
 
     public void initialize() throws NoSuchFieldException, IllegalAccessException {
         long highScores = PlayerData.getInstance().getCurrentPlayer().getHighScore();
         showUnlockedCarsOnly(highScores);
+
+        Tooltip.install(car1, new Tooltip(FIRST_CAR_TOOLTIP));
+        Tooltip.install(car2, new Tooltip(SECOND_CAR_TOOLTIP));
+        Tooltip.install(car3, new Tooltip(THIRD_CAR_TOOLTIP));
+        Tooltip.install(car4, new Tooltip(FOURTH_CAR_TOOLTIP));
+        Tooltip.install(car5, new Tooltip(FIFTH_CAR_TOOLTIP));
+        Tooltip.install(car6, new Tooltip(SIXTH_CAR_TOOLTIP));
+
     }
 
     @FXML
@@ -78,7 +105,7 @@ public class ChooseCarController {
         File carsFolder = new File(ResourcesConstants.CARS_CLASSES_PATH);
         PlayerCar playerCar = null;
         for (File file : carsFolder.listFiles()) {
-            if (!file.isFile() || !file.getName().endsWith(".java")) {
+            if (!file.isFile() || !file.getName().endsWith(ResourcesConstants.JAVA_EXTENSION)) {
                 continue;
             }
             try {
@@ -131,7 +158,7 @@ public class ChooseCarController {
         showUnlockedCarsOnly(highScores);
 
         Class<ChooseCarController> chooseCarControllerClass = ChooseCarController.class;
-        Field field = chooseCarControllerClass.getDeclaredField("backgroundBox" + id);
+        Field field = chooseCarControllerClass.getDeclaredField(ImagesShortcutConstants.BACKGROUND_STRING + id);
         ((Ellipse) field.get(this)).setStyle(StylesConstants.RED_COLOUR);
     }
 }

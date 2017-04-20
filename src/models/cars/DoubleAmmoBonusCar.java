@@ -9,6 +9,9 @@ import utils.constants.GameplayConstants;
 public class DoubleAmmoBonusCar extends PlayerCar {
 
     public DoubleAmmoBonusCar() {
-        super(GameplayConstants.INITIAL_AMMO_DROP * CarConstants.BONUS_MULTIPLIER, GameplayConstants.IMMORTALITY_DURATION, GameplayConstants.DOUBLE_PTS_DURATION, GameplayConstants.HEALTH_BONUS);
+        super(GameplayConstants.INITIAL_AMMO_DROP * CarConstants.BONUS_MULTIPLIER,
+                GameplayConstants.IMMORTALITY_DURATION,
+                GameplayConstants.DOUBLE_PTS_DURATION,
+                GameplayConstants.HEALTH_BONUS);
     }
 }
