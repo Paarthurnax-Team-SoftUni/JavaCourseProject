@@ -114,10 +114,8 @@ public class Collectible extends Sprite {
                 }
                 break;
             case CollectiblesAndObstaclesConstants.IMMORTALITY_STRING:
-                if (!this.player.getCar().isImmortal()) {
-                    player.addPoints(GameplayConstants.ARMAGEDDONS_BONUS * bonusCoefficient);
-                    startImmortalityTimer();
-                }
+                player.addPoints(GameplayConstants.ARMAGEDDONS_BONUS * bonusCoefficient);
+                startImmortalityTimer();
                 break;
             case CollectiblesAndObstaclesConstants.AMMO_STRING:
                 player.getCar().updateAmmunition(player.getCar().getAmmunition() + this.playerCar.getBulletsBonus());
@@ -131,6 +129,7 @@ public class Collectible extends Sprite {
     }
 
     private void updateImmortalityStatus() {
+        System.out.println(this.immortalityTimer);
         this.immortalityTimer--;
         if (this.immortalityTimer < 0) {
             this.player.getCar().updateImmortal(false);
