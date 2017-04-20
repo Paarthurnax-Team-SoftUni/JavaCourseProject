@@ -2,7 +2,6 @@ package controllers;
 
 import dataHandler.PlayerData;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -36,7 +35,7 @@ public class LoginController {
             boolean result = DialogBox.loadConfirmBox(name);
             if (result) {
                 PlayerData.getInstance().registerPlayer(PlayerData.getInstance().returnPlayer(name));
-                FXMLLoader loader = manager.loadSceneToStage(currentStage, ViewsConstants.START_FXML_PATH);
+                manager.loadSceneToStage(currentStage, ViewsConstants.START_FXML_PATH);
             }
         } else {
             boolean result = DialogBox.loadConfirmBox(name);
@@ -47,7 +46,7 @@ public class LoginController {
                 PlayerData.getInstance().registerPlayer(PlayerData.getInstance().returnPlayer(name));
                 PlayerData.getInstance().updatePlayer(player);
 
-                FXMLLoader loader = manager.loadSceneToStage(currentStage, ViewsConstants.START_FXML_PATH);
+                manager.loadSceneToStage(currentStage, ViewsConstants.START_FXML_PATH);
             }
         }
     }

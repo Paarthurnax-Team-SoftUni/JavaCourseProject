@@ -21,7 +21,7 @@ public class StartController {
     private void startNewGame() throws IOException {
         Stage currentStage = (Stage) this.startBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
-        FXMLLoader loader = manager.loadSceneToStage(currentStage, ViewsConstants.CHOOSE_CAR_VIEW_PATH);
+        manager.loadSceneToStage(currentStage, ViewsConstants.CHOOSE_CAR_VIEW_PATH);
     }
 
     @FXML

@@ -13,6 +13,7 @@ public class ResourcesConstants {
     public static final String CARS_CLASSES_PATH = "src/models/cars";
     public static final String COMMAND_PACKAGE = "models.cars.";
     public static final String COLLECTIBLES_PACKAGE = "models.sprites.collectibles.";
+    public static final String JAVA_EXTENSION = ".java";
 
     private ResourcesConstants() {
     }

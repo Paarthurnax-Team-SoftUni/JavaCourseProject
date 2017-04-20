@@ -3,7 +3,6 @@ package controllers;
 import dataHandler.PlayerData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -38,7 +37,7 @@ public class ChooseModeController {
     private void goToChooseLevel(ActionEvent actionEvent) {
         Stage currentStage = (Stage) this.goNextBtn.getScene().getWindow();
         StageManager manager = new StageManagerImpl();
-        FXMLLoader loader = manager.loadSceneToStage(currentStage, ViewsConstants.CHOOSE_LEVEL_VIEW_PATH);
+        manager.loadSceneToStage(currentStage, ViewsConstants.CHOOSE_LEVEL_VIEW_PATH);
     }
 
     @FXML
