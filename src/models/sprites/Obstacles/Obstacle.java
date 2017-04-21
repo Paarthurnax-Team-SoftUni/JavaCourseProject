@@ -1,4 +1,4 @@
-package models.sprites.Obstacles;
+package models.sprites.obstacles;
 
 import javafx.scene.canvas.GraphicsContext;
 import models.Player;
