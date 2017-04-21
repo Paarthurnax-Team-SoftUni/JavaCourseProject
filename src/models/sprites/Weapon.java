@@ -3,14 +3,13 @@ package models.sprites;
 import javafx.scene.canvas.GraphicsContext;
 import models.Player;
 import models.sprites.Obstacles.Obstacle;
-import models.sprites.collectibles.CollectibleSprite;
 import utils.constants.GameplayConstants;
 import utils.constants.ResourcesConstants;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Weapon extends CollectibleSprite {
+public class Weapon extends Sprite {
 
     private List<Weapon> ammunitions;
 

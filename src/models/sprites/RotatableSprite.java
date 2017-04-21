@@ -84,16 +84,12 @@ public abstract class RotatableSprite extends Sprite implements Rotatable {
     public void turnLeft() {
         this.updateCenterWheel(false);
         this.setTurningLeft(true);
-        // player.addVelocity(-player.getWidth() * 0.66667, 0);
     }
 
     @Override
     public void turnRight() {
         this.updateCenterWheel(false);
         this.setTurningRight(true);
-        //player.updateAngle(player.getAngle() + 15);
-        // player.addVelocity(player.getWidth() * 0.66667, 0);
-
     }
 
     @Override

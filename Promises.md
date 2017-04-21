@@ -19,19 +19,11 @@ Collectible weapons
 ............
 
 
+Different car properties for each car (velocity, health etc.)           done
 
+Game will be infinite? or in stages ?                                   done
 
+Game modes introduction                                                 done
 
-Adding enemies  (shooting at you)
-Adding pedestrians (crossing your path).
+Front end sign when collectible is taken.                               done
 
-StoryLine development.
-
-Different car properties for each car (velocity, health etc.)
-
-Game will be infinite? or in stages ?
-
-
-Front end sign when collectible is taken.                                done
-
-Sound introduction 
