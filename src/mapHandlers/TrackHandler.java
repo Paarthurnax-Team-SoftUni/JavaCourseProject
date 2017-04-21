@@ -5,7 +5,7 @@ import dataHandler.CurrentStats;
 import dataHandler.PlayerData;
 import interfaces.Track;
 import models.Cheat;
-import models.sprites.Obstacles.Obstacle;
+import models.sprites.obstacles.Obstacle;
 import models.sprites.Weapon;
 import models.sprites.collectibles.Collectible;
 

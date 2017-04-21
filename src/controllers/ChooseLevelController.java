@@ -17,7 +17,7 @@ import mapHandlers.TrackHandler;
 import models.Cheat;
 import models.RandomProvider;
 import interfaces.Randomizer;
-import models.sprites.Obstacles.Obstacle;
+import models.sprites.obstacles.Obstacle;
 import models.sprites.Weapon;
 import models.sprites.collectibles.Collectible;
 import utils.constants.GameplayConstants;

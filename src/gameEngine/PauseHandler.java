@@ -7,7 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
 import models.Player;
-import models.sprites.Obstacles.Obstacle;
+import models.sprites.obstacles.Obstacle;
 import models.sprites.collectibles.Collectible;
 import utils.constants.GameplayConstants;
 import utils.constants.GeneralConstants;
