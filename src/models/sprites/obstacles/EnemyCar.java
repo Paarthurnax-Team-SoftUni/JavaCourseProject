@@ -5,6 +5,7 @@ import utils.constants.CarConstants;
 import utils.constants.GameplayConstants;
 import utils.constants.GeneralConstants;
 
+
 public class EnemyCar extends Obstacle {
 
     public EnemyCar(Randomizer randomizer) {
