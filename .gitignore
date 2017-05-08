@@ -17,3 +17,4 @@ out/*
 *.iml
 src/resources/playerList.txt
 src/resources/database/players.db
+src/resources/database/players.db
